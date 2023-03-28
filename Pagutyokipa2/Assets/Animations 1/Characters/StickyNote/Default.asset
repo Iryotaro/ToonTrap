@@ -1,0 +1,191 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae0543fe805424df99fe08ce744cbe49, type: 3}
+  m_Name: Default
+  m_EditorClassIdentifier: 
+  m_PoseEntries:
+  - path: 
+    localPosition: {x: 0.029834338, y: -0.39396113, z: 0}
+    localRotation: {x: 0, y: 0, z: 0.79970837, w: 0.6003887}
+    localScale: {x: 1, y: 1, z: 1}
+  - path: ArmBorn
+    localPosition: {x: 0.6700007, y: 0, z: 0}
+    localRotation: {x: 0, y: 0, z: -0.8343287, w: -0.5512673}
+    localScale: {x: 1, y: 1, z: 1}
+  - path: WingLeftBorn
+    localPosition: {x: 0.44824147, y: -0.19189659, z: 0}
+    localRotation: {x: 0, y: 0, z: -0.6077155, w: 0.7941549}
+    localScale: {x: 1, y: 1, z: 1}
+  - path: WingRightBorn
+    localPosition: {x: 0.433, y: -0.003, z: 0}
+    localRotation: {x: 0, y: 0, z: 0.4642547, w: 0.8857018}
+    localScale: {x: 1, y: 1, z: 1}
+  - path: RightLeg1Born
+    localPosition: {x: -0.17421858, y: -0.09488973, z: 0}
+    localRotation: {x: 0, y: 0, z: -0.9953467, w: 0.096358396}
+    localScale: {x: 1, y: 1, z: 1}
+  - path: RightLeg1Born/RightLeg2Born
+    localPosition: {x: 0.58000016, y: 0.00000011920929, z: 0}
+    localRotation: {x: 0, y: 0, z: -0.095194265, w: 0.9954587}
+    localScale: {x: 1, y: 1, z: 1}
+  - path: LeftLeg1Born
+    localPosition: {x: -0.14960723, y: 0.06313871, z: 0}
+    localRotation: {x: -0, y: 0, z: -0.96449065, w: -0.264117}
+    localScale: {x: 1, y: 1, z: 1}
+  - path: LeftLeg1Born/LeftLeg2Born
+    localPosition: {x: 0.5457368, y: -0.00000029802322, z: 0}
+    localRotation: {x: 0, y: 0, z: 0.06709239, w: 0.99774677}
+    localScale: {x: 1, y: 1, z: 1}
+  - path: FaceBorn
+    localPosition: {x: 0.8077324, y: -0.11888701, z: 0}
+    localRotation: {x: 0, y: 0, z: -0.06554246, w: 0.99784976}
+    localScale: {x: 1, y: 1, z: 1}
+  - path: FaceBorn/Hair1Born
+    localPosition: {x: 1.0900021, y: 0.000000005122274, z: 0}
+    localRotation: {x: 0, y: 0, z: -0.08176916, w: 0.99665135}
+    localScale: {x: 1, y: 1, z: 1}
+  - path: FaceBorn/Hair1Born/Hair2Born
+    localPosition: {x: 0.29902077, y: -0.0000000012805685, z: 0}
+    localRotation: {x: 0, y: 0, z: -0.5587513, w: 0.8293353}
+    localScale: {x: 1, y: 1, z: 1}
+  - path: FaceBorn/Hair1Born/Hair2Born/Hair3Born
+    localPosition: {x: 0.21445803, y: 0.000000014901161, z: 0}
+    localRotation: {x: 0, y: 0, z: -0.10450624, w: 0.99452424}
+    localScale: {x: 1, y: 1, z: 1}
+  - path: FaceBorn/Hair1Born/Hair2Born/Hair3Born/Hair4Born
+    localPosition: {x: 0.19890189, y: -8.731149e-10, z: 0}
+    localRotation: {x: 0, y: 0, z: 0.25050104, w: 0.96811634}
+    localScale: {x: 1, y: 1, z: 1}
+  - path: FaceBorn/Hair1Born/Hair5Born
+    localPosition: {x: 0.044007853, y: -0.11306734, z: 0}
+    localRotation: {x: 0, y: 0, z: -0.20924085, w: 0.9778642}
+    localScale: {x: 1, y: 1, z: 1}
+  - path: FaceBorn/Hair1Born/Hair5Born/Hair6Born
+    localPosition: {x: 0.2105405, y: -0.0000000037252903, z: 0}
+    localRotation: {x: 0, y: 0, z: -0.51596004, w: 0.8566127}
+    localScale: {x: 1, y: 1, z: 1}
+  - path: FaceBorn/Hair1Born/Hair5Born/Hair6Born/Hair7Born
+    localPosition: {x: 0.2288339, y: 0.0000003501773, z: 0}
+    localRotation: {x: 0, y: 0, z: 0.10716338, w: 0.9942415}
+    localScale: {x: 1, y: 1, z: 1}
+  - path: FaceBorn/Hair1Born/Hair8Born
+    localPosition: {x: 0.08360249, y: 0.17932858, z: 0}
+    localRotation: {x: 0, y: 0, z: 0.06948217, w: 0.9975832}
+    localScale: {x: 1, y: 1, z: 1}
+  - path: FaceBorn/Hair1Born/Hair8Born/Hair9Born
+    localPosition: {x: 0.2105405, y: -0.0000000037252903, z: 0}
+    localRotation: {x: 0, y: 0, z: -0.40362102, w: 0.9149263}
+    localScale: {x: 1, y: 1, z: 1}
+  - path: FaceBorn/Hair1Born/Hair8Born/Hair9Born/Hair10Born
+    localPosition: {x: 0.23126116, y: -0.0000000037252903, z: 0}
+    localRotation: {x: 0, y: 0, z: -0.32832134, w: 0.94456613}
+    localScale: {x: 1, y: 1, z: 1}
+  - path: FaceBorn/Hair1Born/Hair8Born/Hair9Born/Hair10Born/Hair11Born
+    localPosition: {x: 0.25584644, y: -0.000000044703484, z: 0}
+    localRotation: {x: 0, y: 0, z: 0.05627402, w: 0.99841535}
+    localScale: {x: 1, y: 1, z: 1}
+  - path: FaceBorn/Hair1Born/Hair12Born
+    localPosition: {x: 0.08586472, y: 0.2802986, z: 0}
+    localRotation: {x: 0, y: 0, z: 0.37464172, w: 0.9271697}
+    localScale: {x: 1, y: 1, z: 1}
+  - path: FaceBorn/Hair1Born/Hair12Born/Hair13Born
+    localPosition: {x: 0.23032084, y: 0.0000000037252903, z: 0}
+    localRotation: {x: 0, y: 0, z: -0.17054375, w: 0.98535013}
+    localScale: {x: 1, y: 1, z: 1}
+  - path: FaceBorn/Hair1Born/Hair14Born
+    localPosition: {x: 0.04707773, y: 0.32159996, z: 0}
+    localRotation: {x: 0, y: 0, z: 0.64317393, w: 0.7657202}
+    localScale: {x: 1, y: 1, z: 1}
+  - path: FaceBorn/Hair1Born/Hair14Born/Hair15Born
+    localPosition: {x: 0.18587118, y: -0.000000014901161, z: 0}
+    localRotation: {x: 0, y: 0, z: -0.27742013, w: 0.96074873}
+    localScale: {x: 1, y: 1, z: 1}
+  - path: FaceBorn/Hair1Born/Hair16Born
+    localPosition: {x: 0.0005983934, y: 0.34819105, z: 0}
+    localRotation: {x: 0, y: 0, z: 0.8308578, w: 0.5564848}
+    localScale: {x: 1, y: 1, z: 1}
+  - path: FaceBorn/Hair1Born/Hair16Born/Hair17Born
+    localPosition: {x: 0.1790587, y: -0.00000017881393, z: 0}
+    localRotation: {x: 0, y: 0, z: -0.15685943, w: 0.98762095}
+    localScale: {x: 1, y: 1, z: 1}
+  - path: FaceBorn/Hair1Born/Hair18Born
+    localPosition: {x: 0.41169104, y: 0.18008886, z: 0}
+    localRotation: {x: 0, y: 0, z: -0.05714394, w: 0.998366}
+    localScale: {x: 1, y: 1, z: 1}
+  - path: FaceBorn/Hair1Born/Hair18Born/Hair19Born
+    localPosition: {x: 0.23759735, y: -0.00000009195355, z: 0}
+    localRotation: {x: 0, y: 0, z: -0.44157648, w: 0.89722365}
+    localScale: {x: 1, y: 1, z: 1}
+  - path: FaceBorn/Hair1Born/Hair18Born/Hair19Born/Hair20Born
+    localPosition: {x: 0.261536, y: 0, z: 0}
+    localRotation: {x: 0, y: 0, z: 0.1550649, w: 0.9879043}
+    localScale: {x: 1, y: 1, z: 1}
+  - path: FaceBorn/Hair1Born/Hair21Born
+    localPosition: {x: 0.5487749, y: -0.09752028, z: 0}
+    localRotation: {x: 0, y: 0, z: -0.5430408, w: 0.8397063}
+    localScale: {x: 1, y: 1, z: 1}
+  - path: FaceBorn/Hair1Born/Hair21Born/Hair22Born
+    localPosition: {x: 0.23759735, y: -0.00000009195355, z: 0}
+    localRotation: {x: 0, y: 0, z: -0.17154822, w: 0.9851758}
+    localScale: {x: 1, y: 1, z: 1}
+  - path: FaceBorn/Hair1Born/Hair21Born/Hair22Born/Hair23Born
+    localPosition: {x: 0.253802, y: 0.000000004656613, z: 0}
+    localRotation: {x: 0, y: 0, z: -0.14825325, w: 0.9889494}
+    localScale: {x: 1, y: 1, z: 1}
+  - path: FaceBorn/Hair1Born/Hair21Born/Hair22Born/Hair23Born/Hair24Born
+    localPosition: {x: 0.2224282, y: 6.9849193e-10, z: 0}
+    localRotation: {x: 0, y: 0, z: 0.050049283, w: 0.9987468}
+    localScale: {x: 1, y: 1, z: 1}
+  - path: FaceBorn/Hair1Born/Hair25Born
+    localPosition: {x: 0.45927897, y: -0.5037299, z: 0}
+    localRotation: {x: 0, y: 0, z: -0.80726945, w: 0.5901831}
+    localScale: {x: 1, y: 1, z: 1}
+  - path: FaceBorn/Hair1Born/Hair25Born/Hair26Born
+    localPosition: {x: 0.23759735, y: -0.00000009195355, z: 0}
+    localRotation: {x: 0, y: 0, z: -0.43302223, w: 0.9013833}
+    localScale: {x: 1, y: 1, z: 1}
+  - path: FaceBorn/Hair1Born/Hair25Born/Hair26Born/Hair27Born
+    localPosition: {x: 0.23998426, y: 0.000000007450581, z: 0}
+    localRotation: {x: 0, y: 0, z: -0.18955992, w: 0.9818692}
+    localScale: {x: 1, y: 1, z: 1}
+  - path: FaceBorn/Hair1Born/Hair25Born/Hair26Born/Hair27Born/Hair28Born
+    localPosition: {x: 0.2224282, y: 6.9849193e-10, z: 0}
+    localRotation: {x: 0, y: 0, z: 0.050049283, w: 0.9987468}
+    localScale: {x: 1, y: 1, z: 1}
+  - path: FaceBorn/Hair1Born/Hair29Born
+    localPosition: {x: 0.17725506, y: -0.27506992, z: 0}
+    localRotation: {x: 0, y: 0, z: -0.65943384, w: 0.7517627}
+    localScale: {x: 1, y: 1, z: 1}
+  - path: FaceBorn/Hair1Born/Hair29Born/Hair30Born
+    localPosition: {x: 0.23759735, y: -0.00000009195355, z: 0}
+    localRotation: {x: 0, y: 0, z: -0.2721296, w: 0.96226066}
+    localScale: {x: 1, y: 1, z: 1}
+  - path: FaceBorn/Hair1Born/Hair29Born/Hair30Born/Hair31Born
+    localPosition: {x: 0.23998426, y: 0.000000007450581, z: 0}
+    localRotation: {x: 0, y: 0, z: -0.18955992, w: 0.9818692}
+    localScale: {x: 1, y: 1, z: 1}
+  - path: FaceBorn/Hair1Born/Hair29Born/Hair30Born/Hair31Born/Hair32Born
+    localPosition: {x: 0.2224282, y: 6.9849193e-10, z: 0}
+    localRotation: {x: 0, y: 0, z: -0.070990294, w: 0.997477}
+    localScale: {x: 1, y: 1, z: 1}
+  - path: FaceBorn/Hair1Born/Hair33Born
+    localPosition: {x: 0.4699456, y: -0.73566574, z: 0}
+    localRotation: {x: 0, y: 0, z: -0.9071923, w: 0.42071638}
+    localScale: {x: 1, y: 1, z: 1}
+  - path: FaceBorn/Hair1Born/Hair33Born/Hair34Born
+    localPosition: {x: 0.23759735, y: -0.00000009195355, z: 0}
+    localRotation: {x: 0, y: 0, z: -0.1181207, w: 0.99299926}
+    localScale: {x: 1, y: 1, z: 1}
+  - path: FaceBorn/Hair1Born/Hair33Born/Hair34Born/Hair35Born
+    localPosition: {x: 0.23998426, y: 0.000000007450581, z: 0}
+    localRotation: {x: 0, y: 0, z: 0.08662177, w: 0.9962413}
+    localScale: {x: 1, y: 1, z: 1}
