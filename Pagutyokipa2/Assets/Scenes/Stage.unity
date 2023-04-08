@@ -4513,6 +4513,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SimpleEnemy
       objectReference: {fileID: 0}
+    - target: {fileID: 1363508756875595121, guid: bc46d9bb8d3cd4e8b997ac3788b34dbc, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1363508756875595127, guid: bc46d9bb8d3cd4e8b997ac3788b34dbc, type: 3}
       propertyPath: m_RootOrder
       value: 1
