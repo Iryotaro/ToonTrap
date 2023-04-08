@@ -20,7 +20,7 @@ namespace Ryocatusn
         [SerializeField]
         private SE transitionSE;
         [SerializeField]
-        private HandSprites handSprites;
+        private JankenSprites handSprites;
 
         private static string[] unloadSceneNames;
         private static string[] loadSceneNames;

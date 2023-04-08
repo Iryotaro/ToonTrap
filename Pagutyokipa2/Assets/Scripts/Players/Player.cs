@@ -1,5 +1,4 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using UniRx;
+﻿using UniRx;
 using UnityEngine;
 using Ryocatusn.TileTransforms;
 using Ryocatusn.Janken;
@@ -14,12 +13,8 @@ namespace Ryocatusn
     [RequireComponent(typeof(Collider2D))]
     [RequireComponent(typeof(TileTransform))]
     [RequireComponent(typeof(PlayerInputMaster))]
-    public class Player : MonoBehaviour, IReceiveAttack
+    public class Player : JankenBehaviour, IReceiveAttack
     {
-        public JankenableObjectId id { get; private set; }
-
-        private JankenableObjectApplicationService jankenableObjectApplicationService = Installer.installer.serviceProvider.GetService<JankenableObjectApplicationService>();
-
         public TileTransform tileTransform { get; private set; }
         private bool move = false;
         private MoveRate moveRate;
@@ -37,14 +32,10 @@ namespace Ryocatusn
         [SerializeField, Min(1)]
         private int atk = 1;
         [SerializeField]
-        private Bullet bullet;
-        [SerializeField]
-        private BulletParameter bulletParameter;
-        [SerializeField]
         private GameManager gameManager;
 
         [SerializeField]
-        private HandSprites jankenSprites;
+        private JankenSprites jankenSprites;
         [SerializeField]
         private ParticleSystem takeDamageParticle;
 
@@ -60,7 +51,7 @@ namespace Ryocatusn
         private void Start()
         {
             JankenableObjectCreateCommand command = new JankenableObjectCreateCommand(new Hp(hp), new InvincibleTime(invincibleTime), Hand.Shape.Rock);
-            id = jankenableObjectApplicationService.Create(command);
+            Create(command);
 
             tileTransform = GetComponent<TileTransform>();
             tileTransform.ChangeDirection(new TileDirection(TileDirection.Direction.Up));
@@ -69,8 +60,6 @@ namespace Ryocatusn
             if (TryGetComponent(out IJankenableObjectUI jankenableObjectUI)) jankenableObjectUI.Setup(id);
 
             inputMaster = GetComponent<PlayerInputMaster>();
-
-            JankenableObjectEvents events = jankenableObjectApplicationService.GetEvents(id);
 
             events.AttackTriggerEvent
                 .Subscribe(x => HandleAttackTrigger(x.id))
@@ -129,8 +118,7 @@ namespace Ryocatusn
 
         private void HandleAttackTrigger(AttackableObjectId attackableObjectId)
         {
-            BulletFactory bulletFactory = new BulletFactory(bullet, attackableObjectId, bulletParameter, transform, tileTransform.tileDirection);
-            bulletFactory.Create();
+            //球を打つ
         }
         private void HandleDie()
         {

@@ -23,7 +23,7 @@ namespace Ryocatusn
         [SerializeField]
         private SpriteRenderer spriteRenderer;
         [SerializeField]
-        private HandSprites handSprites;
+        private JankenSprites handSprites;
 
         private TileDirection direction = new TileDirection(TileDirection.Direction.Up);
 

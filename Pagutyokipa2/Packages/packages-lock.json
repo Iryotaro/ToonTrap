@@ -1,14 +1,14 @@
 {
   "dependencies": {
     "com.ryocatusn.ryoseq": {
-      "version": "git@github.com:Iryotaro/Ryoseq.git",
+      "version": "https://github.com/Iryotaro/Ryoseq.git",
       "depth": 0,
       "source": "git",
       "dependencies": {},
-      "hash": "4366187ff5b6d63cbac58f2abf66bdca81d59954"
+      "hash": "954cd48f54866ec3ef2055e893f1fcfdddb067bd"
     },
     "com.ryotaro.tiletransform": {
-      "version": "git@github.com:Iryotaro/TileTransform.git",
+      "version": "https://github.com/Iryotaro/TileTransform.git",
       "depth": 0,
       "source": "git",
       "dependencies": {
@@ -149,7 +149,7 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.ide.visualstudio": {
-      "version": "2.0.16",
+      "version": "2.0.17",
       "depth": 0,
       "source": "registry",
       "dependencies": {
