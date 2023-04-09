@@ -1,6 +1,6 @@
-﻿using System;
+﻿using Cysharp.Threading.Tasks.Internal;
+using System;
 using System.Threading;
-using Cysharp.Threading.Tasks.Internal;
 
 namespace Cysharp.Threading.Tasks.Linq
 {
@@ -330,12 +330,12 @@ namespace Cysharp.Threading.Tasks.Linq
                 while (await e.MoveNextAsync())
                 {
                     value = e.Current;
-                
+
                     goto NEXT_LOOP;
                 }
 
                 throw Error.NoElements();
-                
+
                 NEXT_LOOP:
 
                 while (await e.MoveNextAsync())
@@ -368,12 +368,12 @@ namespace Cysharp.Threading.Tasks.Linq
                 while (await e.MoveNextAsync())
                 {
                     value = selector(e.Current);
-                
+
                     goto NEXT_LOOP;
                 }
 
                 throw Error.NoElements();
-                
+
                 NEXT_LOOP:
 
                 while (await e.MoveNextAsync())
@@ -406,12 +406,12 @@ namespace Cysharp.Threading.Tasks.Linq
                 while (await e.MoveNextAsync())
                 {
                     value = await selector(e.Current);
-                
+
                     goto NEXT_LOOP;
                 }
 
                 throw Error.NoElements();
-                
+
                 NEXT_LOOP:
 
                 while (await e.MoveNextAsync())
@@ -444,12 +444,12 @@ namespace Cysharp.Threading.Tasks.Linq
                 while (await e.MoveNextAsync())
                 {
                     value = await selector(e.Current, cancellationToken);
-                
+
                     goto NEXT_LOOP;
                 }
 
                 throw Error.NoElements();
-                
+
                 NEXT_LOOP:
 
                 while (await e.MoveNextAsync())
@@ -482,12 +482,12 @@ namespace Cysharp.Threading.Tasks.Linq
                 while (await e.MoveNextAsync())
                 {
                     value = e.Current;
-                
+
                     goto NEXT_LOOP;
                 }
 
                 throw Error.NoElements();
-                
+
                 NEXT_LOOP:
 
                 while (await e.MoveNextAsync())
@@ -520,12 +520,12 @@ namespace Cysharp.Threading.Tasks.Linq
                 while (await e.MoveNextAsync())
                 {
                     value = selector(e.Current);
-                
+
                     goto NEXT_LOOP;
                 }
 
                 throw Error.NoElements();
-                
+
                 NEXT_LOOP:
 
                 while (await e.MoveNextAsync())
@@ -558,12 +558,12 @@ namespace Cysharp.Threading.Tasks.Linq
                 while (await e.MoveNextAsync())
                 {
                     value = await selector(e.Current);
-                
+
                     goto NEXT_LOOP;
                 }
 
                 throw Error.NoElements();
-                
+
                 NEXT_LOOP:
 
                 while (await e.MoveNextAsync())
@@ -596,12 +596,12 @@ namespace Cysharp.Threading.Tasks.Linq
                 while (await e.MoveNextAsync())
                 {
                     value = await selector(e.Current, cancellationToken);
-                
+
                     goto NEXT_LOOP;
                 }
 
                 throw Error.NoElements();
-                
+
                 NEXT_LOOP:
 
                 while (await e.MoveNextAsync())
@@ -634,12 +634,12 @@ namespace Cysharp.Threading.Tasks.Linq
                 while (await e.MoveNextAsync())
                 {
                     value = e.Current;
-                
+
                     goto NEXT_LOOP;
                 }
 
                 throw Error.NoElements();
-                
+
                 NEXT_LOOP:
 
                 while (await e.MoveNextAsync())
@@ -672,12 +672,12 @@ namespace Cysharp.Threading.Tasks.Linq
                 while (await e.MoveNextAsync())
                 {
                     value = selector(e.Current);
-                
+
                     goto NEXT_LOOP;
                 }
 
                 throw Error.NoElements();
-                
+
                 NEXT_LOOP:
 
                 while (await e.MoveNextAsync())
@@ -710,12 +710,12 @@ namespace Cysharp.Threading.Tasks.Linq
                 while (await e.MoveNextAsync())
                 {
                     value = await selector(e.Current);
-                
+
                     goto NEXT_LOOP;
                 }
 
                 throw Error.NoElements();
-                
+
                 NEXT_LOOP:
 
                 while (await e.MoveNextAsync())
@@ -748,12 +748,12 @@ namespace Cysharp.Threading.Tasks.Linq
                 while (await e.MoveNextAsync())
                 {
                     value = await selector(e.Current, cancellationToken);
-                
+
                     goto NEXT_LOOP;
                 }
 
                 throw Error.NoElements();
-                
+
                 NEXT_LOOP:
 
                 while (await e.MoveNextAsync())
@@ -786,12 +786,12 @@ namespace Cysharp.Threading.Tasks.Linq
                 while (await e.MoveNextAsync())
                 {
                     value = e.Current;
-                
+
                     goto NEXT_LOOP;
                 }
 
                 throw Error.NoElements();
-                
+
                 NEXT_LOOP:
 
                 while (await e.MoveNextAsync())
@@ -824,12 +824,12 @@ namespace Cysharp.Threading.Tasks.Linq
                 while (await e.MoveNextAsync())
                 {
                     value = selector(e.Current);
-                
+
                     goto NEXT_LOOP;
                 }
 
                 throw Error.NoElements();
-                
+
                 NEXT_LOOP:
 
                 while (await e.MoveNextAsync())
@@ -862,12 +862,12 @@ namespace Cysharp.Threading.Tasks.Linq
                 while (await e.MoveNextAsync())
                 {
                     value = await selector(e.Current);
-                
+
                     goto NEXT_LOOP;
                 }
 
                 throw Error.NoElements();
-                
+
                 NEXT_LOOP:
 
                 while (await e.MoveNextAsync())
@@ -900,12 +900,12 @@ namespace Cysharp.Threading.Tasks.Linq
                 while (await e.MoveNextAsync())
                 {
                     value = await selector(e.Current, cancellationToken);
-                
+
                     goto NEXT_LOOP;
                 }
 
                 throw Error.NoElements();
-                
+
                 NEXT_LOOP:
 
                 while (await e.MoveNextAsync())
@@ -938,12 +938,12 @@ namespace Cysharp.Threading.Tasks.Linq
                 while (await e.MoveNextAsync())
                 {
                     value = e.Current;
-                
+
                     goto NEXT_LOOP;
                 }
 
                 throw Error.NoElements();
-                
+
                 NEXT_LOOP:
 
                 while (await e.MoveNextAsync())
@@ -976,12 +976,12 @@ namespace Cysharp.Threading.Tasks.Linq
                 while (await e.MoveNextAsync())
                 {
                     value = selector(e.Current);
-                
+
                     goto NEXT_LOOP;
                 }
 
                 throw Error.NoElements();
-                
+
                 NEXT_LOOP:
 
                 while (await e.MoveNextAsync())
@@ -1014,12 +1014,12 @@ namespace Cysharp.Threading.Tasks.Linq
                 while (await e.MoveNextAsync())
                 {
                     value = await selector(e.Current);
-                
+
                     goto NEXT_LOOP;
                 }
 
                 throw Error.NoElements();
-                
+
                 NEXT_LOOP:
 
                 while (await e.MoveNextAsync())
@@ -1052,12 +1052,12 @@ namespace Cysharp.Threading.Tasks.Linq
                 while (await e.MoveNextAsync())
                 {
                     value = await selector(e.Current, cancellationToken);
-                
+
                     goto NEXT_LOOP;
                 }
 
                 throw Error.NoElements();
-                
+
                 NEXT_LOOP:
 
                 while (await e.MoveNextAsync())
@@ -1090,19 +1090,19 @@ namespace Cysharp.Threading.Tasks.Linq
                 while (await e.MoveNextAsync())
                 {
                     value = e.Current;
-                    if(value == null) continue;
-                
+                    if (value == null) continue;
+
                     goto NEXT_LOOP;
                 }
 
                 return default;
-                
+
                 NEXT_LOOP:
 
                 while (await e.MoveNextAsync())
                 {
                     var x = e.Current;
-                    if( x == null) continue;
+                    if (x == null) continue;
                     if (value > x)
                     {
                         value = x;
@@ -1130,19 +1130,19 @@ namespace Cysharp.Threading.Tasks.Linq
                 while (await e.MoveNextAsync())
                 {
                     value = selector(e.Current);
-                    if(value == null) continue;
-                
+                    if (value == null) continue;
+
                     goto NEXT_LOOP;
                 }
 
                 return default;
-                
+
                 NEXT_LOOP:
 
                 while (await e.MoveNextAsync())
                 {
                     var x = selector(e.Current);
-                    if( x == null) continue;
+                    if (x == null) continue;
                     if (value > x)
                     {
                         value = x;
@@ -1170,19 +1170,19 @@ namespace Cysharp.Threading.Tasks.Linq
                 while (await e.MoveNextAsync())
                 {
                     value = await selector(e.Current);
-                    if(value == null) continue;
-                
+                    if (value == null) continue;
+
                     goto NEXT_LOOP;
                 }
 
                 return default;
-                
+
                 NEXT_LOOP:
 
                 while (await e.MoveNextAsync())
                 {
                     var x = await selector(e.Current);
-                    if( x == null) continue;
+                    if (x == null) continue;
                     if (value > x)
                     {
                         value = x;
@@ -1210,19 +1210,19 @@ namespace Cysharp.Threading.Tasks.Linq
                 while (await e.MoveNextAsync())
                 {
                     value = await selector(e.Current, cancellationToken);
-                    if(value == null) continue;
-                
+                    if (value == null) continue;
+
                     goto NEXT_LOOP;
                 }
 
                 return default;
-                
+
                 NEXT_LOOP:
 
                 while (await e.MoveNextAsync())
                 {
                     var x = await selector(e.Current, cancellationToken);
-                    if( x == null) continue;
+                    if (x == null) continue;
                     if (value > x)
                     {
                         value = x;
@@ -1250,19 +1250,19 @@ namespace Cysharp.Threading.Tasks.Linq
                 while (await e.MoveNextAsync())
                 {
                     value = e.Current;
-                    if(value == null) continue;
-                
+                    if (value == null) continue;
+
                     goto NEXT_LOOP;
                 }
 
                 return default;
-                
+
                 NEXT_LOOP:
 
                 while (await e.MoveNextAsync())
                 {
                     var x = e.Current;
-                    if( x == null) continue;
+                    if (x == null) continue;
                     if (value > x)
                     {
                         value = x;
@@ -1290,19 +1290,19 @@ namespace Cysharp.Threading.Tasks.Linq
                 while (await e.MoveNextAsync())
                 {
                     value = selector(e.Current);
-                    if(value == null) continue;
-                
+                    if (value == null) continue;
+
                     goto NEXT_LOOP;
                 }
 
                 return default;
-                
+
                 NEXT_LOOP:
 
                 while (await e.MoveNextAsync())
                 {
                     var x = selector(e.Current);
-                    if( x == null) continue;
+                    if (x == null) continue;
                     if (value > x)
                     {
                         value = x;
@@ -1330,19 +1330,19 @@ namespace Cysharp.Threading.Tasks.Linq
                 while (await e.MoveNextAsync())
                 {
                     value = await selector(e.Current);
-                    if(value == null) continue;
-                
+                    if (value == null) continue;
+
                     goto NEXT_LOOP;
                 }
 
                 return default;
-                
+
                 NEXT_LOOP:
 
                 while (await e.MoveNextAsync())
                 {
                     var x = await selector(e.Current);
-                    if( x == null) continue;
+                    if (x == null) continue;
                     if (value > x)
                     {
                         value = x;
@@ -1370,19 +1370,19 @@ namespace Cysharp.Threading.Tasks.Linq
                 while (await e.MoveNextAsync())
                 {
                     value = await selector(e.Current, cancellationToken);
-                    if(value == null) continue;
-                
+                    if (value == null) continue;
+
                     goto NEXT_LOOP;
                 }
 
                 return default;
-                
+
                 NEXT_LOOP:
 
                 while (await e.MoveNextAsync())
                 {
                     var x = await selector(e.Current, cancellationToken);
-                    if( x == null) continue;
+                    if (x == null) continue;
                     if (value > x)
                     {
                         value = x;
@@ -1410,19 +1410,19 @@ namespace Cysharp.Threading.Tasks.Linq
                 while (await e.MoveNextAsync())
                 {
                     value = e.Current;
-                    if(value == null) continue;
-                
+                    if (value == null) continue;
+
                     goto NEXT_LOOP;
                 }
 
                 return default;
-                
+
                 NEXT_LOOP:
 
                 while (await e.MoveNextAsync())
                 {
                     var x = e.Current;
-                    if( x == null) continue;
+                    if (x == null) continue;
                     if (value > x)
                     {
                         value = x;
@@ -1450,19 +1450,19 @@ namespace Cysharp.Threading.Tasks.Linq
                 while (await e.MoveNextAsync())
                 {
                     value = selector(e.Current);
-                    if(value == null) continue;
-                
+                    if (value == null) continue;
+
                     goto NEXT_LOOP;
                 }
 
                 return default;
-                
+
                 NEXT_LOOP:
 
                 while (await e.MoveNextAsync())
                 {
                     var x = selector(e.Current);
-                    if( x == null) continue;
+                    if (x == null) continue;
                     if (value > x)
                     {
                         value = x;
@@ -1490,19 +1490,19 @@ namespace Cysharp.Threading.Tasks.Linq
                 while (await e.MoveNextAsync())
                 {
                     value = await selector(e.Current);
-                    if(value == null) continue;
-                
+                    if (value == null) continue;
+
                     goto NEXT_LOOP;
                 }
 
                 return default;
-                
+
                 NEXT_LOOP:
 
                 while (await e.MoveNextAsync())
                 {
                     var x = await selector(e.Current);
-                    if( x == null) continue;
+                    if (x == null) continue;
                     if (value > x)
                     {
                         value = x;
@@ -1530,19 +1530,19 @@ namespace Cysharp.Threading.Tasks.Linq
                 while (await e.MoveNextAsync())
                 {
                     value = await selector(e.Current, cancellationToken);
-                    if(value == null) continue;
-                
+                    if (value == null) continue;
+
                     goto NEXT_LOOP;
                 }
 
                 return default;
-                
+
                 NEXT_LOOP:
 
                 while (await e.MoveNextAsync())
                 {
                     var x = await selector(e.Current, cancellationToken);
-                    if( x == null) continue;
+                    if (x == null) continue;
                     if (value > x)
                     {
                         value = x;
@@ -1570,19 +1570,19 @@ namespace Cysharp.Threading.Tasks.Linq
                 while (await e.MoveNextAsync())
                 {
                     value = e.Current;
-                    if(value == null) continue;
-                
+                    if (value == null) continue;
+
                     goto NEXT_LOOP;
                 }
 
                 return default;
-                
+
                 NEXT_LOOP:
 
                 while (await e.MoveNextAsync())
                 {
                     var x = e.Current;
-                    if( x == null) continue;
+                    if (x == null) continue;
                     if (value > x)
                     {
                         value = x;
@@ -1610,19 +1610,19 @@ namespace Cysharp.Threading.Tasks.Linq
                 while (await e.MoveNextAsync())
                 {
                     value = selector(e.Current);
-                    if(value == null) continue;
-                
+                    if (value == null) continue;
+
                     goto NEXT_LOOP;
                 }
 
                 return default;
-                
+
                 NEXT_LOOP:
 
                 while (await e.MoveNextAsync())
                 {
                     var x = selector(e.Current);
-                    if( x == null) continue;
+                    if (x == null) continue;
                     if (value > x)
                     {
                         value = x;
@@ -1650,19 +1650,19 @@ namespace Cysharp.Threading.Tasks.Linq
                 while (await e.MoveNextAsync())
                 {
                     value = await selector(e.Current);
-                    if(value == null) continue;
-                
+                    if (value == null) continue;
+
                     goto NEXT_LOOP;
                 }
 
                 return default;
-                
+
                 NEXT_LOOP:
 
                 while (await e.MoveNextAsync())
                 {
                     var x = await selector(e.Current);
-                    if( x == null) continue;
+                    if (x == null) continue;
                     if (value > x)
                     {
                         value = x;
@@ -1690,19 +1690,19 @@ namespace Cysharp.Threading.Tasks.Linq
                 while (await e.MoveNextAsync())
                 {
                     value = await selector(e.Current, cancellationToken);
-                    if(value == null) continue;
-                
+                    if (value == null) continue;
+
                     goto NEXT_LOOP;
                 }
 
                 return default;
-                
+
                 NEXT_LOOP:
 
                 while (await e.MoveNextAsync())
                 {
                     var x = await selector(e.Current, cancellationToken);
-                    if( x == null) continue;
+                    if (x == null) continue;
                     if (value > x)
                     {
                         value = x;
@@ -1730,19 +1730,19 @@ namespace Cysharp.Threading.Tasks.Linq
                 while (await e.MoveNextAsync())
                 {
                     value = e.Current;
-                    if(value == null) continue;
-                
+                    if (value == null) continue;
+
                     goto NEXT_LOOP;
                 }
 
                 return default;
-                
+
                 NEXT_LOOP:
 
                 while (await e.MoveNextAsync())
                 {
                     var x = e.Current;
-                    if( x == null) continue;
+                    if (x == null) continue;
                     if (value > x)
                     {
                         value = x;
@@ -1770,19 +1770,19 @@ namespace Cysharp.Threading.Tasks.Linq
                 while (await e.MoveNextAsync())
                 {
                     value = selector(e.Current);
-                    if(value == null) continue;
-                
+                    if (value == null) continue;
+
                     goto NEXT_LOOP;
                 }
 
                 return default;
-                
+
                 NEXT_LOOP:
 
                 while (await e.MoveNextAsync())
                 {
                     var x = selector(e.Current);
-                    if( x == null) continue;
+                    if (x == null) continue;
                     if (value > x)
                     {
                         value = x;
@@ -1810,19 +1810,19 @@ namespace Cysharp.Threading.Tasks.Linq
                 while (await e.MoveNextAsync())
                 {
                     value = await selector(e.Current);
-                    if(value == null) continue;
-                
+                    if (value == null) continue;
+
                     goto NEXT_LOOP;
                 }
 
                 return default;
-                
+
                 NEXT_LOOP:
 
                 while (await e.MoveNextAsync())
                 {
                     var x = await selector(e.Current);
-                    if( x == null) continue;
+                    if (x == null) continue;
                     if (value > x)
                     {
                         value = x;
@@ -1850,19 +1850,19 @@ namespace Cysharp.Threading.Tasks.Linq
                 while (await e.MoveNextAsync())
                 {
                     value = await selector(e.Current, cancellationToken);
-                    if(value == null) continue;
-                
+                    if (value == null) continue;
+
                     goto NEXT_LOOP;
                 }
 
                 return default;
-                
+
                 NEXT_LOOP:
 
                 while (await e.MoveNextAsync())
                 {
                     var x = await selector(e.Current, cancellationToken);
-                    if( x == null) continue;
+                    if (x == null) continue;
                     if (value > x)
                     {
                         value = x;
@@ -2208,12 +2208,12 @@ namespace Cysharp.Threading.Tasks.Linq
                 while (await e.MoveNextAsync())
                 {
                     value = e.Current;
-                
+
                     goto NEXT_LOOP;
                 }
 
                 throw Error.NoElements();
-                
+
                 NEXT_LOOP:
 
                 while (await e.MoveNextAsync())
@@ -2246,12 +2246,12 @@ namespace Cysharp.Threading.Tasks.Linq
                 while (await e.MoveNextAsync())
                 {
                     value = selector(e.Current);
-                
+
                     goto NEXT_LOOP;
                 }
 
                 throw Error.NoElements();
-                
+
                 NEXT_LOOP:
 
                 while (await e.MoveNextAsync())
@@ -2284,12 +2284,12 @@ namespace Cysharp.Threading.Tasks.Linq
                 while (await e.MoveNextAsync())
                 {
                     value = await selector(e.Current);
-                
+
                     goto NEXT_LOOP;
                 }
 
                 throw Error.NoElements();
-                
+
                 NEXT_LOOP:
 
                 while (await e.MoveNextAsync())
@@ -2322,12 +2322,12 @@ namespace Cysharp.Threading.Tasks.Linq
                 while (await e.MoveNextAsync())
                 {
                     value = await selector(e.Current, cancellationToken);
-                
+
                     goto NEXT_LOOP;
                 }
 
                 throw Error.NoElements();
-                
+
                 NEXT_LOOP:
 
                 while (await e.MoveNextAsync())
@@ -2360,12 +2360,12 @@ namespace Cysharp.Threading.Tasks.Linq
                 while (await e.MoveNextAsync())
                 {
                     value = e.Current;
-                
+
                     goto NEXT_LOOP;
                 }
 
                 throw Error.NoElements();
-                
+
                 NEXT_LOOP:
 
                 while (await e.MoveNextAsync())
@@ -2398,12 +2398,12 @@ namespace Cysharp.Threading.Tasks.Linq
                 while (await e.MoveNextAsync())
                 {
                     value = selector(e.Current);
-                
+
                     goto NEXT_LOOP;
                 }
 
                 throw Error.NoElements();
-                
+
                 NEXT_LOOP:
 
                 while (await e.MoveNextAsync())
@@ -2436,12 +2436,12 @@ namespace Cysharp.Threading.Tasks.Linq
                 while (await e.MoveNextAsync())
                 {
                     value = await selector(e.Current);
-                
+
                     goto NEXT_LOOP;
                 }
 
                 throw Error.NoElements();
-                
+
                 NEXT_LOOP:
 
                 while (await e.MoveNextAsync())
@@ -2474,12 +2474,12 @@ namespace Cysharp.Threading.Tasks.Linq
                 while (await e.MoveNextAsync())
                 {
                     value = await selector(e.Current, cancellationToken);
-                
+
                     goto NEXT_LOOP;
                 }
 
                 throw Error.NoElements();
-                
+
                 NEXT_LOOP:
 
                 while (await e.MoveNextAsync())
@@ -2512,12 +2512,12 @@ namespace Cysharp.Threading.Tasks.Linq
                 while (await e.MoveNextAsync())
                 {
                     value = e.Current;
-                
+
                     goto NEXT_LOOP;
                 }
 
                 throw Error.NoElements();
-                
+
                 NEXT_LOOP:
 
                 while (await e.MoveNextAsync())
@@ -2550,12 +2550,12 @@ namespace Cysharp.Threading.Tasks.Linq
                 while (await e.MoveNextAsync())
                 {
                     value = selector(e.Current);
-                
+
                     goto NEXT_LOOP;
                 }
 
                 throw Error.NoElements();
-                
+
                 NEXT_LOOP:
 
                 while (await e.MoveNextAsync())
@@ -2588,12 +2588,12 @@ namespace Cysharp.Threading.Tasks.Linq
                 while (await e.MoveNextAsync())
                 {
                     value = await selector(e.Current);
-                
+
                     goto NEXT_LOOP;
                 }
 
                 throw Error.NoElements();
-                
+
                 NEXT_LOOP:
 
                 while (await e.MoveNextAsync())
@@ -2626,12 +2626,12 @@ namespace Cysharp.Threading.Tasks.Linq
                 while (await e.MoveNextAsync())
                 {
                     value = await selector(e.Current, cancellationToken);
-                
+
                     goto NEXT_LOOP;
                 }
 
                 throw Error.NoElements();
-                
+
                 NEXT_LOOP:
 
                 while (await e.MoveNextAsync())
@@ -2664,12 +2664,12 @@ namespace Cysharp.Threading.Tasks.Linq
                 while (await e.MoveNextAsync())
                 {
                     value = e.Current;
-                
+
                     goto NEXT_LOOP;
                 }
 
                 throw Error.NoElements();
-                
+
                 NEXT_LOOP:
 
                 while (await e.MoveNextAsync())
@@ -2702,12 +2702,12 @@ namespace Cysharp.Threading.Tasks.Linq
                 while (await e.MoveNextAsync())
                 {
                     value = selector(e.Current);
-                
+
                     goto NEXT_LOOP;
                 }
 
                 throw Error.NoElements();
-                
+
                 NEXT_LOOP:
 
                 while (await e.MoveNextAsync())
@@ -2740,12 +2740,12 @@ namespace Cysharp.Threading.Tasks.Linq
                 while (await e.MoveNextAsync())
                 {
                     value = await selector(e.Current);
-                
+
                     goto NEXT_LOOP;
                 }
 
                 throw Error.NoElements();
-                
+
                 NEXT_LOOP:
 
                 while (await e.MoveNextAsync())
@@ -2778,12 +2778,12 @@ namespace Cysharp.Threading.Tasks.Linq
                 while (await e.MoveNextAsync())
                 {
                     value = await selector(e.Current, cancellationToken);
-                
+
                     goto NEXT_LOOP;
                 }
 
                 throw Error.NoElements();
-                
+
                 NEXT_LOOP:
 
                 while (await e.MoveNextAsync())
@@ -2816,12 +2816,12 @@ namespace Cysharp.Threading.Tasks.Linq
                 while (await e.MoveNextAsync())
                 {
                     value = e.Current;
-                
+
                     goto NEXT_LOOP;
                 }
 
                 throw Error.NoElements();
-                
+
                 NEXT_LOOP:
 
                 while (await e.MoveNextAsync())
@@ -2854,12 +2854,12 @@ namespace Cysharp.Threading.Tasks.Linq
                 while (await e.MoveNextAsync())
                 {
                     value = selector(e.Current);
-                
+
                     goto NEXT_LOOP;
                 }
 
                 throw Error.NoElements();
-                
+
                 NEXT_LOOP:
 
                 while (await e.MoveNextAsync())
@@ -2892,12 +2892,12 @@ namespace Cysharp.Threading.Tasks.Linq
                 while (await e.MoveNextAsync())
                 {
                     value = await selector(e.Current);
-                
+
                     goto NEXT_LOOP;
                 }
 
                 throw Error.NoElements();
-                
+
                 NEXT_LOOP:
 
                 while (await e.MoveNextAsync())
@@ -2930,12 +2930,12 @@ namespace Cysharp.Threading.Tasks.Linq
                 while (await e.MoveNextAsync())
                 {
                     value = await selector(e.Current, cancellationToken);
-                
+
                     goto NEXT_LOOP;
                 }
 
                 throw Error.NoElements();
-                
+
                 NEXT_LOOP:
 
                 while (await e.MoveNextAsync())
@@ -2968,19 +2968,19 @@ namespace Cysharp.Threading.Tasks.Linq
                 while (await e.MoveNextAsync())
                 {
                     value = e.Current;
-                    if(value == null) continue;
-                
+                    if (value == null) continue;
+
                     goto NEXT_LOOP;
                 }
 
                 return default;
-                
+
                 NEXT_LOOP:
 
                 while (await e.MoveNextAsync())
                 {
                     var x = e.Current;
-                    if( x == null) continue;
+                    if (x == null) continue;
                     if (value < x)
                     {
                         value = x;
@@ -3008,19 +3008,19 @@ namespace Cysharp.Threading.Tasks.Linq
                 while (await e.MoveNextAsync())
                 {
                     value = selector(e.Current);
-                    if(value == null) continue;
-                
+                    if (value == null) continue;
+
                     goto NEXT_LOOP;
                 }
 
                 return default;
-                
+
                 NEXT_LOOP:
 
                 while (await e.MoveNextAsync())
                 {
                     var x = selector(e.Current);
-                    if( x == null) continue;
+                    if (x == null) continue;
                     if (value < x)
                     {
                         value = x;
@@ -3048,19 +3048,19 @@ namespace Cysharp.Threading.Tasks.Linq
                 while (await e.MoveNextAsync())
                 {
                     value = await selector(e.Current);
-                    if(value == null) continue;
-                
+                    if (value == null) continue;
+
                     goto NEXT_LOOP;
                 }
 
                 return default;
-                
+
                 NEXT_LOOP:
 
                 while (await e.MoveNextAsync())
                 {
                     var x = await selector(e.Current);
-                    if( x == null) continue;
+                    if (x == null) continue;
                     if (value < x)
                     {
                         value = x;
@@ -3088,19 +3088,19 @@ namespace Cysharp.Threading.Tasks.Linq
                 while (await e.MoveNextAsync())
                 {
                     value = await selector(e.Current, cancellationToken);
-                    if(value == null) continue;
-                
+                    if (value == null) continue;
+
                     goto NEXT_LOOP;
                 }
 
                 return default;
-                
+
                 NEXT_LOOP:
 
                 while (await e.MoveNextAsync())
                 {
                     var x = await selector(e.Current, cancellationToken);
-                    if( x == null) continue;
+                    if (x == null) continue;
                     if (value < x)
                     {
                         value = x;
@@ -3128,19 +3128,19 @@ namespace Cysharp.Threading.Tasks.Linq
                 while (await e.MoveNextAsync())
                 {
                     value = e.Current;
-                    if(value == null) continue;
-                
+                    if (value == null) continue;
+
                     goto NEXT_LOOP;
                 }
 
                 return default;
-                
+
                 NEXT_LOOP:
 
                 while (await e.MoveNextAsync())
                 {
                     var x = e.Current;
-                    if( x == null) continue;
+                    if (x == null) continue;
                     if (value < x)
                     {
                         value = x;
@@ -3168,19 +3168,19 @@ namespace Cysharp.Threading.Tasks.Linq
                 while (await e.MoveNextAsync())
                 {
                     value = selector(e.Current);
-                    if(value == null) continue;
-                
+                    if (value == null) continue;
+
                     goto NEXT_LOOP;
                 }
 
                 return default;
-                
+
                 NEXT_LOOP:
 
                 while (await e.MoveNextAsync())
                 {
                     var x = selector(e.Current);
-                    if( x == null) continue;
+                    if (x == null) continue;
                     if (value < x)
                     {
                         value = x;
@@ -3208,19 +3208,19 @@ namespace Cysharp.Threading.Tasks.Linq
                 while (await e.MoveNextAsync())
                 {
                     value = await selector(e.Current);
-                    if(value == null) continue;
-                
+                    if (value == null) continue;
+
                     goto NEXT_LOOP;
                 }
 
                 return default;
-                
+
                 NEXT_LOOP:
 
                 while (await e.MoveNextAsync())
                 {
                     var x = await selector(e.Current);
-                    if( x == null) continue;
+                    if (x == null) continue;
                     if (value < x)
                     {
                         value = x;
@@ -3248,19 +3248,19 @@ namespace Cysharp.Threading.Tasks.Linq
                 while (await e.MoveNextAsync())
                 {
                     value = await selector(e.Current, cancellationToken);
-                    if(value == null) continue;
-                
+                    if (value == null) continue;
+
                     goto NEXT_LOOP;
                 }
 
                 return default;
-                
+
                 NEXT_LOOP:
 
                 while (await e.MoveNextAsync())
                 {
                     var x = await selector(e.Current, cancellationToken);
-                    if( x == null) continue;
+                    if (x == null) continue;
                     if (value < x)
                     {
                         value = x;
@@ -3288,19 +3288,19 @@ namespace Cysharp.Threading.Tasks.Linq
                 while (await e.MoveNextAsync())
                 {
                     value = e.Current;
-                    if(value == null) continue;
-                
+                    if (value == null) continue;
+
                     goto NEXT_LOOP;
                 }
 
                 return default;
-                
+
                 NEXT_LOOP:
 
                 while (await e.MoveNextAsync())
                 {
                     var x = e.Current;
-                    if( x == null) continue;
+                    if (x == null) continue;
                     if (value < x)
                     {
                         value = x;
@@ -3328,19 +3328,19 @@ namespace Cysharp.Threading.Tasks.Linq
                 while (await e.MoveNextAsync())
                 {
                     value = selector(e.Current);
-                    if(value == null) continue;
-                
+                    if (value == null) continue;
+
                     goto NEXT_LOOP;
                 }
 
                 return default;
-                
+
                 NEXT_LOOP:
 
                 while (await e.MoveNextAsync())
                 {
                     var x = selector(e.Current);
-                    if( x == null) continue;
+                    if (x == null) continue;
                     if (value < x)
                     {
                         value = x;
@@ -3368,19 +3368,19 @@ namespace Cysharp.Threading.Tasks.Linq
                 while (await e.MoveNextAsync())
                 {
                     value = await selector(e.Current);
-                    if(value == null) continue;
-                
+                    if (value == null) continue;
+
                     goto NEXT_LOOP;
                 }
 
                 return default;
-                
+
                 NEXT_LOOP:
 
                 while (await e.MoveNextAsync())
                 {
                     var x = await selector(e.Current);
-                    if( x == null) continue;
+                    if (x == null) continue;
                     if (value < x)
                     {
                         value = x;
@@ -3408,19 +3408,19 @@ namespace Cysharp.Threading.Tasks.Linq
                 while (await e.MoveNextAsync())
                 {
                     value = await selector(e.Current, cancellationToken);
-                    if(value == null) continue;
-                
+                    if (value == null) continue;
+
                     goto NEXT_LOOP;
                 }
 
                 return default;
-                
+
                 NEXT_LOOP:
 
                 while (await e.MoveNextAsync())
                 {
                     var x = await selector(e.Current, cancellationToken);
-                    if( x == null) continue;
+                    if (x == null) continue;
                     if (value < x)
                     {
                         value = x;
@@ -3448,19 +3448,19 @@ namespace Cysharp.Threading.Tasks.Linq
                 while (await e.MoveNextAsync())
                 {
                     value = e.Current;
-                    if(value == null) continue;
-                
+                    if (value == null) continue;
+
                     goto NEXT_LOOP;
                 }
 
                 return default;
-                
+
                 NEXT_LOOP:
 
                 while (await e.MoveNextAsync())
                 {
                     var x = e.Current;
-                    if( x == null) continue;
+                    if (x == null) continue;
                     if (value < x)
                     {
                         value = x;
@@ -3488,19 +3488,19 @@ namespace Cysharp.Threading.Tasks.Linq
                 while (await e.MoveNextAsync())
                 {
                     value = selector(e.Current);
-                    if(value == null) continue;
-                
+                    if (value == null) continue;
+
                     goto NEXT_LOOP;
                 }
 
                 return default;
-                
+
                 NEXT_LOOP:
 
                 while (await e.MoveNextAsync())
                 {
                     var x = selector(e.Current);
-                    if( x == null) continue;
+                    if (x == null) continue;
                     if (value < x)
                     {
                         value = x;
@@ -3528,19 +3528,19 @@ namespace Cysharp.Threading.Tasks.Linq
                 while (await e.MoveNextAsync())
                 {
                     value = await selector(e.Current);
-                    if(value == null) continue;
-                
+                    if (value == null) continue;
+
                     goto NEXT_LOOP;
                 }
 
                 return default;
-                
+
                 NEXT_LOOP:
 
                 while (await e.MoveNextAsync())
                 {
                     var x = await selector(e.Current);
-                    if( x == null) continue;
+                    if (x == null) continue;
                     if (value < x)
                     {
                         value = x;
@@ -3568,19 +3568,19 @@ namespace Cysharp.Threading.Tasks.Linq
                 while (await e.MoveNextAsync())
                 {
                     value = await selector(e.Current, cancellationToken);
-                    if(value == null) continue;
-                
+                    if (value == null) continue;
+
                     goto NEXT_LOOP;
                 }
 
                 return default;
-                
+
                 NEXT_LOOP:
 
                 while (await e.MoveNextAsync())
                 {
                     var x = await selector(e.Current, cancellationToken);
-                    if( x == null) continue;
+                    if (x == null) continue;
                     if (value < x)
                     {
                         value = x;
@@ -3608,19 +3608,19 @@ namespace Cysharp.Threading.Tasks.Linq
                 while (await e.MoveNextAsync())
                 {
                     value = e.Current;
-                    if(value == null) continue;
-                
+                    if (value == null) continue;
+
                     goto NEXT_LOOP;
                 }
 
                 return default;
-                
+
                 NEXT_LOOP:
 
                 while (await e.MoveNextAsync())
                 {
                     var x = e.Current;
-                    if( x == null) continue;
+                    if (x == null) continue;
                     if (value < x)
                     {
                         value = x;
@@ -3648,19 +3648,19 @@ namespace Cysharp.Threading.Tasks.Linq
                 while (await e.MoveNextAsync())
                 {
                     value = selector(e.Current);
-                    if(value == null) continue;
-                
+                    if (value == null) continue;
+
                     goto NEXT_LOOP;
                 }
 
                 return default;
-                
+
                 NEXT_LOOP:
 
                 while (await e.MoveNextAsync())
                 {
                     var x = selector(e.Current);
-                    if( x == null) continue;
+                    if (x == null) continue;
                     if (value < x)
                     {
                         value = x;
@@ -3688,19 +3688,19 @@ namespace Cysharp.Threading.Tasks.Linq
                 while (await e.MoveNextAsync())
                 {
                     value = await selector(e.Current);
-                    if(value == null) continue;
-                
+                    if (value == null) continue;
+
                     goto NEXT_LOOP;
                 }
 
                 return default;
-                
+
                 NEXT_LOOP:
 
                 while (await e.MoveNextAsync())
                 {
                     var x = await selector(e.Current);
-                    if( x == null) continue;
+                    if (x == null) continue;
                     if (value < x)
                     {
                         value = x;
@@ -3728,19 +3728,19 @@ namespace Cysharp.Threading.Tasks.Linq
                 while (await e.MoveNextAsync())
                 {
                     value = await selector(e.Current, cancellationToken);
-                    if(value == null) continue;
-                
+                    if (value == null) continue;
+
                     goto NEXT_LOOP;
                 }
 
                 return default;
-                
+
                 NEXT_LOOP:
 
                 while (await e.MoveNextAsync())
                 {
                     var x = await selector(e.Current, cancellationToken);
-                    if( x == null) continue;
+                    if (x == null) continue;
                     if (value < x)
                     {
                         value = x;

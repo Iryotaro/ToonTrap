@@ -1,9 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using Ryocatusn.Ryoseqs;
 using Cysharp.Threading.Tasks;
+using Ryocatusn.Ryoseqs;
 using System;
+using System.Collections;
+using UnityEngine;
 
 namespace Ryocatusn.Conversations
 {

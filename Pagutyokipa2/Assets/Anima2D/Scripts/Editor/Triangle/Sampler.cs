@@ -9,7 +9,6 @@ namespace TriangleNet
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using System.Text;
 
     /// <summary>
     /// Used for triangle sampling in the Mesh.Locate method.

@@ -1,13 +1,12 @@
-﻿using System;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
+using Ryocatusn.Games.Stages;
+using Ryocatusn.TileTransforms;
+using Ryocatusn.Util;
+using System;
 using UniRx;
 using UnityEngine;
-using UnityEngine.Tilemaps;
 using UnityEngine.SceneManagement;
-using Ryocatusn.Util;
-using Ryocatusn.TileTransforms;
-using Ryocatusn.Games.Stages;
-using Ryocatusn.Janken.JankenableObjects;
+using UnityEngine.Tilemaps;
 
 namespace Ryocatusn
 {
@@ -16,7 +15,6 @@ namespace Ryocatusn
     {
         public StageId id { get; private set; }
         private StageApplicationService stageApplicationService = Installer.installer.serviceProvider.GetService<StageApplicationService>();
-        private JankenableObjectApplicationService jankenableObjectApplicationService = Installer.installer.serviceProvider.GetService<JankenableObjectApplicationService>();
 
         public Option<GameContains> gameContains { get; private set; } = new Option<GameContains>(null);
 
@@ -59,8 +57,6 @@ namespace Ryocatusn
 
         public void SetupStage(StageId id, GameContains gameContains)
         {
-            stageApplicationService = Installer.installer.serviceProvider.GetService<StageApplicationService>();
-
             this.id = id;
 
             this.gameContains.Set(gameContains);

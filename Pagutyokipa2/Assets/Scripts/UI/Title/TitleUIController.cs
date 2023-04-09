@@ -1,9 +1,9 @@
-﻿using System;
+﻿using Ryocatusn.Util;
+using System;
 using UniRx;
 using UniRx.Triggers;
 using UnityEngine;
 using UnityEngine.UI;
-using Ryocatusn.Util;
 
 namespace Ryocatusn.UI
 {

@@ -1,7 +1,7 @@
-﻿using System;
+﻿using Ryocatusn.Janken.AttackableObjects;
+using System;
 using System.Threading.Tasks;
 using UniRx;
-using Ryocatusn.Janken.AttackableObjects;
 
 namespace Ryocatusn.Janken.JankenableObjects
 {
@@ -124,7 +124,7 @@ namespace Ryocatusn.Janken.JankenableObjects
         public void AttackerLose()
         {
             winCombo = 0;
-      
+
             loseEvent.OnNext(Unit.Default);
             attackerLoseEvent.OnNext(Unit.Default);
         }

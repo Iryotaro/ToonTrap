@@ -1,7 +1,7 @@
-﻿using System;
-using UniRx;
+﻿using Ryocatusn.Games.Stages;
 using Ryocatusn.Util;
-using Ryocatusn.Games.Stages;
+using System;
+using UniRx;
 
 namespace Ryocatusn.Games
 {
@@ -19,7 +19,7 @@ namespace Ryocatusn.Games
         public IObservable<(Option<StageId> prevStageId, StageId nextStageId)> NextStageEvent => setStageEvent;
         public IObservable<StageId> ClearEvent => clearEvent;
         public IObservable<StageId> OverEvent => overEvent;
-        
+
         public Game(StageId[] stageIds)
         {
             id = new GameId(Guid.NewGuid().ToString());

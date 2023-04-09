@@ -8,10 +8,8 @@ namespace TriangleNet.Tools
 {
     using System;
     using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    using TriangleNet.Geometry;
     using TriangleNet.Data;
+    using TriangleNet.Geometry;
 
     /// <summary>
     /// Represents a region in the Voronoi diagram.

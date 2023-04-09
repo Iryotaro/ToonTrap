@@ -6,12 +6,6 @@
 
 namespace TriangleNet.IO
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    using TriangleNet.Geometry;
-
     /// <summary>
     /// Interface for mesh I/O.
     /// </summary>

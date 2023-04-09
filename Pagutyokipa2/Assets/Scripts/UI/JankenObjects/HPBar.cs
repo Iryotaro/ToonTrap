@@ -1,7 +1,7 @@
-﻿using UnityEngine;
-using UnityEngine.UI;
-using DG.Tweening;
+﻿using DG.Tweening;
 using Ryocatusn.Janken.JankenableObjects;
+using UnityEngine;
+using UnityEngine.UI;
 
 namespace Ryocatusn.UI
 {

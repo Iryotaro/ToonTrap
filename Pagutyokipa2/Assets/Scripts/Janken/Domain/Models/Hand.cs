@@ -12,7 +12,7 @@ namespace Ryocatusn.Janken
 
         private Subject<Shape> changeShapeEvent = new Subject<Shape>();
         private static Subject<bool> jankenReverseEvent = new Subject<bool>();
-        
+
         public IObservable<Shape> ChangeShapeEvent => changeShapeEvent;
         public static IObservable<bool> JankenReverseEvent => jankenReverseEvent;
 

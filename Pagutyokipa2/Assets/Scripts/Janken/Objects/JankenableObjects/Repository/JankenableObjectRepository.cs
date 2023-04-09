@@ -1,5 +1,5 @@
-﻿using System.Collections.Generic;
-using Ryocatusn.Util;
+﻿using Ryocatusn.Util;
+using System.Collections.Generic;
 
 namespace Ryocatusn.Janken.JankenableObjects.Repository
 {

@@ -1,7 +1,6 @@
-﻿using System;
-using UniRx;
+﻿using Ryocatusn.Games.Stages;
 using Ryocatusn.Util;
-using Ryocatusn.Games.Stages;
+using System;
 
 namespace Ryocatusn.Games
 {

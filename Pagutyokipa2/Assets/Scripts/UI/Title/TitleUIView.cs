@@ -1,9 +1,9 @@
-﻿using UnityEngine;
-using UnityEngine.UI;
-using TMPro;
-using DG.Tweening;
-using Ryocatusn.Util;
+﻿using DG.Tweening;
 using Ryocatusn.Audio;
+using Ryocatusn.Util;
+using TMPro;
+using UnityEngine;
+using UnityEngine.UI;
 
 namespace Ryocatusn.UI
 {

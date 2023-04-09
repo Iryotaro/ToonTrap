@@ -1,159 +1,163 @@
-using UnityEngine;
-using UnityEditor;
-using UnityEditorInternal;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEditor;
+using UnityEngine;
 
-namespace Anima2D 
+namespace Anima2D
 {
-	public class WeightEditor : WindowEditorTool
-	{
-		public SpriteMeshCache spriteMeshCache;
+    public class WeightEditor : WindowEditorTool
+    {
+        public SpriteMeshCache spriteMeshCache;
 
-		public bool showPie { get; set; }
-		public bool overlayColors { get; set; }
+        public bool showPie { get; set; }
+        public bool overlayColors { get; set; }
 
-		float m_Weight = 0f;
+        float m_Weight = 0f;
 
-		List<BoneWeight> m_TempWeights = new List<BoneWeight>();
+        List<BoneWeight> m_TempWeights = new List<BoneWeight>();
 
-		protected override string GetHeader() { return "Weight tool"; }
-		
-		public WeightEditor()
-		{
-			windowRect = new Rect(0f, 0f, 250f, 82f);
-		}
+        protected override string GetHeader() { return "Weight tool"; }
 
-		public override void OnWindowGUI(Rect viewRect)
-		{
-			windowRect.position = new Vector2(viewRect.width - windowRect.width - 5f,
-			                                  viewRect.height - windowRect.height - 5f);
+        public WeightEditor()
+        {
+            windowRect = new Rect(0f, 0f, 250f, 82f);
+        }
 
-			base.OnWindowGUI(viewRect);
-		}
+        public override void OnWindowGUI(Rect viewRect)
+        {
+            windowRect.position = new Vector2(viewRect.width - windowRect.width - 5f,
+                                              viewRect.height - windowRect.height - 5f);
 
-		protected override void DoWindow(int windowId)
-		{
-			float labelWidth = EditorGUIUtility.labelWidth;
-			bool wideMode = EditorGUIUtility.wideMode;
+            base.OnWindowGUI(viewRect);
+        }
 
-			EditorGUIUtility.wideMode = true;
+        protected override void DoWindow(int windowId)
+        {
+            float labelWidth = EditorGUIUtility.labelWidth;
+            bool wideMode = EditorGUIUtility.wideMode;
 
-			EditorGUILayout.BeginHorizontal();
+            EditorGUIUtility.wideMode = true;
 
-			string[] names = spriteMeshCache.GetBoneNames("None");
-			int index = spriteMeshCache.bindPoses.IndexOf(spriteMeshCache.selectedBindPose);
-			
-			index = EditorGUILayout.Popup(index + 1,names,GUILayout.Width(75f)) - 1;
+            EditorGUILayout.BeginHorizontal();
 
-			if(index >= 0 && index < spriteMeshCache.bindPoses.Count)
-			{
-				spriteMeshCache.selectedBindPose = spriteMeshCache.bindPoses[index];
-			}else{
-				spriteMeshCache.selectedBindPose = null;
-			}
+            string[] names = spriteMeshCache.GetBoneNames("None");
+            int index = spriteMeshCache.bindPoses.IndexOf(spriteMeshCache.selectedBindPose);
 
-			EditorGUI.BeginChangeCheck();
+            index = EditorGUILayout.Popup(index + 1, names, GUILayout.Width(75f)) - 1;
 
-			EditorGUI.BeginDisabledGroup(spriteMeshCache.selectedBindPose == null);
+            if (index >= 0 && index < spriteMeshCache.bindPoses.Count)
+            {
+                spriteMeshCache.selectedBindPose = spriteMeshCache.bindPoses[index];
+            }
+            else
+            {
+                spriteMeshCache.selectedBindPose = null;
+            }
 
-			if(Event.current.type == EventType.MouseUp ||
-			   Event.current.type == EventType.MouseDown)
-			{
-				m_Weight = 0f;
+            EditorGUI.BeginChangeCheck();
 
-				m_TempWeights.Clear();
+            EditorGUI.BeginDisabledGroup(spriteMeshCache.selectedBindPose == null);
 
-				if(spriteMeshCache.selection.Count == 0)
-				{
-					m_TempWeights = spriteMeshCache.boneWeights.ToList();
-				}else{
-					m_TempWeights = spriteMeshCache.selectedNodes.ConvertAll( n => spriteMeshCache.GetBoneWeight(n) );
-				}
-			}
+            if (Event.current.type == EventType.MouseUp ||
+               Event.current.type == EventType.MouseDown)
+            {
+                m_Weight = 0f;
 
-			EditorGUIUtility.fieldWidth = 35f;
+                m_TempWeights.Clear();
 
-			m_Weight = EditorGUILayout.Slider(m_Weight,-1f,1f);
+                if (spriteMeshCache.selection.Count == 0)
+                {
+                    m_TempWeights = spriteMeshCache.boneWeights.ToList();
+                }
+                else
+                {
+                    m_TempWeights = spriteMeshCache.selectedNodes.ConvertAll(n => spriteMeshCache.GetBoneWeight(n));
+                }
+            }
 
-			EditorGUIUtility.fieldWidth = 0f;
+            EditorGUIUtility.fieldWidth = 35f;
 
-			if(EditorGUI.EndChangeCheck())
-			{
-				spriteMeshCache.RegisterUndo("modify weights");
+            m_Weight = EditorGUILayout.Slider(m_Weight, -1f, 1f);
 
-				List<Node> nodes = null;
+            EditorGUIUtility.fieldWidth = 0f;
 
-				if(spriteMeshCache.selection.Count == 0)
-				{
-					nodes = spriteMeshCache.nodes;
-				}else{
-					nodes = spriteMeshCache.selectedNodes;
-				}
+            if (EditorGUI.EndChangeCheck())
+            {
+                spriteMeshCache.RegisterUndo("modify weights");
 
-				for (int i = 0; i < nodes.Count; i++)
-				{
-					Node node = nodes[i];
-					BoneWeight tempWeight = m_TempWeights[i];
-					tempWeight.SetBoneIndexWeight(index, tempWeight.GetBoneWeight(index) + m_Weight, !EditorGUI.actionKey, true);
-					spriteMeshCache.SetBoneWeight(node, tempWeight);
-				}
-			}
+                List<Node> nodes = null;
 
-			EditorGUI.EndDisabledGroup();
+                if (spriteMeshCache.selection.Count == 0)
+                {
+                    nodes = spriteMeshCache.nodes;
+                }
+                else
+                {
+                    nodes = spriteMeshCache.selectedNodes;
+                }
 
-			EditorGUILayout.EndHorizontal();
+                for (int i = 0; i < nodes.Count; i++)
+                {
+                    Node node = nodes[i];
+                    BoneWeight tempWeight = m_TempWeights[i];
+                    tempWeight.SetBoneIndexWeight(index, tempWeight.GetBoneWeight(index) + m_Weight, !EditorGUI.actionKey, true);
+                    spriteMeshCache.SetBoneWeight(node, tempWeight);
+                }
+            }
 
-			EditorGUILayout.BeginHorizontal();
-			GUILayout.FlexibleSpace();
-			if(GUILayout.Button(new GUIContent("Smooth", "Smooth weights")))
-			{
-				spriteMeshCache.RegisterUndo("smooth weights");
+            EditorGUI.EndDisabledGroup();
 
-				List<Node> targetNodes = spriteMeshCache.nodes;
+            EditorGUILayout.EndHorizontal();
 
-				if(spriteMeshCache.selection.Count > 0)
-				{
-					targetNodes = spriteMeshCache.selectedNodes;
-				}
+            EditorGUILayout.BeginHorizontal();
+            GUILayout.FlexibleSpace();
+            if (GUILayout.Button(new GUIContent("Smooth", "Smooth weights")))
+            {
+                spriteMeshCache.RegisterUndo("smooth weights");
 
-				spriteMeshCache.SmoothWeights(targetNodes);
-			}
+                List<Node> targetNodes = spriteMeshCache.nodes;
 
-			if(GUILayout.Button(new GUIContent("Auto", "Calculate automatic weights")))
-			{
-				spriteMeshCache.RegisterUndo("calculate weights");
+                if (spriteMeshCache.selection.Count > 0)
+                {
+                    targetNodes = spriteMeshCache.selectedNodes;
+                }
 
-				List<Node> targetNodes = spriteMeshCache.nodes;
-				
-				if(spriteMeshCache.selection.Count > 0)
-				{
-					targetNodes = spriteMeshCache.selectedNodes;
-				}
+                spriteMeshCache.SmoothWeights(targetNodes);
+            }
 
-				spriteMeshCache.CalculateAutomaticWeights(targetNodes);
-			}
+            if (GUILayout.Button(new GUIContent("Auto", "Calculate automatic weights")))
+            {
+                spriteMeshCache.RegisterUndo("calculate weights");
 
-			GUILayout.FlexibleSpace();
-			EditorGUILayout.EndHorizontal();
+                List<Node> targetNodes = spriteMeshCache.nodes;
 
-			EditorGUILayout.BeginHorizontal();
-			GUILayout.FlexibleSpace();
-			
-			EditorGUIUtility.labelWidth = 50f;
-			
-			overlayColors = EditorGUILayout.Toggle("Overlay", overlayColors);
+                if (spriteMeshCache.selection.Count > 0)
+                {
+                    targetNodes = spriteMeshCache.selectedNodes;
+                }
 
-			EditorGUIUtility.labelWidth = 30f;
+                spriteMeshCache.CalculateAutomaticWeights(targetNodes);
+            }
 
-			showPie = EditorGUILayout.Toggle("Pies", showPie);
-			
-			GUILayout.FlexibleSpace();
-			EditorGUILayout.EndHorizontal();
-			
-			EditorGUIUtility.labelWidth = labelWidth;
-			EditorGUIUtility.wideMode = wideMode;
-		}
-	}
+            GUILayout.FlexibleSpace();
+            EditorGUILayout.EndHorizontal();
+
+            EditorGUILayout.BeginHorizontal();
+            GUILayout.FlexibleSpace();
+
+            EditorGUIUtility.labelWidth = 50f;
+
+            overlayColors = EditorGUILayout.Toggle("Overlay", overlayColors);
+
+            EditorGUIUtility.labelWidth = 30f;
+
+            showPie = EditorGUILayout.Toggle("Pies", showPie);
+
+            GUILayout.FlexibleSpace();
+            EditorGUILayout.EndHorizontal();
+
+            EditorGUIUtility.labelWidth = labelWidth;
+            EditorGUIUtility.wideMode = wideMode;
+        }
+    }
 }

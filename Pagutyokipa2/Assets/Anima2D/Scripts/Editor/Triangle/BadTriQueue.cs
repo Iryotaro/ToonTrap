@@ -7,7 +7,6 @@
 
 namespace TriangleNet
 {
-    using System.Collections.Generic;
     using TriangleNet.Data;
 
     /// <summary>

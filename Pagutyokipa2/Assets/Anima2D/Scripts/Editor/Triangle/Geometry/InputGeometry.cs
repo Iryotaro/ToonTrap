@@ -80,7 +80,7 @@ namespace TriangleNet.Geometry
         /// </summary>
         public IEnumerable<Point> Points
         {
-			get { return (IEnumerable<Point>)points; }
+            get { return (IEnumerable<Point>)points; }
         }
 
         /// <summary>

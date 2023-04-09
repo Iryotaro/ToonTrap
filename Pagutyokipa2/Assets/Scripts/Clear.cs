@@ -1,6 +1,6 @@
-using UnityEngine;
 using Ryocatusn.Conversations;
 using Ryocatusn.Ryoseqs;
+using UnityEngine;
 
 namespace Ryocatusn
 {

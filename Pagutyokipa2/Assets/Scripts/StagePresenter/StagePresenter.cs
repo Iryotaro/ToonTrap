@@ -1,8 +1,7 @@
-﻿using System;
-using UnityEngine;
-using UnityEngine.Tilemaps;
+﻿using Ryocatusn.Ryoseqs;
 using Ryocatusn.Util;
-using Ryocatusn.Ryoseqs;
+using System;
+using UnityEngine;
 
 namespace Ryocatusn
 {
@@ -17,7 +16,7 @@ namespace Ryocatusn
         {
             NextTurn(1);
         }
-        
+
         //Ryoseqの意味があんま無くて良くない
         private void NextTurn(int turn)
         {
@@ -27,7 +26,7 @@ namespace Ryocatusn
             stageRyoseq.Get().AddTo(this);
 
             ISequence sequence = stageRyoseq.Get().Create();
-            
+
             sequence
             .ConnectWait(new SequenceWaitByActive(enemiesAndNextRoads[turn - 1].enemies))
             .Connect(new SequenceCommand(_ => AddRoad(enemiesAndNextRoads[turn - 1].roads)))
@@ -49,11 +48,11 @@ namespace Ryocatusn
             foreach (Road road in roads)
             {
                 if (road == null) continue;
-                
+
                 road.Appear();
             }
         }
-        
+
         [Serializable]
         private class EnemiesAndNextRoad
         {

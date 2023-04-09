@@ -861,7 +861,7 @@ namespace TriangleNet.Algorithm
                     if (Behavior.Verbose)
                     {
                         SimpleLog.Instance.Warning(
-                            String.Format("A duplicate vertex appeared and was ignored (ID {0}).", sortarray[j].hash), 
+                            String.Format("A duplicate vertex appeared and was ignored (ID {0}).", sortarray[j].hash),
                             "DivConquer.DivconqDelaunay()");
                     }
                     sortarray[j].type = VertexType.UndeadVertex;
@@ -889,7 +889,7 @@ namespace TriangleNet.Algorithm
             }
 
             // Form the Delaunay triangulation.
-            DivconqRecurse(0, i-1, 0, ref hullleft, ref hullright);
+            DivconqRecurse(0, i - 1, 0, ref hullleft, ref hullright);
 
             //DebugWriter.Session.Write(mesh);
             //DebugWriter.Session.Finish();

@@ -1,155 +1,158 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
 using UnityEditor;
 using UnityEditorInternal;
-using System.Collections;
-using System.Collections.Generic;
+using UnityEngine;
 
 namespace Anima2D
 {
-	[CustomEditor(typeof(PoseManager))]
-	public class PoseManagerEditor : Editor
-	{
-		ReorderableList mList = null;
+    [CustomEditor(typeof(PoseManager))]
+    public class PoseManagerEditor : Editor
+    {
+        ReorderableList mList = null;
 
-		List<string> m_DuplicatedPaths;
+        List<string> m_DuplicatedPaths;
 
-		void OnEnable()
-		{
-			m_DuplicatedPaths = GetDuplicatedPaths((target as PoseManager).transform);
+        void OnEnable()
+        {
+            m_DuplicatedPaths = GetDuplicatedPaths((target as PoseManager).transform);
 
-			SetupList();
-		}
-		
-		void SetupList()
-		{
-			SerializedProperty poseListProperty = serializedObject.FindProperty("m_Poses");
-			
-			if(poseListProperty != null)
-			{
-				mList = new ReorderableList(serializedObject,poseListProperty,true,true,true,true);
-				
-				mList.drawElementCallback = (Rect rect, int index, bool isActive, bool isFocused) => {
-					
-					SerializedProperty poseProperty = mList.serializedProperty.GetArrayElementAtIndex(index);
-					
-					rect.y += 1.5f;
+            SetupList();
+        }
 
-					EditorGUI.PropertyField( new Rect(rect.x, rect.y, rect.width - 120, EditorGUIUtility.singleLineHeight), poseProperty, GUIContent.none);
+        void SetupList()
+        {
+            SerializedProperty poseListProperty = serializedObject.FindProperty("m_Poses");
 
-					EditorGUI.BeginDisabledGroup(!poseProperty.objectReferenceValue);
+            if (poseListProperty != null)
+            {
+                mList = new ReorderableList(serializedObject, poseListProperty, true, true, true, true);
 
-					if(GUI.Button(new Rect(rect.x + rect.width - 115, rect.y, 55, EditorGUIUtility.singleLineHeight),"Save"))
-					{
-						if (EditorUtility.DisplayDialog("Overwrite Pose", "Overwrite '" + poseProperty.objectReferenceValue.name + "'?", "Apply", "Cancel"))
-						{
-							PoseUtils.SavePose(poseProperty.objectReferenceValue as Pose,(target as PoseManager).transform);
-							mList.index = index;
-						}
-					}
+                mList.drawElementCallback = (Rect rect, int index, bool isActive, bool isFocused) =>
+                {
 
-					if(GUI.Button(new Rect(rect.x + rect.width - 55, rect.y, 55, EditorGUIUtility.singleLineHeight),"Load"))
-					{
-						PoseUtils.LoadPose(poseProperty.objectReferenceValue as Pose,(target as PoseManager).transform);
-						mList.index = index;
-					}
+                    SerializedProperty poseProperty = mList.serializedProperty.GetArrayElementAtIndex(index);
 
-					EditorGUI.EndDisabledGroup();
-				};
-				
-				mList.drawHeaderCallback = (Rect rect) => {  
-					EditorGUI.LabelField(rect, "Poses");
-				};
-				
-				mList.onSelectCallback = (ReorderableList list) => {};
-			}
-		}
+                    rect.y += 1.5f;
 
-		public override void OnInspectorGUI()
-		{
-			DrawDefaultInspector();
+                    EditorGUI.PropertyField(new Rect(rect.x, rect.y, rect.width - 120, EditorGUIUtility.singleLineHeight), poseProperty, GUIContent.none);
 
-			serializedObject.Update();
-		
-			if(mList != null)
-			{
-				mList.DoLayoutList();
-			}
+                    EditorGUI.BeginDisabledGroup(!poseProperty.objectReferenceValue);
 
-			EditorGUILayout.Space();
+                    if (GUI.Button(new Rect(rect.x + rect.width - 115, rect.y, 55, EditorGUIUtility.singleLineHeight), "Save"))
+                    {
+                        if (EditorUtility.DisplayDialog("Overwrite Pose", "Overwrite '" + poseProperty.objectReferenceValue.name + "'?", "Apply", "Cancel"))
+                        {
+                            PoseUtils.SavePose(poseProperty.objectReferenceValue as Pose, (target as PoseManager).transform);
+                            mList.index = index;
+                        }
+                    }
 
-			EditorGUILayout.BeginHorizontal();
+                    if (GUI.Button(new Rect(rect.x + rect.width - 55, rect.y, 55, EditorGUIUtility.singleLineHeight), "Load"))
+                    {
+                        PoseUtils.LoadPose(poseProperty.objectReferenceValue as Pose, (target as PoseManager).transform);
+                        mList.index = index;
+                    }
 
-			GUILayout.FlexibleSpace();
+                    EditorGUI.EndDisabledGroup();
+                };
 
-			if(GUILayout.Button("Create new pose",GUILayout.Width(150)))
-			{
-				EditorApplication.delayCall += CreateNewPose;
-			}
+                mList.drawHeaderCallback = (Rect rect) =>
+                {
+                    EditorGUI.LabelField(rect, "Poses");
+                };
 
-			GUILayout.FlexibleSpace();
+                mList.onSelectCallback = (ReorderableList list) => { };
+            }
+        }
 
-			EditorGUILayout.EndHorizontal();
+        public override void OnInspectorGUI()
+        {
+            DrawDefaultInspector();
 
-			EditorGUILayout.Space();
+            serializedObject.Update();
 
-			if(m_DuplicatedPaths.Count > 0)
-			{
-				string helpString = "Warning: duplicated bone paths found.\nPlease use unique bone paths:\n\n";
+            if (mList != null)
+            {
+                mList.DoLayoutList();
+            }
 
-				foreach(string path in m_DuplicatedPaths)
-				{
-					helpString += path + "\n";
-				}
+            EditorGUILayout.Space();
 
-				EditorGUILayout.HelpBox(helpString, MessageType.Warning, true);
-			}
+            EditorGUILayout.BeginHorizontal();
 
-			serializedObject.ApplyModifiedProperties();
-		}
+            GUILayout.FlexibleSpace();
 
-		void CreateNewPose()
-		{
-			serializedObject.Update();
+            if (GUILayout.Button("Create new pose", GUILayout.Width(150)))
+            {
+                EditorApplication.delayCall += CreateNewPose;
+            }
 
-			Pose newPose = ScriptableObjectUtility.CreateAssetWithSavePanel<Pose>("Create a pose asset","pose.asset","asset","Create a new pose");
-			
-			mList.serializedProperty.arraySize += 1;
-			
-			SerializedProperty newElement = mList.serializedProperty.GetArrayElementAtIndex(mList.serializedProperty.arraySize-1);
-			
-			newElement.objectReferenceValue = newPose;
+            GUILayout.FlexibleSpace();
 
-			serializedObject.ApplyModifiedProperties();
+            EditorGUILayout.EndHorizontal();
 
-			PoseUtils.SavePose(newPose,(target as PoseManager).transform);
-		}
+            EditorGUILayout.Space();
 
-		List<string> GetDuplicatedPaths(Transform root)
-		{
-			List<string> paths = new List<string>(50);
-			List<string> duplicates = new List<string>(50);
-			List<Bone2D> bones = new List<Bone2D>(50);
+            if (m_DuplicatedPaths.Count > 0)
+            {
+                string helpString = "Warning: duplicated bone paths found.\nPlease use unique bone paths:\n\n";
 
-			root.GetComponentsInChildren<Bone2D>(true,bones);
+                foreach (string path in m_DuplicatedPaths)
+                {
+                    helpString += path + "\n";
+                }
 
-			for (int i = 0; i < bones.Count; i++)
-			{
-				Bone2D bone = bones [i];
-				
-				if(bone)
-				{
-					string bonePath = BoneUtils.GetBonePath(root,bone);
+                EditorGUILayout.HelpBox(helpString, MessageType.Warning, true);
+            }
 
-					if(paths.Contains(bonePath))
-					{
-						duplicates.Add(bonePath);
-					}else{
-						paths.Add(bonePath);
-					}	
-				}
-			}
+            serializedObject.ApplyModifiedProperties();
+        }
 
-			return duplicates;
-		}
-	}
+        void CreateNewPose()
+        {
+            serializedObject.Update();
+
+            Pose newPose = ScriptableObjectUtility.CreateAssetWithSavePanel<Pose>("Create a pose asset", "pose.asset", "asset", "Create a new pose");
+
+            mList.serializedProperty.arraySize += 1;
+
+            SerializedProperty newElement = mList.serializedProperty.GetArrayElementAtIndex(mList.serializedProperty.arraySize - 1);
+
+            newElement.objectReferenceValue = newPose;
+
+            serializedObject.ApplyModifiedProperties();
+
+            PoseUtils.SavePose(newPose, (target as PoseManager).transform);
+        }
+
+        List<string> GetDuplicatedPaths(Transform root)
+        {
+            List<string> paths = new List<string>(50);
+            List<string> duplicates = new List<string>(50);
+            List<Bone2D> bones = new List<Bone2D>(50);
+
+            root.GetComponentsInChildren<Bone2D>(true, bones);
+
+            for (int i = 0; i < bones.Count; i++)
+            {
+                Bone2D bone = bones[i];
+
+                if (bone)
+                {
+                    string bonePath = BoneUtils.GetBonePath(root, bone);
+
+                    if (paths.Contains(bonePath))
+                    {
+                        duplicates.Add(bonePath);
+                    }
+                    else
+                    {
+                        paths.Add(bonePath);
+                    }
+                }
+            }
+
+            return duplicates;
+        }
+    }
 }

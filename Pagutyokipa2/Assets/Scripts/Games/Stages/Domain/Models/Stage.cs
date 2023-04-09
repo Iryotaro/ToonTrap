@@ -11,7 +11,7 @@ namespace Ryocatusn.Games.Stages
 
         private Subject<Unit> clearEvent = new Subject<Unit>();
         private Subject<Unit> overEvent = new Subject<Unit>();
-        
+
         public IObservable<Unit> ClearEvent => clearEvent;
         public IObservable<Unit> OverEvent => overEvent;
 

@@ -7,12 +7,11 @@
 
 namespace TriangleNet.IO
 {
-    using System;
-    using System.IO;
+    using System.Collections.Generic;
     using System.Globalization;
+    using System.IO;
     using TriangleNet.Data;
     using TriangleNet.Geometry;
-    using System.Collections.Generic;
 
     /// <summary>
     /// Helper methods for writing Triangle file formats.

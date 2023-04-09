@@ -7,10 +7,8 @@
 
 namespace TriangleNet
 {
-    using TriangleNet.Data;
-    using System;
-    using TriangleNet.Geometry;
     using System.Collections.Generic;
+    using TriangleNet.Data;
     using TriangleNet.Tools;
 
     /// <summary>

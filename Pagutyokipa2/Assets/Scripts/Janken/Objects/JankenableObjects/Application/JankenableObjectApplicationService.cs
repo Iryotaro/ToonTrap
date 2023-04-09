@@ -1,6 +1,6 @@
-﻿using UniRx;
+﻿using Ryocatusn.Games.Stages;
 using Ryocatusn.Janken.AttackableObjects;
-using Ryocatusn.Games.Stages;
+using UniRx;
 
 namespace Ryocatusn.Janken.JankenableObjects
 {

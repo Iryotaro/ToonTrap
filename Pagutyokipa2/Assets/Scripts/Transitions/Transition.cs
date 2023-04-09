@@ -1,11 +1,11 @@
-﻿using System;
-using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.SceneManagement;
+﻿using Coffee.UIExtensions;
 using DG.Tweening;
-using Coffee.UIExtensions;
-using Ryocatusn.Janken;
 using Ryocatusn.Audio;
+using Ryocatusn.Janken;
+using System;
+using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 namespace Ryocatusn
 {

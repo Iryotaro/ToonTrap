@@ -1,5 +1,5 @@
-using UnityEngine;
 using Ryocatusn.Janken;
+using UnityEngine;
 
 namespace Ryocatusn
 {

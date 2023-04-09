@@ -1,6 +1,6 @@
-﻿using System;
+﻿using Ryocatusn.Janken.AttackableObjects;
+using System;
 using UniRx;
-using Ryocatusn.Janken.AttackableObjects;
 
 namespace Ryocatusn.Janken.JankenableObjects
 {

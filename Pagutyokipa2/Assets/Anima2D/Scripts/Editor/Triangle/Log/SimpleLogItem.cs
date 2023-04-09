@@ -7,9 +7,6 @@
 namespace TriangleNet.Log
 {
     using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
 
     /// <summary>
     /// Represents an item stored in the log.

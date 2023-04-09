@@ -1,7 +1,7 @@
-using UnityEngine;
-using TMPro;
 using DG.Tweening;
 using Ryocatusn.Ryoseqs;
+using TMPro;
+using UnityEngine;
 
 namespace Ryocatusn.UI
 {

@@ -1,8 +1,7 @@
-﻿using UnityEngine;
-using TMPro;
-using DG.Tweening;
-using Ryocatusn.Janken;
+﻿using DG.Tweening;
 using Ryocatusn.Audio;
+using Ryocatusn.Janken;
+using UnityEngine;
 
 namespace Ryocatusn.UI
 {

@@ -1,14 +1,14 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using Ryocatusn.Janken;
-using Ryocatusn.Janken.Repository;
-using Ryocatusn.Janken.JankenableObjects;
-using Ryocatusn.Janken.JankenableObjects.Repository;
-using Ryocatusn.Janken.AttackableObjects;
-using Ryocatusn.Janken.AttackableObjects.Repository;
 using Ryocatusn.Games;
 using Ryocatusn.Games.Repository;
 using Ryocatusn.Games.Stages;
 using Ryocatusn.Games.Stages.Repository;
+using Ryocatusn.Janken;
+using Ryocatusn.Janken.AttackableObjects;
+using Ryocatusn.Janken.AttackableObjects.Repository;
+using Ryocatusn.Janken.JankenableObjects;
+using Ryocatusn.Janken.JankenableObjects.Repository;
+using Ryocatusn.Janken.Repository;
 
 namespace Ryocatusn
 {

@@ -1,9 +1,8 @@
 using System;
-using UnityEngine;
-using UnityEngine.UI;
 using UniRx;
 using UniRx.Triggers;
-using DG.Tweening;
+using UnityEngine;
+using UnityEngine.UI;
 
 namespace Ryocatusn.UI
 {

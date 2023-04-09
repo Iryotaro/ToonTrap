@@ -8,8 +8,8 @@
 namespace TriangleNet.Algorithm
 {
     using TriangleNet.Data;
-    using TriangleNet.Log;
     using TriangleNet.Geometry;
+    using TriangleNet.Log;
 
     /// <summary>
     /// Builds a delaunay triangulation using the incremental algorithm.
@@ -167,7 +167,7 @@ namespace TriangleNet.Algorithm
                 {
                     if (Behavior.Verbose)
                     {
-                        SimpleLog.Instance.Warning("A duplicate vertex appeared and was ignored.", 
+                        SimpleLog.Instance.Warning("A duplicate vertex appeared and was ignored.",
                             "Incremental.IncrementalDelaunay()");
                     }
                     v.type = VertexType.UndeadVertex;

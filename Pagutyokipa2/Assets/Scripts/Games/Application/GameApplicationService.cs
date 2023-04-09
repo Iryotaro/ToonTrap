@@ -1,6 +1,6 @@
-﻿using System.Linq;
+﻿using Ryocatusn.Games.Stages;
+using System.Linq;
 using UniRx;
-using Ryocatusn.Games.Stages;
 
 namespace Ryocatusn.Games
 {
@@ -29,7 +29,7 @@ namespace Ryocatusn.Games
                 events.ClearEvent.Subscribe(_ => game.NextStage());
                 events.OverEvent.Subscribe(_ => game.Over(stageId));
             }
-            
+
             return game.id;
         }
         public void Start(GameId id)

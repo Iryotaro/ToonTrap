@@ -4,12 +4,15 @@ namespace Ryocatusn.Janken
 {
     [ExecuteAlways()]
     [RequireComponent(typeof(IForJankenViewEditor))]
+    [DefaultExecutionOrder(10)]
     public class JankenViewEditor : MonoBehaviour
     {
         private IForJankenViewEditor forJankenViewEditor;
 
         private void Awake()
         {
+            if (Application.isPlaying) return;
+
             ChangeSprite();
         }
         private void Update()
@@ -17,6 +20,13 @@ namespace Ryocatusn.Janken
             if (Application.isPlaying) return;
 
             ChangeSprite();
+        }
+
+        private void Start()
+        {
+            if (!Application.isPlaying) return;
+
+
         }
 
         public void ChangeSprite()

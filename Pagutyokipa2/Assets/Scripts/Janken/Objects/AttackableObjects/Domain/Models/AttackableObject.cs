@@ -1,6 +1,6 @@
-﻿using System;
+﻿using Ryocatusn.Janken.JankenableObjects;
+using System;
 using UniRx;
-using Ryocatusn.Janken.JankenableObjects;
 
 namespace Ryocatusn.Janken.AttackableObjects
 {
@@ -10,7 +10,7 @@ namespace Ryocatusn.Janken.AttackableObjects
 
         public JankenableObject owner { get; }
         public HandId handId { get; }
-        
+
         public Atk atk { get; private set; }
 
         public bool allowedReAttack { get; private set; } = false;
@@ -89,7 +89,7 @@ namespace Ryocatusn.Janken.AttackableObjects
             if (!allowedReAttack) throw new JankenException("ReAttackは許可されていません");
 
             reAttackEvent.OnNext(Unit.Default);
-            
+
             owner.TakeDamage(atk);
         }
 

@@ -1,11 +1,9 @@
 using Microsoft.Extensions.DependencyInjection;
+using Ryocatusn.Janken.JankenableObjects;
 using System;
-using UniRx;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
-using DG.Tweening;
-using Ryocatusn.Janken.JankenableObjects;
 
 namespace Ryocatusn
 {
@@ -31,7 +29,7 @@ namespace Ryocatusn
         private void Start()
         {
             camera = GetComponent<Camera>();
-            
+
             VolumeProfile volumeProfile = volume.profile;
 
             if (volumeProfile.TryGet(out LensDistortion lensDistortion))

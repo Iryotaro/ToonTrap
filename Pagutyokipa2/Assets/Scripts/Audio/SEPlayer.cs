@@ -1,9 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using Ryocatusn.Ryoseqs;
+using System.Collections.Generic;
 using UniRx;
 using UniRx.Triggers;
 using UnityEngine;
 using UnityEngine.Tilemaps;
-using Ryocatusn.Ryoseqs;
 
 namespace Ryocatusn.Audio
 {
@@ -14,7 +14,7 @@ namespace Ryocatusn.Audio
         private Tilemap tilemap { get; }
         private List<SE> seList = new List<SE>();
         private bool dontDestroyOnLoad = false;
-        
+
         public SEPlayer(GameObject owner)
         {
             this.owner = owner;
@@ -130,12 +130,12 @@ namespace Ryocatusn.Audio
             Ryoseq ryoseq = new Ryoseq();
 
             ryoseq.Create()
-            .ConnectWait(new SequenceWaitWhile(() => seList.Find(x => 
+            .ConnectWait(new SequenceWaitWhile(() => seList.Find(x =>
             {
                 if (x.audioSource == null) return false;
-                return !x.audioSource.isPlaying; 
+                return !x.audioSource.isPlaying;
             }) == null))
-            .Connect(new SequenceCommand(_ => 
+            .Connect(new SequenceCommand(_ =>
             {
                 foreach (SE se in seList)
                 {

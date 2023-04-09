@@ -1,7 +1,7 @@
-﻿using UnityEngine;
-using UnityEngine.Rendering.Universal;
+﻿using Ryocatusn.Conversations;
 using Ryocatusn.UI;
-using Ryocatusn.Conversations;
+using UnityEngine;
+using UnityEngine.Rendering.Universal;
 
 namespace Ryocatusn
 {
@@ -21,7 +21,7 @@ namespace Ryocatusn
             ButtonMappingUI playerButtonMappingUI,
             GameCamera gameCamera,
             GameBackground background,
-            Light2D globalLight, 
+            Light2D globalLight,
             AudioSource bgm,
             Conversation conversation
             )

@@ -8,7 +8,6 @@
 namespace TriangleNet.Tools
 {
     using System;
-    using System.Text;
     using TriangleNet.Data;
     using TriangleNet.Geometry;
 
@@ -197,8 +196,8 @@ namespace TriangleNet.Tools
             double[] ratiotable;
 
             aspecttable = new int[16];
-            ratiotable = new double[] { 
-                1.5, 2.0, 2.5, 3.0, 4.0, 6.0, 10.0, 15.0, 25.0, 50.0, 
+            ratiotable = new double[] {
+                1.5, 2.0, 2.5, 3.0, 4.0, 6.0, 10.0, 15.0, 25.0, 50.0,
                 100.0, 300.0, 1000.0, 10000.0, 100000.0, 0.0 };
 
 

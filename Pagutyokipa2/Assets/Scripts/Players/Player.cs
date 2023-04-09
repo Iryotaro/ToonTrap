@@ -1,11 +1,11 @@
-﻿using UniRx;
-using UnityEngine;
-using Ryocatusn.TileTransforms;
+﻿using Ryocatusn.Audio;
 using Ryocatusn.Janken;
-using Ryocatusn.Janken.JankenableObjects;
 using Ryocatusn.Janken.AttackableObjects;
+using Ryocatusn.Janken.JankenableObjects;
+using Ryocatusn.TileTransforms;
 using Ryocatusn.UI;
-using Ryocatusn.Audio;
+using UniRx;
+using UnityEngine;
 
 namespace Ryocatusn
 {

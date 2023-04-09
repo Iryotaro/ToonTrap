@@ -1,5 +1,5 @@
-using Ryocatusn.Util;
 using Ryocatusn.Games.Stages;
+using Ryocatusn.Util;
 
 namespace Ryocatusn.Games
 {

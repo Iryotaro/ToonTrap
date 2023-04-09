@@ -1,12 +1,12 @@
-﻿using System;
+﻿using Ryocatusn.Janken;
+using Ryocatusn.TileTransforms;
+using Ryocatusn.Util;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UniRx;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using Ryocatusn.Util;
-using Ryocatusn.TileTransforms;
-using Ryocatusn.Janken;
 
 namespace Ryocatusn
 {

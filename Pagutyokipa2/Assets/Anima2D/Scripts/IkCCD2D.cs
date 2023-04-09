@@ -1,29 +1,27 @@
-﻿using UnityEngine;
-using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System;
+using UnityEngine;
 
-namespace Anima2D 
+namespace Anima2D
 {
-	public class IkCCD2D : Ik2D
-	{
-		public int iterations = 10;
-		[Range(0, 1)]
-		public float damping = 0.8f;
-		
-		[SerializeField] IkSolver2DCCD m_Solver = new IkSolver2DCCD();
+    public class IkCCD2D : Ik2D
+    {
+        public int iterations = 10;
+        [Range(0, 1)]
+        public float damping = 0.8f;
 
-		protected override IkSolver2D GetSolver()
-		{
-			return m_Solver;
-		}
+        [SerializeField] IkSolver2DCCD m_Solver = new IkSolver2DCCD();
 
-		protected override void OnIkUpdate()
-		{
-			base.OnIkUpdate();
+        protected override IkSolver2D GetSolver()
+        {
+            return m_Solver;
+        }
 
-			m_Solver.iterations = iterations;
-			m_Solver.damping = damping;
-		}
-	}
+        protected override void OnIkUpdate()
+        {
+            base.OnIkUpdate();
+
+            m_Solver.iterations = iterations;
+            m_Solver.damping = damping;
+        }
+    }
 }

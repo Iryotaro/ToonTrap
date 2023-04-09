@@ -13,7 +13,7 @@ namespace Ryocatusn.Audio
         public float volume = 0.5f;
         public bool loop;
         public bool onlyVisible = true;
-        
+
         [NonSerialized]
         public AudioSource audioSource;
 
@@ -21,7 +21,7 @@ namespace Ryocatusn.Audio
         {
             if (ReferenceEquals(other, null)) return false;
             if (ReferenceEquals(other, this)) return true;
-            return 
+            return
                 Equals(pitch, other.pitch) &&
                 Equals(volume, other.volume);
         }

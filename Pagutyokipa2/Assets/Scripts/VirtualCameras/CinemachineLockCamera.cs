@@ -40,7 +40,7 @@ namespace Cinemachine
         public float GetValue(float nowValue)
         {
             if (!range) return value;
-            
+
             return Mathf.Clamp(nowValue, minValue, maxValue);
         }
     }

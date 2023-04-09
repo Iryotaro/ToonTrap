@@ -1,90 +1,92 @@
-﻿using UnityEngine;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 [ExecuteInEditMode]
 public class SpriteCycle : MonoBehaviour
 {
-	public List<SpriteRenderer> spriteRenderers = new List<SpriteRenderer>();
+    public List<SpriteRenderer> spriteRenderers = new List<SpriteRenderer>();
 
-	[Range(0,1)]
-	public float offset = 0f;
-	
-	float totalWidth = 1f;
+    [Range(0, 1)]
+    public float offset = 0f;
 
-	float mPosition = 0f;
-	public float position
-	{
-		get{
-			return mPosition;
-		}
-		set {
+    float totalWidth = 1f;
 
-			float scaleX = transform.localScale.x;
+    float mPosition = 0f;
+    public float position
+    {
+        get
+        {
+            return mPosition;
+        }
+        set
+        {
 
-			mPosition = value;
+            float scaleX = transform.localScale.x;
 
-			if(scaleX > 0f)
-			{
-				mPosition /= scaleX;
-			}
+            mPosition = value;
 
-			Vector3 l_position = Vector3.zero;
-			
-			totalWidth = 0f;
-			
-			for(int i = 0; i < spriteRenderers.Count; ++i)
-			{
-				SpriteRenderer sr = spriteRenderers[i];
-				
-				if(sr)
-				{
-					if(sr.sprite)
-					{
-						sr.transform.localPosition = l_position;
-						l_position.x += sr.sprite.bounds.size.x;
-						totalWidth += sr.sprite.bounds.size.x;
-					}
-				}
-			}
+            if (scaleX > 0f)
+            {
+                mPosition /= scaleX;
+            }
 
-			float dx = mPosition % totalWidth;
+            Vector3 l_position = Vector3.zero;
 
-			for(int i = 0; i < spriteRenderers.Count; ++i)
-			{
-				SpriteRenderer sr = spriteRenderers[i];
-				
-				if(sr)
-				{
-					if(sr.sprite)
-					{
-						Vector3 localPos = sr.transform.localPosition + Vector3.right*dx;
+            totalWidth = 0f;
 
-						if(localPos.x <= -sr.sprite.bounds.size.x)
-						{
-							localPos.x += totalWidth;
+            for (int i = 0; i < spriteRenderers.Count; ++i)
+            {
+                SpriteRenderer sr = spriteRenderers[i];
 
-						}else if(localPos.x > totalWidth)
-						{
-							localPos.x -= totalWidth;
-						}
+                if (sr)
+                {
+                    if (sr.sprite)
+                    {
+                        sr.transform.localPosition = l_position;
+                        l_position.x += sr.sprite.bounds.size.x;
+                        totalWidth += sr.sprite.bounds.size.x;
+                    }
+                }
+            }
 
-						localPos.x -= offset*totalWidth;
+            float dx = mPosition % totalWidth;
 
-						sr.transform.localPosition = localPos;
-					}
-			    }
-			}
-		}
-	}
-	
-	void Awake()
-	{
-		position = 0f;
-	}
+            for (int i = 0; i < spriteRenderers.Count; ++i)
+            {
+                SpriteRenderer sr = spriteRenderers[i];
 
-	void OnValidate()
-	{
-		position = 0f;
-	}
+                if (sr)
+                {
+                    if (sr.sprite)
+                    {
+                        Vector3 localPos = sr.transform.localPosition + Vector3.right * dx;
+
+                        if (localPos.x <= -sr.sprite.bounds.size.x)
+                        {
+                            localPos.x += totalWidth;
+
+                        }
+                        else if (localPos.x > totalWidth)
+                        {
+                            localPos.x -= totalWidth;
+                        }
+
+                        localPos.x -= offset * totalWidth;
+
+                        sr.transform.localPosition = localPos;
+                    }
+                }
+            }
+        }
+    }
+
+    void Awake()
+    {
+        position = 0f;
+    }
+
+    void OnValidate()
+    {
+        position = 0f;
+    }
 }

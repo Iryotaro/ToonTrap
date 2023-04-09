@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections;
 using System.Threading;
-using UnityEngine;
 #if UNITY_2018_3_OR_NEWER
 #pragma warning disable CS0618
 #endif

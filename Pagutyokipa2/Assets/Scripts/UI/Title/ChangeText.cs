@@ -1,5 +1,5 @@
-using TMPro;
 using Ryocatusn.Ryoseqs;
+using TMPro;
 
 namespace Ryocatusn.UI
 {

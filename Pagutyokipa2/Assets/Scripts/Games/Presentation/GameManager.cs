@@ -1,18 +1,18 @@
-﻿using System;
-using System.Linq;
-using Microsoft.Extensions.DependencyInjection;
-using UniRx;
-using UnityEngine;
-using UnityEngine.SceneManagement;
-using UnityEngine.Rendering.Universal;
-using Ryocatusn.Util;
-using Ryocatusn.Ryoseqs;
+﻿using Microsoft.Extensions.DependencyInjection;
+using Ryocatusn.Conversations;
 using Ryocatusn.Games;
 using Ryocatusn.Games.Stages;
 using Ryocatusn.Janken;
 using Ryocatusn.Janken.JankenableObjects;
+using Ryocatusn.Ryoseqs;
 using Ryocatusn.UI;
-using Ryocatusn.Conversations;
+using Ryocatusn.Util;
+using System;
+using System.Linq;
+using UniRx;
+using UnityEngine;
+using UnityEngine.Rendering.Universal;
+using UnityEngine.SceneManagement;
 
 namespace Ryocatusn
 {
@@ -42,7 +42,7 @@ namespace Ryocatusn
         private Conversation conversation;
         [SerializeField]
         private string[] stageNames;
-        
+
         public GameContains gameContains { get; private set; }
 
         private Subject<StageManager> setStageEvent = new Subject<StageManager>();

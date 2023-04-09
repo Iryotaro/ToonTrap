@@ -8,10 +8,8 @@ namespace TriangleNet.IO
 {
     using System;
     using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    using TriangleNet.Geometry;
     using System.IO;
+    using TriangleNet.Geometry;
 
     /// <summary>
     /// Implements geometry and mesh file formats of the the original Triangle code.
@@ -55,7 +53,7 @@ namespace TriangleNet.IO
             {
                 return FileReader.ReadNodeFile(filename);
             }
-            
+
             if (ext == ".poly")
             {
                 return FileReader.ReadPolyFile(filename);

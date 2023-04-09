@@ -1,8 +1,8 @@
-﻿using UniRx;
+﻿using TMPro;
+using UniRx;
 using UniRx.Triggers;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
 
 namespace Ryocatusn.UI
 {

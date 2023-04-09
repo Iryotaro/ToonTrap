@@ -1,10 +1,9 @@
-using System;
-using UnityEngine;
-using UnityEngine.UI;
-using TMPro;
 using DG.Tweening;
-using Ryocatusn.Util;
 using Ryocatusn.Audio;
+using Ryocatusn.Util;
+using System;
+using TMPro;
+using UnityEngine;
 
 namespace Ryocatusn.Conversations
 {

@@ -1,8 +1,8 @@
-﻿using System;
+﻿using Ryocatusn.TileTransforms;
+using System;
 using System.Linq;
 using UniRx;
 using UnityEngine;
-using Ryocatusn.TileTransforms;
 
 namespace Ryocatusn
 {
@@ -11,7 +11,7 @@ namespace Ryocatusn
     {
         [SerializeField]
         private VirtualCameraAndDirection[] virtualCameras;
-        
+
         private void Start()
         {
             GetComponent<TileTransformTrigger>().OnTriggerExitPlayerEvent

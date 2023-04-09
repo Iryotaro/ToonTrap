@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using Cinemachine;
+using Ryocatusn.Util;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using Cinemachine;
-using Ryocatusn.Util;
 
 namespace Ryocatusn
 {

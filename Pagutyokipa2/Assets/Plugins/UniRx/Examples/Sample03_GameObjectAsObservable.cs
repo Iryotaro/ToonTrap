@@ -1,7 +1,7 @@
 ﻿#if !(UNITY_IPHONE || UNITY_ANDROID || UNITY_METRO)
 
-using UnityEngine;
 using UniRx.Triggers; // for enable gameObject.EventAsObservbale()
+using UnityEngine;
 
 namespace UniRx.Examples
 {
@@ -15,7 +15,7 @@ namespace UniRx.Examples
                 .TakeUntil(this.gameObject.OnMouseUpAsObservable())
                 .Select(_ => Input.mousePosition)
                 .RepeatUntilDestroy(this)
-                .Subscribe(x => Debug.Log(x), ()=> Debug.Log("!!!" + "complete"));
+                .Subscribe(x => Debug.Log(x), () => Debug.Log("!!!" + "complete"));
         }
     }
 }

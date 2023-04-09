@@ -1,5 +1,3 @@
-using Anima2D;
-using System;
 using UnityEngine;
 
 namespace Ryocatusn.Janken

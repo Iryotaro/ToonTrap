@@ -1,8 +1,8 @@
-﻿using UniRx;
-using UnityEngine;
-using DG.Tweening;
-using Ryocatusn.Janken;
+﻿using DG.Tweening;
 using Ryocatusn.Conversations;
+using Ryocatusn.Janken;
+using UniRx;
+using UnityEngine;
 
 namespace Ryocatusn
 {

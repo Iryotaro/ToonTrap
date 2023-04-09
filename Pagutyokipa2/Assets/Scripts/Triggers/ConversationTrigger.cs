@@ -1,10 +1,8 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using UniRx;
-using UnityEngine;
 using Ryocatusn.Conversations;
 using Ryocatusn.Ryoseqs;
+using System;
+using UniRx;
+using UnityEngine;
 
 namespace Ryocatusn
 {

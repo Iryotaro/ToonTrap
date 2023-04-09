@@ -1,7 +1,6 @@
-﻿using UniRx;
+﻿using Cinemachine;
+using UniRx;
 using UnityEngine;
-using UnityEngine.SceneManagement;
-using Cinemachine;
 
 namespace Ryocatusn
 {
@@ -9,7 +8,7 @@ namespace Ryocatusn
     public class VirtualCamera : MonoBehaviour
     {
         private CinemachineVirtualCamera virtualCamera;
-        
+
         [SerializeField]
         private bool focusPlayer;
         [SerializeField]
@@ -55,7 +54,7 @@ namespace Ryocatusn
         private void SetDisableCamera()
         {
             //Blendをデフォルトに戻す
-            if (firstCamera) 
+            if (firstCamera)
             {
                 name = "VirtualCamera";
                 firstCamera = false;

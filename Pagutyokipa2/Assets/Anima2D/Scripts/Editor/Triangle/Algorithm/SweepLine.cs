@@ -9,11 +9,9 @@ namespace TriangleNet.Algorithm
 {
     using System;
     using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
     using TriangleNet.Data;
-    using TriangleNet.Log;
     using TriangleNet.Geometry;
+    using TriangleNet.Log;
     using TriangleNet.Tools;
 
     /// <summary>
@@ -177,7 +175,7 @@ namespace TriangleNet.Algorithm
                 evt.xkey = thisvertex.x;
                 evt.ykey = thisvertex.y;
                 HeapInsert(eventheap, i++, evt);
-                
+
             }
         }
 
@@ -585,7 +583,7 @@ namespace TriangleNet.Algorithm
                 {
                     if (Behavior.Verbose)
                     {
-                        SimpleLog.Instance.Warning("A duplicate vertex appeared and was ignored.", 
+                        SimpleLog.Instance.Warning("A duplicate vertex appeared and was ignored.",
                             "SweepLine.SweepLineDelaunay().1");
                     }
                     secondvertex.type = VertexType.UndeadVertex;
@@ -641,7 +639,7 @@ namespace TriangleNet.Algorithm
                     {
                         if (Behavior.Verbose)
                         {
-                            SimpleLog.Instance.Warning("A duplicate vertex appeared and was ignored.", 
+                            SimpleLog.Instance.Warning("A duplicate vertex appeared and was ignored.",
                                 "SweepLine.SweepLineDelaunay().2");
                         }
                         nextvertex.type = VertexType.UndeadVertex;

@@ -1,5 +1,5 @@
-﻿using System.Linq;
-using Ryocatusn.Util;
+﻿using Ryocatusn.Util;
+using System.Linq;
 
 namespace Ryocatusn.Janken
 {
@@ -60,7 +60,7 @@ namespace Ryocatusn.Janken
         {
             handRepository.Find(id).Match
                 (
-                Some: x => 
+                Some: x =>
                 {
                     x.Delete();
                     handRepository.Delete(id);

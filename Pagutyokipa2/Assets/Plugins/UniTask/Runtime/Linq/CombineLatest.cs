@@ -229,14 +229,14 @@ namespace Cysharp.Threading.Tasks.Linq
     {
         readonly IUniTaskAsyncEnumerable<T1> source1;
         readonly IUniTaskAsyncEnumerable<T2> source2;
-        
+
         readonly Func<T1, T2, TResult> resultSelector;
 
         public CombineLatest(IUniTaskAsyncEnumerable<T1> source1, IUniTaskAsyncEnumerable<T2> source2, Func<T1, T2, TResult> resultSelector)
         {
             this.source1 = source1;
             this.source2 = source2;
-        
+
             this.resultSelector = resultSelector;
         }
 
@@ -253,7 +253,7 @@ namespace Cysharp.Threading.Tasks.Linq
 
             readonly IUniTaskAsyncEnumerable<T1> source1;
             readonly IUniTaskAsyncEnumerable<T2> source2;
-       
+
             readonly Func<T1, T2, TResult> resultSelector;
             CancellationToken cancellationToken;
 
@@ -277,7 +277,7 @@ namespace Cysharp.Threading.Tasks.Linq
             {
                 this.source1 = source1;
                 this.source2 = source2;
-                
+
                 this.resultSelector = resultSelector;
                 this.cancellationToken = cancellationToken;
                 TaskTracker.TrackActiveTask(this, 3);
@@ -480,7 +480,7 @@ namespace Cysharp.Threading.Tasks.Linq
         readonly IUniTaskAsyncEnumerable<T1> source1;
         readonly IUniTaskAsyncEnumerable<T2> source2;
         readonly IUniTaskAsyncEnumerable<T3> source3;
-        
+
         readonly Func<T1, T2, T3, TResult> resultSelector;
 
         public CombineLatest(IUniTaskAsyncEnumerable<T1> source1, IUniTaskAsyncEnumerable<T2> source2, IUniTaskAsyncEnumerable<T3> source3, Func<T1, T2, T3, TResult> resultSelector)
@@ -488,7 +488,7 @@ namespace Cysharp.Threading.Tasks.Linq
             this.source1 = source1;
             this.source2 = source2;
             this.source3 = source3;
-        
+
             this.resultSelector = resultSelector;
         }
 
@@ -507,7 +507,7 @@ namespace Cysharp.Threading.Tasks.Linq
             readonly IUniTaskAsyncEnumerable<T1> source1;
             readonly IUniTaskAsyncEnumerable<T2> source2;
             readonly IUniTaskAsyncEnumerable<T3> source3;
-       
+
             readonly Func<T1, T2, T3, TResult> resultSelector;
             CancellationToken cancellationToken;
 
@@ -538,7 +538,7 @@ namespace Cysharp.Threading.Tasks.Linq
                 this.source1 = source1;
                 this.source2 = source2;
                 this.source3 = source3;
-                
+
                 this.resultSelector = resultSelector;
                 this.cancellationToken = cancellationToken;
                 TaskTracker.TrackActiveTask(this, 3);
@@ -815,7 +815,7 @@ namespace Cysharp.Threading.Tasks.Linq
         readonly IUniTaskAsyncEnumerable<T2> source2;
         readonly IUniTaskAsyncEnumerable<T3> source3;
         readonly IUniTaskAsyncEnumerable<T4> source4;
-        
+
         readonly Func<T1, T2, T3, T4, TResult> resultSelector;
 
         public CombineLatest(IUniTaskAsyncEnumerable<T1> source1, IUniTaskAsyncEnumerable<T2> source2, IUniTaskAsyncEnumerable<T3> source3, IUniTaskAsyncEnumerable<T4> source4, Func<T1, T2, T3, T4, TResult> resultSelector)
@@ -824,7 +824,7 @@ namespace Cysharp.Threading.Tasks.Linq
             this.source2 = source2;
             this.source3 = source3;
             this.source4 = source4;
-        
+
             this.resultSelector = resultSelector;
         }
 
@@ -845,7 +845,7 @@ namespace Cysharp.Threading.Tasks.Linq
             readonly IUniTaskAsyncEnumerable<T2> source2;
             readonly IUniTaskAsyncEnumerable<T3> source3;
             readonly IUniTaskAsyncEnumerable<T4> source4;
-       
+
             readonly Func<T1, T2, T3, T4, TResult> resultSelector;
             CancellationToken cancellationToken;
 
@@ -883,7 +883,7 @@ namespace Cysharp.Threading.Tasks.Linq
                 this.source2 = source2;
                 this.source3 = source3;
                 this.source4 = source4;
-                
+
                 this.resultSelector = resultSelector;
                 this.cancellationToken = cancellationToken;
                 TaskTracker.TrackActiveTask(this, 3);
@@ -1234,7 +1234,7 @@ namespace Cysharp.Threading.Tasks.Linq
         readonly IUniTaskAsyncEnumerable<T3> source3;
         readonly IUniTaskAsyncEnumerable<T4> source4;
         readonly IUniTaskAsyncEnumerable<T5> source5;
-        
+
         readonly Func<T1, T2, T3, T4, T5, TResult> resultSelector;
 
         public CombineLatest(IUniTaskAsyncEnumerable<T1> source1, IUniTaskAsyncEnumerable<T2> source2, IUniTaskAsyncEnumerable<T3> source3, IUniTaskAsyncEnumerable<T4> source4, IUniTaskAsyncEnumerable<T5> source5, Func<T1, T2, T3, T4, T5, TResult> resultSelector)
@@ -1244,7 +1244,7 @@ namespace Cysharp.Threading.Tasks.Linq
             this.source3 = source3;
             this.source4 = source4;
             this.source5 = source5;
-        
+
             this.resultSelector = resultSelector;
         }
 
@@ -1267,7 +1267,7 @@ namespace Cysharp.Threading.Tasks.Linq
             readonly IUniTaskAsyncEnumerable<T3> source3;
             readonly IUniTaskAsyncEnumerable<T4> source4;
             readonly IUniTaskAsyncEnumerable<T5> source5;
-       
+
             readonly Func<T1, T2, T3, T4, T5, TResult> resultSelector;
             CancellationToken cancellationToken;
 
@@ -1312,7 +1312,7 @@ namespace Cysharp.Threading.Tasks.Linq
                 this.source3 = source3;
                 this.source4 = source4;
                 this.source5 = source5;
-                
+
                 this.resultSelector = resultSelector;
                 this.cancellationToken = cancellationToken;
                 TaskTracker.TrackActiveTask(this, 3);
@@ -1737,7 +1737,7 @@ namespace Cysharp.Threading.Tasks.Linq
         readonly IUniTaskAsyncEnumerable<T4> source4;
         readonly IUniTaskAsyncEnumerable<T5> source5;
         readonly IUniTaskAsyncEnumerable<T6> source6;
-        
+
         readonly Func<T1, T2, T3, T4, T5, T6, TResult> resultSelector;
 
         public CombineLatest(IUniTaskAsyncEnumerable<T1> source1, IUniTaskAsyncEnumerable<T2> source2, IUniTaskAsyncEnumerable<T3> source3, IUniTaskAsyncEnumerable<T4> source4, IUniTaskAsyncEnumerable<T5> source5, IUniTaskAsyncEnumerable<T6> source6, Func<T1, T2, T3, T4, T5, T6, TResult> resultSelector)
@@ -1748,7 +1748,7 @@ namespace Cysharp.Threading.Tasks.Linq
             this.source4 = source4;
             this.source5 = source5;
             this.source6 = source6;
-        
+
             this.resultSelector = resultSelector;
         }
 
@@ -1773,7 +1773,7 @@ namespace Cysharp.Threading.Tasks.Linq
             readonly IUniTaskAsyncEnumerable<T4> source4;
             readonly IUniTaskAsyncEnumerable<T5> source5;
             readonly IUniTaskAsyncEnumerable<T6> source6;
-       
+
             readonly Func<T1, T2, T3, T4, T5, T6, TResult> resultSelector;
             CancellationToken cancellationToken;
 
@@ -1825,7 +1825,7 @@ namespace Cysharp.Threading.Tasks.Linq
                 this.source4 = source4;
                 this.source5 = source5;
                 this.source6 = source6;
-                
+
                 this.resultSelector = resultSelector;
                 this.cancellationToken = cancellationToken;
                 TaskTracker.TrackActiveTask(this, 3);
@@ -2324,7 +2324,7 @@ namespace Cysharp.Threading.Tasks.Linq
         readonly IUniTaskAsyncEnumerable<T5> source5;
         readonly IUniTaskAsyncEnumerable<T6> source6;
         readonly IUniTaskAsyncEnumerable<T7> source7;
-        
+
         readonly Func<T1, T2, T3, T4, T5, T6, T7, TResult> resultSelector;
 
         public CombineLatest(IUniTaskAsyncEnumerable<T1> source1, IUniTaskAsyncEnumerable<T2> source2, IUniTaskAsyncEnumerable<T3> source3, IUniTaskAsyncEnumerable<T4> source4, IUniTaskAsyncEnumerable<T5> source5, IUniTaskAsyncEnumerable<T6> source6, IUniTaskAsyncEnumerable<T7> source7, Func<T1, T2, T3, T4, T5, T6, T7, TResult> resultSelector)
@@ -2336,7 +2336,7 @@ namespace Cysharp.Threading.Tasks.Linq
             this.source5 = source5;
             this.source6 = source6;
             this.source7 = source7;
-        
+
             this.resultSelector = resultSelector;
         }
 
@@ -2363,7 +2363,7 @@ namespace Cysharp.Threading.Tasks.Linq
             readonly IUniTaskAsyncEnumerable<T5> source5;
             readonly IUniTaskAsyncEnumerable<T6> source6;
             readonly IUniTaskAsyncEnumerable<T7> source7;
-       
+
             readonly Func<T1, T2, T3, T4, T5, T6, T7, TResult> resultSelector;
             CancellationToken cancellationToken;
 
@@ -2422,7 +2422,7 @@ namespace Cysharp.Threading.Tasks.Linq
                 this.source5 = source5;
                 this.source6 = source6;
                 this.source7 = source7;
-                
+
                 this.resultSelector = resultSelector;
                 this.cancellationToken = cancellationToken;
                 TaskTracker.TrackActiveTask(this, 3);
@@ -2995,7 +2995,7 @@ namespace Cysharp.Threading.Tasks.Linq
         readonly IUniTaskAsyncEnumerable<T6> source6;
         readonly IUniTaskAsyncEnumerable<T7> source7;
         readonly IUniTaskAsyncEnumerable<T8> source8;
-        
+
         readonly Func<T1, T2, T3, T4, T5, T6, T7, T8, TResult> resultSelector;
 
         public CombineLatest(IUniTaskAsyncEnumerable<T1> source1, IUniTaskAsyncEnumerable<T2> source2, IUniTaskAsyncEnumerable<T3> source3, IUniTaskAsyncEnumerable<T4> source4, IUniTaskAsyncEnumerable<T5> source5, IUniTaskAsyncEnumerable<T6> source6, IUniTaskAsyncEnumerable<T7> source7, IUniTaskAsyncEnumerable<T8> source8, Func<T1, T2, T3, T4, T5, T6, T7, T8, TResult> resultSelector)
@@ -3008,7 +3008,7 @@ namespace Cysharp.Threading.Tasks.Linq
             this.source6 = source6;
             this.source7 = source7;
             this.source8 = source8;
-        
+
             this.resultSelector = resultSelector;
         }
 
@@ -3037,7 +3037,7 @@ namespace Cysharp.Threading.Tasks.Linq
             readonly IUniTaskAsyncEnumerable<T6> source6;
             readonly IUniTaskAsyncEnumerable<T7> source7;
             readonly IUniTaskAsyncEnumerable<T8> source8;
-       
+
             readonly Func<T1, T2, T3, T4, T5, T6, T7, T8, TResult> resultSelector;
             CancellationToken cancellationToken;
 
@@ -3103,7 +3103,7 @@ namespace Cysharp.Threading.Tasks.Linq
                 this.source6 = source6;
                 this.source7 = source7;
                 this.source8 = source8;
-                
+
                 this.resultSelector = resultSelector;
                 this.cancellationToken = cancellationToken;
                 TaskTracker.TrackActiveTask(this, 3);
@@ -3750,7 +3750,7 @@ namespace Cysharp.Threading.Tasks.Linq
         readonly IUniTaskAsyncEnumerable<T7> source7;
         readonly IUniTaskAsyncEnumerable<T8> source8;
         readonly IUniTaskAsyncEnumerable<T9> source9;
-        
+
         readonly Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, TResult> resultSelector;
 
         public CombineLatest(IUniTaskAsyncEnumerable<T1> source1, IUniTaskAsyncEnumerable<T2> source2, IUniTaskAsyncEnumerable<T3> source3, IUniTaskAsyncEnumerable<T4> source4, IUniTaskAsyncEnumerable<T5> source5, IUniTaskAsyncEnumerable<T6> source6, IUniTaskAsyncEnumerable<T7> source7, IUniTaskAsyncEnumerable<T8> source8, IUniTaskAsyncEnumerable<T9> source9, Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, TResult> resultSelector)
@@ -3764,7 +3764,7 @@ namespace Cysharp.Threading.Tasks.Linq
             this.source7 = source7;
             this.source8 = source8;
             this.source9 = source9;
-        
+
             this.resultSelector = resultSelector;
         }
 
@@ -3795,7 +3795,7 @@ namespace Cysharp.Threading.Tasks.Linq
             readonly IUniTaskAsyncEnumerable<T7> source7;
             readonly IUniTaskAsyncEnumerable<T8> source8;
             readonly IUniTaskAsyncEnumerable<T9> source9;
-       
+
             readonly Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, TResult> resultSelector;
             CancellationToken cancellationToken;
 
@@ -3868,7 +3868,7 @@ namespace Cysharp.Threading.Tasks.Linq
                 this.source7 = source7;
                 this.source8 = source8;
                 this.source9 = source9;
-                
+
                 this.resultSelector = resultSelector;
                 this.cancellationToken = cancellationToken;
                 TaskTracker.TrackActiveTask(this, 3);
@@ -4589,7 +4589,7 @@ namespace Cysharp.Threading.Tasks.Linq
         readonly IUniTaskAsyncEnumerable<T8> source8;
         readonly IUniTaskAsyncEnumerable<T9> source9;
         readonly IUniTaskAsyncEnumerable<T10> source10;
-        
+
         readonly Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, TResult> resultSelector;
 
         public CombineLatest(IUniTaskAsyncEnumerable<T1> source1, IUniTaskAsyncEnumerable<T2> source2, IUniTaskAsyncEnumerable<T3> source3, IUniTaskAsyncEnumerable<T4> source4, IUniTaskAsyncEnumerable<T5> source5, IUniTaskAsyncEnumerable<T6> source6, IUniTaskAsyncEnumerable<T7> source7, IUniTaskAsyncEnumerable<T8> source8, IUniTaskAsyncEnumerable<T9> source9, IUniTaskAsyncEnumerable<T10> source10, Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, TResult> resultSelector)
@@ -4604,7 +4604,7 @@ namespace Cysharp.Threading.Tasks.Linq
             this.source8 = source8;
             this.source9 = source9;
             this.source10 = source10;
-        
+
             this.resultSelector = resultSelector;
         }
 
@@ -4637,7 +4637,7 @@ namespace Cysharp.Threading.Tasks.Linq
             readonly IUniTaskAsyncEnumerable<T8> source8;
             readonly IUniTaskAsyncEnumerable<T9> source9;
             readonly IUniTaskAsyncEnumerable<T10> source10;
-       
+
             readonly Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, TResult> resultSelector;
             CancellationToken cancellationToken;
 
@@ -4717,7 +4717,7 @@ namespace Cysharp.Threading.Tasks.Linq
                 this.source8 = source8;
                 this.source9 = source9;
                 this.source10 = source10;
-                
+
                 this.resultSelector = resultSelector;
                 this.cancellationToken = cancellationToken;
                 TaskTracker.TrackActiveTask(this, 3);
@@ -5512,7 +5512,7 @@ namespace Cysharp.Threading.Tasks.Linq
         readonly IUniTaskAsyncEnumerable<T9> source9;
         readonly IUniTaskAsyncEnumerable<T10> source10;
         readonly IUniTaskAsyncEnumerable<T11> source11;
-        
+
         readonly Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, TResult> resultSelector;
 
         public CombineLatest(IUniTaskAsyncEnumerable<T1> source1, IUniTaskAsyncEnumerable<T2> source2, IUniTaskAsyncEnumerable<T3> source3, IUniTaskAsyncEnumerable<T4> source4, IUniTaskAsyncEnumerable<T5> source5, IUniTaskAsyncEnumerable<T6> source6, IUniTaskAsyncEnumerable<T7> source7, IUniTaskAsyncEnumerable<T8> source8, IUniTaskAsyncEnumerable<T9> source9, IUniTaskAsyncEnumerable<T10> source10, IUniTaskAsyncEnumerable<T11> source11, Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, TResult> resultSelector)
@@ -5528,7 +5528,7 @@ namespace Cysharp.Threading.Tasks.Linq
             this.source9 = source9;
             this.source10 = source10;
             this.source11 = source11;
-        
+
             this.resultSelector = resultSelector;
         }
 
@@ -5563,7 +5563,7 @@ namespace Cysharp.Threading.Tasks.Linq
             readonly IUniTaskAsyncEnumerable<T9> source9;
             readonly IUniTaskAsyncEnumerable<T10> source10;
             readonly IUniTaskAsyncEnumerable<T11> source11;
-       
+
             readonly Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, TResult> resultSelector;
             CancellationToken cancellationToken;
 
@@ -5650,7 +5650,7 @@ namespace Cysharp.Threading.Tasks.Linq
                 this.source9 = source9;
                 this.source10 = source10;
                 this.source11 = source11;
-                
+
                 this.resultSelector = resultSelector;
                 this.cancellationToken = cancellationToken;
                 TaskTracker.TrackActiveTask(this, 3);
@@ -6519,7 +6519,7 @@ namespace Cysharp.Threading.Tasks.Linq
         readonly IUniTaskAsyncEnumerable<T10> source10;
         readonly IUniTaskAsyncEnumerable<T11> source11;
         readonly IUniTaskAsyncEnumerable<T12> source12;
-        
+
         readonly Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, TResult> resultSelector;
 
         public CombineLatest(IUniTaskAsyncEnumerable<T1> source1, IUniTaskAsyncEnumerable<T2> source2, IUniTaskAsyncEnumerable<T3> source3, IUniTaskAsyncEnumerable<T4> source4, IUniTaskAsyncEnumerable<T5> source5, IUniTaskAsyncEnumerable<T6> source6, IUniTaskAsyncEnumerable<T7> source7, IUniTaskAsyncEnumerable<T8> source8, IUniTaskAsyncEnumerable<T9> source9, IUniTaskAsyncEnumerable<T10> source10, IUniTaskAsyncEnumerable<T11> source11, IUniTaskAsyncEnumerable<T12> source12, Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, TResult> resultSelector)
@@ -6536,7 +6536,7 @@ namespace Cysharp.Threading.Tasks.Linq
             this.source10 = source10;
             this.source11 = source11;
             this.source12 = source12;
-        
+
             this.resultSelector = resultSelector;
         }
 
@@ -6573,7 +6573,7 @@ namespace Cysharp.Threading.Tasks.Linq
             readonly IUniTaskAsyncEnumerable<T10> source10;
             readonly IUniTaskAsyncEnumerable<T11> source11;
             readonly IUniTaskAsyncEnumerable<T12> source12;
-       
+
             readonly Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, TResult> resultSelector;
             CancellationToken cancellationToken;
 
@@ -6667,7 +6667,7 @@ namespace Cysharp.Threading.Tasks.Linq
                 this.source10 = source10;
                 this.source11 = source11;
                 this.source12 = source12;
-                
+
                 this.resultSelector = resultSelector;
                 this.cancellationToken = cancellationToken;
                 TaskTracker.TrackActiveTask(this, 3);
@@ -7610,7 +7610,7 @@ namespace Cysharp.Threading.Tasks.Linq
         readonly IUniTaskAsyncEnumerable<T11> source11;
         readonly IUniTaskAsyncEnumerable<T12> source12;
         readonly IUniTaskAsyncEnumerable<T13> source13;
-        
+
         readonly Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, TResult> resultSelector;
 
         public CombineLatest(IUniTaskAsyncEnumerable<T1> source1, IUniTaskAsyncEnumerable<T2> source2, IUniTaskAsyncEnumerable<T3> source3, IUniTaskAsyncEnumerable<T4> source4, IUniTaskAsyncEnumerable<T5> source5, IUniTaskAsyncEnumerable<T6> source6, IUniTaskAsyncEnumerable<T7> source7, IUniTaskAsyncEnumerable<T8> source8, IUniTaskAsyncEnumerable<T9> source9, IUniTaskAsyncEnumerable<T10> source10, IUniTaskAsyncEnumerable<T11> source11, IUniTaskAsyncEnumerable<T12> source12, IUniTaskAsyncEnumerable<T13> source13, Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, TResult> resultSelector)
@@ -7628,7 +7628,7 @@ namespace Cysharp.Threading.Tasks.Linq
             this.source11 = source11;
             this.source12 = source12;
             this.source13 = source13;
-        
+
             this.resultSelector = resultSelector;
         }
 
@@ -7667,7 +7667,7 @@ namespace Cysharp.Threading.Tasks.Linq
             readonly IUniTaskAsyncEnumerable<T11> source11;
             readonly IUniTaskAsyncEnumerable<T12> source12;
             readonly IUniTaskAsyncEnumerable<T13> source13;
-       
+
             readonly Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, TResult> resultSelector;
             CancellationToken cancellationToken;
 
@@ -7768,7 +7768,7 @@ namespace Cysharp.Threading.Tasks.Linq
                 this.source11 = source11;
                 this.source12 = source12;
                 this.source13 = source13;
-                
+
                 this.resultSelector = resultSelector;
                 this.cancellationToken = cancellationToken;
                 TaskTracker.TrackActiveTask(this, 3);
@@ -8785,7 +8785,7 @@ namespace Cysharp.Threading.Tasks.Linq
         readonly IUniTaskAsyncEnumerable<T12> source12;
         readonly IUniTaskAsyncEnumerable<T13> source13;
         readonly IUniTaskAsyncEnumerable<T14> source14;
-        
+
         readonly Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, TResult> resultSelector;
 
         public CombineLatest(IUniTaskAsyncEnumerable<T1> source1, IUniTaskAsyncEnumerable<T2> source2, IUniTaskAsyncEnumerable<T3> source3, IUniTaskAsyncEnumerable<T4> source4, IUniTaskAsyncEnumerable<T5> source5, IUniTaskAsyncEnumerable<T6> source6, IUniTaskAsyncEnumerable<T7> source7, IUniTaskAsyncEnumerable<T8> source8, IUniTaskAsyncEnumerable<T9> source9, IUniTaskAsyncEnumerable<T10> source10, IUniTaskAsyncEnumerable<T11> source11, IUniTaskAsyncEnumerable<T12> source12, IUniTaskAsyncEnumerable<T13> source13, IUniTaskAsyncEnumerable<T14> source14, Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, TResult> resultSelector)
@@ -8804,7 +8804,7 @@ namespace Cysharp.Threading.Tasks.Linq
             this.source12 = source12;
             this.source13 = source13;
             this.source14 = source14;
-        
+
             this.resultSelector = resultSelector;
         }
 
@@ -8845,7 +8845,7 @@ namespace Cysharp.Threading.Tasks.Linq
             readonly IUniTaskAsyncEnumerable<T12> source12;
             readonly IUniTaskAsyncEnumerable<T13> source13;
             readonly IUniTaskAsyncEnumerable<T14> source14;
-       
+
             readonly Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, TResult> resultSelector;
             CancellationToken cancellationToken;
 
@@ -8953,7 +8953,7 @@ namespace Cysharp.Threading.Tasks.Linq
                 this.source12 = source12;
                 this.source13 = source13;
                 this.source14 = source14;
-                
+
                 this.resultSelector = resultSelector;
                 this.cancellationToken = cancellationToken;
                 TaskTracker.TrackActiveTask(this, 3);
@@ -10044,7 +10044,7 @@ namespace Cysharp.Threading.Tasks.Linq
         readonly IUniTaskAsyncEnumerable<T13> source13;
         readonly IUniTaskAsyncEnumerable<T14> source14;
         readonly IUniTaskAsyncEnumerable<T15> source15;
-        
+
         readonly Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, TResult> resultSelector;
 
         public CombineLatest(IUniTaskAsyncEnumerable<T1> source1, IUniTaskAsyncEnumerable<T2> source2, IUniTaskAsyncEnumerable<T3> source3, IUniTaskAsyncEnumerable<T4> source4, IUniTaskAsyncEnumerable<T5> source5, IUniTaskAsyncEnumerable<T6> source6, IUniTaskAsyncEnumerable<T7> source7, IUniTaskAsyncEnumerable<T8> source8, IUniTaskAsyncEnumerable<T9> source9, IUniTaskAsyncEnumerable<T10> source10, IUniTaskAsyncEnumerable<T11> source11, IUniTaskAsyncEnumerable<T12> source12, IUniTaskAsyncEnumerable<T13> source13, IUniTaskAsyncEnumerable<T14> source14, IUniTaskAsyncEnumerable<T15> source15, Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, TResult> resultSelector)
@@ -10064,7 +10064,7 @@ namespace Cysharp.Threading.Tasks.Linq
             this.source13 = source13;
             this.source14 = source14;
             this.source15 = source15;
-        
+
             this.resultSelector = resultSelector;
         }
 
@@ -10107,7 +10107,7 @@ namespace Cysharp.Threading.Tasks.Linq
             readonly IUniTaskAsyncEnumerable<T13> source13;
             readonly IUniTaskAsyncEnumerable<T14> source14;
             readonly IUniTaskAsyncEnumerable<T15> source15;
-       
+
             readonly Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, TResult> resultSelector;
             CancellationToken cancellationToken;
 
@@ -10222,7 +10222,7 @@ namespace Cysharp.Threading.Tasks.Linq
                 this.source13 = source13;
                 this.source14 = source14;
                 this.source15 = source15;
-                
+
                 this.resultSelector = resultSelector;
                 this.cancellationToken = cancellationToken;
                 TaskTracker.TrackActiveTask(this, 3);

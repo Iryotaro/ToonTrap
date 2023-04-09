@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using Ryocatusn.Janken.JankenableObjects;
 using UniRx;
 using UnityEngine;
-using Ryocatusn.Janken.JankenableObjects;
 
 namespace Ryocatusn.UI
 {

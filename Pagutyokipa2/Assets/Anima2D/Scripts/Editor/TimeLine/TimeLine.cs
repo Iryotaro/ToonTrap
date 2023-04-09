@@ -1,334 +1,343 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
 using UnityEditor;
-using System;
-using System.Collections.Generic;
+using UnityEngine;
 
 namespace Anima2D
 {
-	internal class Timeline
-	{
-		private enum DragStates
-		{
-			None,
-			Playhead,
-			TimeLine,
-			Element
-		}
-		private class Styles
-		{
-			public readonly GUIStyle block = new GUIStyle("MeTransitionBlock");
-			public GUIStyle leftBlock = new GUIStyle("MeTransitionBlock");
-			public GUIStyle rightBlock = new GUIStyle("MeTransitionBlock");
-			public GUIStyle timeBlockRight = new GUIStyle("MeTimeLabel");
-			public GUIStyle timeBlockLeft = new GUIStyle("MeTimeLabel");
-			public readonly GUIStyle offLeft = new GUIStyle("MeTransOffLeft");
-			public readonly GUIStyle offRight = new GUIStyle("MeTransOffRight");
-			public readonly GUIStyle onLeft = new GUIStyle("MeTransOnLeft");
-			public readonly GUIStyle onRight = new GUIStyle("MeTransOnRight");
-			public readonly GUIStyle offOn = new GUIStyle("MeTransOff2On");
-			public readonly GUIStyle onOff = new GUIStyle("MeTransOn2Off");
-			public readonly GUIStyle background = new GUIStyle("MeTransitionBack");
-			public readonly GUIStyle header = new GUIStyle("MeTransitionHead");
-			public readonly GUIStyle handLeft = new GUIStyle("MeTransitionHandleLeft");
-			public readonly GUIStyle handRight = new GUIStyle("MeTransitionHandleRight");
-			public readonly GUIStyle handLeftPrev = new GUIStyle("MeTransitionHandleLeftPrev");
-			public readonly GUIStyle playhead = new GUIStyle("MeTransPlayhead");
-			public readonly GUIStyle selectHead = new GUIStyle("MeTransitionSelectHead");
-			public readonly GUIStyle select = new GUIStyle("MeTransitionSelect");
-			public readonly GUIStyle overlay = new GUIStyle("MeTransBGOver");
-			public readonly GUIContent defaultDopeKeyIcon;
-
-			public Styles()
-			{
-				timeBlockRight.alignment = TextAnchor.MiddleRight;
-				timeBlockRight.normal.background = null;
-				timeBlockLeft.normal.background = null;
-
-				defaultDopeKeyIcon = EditorGUIUtility.IconContent("blendKey");
-			}
-		}
-
-		TimeArea m_TimeArea;
-
-		float m_Time = 0f;
-		float m_FrameRate = 1f;
-
-		Timeline.DragStates m_DragState;
-
-		int id = -1;
-
-		float m_StartValue = 0f;
-
-		IEnumerable<IDopeElement> m_DopeElements = null;
-
-		public IDopeElement selectedElement { get; set; }
-
-		bool m_CanEditDopeElements = true;
-		public bool canEditDopeElements {
-			get { return m_CanEditDopeElements; }
-			set { m_CanEditDopeElements = value; }
-		}
-
-		Timeline.Styles styles;
-
-		Rect m_HeaderRect;
-		Rect m_ContentRect;
-
-		public float Time
-		{
-			get
-			{
-				return m_Time;
-			}
-			set
-			{
-				m_Time = value;
-			}
-		}
-
-		public float FrameRate
-		{
-			get
-			{
-				return m_FrameRate;
-			}
-			set
-			{
-				if(value > 0f)
-				{
-					m_FrameRate = value;
-				}
-			}
-		}
-
-		public IEnumerable<IDopeElement> dopeElements {
-			get {
-				return m_DopeElements;
-			}
-			set {
-				m_DopeElements = value;
-			}
-		}
+    internal class Timeline
+    {
+        private enum DragStates
+        {
+            None,
+            Playhead,
+            TimeLine,
+            Element
+        }
+        private class Styles
+        {
+            public readonly GUIStyle block = new GUIStyle("MeTransitionBlock");
+            public GUIStyle leftBlock = new GUIStyle("MeTransitionBlock");
+            public GUIStyle rightBlock = new GUIStyle("MeTransitionBlock");
+            public GUIStyle timeBlockRight = new GUIStyle("MeTimeLabel");
+            public GUIStyle timeBlockLeft = new GUIStyle("MeTimeLabel");
+            public readonly GUIStyle offLeft = new GUIStyle("MeTransOffLeft");
+            public readonly GUIStyle offRight = new GUIStyle("MeTransOffRight");
+            public readonly GUIStyle onLeft = new GUIStyle("MeTransOnLeft");
+            public readonly GUIStyle onRight = new GUIStyle("MeTransOnRight");
+            public readonly GUIStyle offOn = new GUIStyle("MeTransOff2On");
+            public readonly GUIStyle onOff = new GUIStyle("MeTransOn2Off");
+            public readonly GUIStyle background = new GUIStyle("MeTransitionBack");
+            public readonly GUIStyle header = new GUIStyle("MeTransitionHead");
+            public readonly GUIStyle handLeft = new GUIStyle("MeTransitionHandleLeft");
+            public readonly GUIStyle handRight = new GUIStyle("MeTransitionHandleRight");
+            public readonly GUIStyle handLeftPrev = new GUIStyle("MeTransitionHandleLeftPrev");
+            public readonly GUIStyle playhead = new GUIStyle("MeTransPlayhead");
+            public readonly GUIStyle selectHead = new GUIStyle("MeTransitionSelectHead");
+            public readonly GUIStyle select = new GUIStyle("MeTransitionSelect");
+            public readonly GUIStyle overlay = new GUIStyle("MeTransBGOver");
+            public readonly GUIContent defaultDopeKeyIcon;
+
+            public Styles()
+            {
+                timeBlockRight.alignment = TextAnchor.MiddleRight;
+                timeBlockRight.normal.background = null;
+                timeBlockLeft.normal.background = null;
+
+                defaultDopeKeyIcon = EditorGUIUtility.IconContent("blendKey");
+            }
+        }
+
+        TimeArea m_TimeArea;
+
+        float m_Time = 0f;
+        float m_FrameRate = 1f;
+
+        Timeline.DragStates m_DragState;
+
+        int id = -1;
+
+        float m_StartValue = 0f;
+
+        IEnumerable<IDopeElement> m_DopeElements = null;
+
+        public IDopeElement selectedElement { get; set; }
+
+        bool m_CanEditDopeElements = true;
+        public bool canEditDopeElements
+        {
+            get { return m_CanEditDopeElements; }
+            set { m_CanEditDopeElements = value; }
+        }
+
+        Timeline.Styles styles;
+
+        Rect m_HeaderRect;
+        Rect m_ContentRect;
+
+        public float Time
+        {
+            get
+            {
+                return m_Time;
+            }
+            set
+            {
+                m_Time = value;
+            }
+        }
+
+        public float FrameRate
+        {
+            get
+            {
+                return m_FrameRate;
+            }
+            set
+            {
+                if (value > 0f)
+                {
+                    m_FrameRate = value;
+                }
+            }
+        }
+
+        public IEnumerable<IDopeElement> dopeElements
+        {
+            get
+            {
+                return m_DopeElements;
+            }
+            set
+            {
+                m_DopeElements = value;
+            }
+        }
 
-		public Timeline()
-		{
-			Init();
-		}
+        public Timeline()
+        {
+            Init();
+        }
+
+        public void ResetRange()
+        {
+            this.m_TimeArea.SetShownHRangeInsideMargins(0f, 100f);
+        }
 
-		public void ResetRange()
-		{
-			this.m_TimeArea.SetShownHRangeInsideMargins(0f, 100f);
-		}
+        void Init()
+        {
+            if (id == -1)
+            {
+                id = EditorGUIExtra.GetPermanentControlID();
+            }
 
-		void Init()
-		{
-			if(id == -1)
-			{
-				id = EditorGUIExtra.GetPermanentControlID();
-			}
+            if (m_TimeArea == null)
+            {
+                m_TimeArea = new TimeArea(false);
+                m_TimeArea.hRangeLocked = false;
+                m_TimeArea.vRangeLocked = false;
+                m_TimeArea.hSlider = false;
+                m_TimeArea.vSlider = false;
+                m_TimeArea.margin = 10f;
+                m_TimeArea.scaleWithWindow = true;
+                m_TimeArea.hTicks.SetTickModulosForFrameRate(30f);
+                m_TimeArea.OnEnable();
+            }
 
-			if(m_TimeArea == null)
-			{
-				m_TimeArea = new TimeArea(false);
-				m_TimeArea.hRangeLocked = false;
-				m_TimeArea.vRangeLocked = false;
-				m_TimeArea.hSlider = false;
-				m_TimeArea.vSlider = false;
-				m_TimeArea.margin = 10f;
-				m_TimeArea.scaleWithWindow = true;
-				m_TimeArea.hTicks.SetTickModulosForFrameRate(30f);
-				m_TimeArea.OnEnable();
-			}
+            if (styles == null)
+            {
+                styles = new Timeline.Styles();
+            }
+        }
 
-			if (styles == null)
-			{
-				styles = new Timeline.Styles();
-			}
-		}
+        public void DoTimeline(Rect rectArea)
+        {
+            Init();
 
-		public void DoTimeline(Rect rectArea)
-		{
-			Init();
+            if (Event.current.type == EventType.Repaint)
+            {
+                m_TimeArea.rect = rectArea;
+            }
 
-			if (Event.current.type == EventType.Repaint)
-			{
-				m_TimeArea.rect = rectArea;
-			}
+            m_TimeArea.BeginViewGUI();
+            m_TimeArea.EndViewGUI();
 
-			m_TimeArea.BeginViewGUI();
-			m_TimeArea.EndViewGUI();
+            GUI.BeginGroup(rectArea);
 
-			GUI.BeginGroup(rectArea);
+            Rect rect = new Rect(0f, 0f, rectArea.width, rectArea.height);
 
-			Rect rect = new Rect(0f, 0f, rectArea.width, rectArea.height);
+            m_HeaderRect = new Rect(0f, 0f, rectArea.width, 18f);
 
-			m_HeaderRect = new Rect(0f, 0f, rectArea.width, 18f);
+            m_ContentRect = new Rect(0f, 18f, rectArea.width, rectArea.height - m_HeaderRect.height);
 
-			m_ContentRect = new Rect(0f, 18f, rectArea.width, rectArea.height - m_HeaderRect.height);
+            float playHeadPosX = m_TimeArea.TimeToPixel(Time, rectArea);
 
-			float playHeadPosX = m_TimeArea.TimeToPixel(Time, rectArea);
+            Rect playHeadRect = new Rect(playHeadPosX - styles.playhead.fixedWidth * 0.5f - 4f, 4f, styles.playhead.fixedWidth, styles.playhead.fixedHeight);
 
-			Rect playHeadRect = new Rect(playHeadPosX - styles.playhead.fixedWidth * 0.5f - 4f, 4f, styles.playhead.fixedWidth, styles.playhead.fixedHeight);
+            if (Event.current.type == EventType.MouseDown && rect.Contains(Event.current.mousePosition))
+            {
+                GUIUtility.hotControl = id;
+                GUIUtility.keyboardControl = id;
 
-			if(Event.current.type == EventType.MouseDown && rect.Contains(Event.current.mousePosition))
-			{
-				GUIUtility.hotControl = id;
-				GUIUtility.keyboardControl = id;
+                if (playHeadRect.Contains(Event.current.mousePosition))
+                {
+                    m_StartValue = playHeadPosX;
 
-				if(playHeadRect.Contains(Event.current.mousePosition))
-				{
-					m_StartValue = playHeadPosX;
+                    m_DragState = Timeline.DragStates.Playhead;
 
-					m_DragState = Timeline.DragStates.Playhead;
+                }
+                else if (m_HeaderRect.Contains(Event.current.mousePosition))
+                {
+                    m_DragState = Timeline.DragStates.TimeLine;
 
-				}else if(m_HeaderRect.Contains(Event.current.mousePosition))
-				{
-					m_DragState = Timeline.DragStates.TimeLine;
+                    Time = SnapToFrame(m_TimeArea.PixelToTime(Event.current.mousePosition.x, rectArea));
 
-					Time = SnapToFrame( m_TimeArea.PixelToTime(Event.current.mousePosition.x, rectArea) );
+                    GUI.changed = true;
+                }
+                else
+                {
 
-					GUI.changed = true;
-				}else{
-					
-					for (var i = dopeElements.GetEnumerator (); i.MoveNext ();)
-					{
-						IDopeElement element = i.Current;
+                    for (var i = dopeElements.GetEnumerator(); i.MoveNext();)
+                    {
+                        IDopeElement element = i.Current;
 
-						Rect position = GetDopeElementRect (element);
+                        Rect position = GetDopeElementRect(element);
 
-						if (position.Contains (Event.current.mousePosition))
-						{
-							m_DragState = DragStates.Element;
+                        if (position.Contains(Event.current.mousePosition))
+                        {
+                            m_DragState = DragStates.Element;
 
-							m_StartValue = m_TimeArea.TimeToPixel (element.time, rectArea);
+                            m_StartValue = m_TimeArea.TimeToPixel(element.time, rectArea);
 
-							Time = SnapToFrame (element.time);
+                            Time = SnapToFrame(element.time);
 
-							selectedElement = element;
+                            selectedElement = element;
 
-							GUI.changed = true;
-						}
-					}
+                            GUI.changed = true;
+                        }
+                    }
 
-				}
+                }
 
-				Event.current.Use();
-			}
+                Event.current.Use();
+            }
 
-			if(Event.current.type == EventType.MouseDrag && GUIUtility.hotControl == this.id)
-			{
-				switch (m_DragState)
-				{
-				case Timeline.DragStates.Playhead:
-					
-					m_StartValue += Event.current.delta.x;
+            if (Event.current.type == EventType.MouseDrag && GUIUtility.hotControl == this.id)
+            {
+                switch (m_DragState)
+                {
+                    case Timeline.DragStates.Playhead:
 
-					Time = SnapToFrame( m_TimeArea.PixelToTime(m_StartValue, rectArea) );
+                        m_StartValue += Event.current.delta.x;
 
-					break;
+                        Time = SnapToFrame(m_TimeArea.PixelToTime(m_StartValue, rectArea));
 
-				case Timeline.DragStates.TimeLine:
-					Time = SnapToFrame( m_TimeArea.PixelToTime(Event.current.mousePosition.x, rectArea) );
+                        break;
 
-					break;
+                    case Timeline.DragStates.TimeLine:
+                        Time = SnapToFrame(m_TimeArea.PixelToTime(Event.current.mousePosition.x, rectArea));
 
-				case Timeline.DragStates.Element:
+                        break;
 
-					if (canEditDopeElements)
-					{
-						m_StartValue += Event.current.delta.x;
+                    case Timeline.DragStates.Element:
 
-						selectedElement.time = SnapToFrame (m_TimeArea.PixelToTime (m_StartValue, rectArea));
-					}
+                        if (canEditDopeElements)
+                        {
+                            m_StartValue += Event.current.delta.x;
 
-					break;
-				}
+                            selectedElement.time = SnapToFrame(m_TimeArea.PixelToTime(m_StartValue, rectArea));
+                        }
 
-				Event.current.Use();
-				GUI.changed = true;
-			}
+                        break;
+                }
 
-			if(Event.current.type == EventType.MouseUp && GUIUtility.hotControl == this.id)
-			{
-				switch (m_DragState)
-				{
-				case Timeline.DragStates.Playhead:
-					break;
+                Event.current.Use();
+                GUI.changed = true;
+            }
 
-				case Timeline.DragStates.TimeLine:
-					break;
+            if (Event.current.type == EventType.MouseUp && GUIUtility.hotControl == this.id)
+            {
+                switch (m_DragState)
+                {
+                    case Timeline.DragStates.Playhead:
+                        break;
 
-				case Timeline.DragStates.Element:
-					if (canEditDopeElements)
-					{
-						selectedElement.Flush ();
-						selectedElement = null;
-					}
-					break;
-				}
+                    case Timeline.DragStates.TimeLine:
+                        break;
 
-				GUI.changed = true;
+                    case Timeline.DragStates.Element:
+                        if (canEditDopeElements)
+                        {
+                            selectedElement.Flush();
+                            selectedElement = null;
+                        }
+                        break;
+                }
 
-				m_DragState = Timeline.DragStates.None;
+                GUI.changed = true;
 
-				GUIUtility.hotControl = 0;
+                m_DragState = Timeline.DragStates.None;
 
-				Event.current.Use();
-			}
+                GUIUtility.hotControl = 0;
 
-			GUI.Box(m_HeaderRect, GUIContent.none, this.styles.header);
+                Event.current.Use();
+            }
 
-			GUI.Box(m_ContentRect, GUIContent.none, this.styles.background);
+            GUI.Box(m_HeaderRect, GUIContent.none, this.styles.header);
 
-			m_TimeArea.TimeRuler(m_HeaderRect, FrameRate);
+            GUI.Box(m_ContentRect, GUIContent.none, this.styles.background);
 
-			GUI.Box(playHeadRect, GUIContent.none, styles.playhead);
+            m_TimeArea.TimeRuler(m_HeaderRect, FrameRate);
 
-			DopeLineRepaint();
+            GUI.Box(playHeadRect, GUIContent.none, styles.playhead);
 
-			GUI.EndGroup();
-		}
+            DopeLineRepaint();
 
-		void DopeLineRepaint()
-		{
-			if(Event.current.type != EventType.Repaint || m_DopeElements == null)
-			{
-				return;
-			}
-				
-			Color color = GUI.color;
+            GUI.EndGroup();
+        }
 
-			if (canEditDopeElements) {
-				GUI.color = Color.white;
-			} else {
-				GUI.color = Color.gray;
-			}
+        void DopeLineRepaint()
+        {
+            if (Event.current.type != EventType.Repaint || m_DopeElements == null)
+            {
+                return;
+            }
 
-			foreach(IDopeElement dopeElement in m_DopeElements)
-			{
-				if(dopeElement != null)
-				{
-					Rect position = GetDopeElementRect(dopeElement);
+            Color color = GUI.color;
 
-					GUI.DrawTexture(position, styles.defaultDopeKeyIcon.image, ScaleMode.ScaleToFit, true, 1f);
-				}
-			}
+            if (canEditDopeElements)
+            {
+                GUI.color = Color.white;
+            }
+            else
+            {
+                GUI.color = Color.gray;
+            }
 
-			GUI.color = color;
-		}
+            foreach (IDopeElement dopeElement in m_DopeElements)
+            {
+                if (dopeElement != null)
+                {
+                    Rect position = GetDopeElementRect(dopeElement);
 
-		Rect GetDopeElementRect(IDopeElement dopeElement)
-		{
-			Texture defaultDopeKeyIcon = styles.defaultDopeKeyIcon.image;
+                    GUI.DrawTexture(position, styles.defaultDopeKeyIcon.image, ScaleMode.ScaleToFit, true, 1f);
+                }
+            }
 
-			float time = m_TimeArea.TimeToPixel( SnapToFrame(dopeElement.time), m_ContentRect);
+            GUI.color = color;
+        }
 
-			return new Rect(time - (defaultDopeKeyIcon.width / 2), m_ContentRect.y, defaultDopeKeyIcon.width, defaultDopeKeyIcon.height);
-		}
+        Rect GetDopeElementRect(IDopeElement dopeElement)
+        {
+            Texture defaultDopeKeyIcon = styles.defaultDopeKeyIcon.image;
 
-		float SnapToFrame(float time)
-		{
-			return Mathf.Round(time * FrameRate) / FrameRate;
-		}
-	}
+            float time = m_TimeArea.TimeToPixel(SnapToFrame(dopeElement.time), m_ContentRect);
+
+            return new Rect(time - (defaultDopeKeyIcon.width / 2), m_ContentRect.y, defaultDopeKeyIcon.width, defaultDopeKeyIcon.height);
+        }
+
+        float SnapToFrame(float time)
+        {
+            return Mathf.Round(time * FrameRate) / FrameRate;
+        }
+    }
 }

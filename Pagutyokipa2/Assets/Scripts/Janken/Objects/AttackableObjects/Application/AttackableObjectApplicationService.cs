@@ -1,6 +1,6 @@
-﻿using UniRx;
+﻿using Ryocatusn.Janken.JankenableObjects;
 using Ryocatusn.Util;
-using Ryocatusn.Janken.JankenableObjects;
+using UniRx;
 
 namespace Ryocatusn.Janken.AttackableObjects
 {
@@ -44,6 +44,7 @@ namespace Ryocatusn.Janken.AttackableObjects
             return new AttackableObjectData
                 (
                 attackableObject.Get().owner.id,
+                handApplicationService.Get(attackableObject.Get().handId).shape,
                 attackableObject.Get().handId,
                 attackableObject.Get().atk,
                 attackableObject.Get().allowedReAttack

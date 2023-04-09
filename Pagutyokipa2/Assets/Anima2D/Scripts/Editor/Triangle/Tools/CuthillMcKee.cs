@@ -8,9 +8,6 @@
 namespace TriangleNet.Tools
 {
     using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
     using TriangleNet.Log;
 
     /// <summary>
@@ -334,7 +331,7 @@ namespace TriangleNet.Tools
         ///    ACM Transactions on Mathematical Software,
         ///    Volume 2, pages 378-387, 1976.
         /// </remarks>
-        void FindRoot(ref int root, int[] mask, ref int level_num, int[] level_row, 
+        void FindRoot(ref int root, int[] mask, ref int level_num, int[] level_row,
             int[] level, int offset)
         {
             int[] adj_row = matrix.AdjacencyRow;
@@ -447,7 +444,7 @@ namespace TriangleNet.Tools
         ///    Computer Solution of Large Sparse Positive Definite Systems,
         ///    Prentice Hall, 1981.
         /// </remarks>
-        void GetLevelSet(ref int root, int[] mask, ref int level_num, int[] level_row, 
+        void GetLevelSet(ref int root, int[] mask, ref int level_num, int[] level_row,
             int[] level, int offset)
         {
             int[] adj_row = matrix.AdjacencyRow;

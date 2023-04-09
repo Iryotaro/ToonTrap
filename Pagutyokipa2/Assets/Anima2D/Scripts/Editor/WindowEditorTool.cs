@@ -1,112 +1,114 @@
-﻿using UnityEngine;
-using UnityEditor;
-using System.Collections;
+﻿using UnityEditor;
+using UnityEngine;
 
 namespace Anima2D
 {
-	public abstract class WindowEditorTool
-	{
-		public delegate void Callback();
-		public delegate bool BoolCallback();
+    public abstract class WindowEditorTool
+    {
+        public delegate void Callback();
+        public delegate bool BoolCallback();
 
-		static int s_WindowID = 0;
+        static int s_WindowID = 0;
 
-		public BoolCallback canShow;
-		public Callback onShow;
-		public Callback onGUIChanged;
-		public Callback onHide;
+        public BoolCallback canShow;
+        public Callback onShow;
+        public Callback onGUIChanged;
+        public Callback onHide;
 
-		public Rect windowRect = new Rect(0f, 0f, 100f, 100f);
-		public string header { get { return GetHeader(); } }
+        public Rect windowRect = new Rect(0f, 0f, 100f, 100f);
+        public string header { get { return GetHeader(); } }
 
-		int m_WindowID = -1;
-		public int windowID {
-			get {
-				if(m_WindowID < 0)
-				{
-					m_WindowID = ++s_WindowID;
-				}
-				return m_WindowID;
-			}
-		}
+        int m_WindowID = -1;
+        public int windowID
+        {
+            get
+            {
+                if (m_WindowID < 0)
+                {
+                    m_WindowID = ++s_WindowID;
+                }
+                return m_WindowID;
+            }
+        }
 
-		public bool isShown { get; private set; }
+        public bool isShown { get; private set; }
 
-		protected virtual bool CanShow()
-		{
-			if(canShow != null)
-			{
-				return canShow();
-			}
+        protected virtual bool CanShow()
+        {
+            if (canShow != null)
+            {
+                return canShow();
+            }
 
-			return true;
-		}
+            return true;
+        }
 
-		protected virtual void DoShow()
-		{
-			if(onShow != null)
-			{
-				onShow();
-			}
-		}
-		
-		protected virtual void DoGUIChanged()
-		{
-			if(onGUIChanged != null)
-			{
-				onGUIChanged();
-			}
-		}
-		
-		protected virtual void DoHide()
-		{
-			if(onHide != null)
-			{
-				onHide();
-			}
-		}
+        protected virtual void DoShow()
+        {
+            if (onShow != null)
+            {
+                onShow();
+            }
+        }
 
-		public virtual void OnWindowGUI(Rect viewRect)
-		{
-			if(!isShown && CanShow())
-			{
-				isShown = true;
-				DoShow();
-			}
-			
-			if(isShown && !CanShow())
-			{
-				isShown = false;
-				DoHide();
-			}
+        protected virtual void DoGUIChanged()
+        {
+            if (onGUIChanged != null)
+            {
+                onGUIChanged();
+            }
+        }
 
-			if(CanShow())
-			{
-				windowRect = GUILayout.Window(windowID, windowRect, DoWindow, header);
+        protected virtual void DoHide()
+        {
+            if (onHide != null)
+            {
+                onHide();
+            }
+        }
 
-				DoGUI();
+        public virtual void OnWindowGUI(Rect viewRect)
+        {
+            if (!isShown && CanShow())
+            {
+                isShown = true;
+                DoShow();
+            }
 
-				if(isHovered)
-				{
-					int controlID = GUIUtility.GetControlID("WindowHovered".GetHashCode(), FocusType.Passive);
-					
-					if(Event.current.GetTypeForControl(controlID) == EventType.Layout)
-					{
-						HandleUtility.AddControl(controlID,0f);
-					}
-				}
-			}
-		}
+            if (isShown && !CanShow())
+            {
+                isShown = false;
+                DoHide();
+            }
 
-		public bool isHovered
-		{
-			get {
-				return isShown && windowRect.Contains(Event.current.mousePosition);
-			}
-		}
+            if (CanShow())
+            {
+                windowRect = GUILayout.Window(windowID, windowRect, DoWindow, header);
 
-		protected abstract string GetHeader();
-		protected abstract void DoWindow(int windowId);
-		protected virtual void DoGUI() {}
-	}
+                DoGUI();
+
+                if (isHovered)
+                {
+                    int controlID = GUIUtility.GetControlID("WindowHovered".GetHashCode(), FocusType.Passive);
+
+                    if (Event.current.GetTypeForControl(controlID) == EventType.Layout)
+                    {
+                        HandleUtility.AddControl(controlID, 0f);
+                    }
+                }
+            }
+        }
+
+        public bool isHovered
+        {
+            get
+            {
+                return isShown && windowRect.Contains(Event.current.mousePosition);
+            }
+        }
+
+        protected abstract string GetHeader();
+        protected abstract void DoWindow(int windowId);
+        protected virtual void DoGUI() { }
+    }
 }

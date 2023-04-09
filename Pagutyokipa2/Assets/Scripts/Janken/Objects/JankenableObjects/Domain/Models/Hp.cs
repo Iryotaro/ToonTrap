@@ -1,5 +1,5 @@
-﻿using System;
-using Ryocatusn.Janken.AttackableObjects;
+﻿using Ryocatusn.Janken.AttackableObjects;
+using System;
 
 namespace Ryocatusn.Janken.JankenableObjects
 {

@@ -9,13 +9,12 @@ namespace TriangleNet
 {
     using System;
     using System.Collections.Generic;
-    using System.Linq;
-    using TriangleNet.Data;
-    using TriangleNet.Log;
-    using TriangleNet.IO;
     using TriangleNet.Algorithm;
-    using TriangleNet.Smoothing;
+    using TriangleNet.Data;
     using TriangleNet.Geometry;
+    using TriangleNet.IO;
+    using TriangleNet.Log;
+    using TriangleNet.Smoothing;
     using TriangleNet.Tools;
 
     /// <summary>

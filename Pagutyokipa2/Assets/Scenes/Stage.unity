@@ -1088,14 +1088,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 190359994}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: -0.7071068, w: 0.7071068}
   m_LocalPosition: {x: 1.71, y: -0.05, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 665491987}
   m_RootOrder: -1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -90}
 --- !u!1 &195839643
 GameObject:
   m_ObjectHideFlags: 0
@@ -2234,6 +2234,109 @@ MonoBehaviour:
   m_Length: 0.23998444
   m_ChildTransform: {fileID: 1464813403}
   m_AttachedIK: {fileID: 701518940}
+--- !u!1 &477107771
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 477107772}
+  - component: {fileID: 477107774}
+  - component: {fileID: 477107773}
+  m_Layer: 0
+  m_Name: Dragon
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &477107772
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 477107771}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -5.171928, y: -6.389439, z: -0.023926318}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1974323910}
+  m_Father: {fileID: 0}
+  m_RootOrder: 10
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &477107773
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 477107771}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c721be2f97973747b549452f4411dd2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shape: 1
+  atk: 1
+  bullet: {fileID: 2487010197463091084, guid: d6a277df77fdc18488e501659c16ff87, type: 3}
+  shotPoint: {fileID: 190359995}
+--- !u!137 &477107774
+SkinnedMeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 477107771}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 3
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  serializedVersion: 2
+  m_Quality: 0
+  m_UpdateWhenOffscreen: 0
+  m_SkinnedMotionVectors: 1
+  m_Mesh: {fileID: 0}
+  m_Bones: []
+  m_BlendShapeWeights: []
+  m_RootBone: {fileID: 0}
+  m_AABB:
+    m_Center: {x: 0, y: 0, z: 0}
+    m_Extent: {x: 0, y: 0, z: 0}
+  m_DirtyAABB: 0
 --- !u!1 &485434920
 GameObject:
   m_ObjectHideFlags: 0
@@ -2973,12 +3076,12 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0.009593205, w: 0.999954}
   m_LocalPosition: {x: 0.40997142, y: 7.351986e-11, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 190359995}
   m_Father: {fileID: 2048532973}
   m_RootOrder: -1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 361.099}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 721.099}
 --- !u!114 &665491988
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8497,11 +8600,11 @@ GameObject:
   - component: {fileID: 1974323910}
   - component: {fileID: 1974323909}
   - component: {fileID: 1974323911}
-  - component: {fileID: 1974323914}
-  - component: {fileID: 1974323912}
   - component: {fileID: 1974323915}
+  - component: {fileID: 1974323914}
+  - component: {fileID: 1974323916}
   m_Layer: 0
-  m_Name: Dragon
+  m_Name: DragonView
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8519,7 +8622,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ec17ceaa560940e9bf0dbeafc3a1971, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_SpriteMesh: {fileID: 11400000, guid: 5223cc7159cf49846a29d0a5cd34baf5, type: 2}
+  m_SpriteMesh: {fileID: 11400000, guid: 9413259499582b7478bd8306387fe980, type: 2}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Materials:
   - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
@@ -8536,15 +8639,15 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1974323906}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -6.33, y: -7.09, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -1.158072, y: -0.70056105, z: 0.023926318}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 995330616}
   - {fileID: 2033683960}
-  m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_Father: {fileID: 477107772}
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!137 &1974323911
 SkinnedMeshRenderer:
@@ -8602,24 +8705,6 @@ SkinnedMeshRenderer:
     m_Center: {x: 1.2597499, y: 0.23368776, z: 0}
     m_Extent: {x: 1.4724255, y: 0.91543937, z: 0}
   m_DirtyAABB: 0
---- !u!114 &1974323912
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1974323906}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0c721be2f97973747b549452f4411dd2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  shape: 2
-  jankenSpriteMeshes:
-    rockSpriteMesh: {fileID: 11400000, guid: cf11fe6b19bd5904bb5052bb2dcc6cb4, type: 2}
-    scissorsSpriteMesh: {fileID: 11400000, guid: 9413259499582b7478bd8306387fe980, type: 2}
-    paperSpriteMesh: {fileID: 11400000, guid: 5223cc7159cf49846a29d0a5cd34baf5, type: 2}
-  ikRigid: {fileID: 2033683961}
 --- !u!114 &1974323914
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8646,6 +8731,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Poses:
   - {fileID: 11400000, guid: 5b84c9f5835ea98439ed0125a5a37651, type: 2}
+--- !u!114 &1974323916
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1974323906}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea9368469a5f9654794800633d697554, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dragon: {fileID: 477107773}
+  jankenSpriteMeshes:
+    rockSpriteMesh: {fileID: 11400000, guid: cf11fe6b19bd5904bb5052bb2dcc6cb4, type: 2}
+    scissorsSpriteMesh: {fileID: 11400000, guid: 9413259499582b7478bd8306387fe980, type: 2}
+    paperSpriteMesh: {fileID: 11400000, guid: 5223cc7159cf49846a29d0a5cd34baf5, type: 2}
+  ik: {fileID: 2033683959}
 --- !u!1 &2033683958
 GameObject:
   m_ObjectHideFlags: 0
