@@ -26,7 +26,7 @@ namespace Ryocatusn.Janken
         {
             if (!Application.isPlaying) return;
 
-
+            ChangeSprite();
         }
 
         public void ChangeSprite()

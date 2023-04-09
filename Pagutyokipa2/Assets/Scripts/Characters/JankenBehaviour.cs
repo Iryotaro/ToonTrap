@@ -2,6 +2,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Ryocatusn;
 using Ryocatusn.Janken.AttackableObjects;
 using Ryocatusn.Janken.JankenableObjects;
+using UniRx;
+using UniRx.Triggers;
 using UnityEngine;
 
 public class JankenBehaviour : MonoBehaviour
@@ -15,6 +17,9 @@ public class JankenBehaviour : MonoBehaviour
     {
         id = jankenableObjectApplicationService.Create(command);
         events = jankenableObjectApplicationService.GetEvents(id);
+
+        this.OnDestroyAsObservable()
+            .Subscribe(_ => jankenableObjectApplicationService.Delete(id));
     }
     protected JankenableObjectData GetData()
     {
@@ -34,11 +39,5 @@ public class JankenBehaviour : MonoBehaviour
         {
             attackableObjectApplicationService.Attack(id, receiveAttack);
         }
-    }
-
-    private void OnDestroy()
-    {
-        if (id == null) return;
-        jankenableObjectApplicationService.Delete(id);
     }
 }

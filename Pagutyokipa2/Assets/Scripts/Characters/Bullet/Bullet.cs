@@ -7,10 +7,8 @@ using UnityEngine;
 
 namespace Ryocatusn.Characters
 {
-    [RequireComponent(typeof(SpriteRenderer))]
     [RequireComponent(typeof(Rigidbody2D))]
     [RequireComponent(typeof(Collider2D))]
-    [RequireComponent(typeof(Renderer))]
     public class Bullet : MonoBehaviour, IForJankenViewEditor
     {
         private AttackableObjectId id;
@@ -19,7 +17,7 @@ namespace Ryocatusn.Characters
         [SerializeField]
         private Hand.Shape shape;
         [SerializeField]
-        private JankenSprites jankenSprites;
+        private JankenPrefabs jankenPrefabs;
         [SerializeField]
         private float power;
 
@@ -31,27 +29,31 @@ namespace Ryocatusn.Characters
 
             rigid = GetComponent<Rigidbody2D>();
             Collider2D collider = GetComponent<Collider2D>();
-            Renderer renderer = GetComponent<Renderer>();
 
-            collider.OnTriggerEnter2DAsObservable()
-                .Where(x => x.TryGetComponent(out IReceiveAttack i))
-                .First()
-                .Subscribe(x => { if (x.TryGetComponent(out IReceiveAttack i)) OnHit(i); })
-                .AddTo(this);
+            StageManager.activeStage.SetupStageEvent
+                .Subscribe(gameContains =>
+                {
+                    this.OnTriggerEnter2DAsObservable()
+                        .Where(x =>
+                        {
+                            if (x.TryGetComponent(out IReceiveAttack i))
+                            {
+                                return i == (IReceiveAttack)gameContains.player;
+                            }
+                            return false;
+                        })
+                        .Take(1)
+                        .Subscribe(x => OnHit(gameContains.player));
+                });
 
-            renderer.OnBecameInvisibleAsObservable()
-                .Subscribe(_ => Destroy(gameObject))
-                .AddTo(this);
+            rigid.AddForce(transform.up * power, ForceMode2D.Impulse);
+
+            Destroy(gameObject, 5);
         }
         private void OnDestroy()
         {
             if (id == null) return;
             attackableObjectApplicationService.Delete(id);
-        }
-
-        public void FixedUpdate()
-        {
-            rigid.AddForce(transform.up * power, ForceMode2D.Force);
         }
 
         private void OnHit(IReceiveAttack receiveAttack)
@@ -62,13 +64,18 @@ namespace Ryocatusn.Characters
         public Hand.Shape GetShape()
         {
             if (id == null) return shape;
-            return attackableObjectApplicationService.Get(id).shape;
+            else return attackableObjectApplicationService.Get(id).shape;
         }
         public void UpdateView(Hand.Shape shape)
         {
-            if (jankenSprites.TryGetRenderer(out SpriteRenderer spriteRenderer, this))
+            if (jankenPrefabs.TryGetRenderer(out GameObject gameObject, this))
             {
-                spriteRenderer.sprite = jankenSprites.GetAsset(shape);
+                for (int i = 0; i < transform.childCount; i++)
+                {
+                    DestroyImmediate(transform.GetChild(i).gameObject);
+                }
+                GameObject prefab = jankenPrefabs.GetAsset(shape);
+                Instantiate(prefab, gameObject.transform);
             }
         }
     }

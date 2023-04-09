@@ -1,7 +1,8 @@
 using Anima2D;
 using DG.Tweening;
+using Ryocatusn.Audio;
 using Ryocatusn.Janken;
-using Ryocatusn.Janken.AttackableObjects;
+using System;
 using System.Collections;
 using UniRx;
 using UniRx.Triggers;
@@ -10,6 +11,7 @@ using UnityEngine;
 namespace Ryocatusn.Characters
 {
     [RequireComponent(typeof(SpriteMeshInstance))]
+    [RequireComponent(typeof(SkinnedMeshRenderer))]
     public class DragonView : MonoBehaviour, IForJankenViewEditor
     {
         [SerializeField]
@@ -18,13 +20,23 @@ namespace Ryocatusn.Characters
         private JankenSpriteMeshes jankenSpriteMeshes;
         [SerializeField]
         private IkCCD2D ik;
+        [SerializeField]
+        private SE attackSE;
+
+        [NonSerialized]
+        public SkinnedMeshRenderer skinnedMeshRenderer;
 
         private Player player;
         private Vector2 gap;
+        private SEPlayer sePlayer;
 
-        private void Start()
+        public void SetUp()
         {
+            skinnedMeshRenderer = GetComponent<SkinnedMeshRenderer>();
+
             Move();
+
+            sePlayer = new SEPlayer(gameObject, skinnedMeshRenderer);
 
             StageManager.activeStage.SetupStageEvent
                 .Subscribe(x => player = x.player);
@@ -36,7 +48,7 @@ namespace Ryocatusn.Characters
 
         private void HandleAttackTrigger()
         {
-
+            //sePlayer.Play(attackSE);
         }
 
         private void Move()
@@ -57,7 +69,7 @@ namespace Ryocatusn.Characters
                 {
                     bool finish = false;
 
-                    Vector2 newGap = new Vector2(Random.Range(-2, 2), Random.Range(-2, 2));
+                    Vector2 newGap = new Vector2(UnityEngine.Random.Range(-2, 2), UnityEngine.Random.Range(-2, 2));
 
                     DOTween.To
                         (

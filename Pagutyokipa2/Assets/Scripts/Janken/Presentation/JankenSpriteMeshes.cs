@@ -23,23 +23,23 @@ namespace Ryocatusn.Janken
                 _ => null
             };
         }
-        public bool TryGetRenderer<T>(out SpriteMeshInstance spriteMeshInstance, T forJankenViewEditor) where T : MonoBehaviour, IForJankenViewEditor
+        public bool TryGetRenderer<T>(out SpriteMeshInstance renderer, T forJankenViewEditor) where T : MonoBehaviour, IForJankenViewEditor
         {
-            if (this.spriteMeshInstance != null)
+            if (spriteMeshInstance != null)
             {
-                spriteMeshInstance = this.spriteMeshInstance;
+                renderer = spriteMeshInstance;
                 return true;
             }
 
             if (forJankenViewEditor.TryGetComponent(out SpriteMeshInstance s))
             {
-                this.spriteMeshInstance = s;
-                spriteMeshInstance = this.spriteMeshInstance;
+                spriteMeshInstance = s;
+                renderer = spriteMeshInstance;
                 return true;
             }
             else
             {
-                spriteMeshInstance = null;
+                renderer = null;
                 return false;
             }
         }
