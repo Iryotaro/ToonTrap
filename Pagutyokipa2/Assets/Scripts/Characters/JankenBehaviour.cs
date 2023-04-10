@@ -11,12 +11,15 @@ public class JankenBehaviour : MonoBehaviour
     public JankenableObjectId id { get; private set; }
     public JankenableObjectEvents events { get; private set; }
     protected JankenableObjectApplicationService jankenableObjectApplicationService { get; } = Installer.installer.serviceProvider.GetService<JankenableObjectApplicationService>();
-    protected AttackableObjectApplicationService attackableObjectApplicationService { get; } = Installer.installer.serviceProvider.GetService<AttackableObjectApplicationService>();
 
     protected void Create(JankenableObjectCreateCommand command)
     {
         id = jankenableObjectApplicationService.Create(command);
         events = jankenableObjectApplicationService.GetEvents(id);
+
+        events.DieEvent
+            .Subscribe(_ => HandleDie())
+            .AddTo(this);
 
         this.OnDestroyAsObservable()
             .Subscribe(_ => jankenableObjectApplicationService.Delete(id));
@@ -27,17 +30,16 @@ public class JankenBehaviour : MonoBehaviour
     }
     protected AttackableObjectId CreateAttackableObject(AttackableObjectCreateCommand command)
     {
+        AttackableObjectApplicationService attackableObjectApplicationService = Installer.installer.serviceProvider.GetService<AttackableObjectApplicationService>();
         return attackableObjectApplicationService.Create(command);
     }
     protected void AttackTrigger(AttackableObjectCreateCommand command, IReceiveAttack[] receiveAttacks = null)
     {
         jankenableObjectApplicationService.AttackTrigger(id, command, receiveAttacks);
     }
-    protected void Attack(AttackableObjectId id, IReceiveAttack[] receiveAttacks)
+
+    protected virtual void HandleDie()
     {
-        foreach (IReceiveAttack receiveAttack in receiveAttacks)
-        {
-            attackableObjectApplicationService.Attack(id, receiveAttack);
-        }
+        Destroy(gameObject);
     }
 }

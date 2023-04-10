@@ -139,6 +139,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9165573058825015652}
   - component: {fileID: 9165573058825015653}
+  - component: {fileID: 9165573058358396762}
   m_Layer: 0
   m_Name: Dragon
   m_TagString: Untagged
@@ -174,13 +175,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c721be2f97973747b549452f4411dd2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shape: 0
+  shape: 2
   view: {fileID: 9165573059258224020}
   atk: 1
   attackRange: 9.83
   attackDelay: 1
   bullet: {fileID: 2487010197463091084, guid: d6a277df77fdc18488e501659c16ff87, type: 3}
   shotPoint: {fileID: 9165573058471096035}
+--- !u!95 &9165573058358396762
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9165573058825015651}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 00165dc21a1634c4aa147021c8fd7dca, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
 --- !u!1 &9165573059258224026
 GameObject:
   m_ObjectHideFlags: 0
@@ -231,7 +252,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ec17ceaa560940e9bf0dbeafc3a1971, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_SpriteMesh: {fileID: 11400000, guid: cf11fe6b19bd5904bb5052bb2dcc6cb4, type: 2}
+  m_SpriteMesh: {fileID: 11400000, guid: 5223cc7159cf49846a29d0a5cd34baf5, type: 2}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Materials:
   - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
@@ -341,6 +362,12 @@ MonoBehaviour:
     scissorsSpriteMesh: {fileID: 11400000, guid: 9413259499582b7478bd8306387fe980, type: 2}
     paperSpriteMesh: {fileID: 11400000, guid: 5223cc7159cf49846a29d0a5cd34baf5, type: 2}
   ik: {fileID: 9165573059315255983}
+  attackSE:
+    audioClip: {fileID: 0}
+    pitch: 1
+    volume: 0.5
+    loop: 0
+    onlyVisible: 1
 --- !u!1 &9165573059263719092
 GameObject:
   m_ObjectHideFlags: 0

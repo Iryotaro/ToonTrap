@@ -1,6 +1,6 @@
-using Microsoft.Extensions.DependencyInjection;
 using Ryocatusn.Janken;
 using Ryocatusn.Janken.AttackableObjects;
+using System.Collections;
 using UniRx;
 using UniRx.Triggers;
 using UnityEngine;
@@ -9,11 +9,8 @@ namespace Ryocatusn.Characters
 {
     [RequireComponent(typeof(Rigidbody2D))]
     [RequireComponent(typeof(Collider2D))]
-    public class Bullet : MonoBehaviour, IForJankenViewEditor
+    public class Bullet : AttackBehaviour, IForJankenViewEditor
     {
-        private AttackableObjectId id;
-        private AttackableObjectApplicationService attackableObjectApplicationService = Installer.installer.serviceProvider.GetService<AttackableObjectApplicationService>();
-
         [SerializeField]
         private Hand.Shape shape;
         [SerializeField]
@@ -23,12 +20,19 @@ namespace Ryocatusn.Characters
 
         private Rigidbody2D rigid;
 
-        public void SetUp(AttackableObjectId id)
+        private GameObject ownerObject;
+
+        public void SetUp(AttackableObjectId id, GameObject ownerObject)
         {
-            this.id = id;
+            SetId(id);
+            this.ownerObject = ownerObject;
 
             rigid = GetComponent<Rigidbody2D>();
             Collider2D collider = GetComponent<Collider2D>();
+
+            events.ReAttackTriggerEvent
+                .Subscribe(_ => HandleReAttackTrigger())
+                .AddTo(this);
 
             StageManager.activeStage.SetupStageEvent
                 .Subscribe(gameContains =>
@@ -50,15 +54,40 @@ namespace Ryocatusn.Characters
 
             Destroy(gameObject, 5);
         }
-        private void OnDestroy()
-        {
-            if (id == null) return;
-            attackableObjectApplicationService.Delete(id);
-        }
 
         private void OnHit(IReceiveAttack receiveAttack)
         {
-            attackableObjectApplicationService.Attack(id, receiveAttack);
+            Attack(receiveAttack);
+        }
+
+        private void HandleReAttackTrigger()
+        {
+            StartCoroutine(Move());
+
+            IEnumerator Move()
+            {
+                float time = Time.fixedTime;
+                Vector2 startPosition = transform.position;
+                Vector2 endPosition = ownerObject.transform.position;
+
+                while (GetTime() < 1)
+                {
+                    yield return new WaitForFixedUpdate();
+
+                    transform.position = Vector2.Lerp(startPosition, endPosition, GetTime());
+
+                    float angle = -90 + Mathf.Atan2(endPosition.y - transform.position.y, endPosition.x - transform.position.x) * Mathf.Rad2Deg;
+                    transform.rotation = Quaternion.Euler(0, 0, angle);
+                }
+
+                ReAttack();
+
+                float GetTime()
+                {
+                    //“ñŽŸŠÖ”
+                    return Mathf.Pow(Time.fixedTime - time, 2);
+                }
+            }
         }
 
         public Hand.Shape GetShape()

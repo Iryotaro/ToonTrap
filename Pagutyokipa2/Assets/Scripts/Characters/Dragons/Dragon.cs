@@ -1,4 +1,3 @@
-using Ryocatusn.Audio;
 using Ryocatusn.Janken;
 using Ryocatusn.Janken.AttackableObjects;
 using Ryocatusn.Janken.JankenableObjects;
@@ -44,10 +43,6 @@ namespace Ryocatusn.Characters
                 .Subscribe(x => HandleAttackTrigger(x.id))
                 .AddTo(this);
 
-            events.DieEvent
-                .Subscribe(_ => Destroy(gameObject))
-                .AddTo(this);
-
             StageManager.activeStage.SetupStageEvent
                 .Subscribe(x => player = x.player)
                 .AddTo(this);
@@ -69,8 +64,8 @@ namespace Ryocatusn.Characters
 
         private void HandleAttackTrigger(AttackableObjectId id)
         {
-            if (player != null) BulletFactory.Create(bullet, id, shotPoint.transform.position, player.transform);
-            else BulletFactory.Create(bullet, id, shotPoint.transform.position, shotPoint.transform.rotation);
+            if (player != null) BulletFactory.Create(bullet, id, gameObject, shotPoint.transform.position, player.transform);
+            else BulletFactory.Create(bullet, id, gameObject, shotPoint.transform.position, shotPoint.transform.rotation);
         }
 
         private void OnDrawGizmosSelected()
