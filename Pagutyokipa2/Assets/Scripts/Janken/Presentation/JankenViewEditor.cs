@@ -8,6 +8,7 @@ namespace Ryocatusn.Janken
     public class JankenViewEditor : MonoBehaviour
     {
         private IForJankenViewEditor forJankenViewEditor;
+        private Hand.Shape? shape = null;
 
         private void Awake()
         {
@@ -35,7 +36,9 @@ namespace Ryocatusn.Janken
             if (forJankenViewEditor == null) return;
 
             Hand.Shape shape = forJankenViewEditor.GetShape();
+            if (this.shape == shape) return;
             forJankenViewEditor.UpdateView(shape);
+            this.shape = shape;
         }
     }
 }
