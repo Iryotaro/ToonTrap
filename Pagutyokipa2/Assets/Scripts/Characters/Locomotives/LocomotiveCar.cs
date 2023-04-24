@@ -1,14 +1,16 @@
 ﻿using UnityEngine;
 using Ryocatusn.Janken;
 using Ryocatusn.TileTransforms;
-using Ryocatusn.Janken.JankenableObjects;
 using System.Linq;
-using UnityEngine.Tilemaps;
+using Ryocatusn.Janken.AttackableObjects;
+using UniRx;
+using UniRx.Triggers;
 
 namespace Ryocatusn.Characters
 {
     [RequireComponent(typeof(TileTransform))]
-    public class LocomotiveCar : JankenBehaviour, IForJankenViewEditor
+    [RequireComponent(typeof(Collider2D))]
+    public class LocomotiveCar : AttackBehaviour, IForJankenViewEditor
     {
         [SerializeField]
         private Hand.Shape shape;
@@ -17,28 +19,19 @@ namespace Ryocatusn.Characters
 
         private TileTransform tileTransform;
 
-        public void SetUp(Hand.Shape shape)
+        public void SetUp(AttackableObjectId id)
         {
             tileTransform = GetComponent<TileTransform>();
 
-            JankenableObjectCreateCommand command = new JankenableObjectCreateCommand(new Hp(1), shape);
-            Create(command);
+            SetId(id);
+
+            this.OnTriggerEnter2DAsObservable()
+                .Subscribe(x => { if (x.TryGetComponent(out IReceiveAttack receiveAttack)) Attack(receiveAttack); });
         }
 
         private void Update()
         {
-            transform.rotation = GetRotation();
-            Quaternion GetRotation()
-            {
-                return tileTransform.tileDirection.value switch
-                {
-                    TileDirection.Direction.Up => Quaternion.Euler(0, 0, 0),
-                    TileDirection.Direction.Down => Quaternion.Euler(0, 0, 180),
-                    TileDirection.Direction.Left => Quaternion.Euler(0, 0, 90),
-                    TileDirection.Direction.Right => Quaternion.Euler(0, 0, -90),
-                    _ => Quaternion.Euler(0, 0, 0)
-                };
-            }
+            transform.rotation = Quaternion.Euler(0, 0, 180 + tileTransform.angle);
         }
 
         public void Move(Railway railway, float moveRate)
@@ -51,7 +44,7 @@ namespace Ryocatusn.Characters
         public Hand.Shape GetShape()
         {
             if (id == null) return shape;
-            else return jankenableObjectApplicationService.Get(id).shape;
+            else return attackableObjectApplicationService.Get(id).shape;
         }
         public void UpdateView(Hand.Shape shape)
         {

@@ -8,13 +8,13 @@
       "hash": "954cd48f54866ec3ef2055e893f1fcfdddb067bd"
     },
     "com.ryotaro.tiletransform": {
-      "version": "https://github.com/Iryotaro/TileTransform.git",
+      "version": "git@github.com:Iryotaro/TileTransform.git",
       "depth": 0,
       "source": "git",
       "dependencies": {
         "com.unity.inputsystem": "1.2.0"
       },
-      "hash": "052a7e5b2e41199edad5ffc3385b1d38509fcd92"
+      "hash": "e4d4f850d22877fee5ae2d3026f7833a8ad992c6"
     },
     "com.unity.2d.animation": {
       "version": "9.0.1",

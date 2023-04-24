@@ -29,11 +29,6 @@ namespace Ryocatusn.Characters
         {
             return jankenableObjectApplicationService.Get(id);
         }
-        protected AttackableObjectId CreateAttackableObject(AttackableObjectCreateCommand command)
-        {
-            AttackableObjectApplicationService attackableObjectApplicationService = Installer.installer.serviceProvider.GetService<AttackableObjectApplicationService>();
-            return attackableObjectApplicationService.Create(command);
-        }
         protected void AttackTrigger(AttackableObjectCreateCommand command, IReceiveAttack[] receiveAttacks = null)
         {
             jankenableObjectApplicationService.AttackTrigger(id, command, receiveAttacks);

@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e406dd50000e3e46bad21d17592b18c, type: 3}
   m_Name: NewLocomotiveData
   m_EditorClassIdentifier: 
-  numberOfCars: 2
-  moveRate: 1
+  numberOfCars: 4
+  moveRate: 10

@@ -1,7 +1,7 @@
 {
   "dependencies": {
     "com.ryocatusn.ryoseq": "https://github.com/Iryotaro/Ryoseq.git",
-    "com.ryotaro.tiletransform": "https://github.com/Iryotaro/TileTransform.git",
+    "com.ryotaro.tiletransform": "git@github.com:Iryotaro/TileTransform.git",
     "com.unity.2d.animation": "9.0.1",
     "com.unity.2d.pixel-perfect": "5.0.2",
     "com.unity.2d.psdimporter": "8.0.1",
