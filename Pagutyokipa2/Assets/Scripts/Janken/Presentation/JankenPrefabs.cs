@@ -20,7 +20,7 @@ namespace Ryocatusn.Janken
                 _ => null
             };
         }
-        public bool TryGetRenderer<T>(out GameObject renderer, T forJankenViewEditor) where T : MonoBehaviour, IForJankenViewEditor
+        public bool TryGetRenderer<T>(out GameObject renderer, T forJankenViewEditor) where T : MonoBehaviour
         {
             renderer = forJankenViewEditor.gameObject;
             return renderer != null;

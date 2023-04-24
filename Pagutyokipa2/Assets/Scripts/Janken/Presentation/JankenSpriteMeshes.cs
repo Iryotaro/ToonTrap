@@ -23,7 +23,7 @@ namespace Ryocatusn.Janken
                 _ => null
             };
         }
-        public bool TryGetRenderer<T>(out SpriteMeshInstance renderer, T forJankenViewEditor) where T : MonoBehaviour, IForJankenViewEditor
+        public bool TryGetRenderer<T>(out SpriteMeshInstance renderer, T forJankenViewEditor) where T : MonoBehaviour
         {
             if (spriteMeshInstance != null)
             {
