@@ -1,10 +1,10 @@
 ﻿using Ryocatusn.Audio;
+using Ryocatusn.Characters;
 using Ryocatusn.Janken;
 using Ryocatusn.Janken.AttackableObjects;
 using Ryocatusn.Janken.JankenableObjects;
 using Ryocatusn.TileTransforms;
 using Ryocatusn.UI;
-using Ryocatusn.Characters;
 using UniRx;
 using UnityEngine;
 

@@ -1,5 +1,4 @@
 using Ryocatusn.Conversations;
-using Ryocatusn.Ryoseqs;
 using System;
 using UniRx;
 using UnityEngine;
@@ -14,24 +13,15 @@ namespace Ryocatusn
 
         private void Start()
         {
-            Ryoseq ryoseq = new Ryoseq();
-            ryoseq.AddTo(this);
-            ISequence sequence = ryoseq.Create();
-
+            Conversation conversation = null;
             StageManager.activeStage.SetupStageEvent
-                .Subscribe(gameContains =>
-                {
-                    foreach (MessageAndWaitTime messageAndWaitTime in messageAndWaitTime)
-                    {
-                        sequence
-                        .ConnectWait(new SequenceShowMessage(gameContains.conversation, messageAndWaitTime.message, messageAndWaitTime.waitTime));
-                    }
-                })
+                .Subscribe(gameContains => conversation = gameContains.conversation)
                 .AddTo(this);
 
             GetComponent<TileTransformTrigger>().OnHitPlayerEvent
                 .FirstOrDefault()
-                .Subscribe(_ => ryoseq.MoveNext())
+                .Where(_ => conversation != null)
+                .Subscribe(_ => { /*メッセージ表示*/ })
                 .AddTo(this);
         }
 

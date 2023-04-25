@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Ryocatusn.Characters 
+namespace Ryocatusn.Characters
 {
     [CreateAssetMenu(menuName = "MyAssets/LocomotiveData", fileName = "NewLocomotiveData")]
     public class LocomotiveData : ScriptableObject

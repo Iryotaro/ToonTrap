@@ -1,15 +1,16 @@
-﻿using UnityEngine;
-using Ryocatusn.Janken;
+﻿using Ryocatusn.Janken;
+using Ryocatusn.Janken.AttackableObjects;
 using Ryocatusn.TileTransforms;
 using System.Linq;
-using Ryocatusn.Janken.AttackableObjects;
 using UniRx;
 using UniRx.Triggers;
+using UnityEngine;
 
 namespace Ryocatusn.Characters
 {
     [RequireComponent(typeof(TileTransform))]
     [RequireComponent(typeof(Collider2D))]
+    [RequireComponent(typeof(Rigidbody2D))]
     public class LocomotiveCar : AttackBehaviour, IForJankenViewEditor
     {
         [SerializeField]
@@ -19,13 +20,24 @@ namespace Ryocatusn.Characters
 
         private TileTransform tileTransform;
 
+        private bool finishAttack;
+
         public void SetUp(AttackableObjectId id)
         {
             tileTransform = GetComponent<TileTransform>();
 
             SetId(id);
 
+            events.ReAttackTriggerEvent
+                .Subscribe(_ => ReAttack())
+                .AddTo(this);
+
+            events.ReAttackTriggerEvent
+                .Subscribe(_ => BlowAway())
+                .AddTo(this);
+
             this.OnTriggerEnter2DAsObservable()
+                .Where(_ => !finishAttack)
                 .Subscribe(x => { if (x.TryGetComponent(out IReceiveAttack receiveAttack)) Attack(receiveAttack); });
         }
 
@@ -39,6 +51,14 @@ namespace Ryocatusn.Characters
             tileTransform.ChangeTilemap(railway.tilemaps, transform.position);
             MoveAStar moveDataCreater = new MoveAStar(railway.startPosition.position, railway.endPosition.position, railway.tilemaps.ToList());
             tileTransform.SetMovement(moveDataCreater, new MoveRate(moveRate));
+        }
+        private void BlowAway()
+        {
+            finishAttack = true;
+            tileTransform.SetDisable();
+            Rigidbody2D rigid = GetComponent<Rigidbody2D>();
+            rigid.AddForce(Quaternion.Euler(0, 0, Random.Range(0, 360)) * (Vector2.up * 20), ForceMode2D.Impulse);
+            Destroy(gameObject, 3);
         }
 
         public Hand.Shape GetShape()

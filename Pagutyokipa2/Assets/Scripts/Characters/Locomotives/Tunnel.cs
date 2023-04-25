@@ -1,9 +1,9 @@
-using UnityEngine;
-using Ryocatusn.Janken;
 using FTRuntime;
+using Ryocatusn.Janken;
 using System;
 using UniRx;
 using UniRx.Triggers;
+using UnityEngine;
 
 namespace Ryocatusn.Characters
 {
@@ -34,7 +34,7 @@ namespace Ryocatusn.Characters
 
         private Locomotive CreateLocomotive(Hand.Shape shape)
         {
-            Locomotive newLocomotive = Instantiate(locomotive);
+            Locomotive newLocomotive = Instantiate(locomotive, transform.parent);
             newLocomotive.SetUp(shape, railway, datas[UnityEngine.Random.Range(0, datas.Length)]);
             return newLocomotive;
         }

@@ -1,4 +1,5 @@
-﻿using Ryocatusn.Ryoseqs;
+﻿using Cysharp.Threading.Tasks;
+using System.Collections;
 using System.Collections.Generic;
 using UniRx;
 using UniRx.Triggers;
@@ -127,25 +128,33 @@ namespace Ryocatusn.Audio
 
         private void Delete()
         {
-            Ryoseq ryoseq = new Ryoseq();
+            WaitAndDelete().ToUniTask().Forget();
 
-            ryoseq.Create()
-            .ConnectWait(new SequenceWaitWhile(() => seList.Find(x =>
+            IEnumerator WaitAndDelete()
             {
-                if (x.audioSource == null) return false;
-                return !x.audioSource.isPlaying;
-            }) == null))
-            .Connect(new SequenceCommand(_ =>
+                yield return new WaitUntil(() => IsAllowedToDelete());
+
+                Delete();
+            }
+
+            bool IsAllowedToDelete()
+            {
+                SE playingSE = seList.Find(x =>
+                {
+                    if (x.audioSource == null) return false;
+                    return !x.audioSource.isPlaying;
+                });
+
+                return playingSE == null;
+            }
+            void Delete()
             {
                 foreach (SE se in seList)
                 {
                     if (se.audioSource == null) continue;
                     GameObject.Destroy(se.audioSource.gameObject);
                 }
-            }))
-            .OnCompleted(() => ryoseq.Delete());
-
-            ryoseq.MoveNext();
+            }
         }
     }
 }

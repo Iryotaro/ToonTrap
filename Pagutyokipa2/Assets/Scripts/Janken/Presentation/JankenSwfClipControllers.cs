@@ -1,6 +1,6 @@
-using UnityEngine;
 using FTRuntime;
 using System;
+using UnityEngine;
 
 namespace Ryocatusn.Janken
 {

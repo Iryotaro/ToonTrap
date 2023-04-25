@@ -18,10 +18,6 @@ namespace Ryocatusn.Characters
             id = jankenableObjectApplicationService.Create(command);
             events = jankenableObjectApplicationService.GetEvents(id);
 
-            events.DieEvent
-                .Subscribe(_ => HandleDie())
-                .AddTo(this);
-
             this.OnDestroyAsObservable()
                 .Subscribe(_ => jankenableObjectApplicationService.Delete(id));
         }
@@ -32,11 +28,6 @@ namespace Ryocatusn.Characters
         protected void AttackTrigger(AttackableObjectCreateCommand command, IReceiveAttack[] receiveAttacks = null)
         {
             jankenableObjectApplicationService.AttackTrigger(id, command, receiveAttacks);
-        }
-
-        protected virtual void HandleDie()
-        {
-            Destroy(gameObject);
         }
     }
 }

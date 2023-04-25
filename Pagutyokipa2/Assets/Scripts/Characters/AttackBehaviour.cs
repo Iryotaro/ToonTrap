@@ -17,10 +17,6 @@ namespace Ryocatusn.Characters
             this.id = id;
             events = attackableObjectApplicationService.GetEvents(id);
 
-            events.OwnerDieEvent
-                .Subscribe(_ => HandlOwnerDie())
-                .AddTo(this);
-
             this.OnDestroyAsObservable()
                 .Subscribe(_ => attackableObjectApplicationService.Delete(id));
         }
@@ -35,11 +31,6 @@ namespace Ryocatusn.Characters
         protected void ReAttack()
         {
             attackableObjectApplicationService.ReAttack(id);
-        }
-
-        protected virtual void HandlOwnerDie()
-        {
-            Destroy(gameObject);
         }
     }
 }

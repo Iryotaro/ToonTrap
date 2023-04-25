@@ -1,10 +1,11 @@
 using Cysharp.Threading.Tasks;
+using Microsoft.Extensions.DependencyInjection;
 using Ryocatusn.Janken;
 using Ryocatusn.Janken.AttackableObjects;
 using Ryocatusn.Janken.JankenableObjects;
 using System.Collections;
-using UnityEngine;
 using UniRx;
+using UnityEngine;
 
 namespace Ryocatusn.Characters
 {
@@ -15,30 +16,22 @@ namespace Ryocatusn.Characters
         [SerializeField]
         private LocomotiveCar carPrefab;
 
-        private AttackableObjectId attackId;
-
         public void SetUp(Hand.Shape shape, Railway railway, LocomotiveData data)
         {
-            JankenableObjectCreateCommand createCommand = new JankenableObjectCreateCommand(new Hp(1), shape);
+            JankenableObjectCreateCommand createCommand = new JankenableObjectCreateCommand(new Hp(data.numberOfCars), shape);
             Create(createCommand);
 
-            AttackableObjectCreateCommand attackCommand = new AttackableObjectCreateCommand(id, shape, new Atk(1));
-            
-            events.AttackTriggerEvent
-                .Subscribe(x => attackId = x.id)
+            events.DieEvent
+                .Subscribe(_ => Destroy(gameObject))
                 .AddTo(this);
-            
-            AttackTrigger(attackCommand);
 
             StartCoroutine(Start());
 
             IEnumerator Start()
             {
-                yield return new WaitUntil(() => attackId != null);
-
                 for (int i = 0; i < data.numberOfCars; i++)
                 {
-                    LocomotiveCar newCar = CreateCar(i == 0 ? firstCarPrefab : carPrefab, railway.startPosition.position);
+                    LocomotiveCar newCar = CreateCar(shape, i == 0 ? firstCarPrefab : carPrefab, railway.startPosition.position);
 
                     Move(newCar, railway, data.moveRate);
 
@@ -47,11 +40,16 @@ namespace Ryocatusn.Characters
             }
         }
 
-        private LocomotiveCar CreateCar(LocomotiveCar prefab, Vector2 createPosition)
+        private LocomotiveCar CreateCar(Hand.Shape shape, LocomotiveCar prefab, Vector2 createPosition)
         {
-            LocomotiveCar car = Instantiate(prefab, transform);
+            LocomotiveCar car = Instantiate(prefab, transform.parent);
             car.transform.position = createPosition;
-            car.SetUp(attackId);
+
+            AttackableObjectApplicationService attackableObjectApplicationService = Installer.installer.serviceProvider.GetService<AttackableObjectApplicationService>();
+            AttackableObjectCreateCommand command = new AttackableObjectCreateCommand(id, shape, new Atk(1));
+            AttackableObjectId attackableObjectId = attackableObjectApplicationService.Create(command);
+
+            car.SetUp(attackableObjectId);
             return car;
         }
         private void Move(LocomotiveCar car, Railway railway, float moveRate)

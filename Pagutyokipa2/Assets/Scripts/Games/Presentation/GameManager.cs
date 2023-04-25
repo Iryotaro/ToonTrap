@@ -4,7 +4,6 @@ using Ryocatusn.Games;
 using Ryocatusn.Games.Stages;
 using Ryocatusn.Janken;
 using Ryocatusn.Janken.JankenableObjects;
-using Ryocatusn.Ryoseqs;
 using Ryocatusn.UI;
 using Ryocatusn.Util;
 using System;
@@ -131,26 +130,16 @@ namespace Ryocatusn
         }
         private void HandleOver(StageId stageId)
         {
-            Ryoseq ryoseq = new Ryoseq();
-            ISequence sequence = ryoseq.Create();
+            player.inputMaster.SetActiveAll(false);
 
-            sequence
-                .Connect(new SequenceCommand(_ => player.inputMaster.SetActiveAll(false)))
-                .ConnectWait(new SequenceWaitForSeconds(3))
-                .Connect(new SequenceCommand(_ =>
-                {
-                    StageData stageData = stageApplicationService.Get(stageId);
+            StageData stageData = stageApplicationService.Get(stageId);
 
-                    SceneManager.UnloadSceneAsync(stageData.name.value);
-                    SceneManager.LoadScene(stageData.name.value, LoadSceneMode.Additive);
+            SceneManager.UnloadSceneAsync(stageData.name.value);
+            SceneManager.LoadScene(stageData.name.value, LoadSceneMode.Additive);
 
-                    SetupStage(stageId, gameContains);
+            SetupStage(stageId, gameContains);
 
-                    player.inputMaster.SetActiveAll(true);
-                }))
-                .OnCompleted(() => ryoseq.Kill(sequence));
-
-            ryoseq.MoveNext();
+            player.inputMaster.SetActiveAll(true);
         }
 
         private void SetupStage(StageId stageId, GameContains gameContains)

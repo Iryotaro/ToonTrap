@@ -43,6 +43,10 @@ namespace Ryocatusn.Characters
                 .Subscribe(x => HandleAttackTrigger(x.id))
                 .AddTo(this);
 
+            events.DieEvent
+                .Subscribe(_ => Destroy(gameObject))
+                .AddTo(this);
+
             StageManager.activeStage.SetupStageEvent
                 .Subscribe(x => player = x.player)
                 .AddTo(this);
