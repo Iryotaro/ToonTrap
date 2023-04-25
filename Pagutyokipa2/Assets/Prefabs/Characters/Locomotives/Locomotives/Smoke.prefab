@@ -145,7 +145,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _sortingLayer: Default
   _sortingOrder: 10
-  _tint: {r: 0.4245283, g: 0.4245283, b: 0.4245283, a: 1}
+  _tint: {r: 1, g: 1, b: 1, a: 1}
   _clip: {fileID: 11400000, guid: b7efda738773e8c4f9a27a274c03a130, type: 2}
   _sequence: Default
   _currentFrame: 0
