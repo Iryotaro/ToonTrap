@@ -1,6 +1,7 @@
 ﻿using Ryocatusn.Janken;
 using Ryocatusn.Janken.AttackableObjects;
 using Ryocatusn.TileTransforms;
+using System;
 using System.Linq;
 using UniRx;
 using UniRx.Triggers;
@@ -22,23 +23,30 @@ namespace Ryocatusn.Characters
 
         private bool finishAttack;
 
+        private Subject<LocomotiveCar> blowAwayEvent = new Subject<LocomotiveCar>();
+        public IObservable<LocomotiveCar> BlowAwayEvent => blowAwayEvent;
+
         public void SetUp(AttackableObjectId id)
         {
             tileTransform = GetComponent<TileTransform>();
 
-            SetId(id);
+            SetId(id, true);
 
             events.ReAttackTriggerEvent
                 .Subscribe(_ => ReAttack())
                 .AddTo(this);
 
             events.ReAttackTriggerEvent
-                .Subscribe(_ => BlowAway())
+                .Subscribe(_ => blowAwayEvent.OnNext(this))
                 .AddTo(this);
 
             this.OnTriggerEnter2DAsObservable()
                 .Where(_ => !finishAttack)
                 .Subscribe(x => { if (x.TryGetComponent(out IReceiveAttack receiveAttack)) Attack(receiveAttack); });
+        }
+        private void OnDestroy()
+        {
+            blowAwayEvent.Dispose();
         }
 
         private void Update()
@@ -52,12 +60,12 @@ namespace Ryocatusn.Characters
             MoveAStar moveDataCreater = new MoveAStar(railway.startPosition.position, railway.endPosition.position, railway.tilemaps.ToList());
             tileTransform.SetMovement(moveDataCreater, new MoveRate(moveRate));
         }
-        private void BlowAway()
+        public void BlowAway()
         {
             finishAttack = true;
             tileTransform.SetDisable();
             Rigidbody2D rigid = GetComponent<Rigidbody2D>();
-            rigid.AddForce(Quaternion.Euler(0, 0, Random.Range(0, 360)) * (Vector2.up * 20), ForceMode2D.Impulse);
+            rigid.AddForce(Quaternion.Euler(0, 0, UnityEngine.Random.Range(0, 360)) * (Vector2.up * 20), ForceMode2D.Impulse);
             Destroy(gameObject, 3);
         }
 

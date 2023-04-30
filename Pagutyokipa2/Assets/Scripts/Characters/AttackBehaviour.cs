@@ -12,10 +12,18 @@ namespace Ryocatusn.Characters
         protected AttackableObjectEvents events { get; private set; }
         protected AttackableObjectApplicationService attackableObjectApplicationService { get; } = Installer.installer.serviceProvider.GetService<AttackableObjectApplicationService>();
 
-        protected void SetId(AttackableObjectId id)
+        private bool attackToOnlyPlayer;
+        private Player player;
+
+        protected void SetId(AttackableObjectId id, bool attackToOnlyPlayer)
         {
             this.id = id;
+            this.attackToOnlyPlayer = attackToOnlyPlayer;
             events = attackableObjectApplicationService.GetEvents(id);
+
+            StageManager.activeStage.SetupStageEvent
+                .Subscribe(x => player = x.player)
+                .AddTo(this);
 
             this.OnDestroyAsObservable()
                 .Subscribe(_ => attackableObjectApplicationService.Delete(id));
@@ -26,6 +34,12 @@ namespace Ryocatusn.Characters
         }
         protected void Attack(IReceiveAttack receiveAttack)
         {
+            if (attackToOnlyPlayer)
+            {
+                if (!player.GetId().Equals(receiveAttack.GetId())) return;
+            }
+
+            if (!attackableObjectApplicationService.IsEnable(id)) return;
             attackableObjectApplicationService.Attack(id, receiveAttack);
         }
         protected void ReAttack()

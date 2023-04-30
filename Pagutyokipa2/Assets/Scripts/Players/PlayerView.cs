@@ -17,15 +17,12 @@ namespace Ryocatusn
 
         [SerializeField]
         private GameCamera gameCamera;
-
-        private TileTransform tileTransform;
-
         [SerializeField]
         private SpriteRenderer spriteRenderer;
         [SerializeField]
-        private JankenSprites handSprites;
+        private JankenSprites jankenSprites;
 
-        private TileDirection direction = new TileDirection(TileDirection.Direction.Up);
+        private TileTransform tileTransform;
 
         private bool invincible = false;
         private float lastChangeSpriteTime;
@@ -67,24 +64,13 @@ namespace Ryocatusn
                 .Subscribe(_ =>
                 {
                     if (invincible) Invincible();
-                    if (!direction.Equals(tileTransform.tileDirection)) ChangeLookDirection(tileTransform.tileDirection);
+                    ChangeAngle();
                 });
         }
 
         private void ChangeShape(Hand.Shape shape)
         {
-            switch (shape)
-            {
-                case Hand.Shape.Rock:
-                    spriteRenderer.sprite = handSprites.rockSprite;
-                    break;
-                case Hand.Shape.Scissors:
-                    spriteRenderer.sprite = handSprites.scissorsSprite;
-                    break;
-                case Hand.Shape.Paper:
-                    spriteRenderer.sprite = handSprites.paperSprite;
-                    break;
-            }
+            spriteRenderer.sprite = jankenSprites.GetAsset(shape);
         }
         private void Shot()
         {
@@ -94,20 +80,11 @@ namespace Ryocatusn
         {
             CreateLensDistortionSequence();
         }
-        private void ChangeLookDirection(TileDirection tileDirection)
+        private void ChangeAngle()
         {
             if (!player.inputMaster.isAllowedMove) return;
 
-            direction = tileDirection;
-
-            transform.eulerAngles = tileDirection.value switch
-            {
-                TileDirection.Direction.Up => Vector3.zero,
-                TileDirection.Direction.Down => new Vector3(0, 0, 180),
-                TileDirection.Direction.Left => new Vector3(0, 0, 90),
-                TileDirection.Direction.Right => new Vector3(0, 0, -90),
-                _ => Vector3.zero
-            };
+            player.transform.rotation = tileTransform.tileDirection.GetRotation();
         }
         private void Invincible()
         {

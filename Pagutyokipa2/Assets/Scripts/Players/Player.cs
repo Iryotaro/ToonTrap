@@ -34,12 +34,9 @@ namespace Ryocatusn
         private int atk = 1;
         [SerializeField]
         private GameManager gameManager;
-
         [SerializeField]
-        private JankenSprites jankenSprites;
-        [SerializeField]
-        private ParticleSystem takeDamageParticle;
-
+        private Bullet bullet;
+        
         [SerializeField]
         private SE attackSE;
         [SerializeField]
@@ -119,12 +116,17 @@ namespace Ryocatusn
 
         private void HandleAttackTrigger(AttackableObjectId attackableObjectId)
         {
-            //球を打つ
+            BulletFactory.Create(bullet, attackableObjectId, gameObject, transform.position, tileTransform.tileDirection);
         }
         private void HandleDie()
         {
             sePlayer.Play(dieSE);
             StageManager.activeStage.Over();
+        }
+
+        public JankenableObjectId GetId()
+        {
+            return id;
         }
     }
 }

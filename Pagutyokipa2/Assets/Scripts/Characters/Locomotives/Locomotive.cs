@@ -4,6 +4,7 @@ using Ryocatusn.Janken;
 using Ryocatusn.Janken.AttackableObjects;
 using Ryocatusn.Janken.JankenableObjects;
 using System.Collections;
+using System.Collections.Generic;
 using UniRx;
 using UnityEngine;
 
@@ -16,10 +17,16 @@ namespace Ryocatusn.Characters
         [SerializeField]
         private LocomotiveCar carPrefab;
 
+        private List<LocomotiveCar> locomotiveCars = new List<LocomotiveCar>();
+
         public void SetUp(Hand.Shape shape, Railway railway, LocomotiveData data)
         {
             JankenableObjectCreateCommand createCommand = new JankenableObjectCreateCommand(new Hp(data.numberOfCars), shape);
             Create(createCommand);
+
+            events.VictimLoseEvent
+                .Subscribe(_ => BlowAway(locomotiveCars[locomotiveCars.Count - 1]))
+                .AddTo(this);
 
             events.DieEvent
                 .Subscribe(_ => Destroy(gameObject))
@@ -35,6 +42,10 @@ namespace Ryocatusn.Characters
 
                     Move(newCar, railway, data.moveRate);
 
+                    newCar.BlowAwayEvent
+                        .Subscribe(x => BlowAway(x))
+                        .AddTo(this);
+
                     yield return new WaitForSeconds(1 / data.moveRate);
                 }
             }
@@ -44,6 +55,8 @@ namespace Ryocatusn.Characters
         {
             LocomotiveCar car = Instantiate(prefab, transform.parent);
             car.transform.position = createPosition;
+
+            locomotiveCars.Add(car);
 
             AttackableObjectApplicationService attackableObjectApplicationService = Installer.installer.serviceProvider.GetService<AttackableObjectApplicationService>();
             AttackableObjectCreateCommand command = new AttackableObjectCreateCommand(id, shape, new Atk(1));
@@ -55,6 +68,11 @@ namespace Ryocatusn.Characters
         private void Move(LocomotiveCar car, Railway railway, float moveRate)
         {
             car.Move(railway, moveRate);
+        }
+        private void BlowAway(LocomotiveCar locomotiveCar)
+        {
+            locomotiveCar.BlowAway();
+            locomotiveCars.Remove(locomotiveCar);
         }
     }
 }

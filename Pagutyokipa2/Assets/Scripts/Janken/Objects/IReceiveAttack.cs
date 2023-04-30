@@ -2,5 +2,5 @@
 
 public interface IReceiveAttack
 {
-    JankenableObjectId id { get; }
+    JankenableObjectId GetId();
 }

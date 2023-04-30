@@ -1,3 +1,4 @@
+using Cysharp.Threading.Tasks;
 using Ryocatusn.Janken;
 using Ryocatusn.Janken.AttackableObjects;
 using System.Collections;
@@ -17,6 +18,8 @@ namespace Ryocatusn.Characters
         private JankenPrefabs jankenPrefabs;
         [SerializeField]
         private float power;
+        [SerializeField]
+        private bool attackToOnlyPlayer = false;
 
         private Rigidbody2D rigid;
 
@@ -24,7 +27,7 @@ namespace Ryocatusn.Characters
 
         public void SetUp(AttackableObjectId id, GameObject ownerObject)
         {
-            SetId(id);
+            SetId(id, attackToOnlyPlayer);
             this.ownerObject = ownerObject;
 
             rigid = GetComponent<Rigidbody2D>();
@@ -42,16 +45,9 @@ namespace Ryocatusn.Characters
                 .Subscribe(gameContains =>
                 {
                     this.OnTriggerEnter2DAsObservable()
-                        .Where(x =>
-                        {
-                            if (x.TryGetComponent(out IReceiveAttack i))
-                            {
-                                return i == (IReceiveAttack)gameContains.player;
-                            }
-                            return false;
-                        })
-                        .Take(1)
-                        .Subscribe(x => OnHit(gameContains.player));
+                    .Where(x => IsAllowedToAttack(x, gameContains.player))
+                    .Take(1)
+                    .Subscribe(x => OnHit(x.GetComponent<IReceiveAttack>()));
                 });
 
             rigid.AddForce(transform.up * power, ForceMode2D.Impulse);
@@ -59,8 +55,24 @@ namespace Ryocatusn.Characters
             Destroy(gameObject, 5);
         }
 
+        private bool IsAllowedToAttack(Collider2D collider, Player player)
+        {
+            IReceiveAttack receiveAttack = collider.GetComponentInChildren<IReceiveAttack>();
+            if (receiveAttack != null)
+            {
+                if (receiveAttack.GetId() == null) return false;
+                if (receiveAttack.GetId().Equals(Get().ownerId)) return false;
+                if (!attackToOnlyPlayer) return true;
+                return receiveAttack == (IReceiveAttack)player;
+            }
+            else
+            {
+                return false;
+            }
+        }
         private void OnHit(IReceiveAttack receiveAttack)
         {
+            if (!attackToOnlyPlayer) Debug.Log(receiveAttack.GetHashCode());
             Attack(receiveAttack);
         }
 

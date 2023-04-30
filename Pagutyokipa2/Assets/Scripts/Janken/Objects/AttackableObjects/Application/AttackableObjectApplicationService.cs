@@ -73,7 +73,7 @@ namespace Ryocatusn.Janken.AttackableObjects
 
             attackableObjectRepository.Find(id).Match(Some: x => attackableObject = x, None: () => throw new JankenException("AttackableObjectが見つかりません"));
             attacker = attackableObject.owner;
-            jankenableObjectRepository.Find(receiveAttack.id).Match(Some: x => victim = x);
+            jankenableObjectRepository.Find(receiveAttack.GetId()).Match(Some: x => victim = x);
             if (victim == null) return;
 
             JankenResult result = handApplicationService.DoJanken(new HandId[2] { attackableObject.handId, victim.handId });

@@ -1067,9 +1067,9 @@ GameObject:
   - component: {fileID: 848806806}
   - component: {fileID: 848806804}
   - component: {fileID: 848806805}
+  - component: {fileID: 848806810}
   - component: {fileID: 848806808}
   - component: {fileID: 848806807}
-  - component: {fileID: 848806810}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -1123,11 +1123,7 @@ MonoBehaviour:
   invincibleTime: 1
   atk: 1
   gameManager: {fileID: 1521828347}
-  jankenSprites:
-    rockSprite: {fileID: 21300000, guid: fb5f4a7ec3d204f7cad6eb6af7e4249b, type: 3}
-    scissorsSprite: {fileID: 21300000, guid: bab32f3d57aee499da7b21bc02353ef8, type: 3}
-    paperSprite: {fileID: 21300000, guid: 269c766d0bbcc4ff48194b093542d0c7, type: 3}
-  takeDamageParticle: {fileID: 1770100625146252053, guid: b5003cfff6bf2472ebc1bcd92a18ea06, type: 3}
+  bullet: {fileID: 2487010197463091084, guid: 6776ec90d05a8bf4a8be4cd1d3c0f594, type: 3}
   attackSE:
     audioClip: {fileID: 8300000, guid: bb326ffb746ffde4e8706ec646890afa, type: 3}
     pitch: 2
@@ -1266,10 +1262,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameCamera: {fileID: 1536812631}
   spriteRenderer: {fileID: 1822175313}
-  handSprites:
-    rockSprite: {fileID: 21300000, guid: c6ec5fad551404c0e865a20afcb796b4, type: 3}
-    scissorsSprite: {fileID: 21300000, guid: 29fa0762981d84ae4ab3c48226a44f7a, type: 3}
-    paperSprite: {fileID: 21300000, guid: b99c62ebabcb140c3a05ac0aa57597b4, type: 3}
+  jankenSprites:
+    rockSprite: {fileID: 21300000, guid: 97b1beee62bfc8945b7a939de68d9b2b, type: 3}
+    scissorsSprite: {fileID: 21300000, guid: 383ae05d12397074b9e8f45ada20eed7, type: 3}
+    paperSprite: {fileID: 21300000, guid: e1de50f352ed70e4d80c5ad8bee54945, type: 3}
 --- !u!1 &856993288
 GameObject:
   m_ObjectHideFlags: 0
@@ -3031,12 +3027,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 4
-  m_Sprite: {fileID: 21300000, guid: b99c62ebabcb140c3a05ac0aa57597b4, type: 3}
-  m_Color: {r: 0.2580088, g: 0.8584906, b: 0.14983091, a: 1}
+  m_Sprite: {fileID: 21300000, guid: 97b1beee62bfc8945b7a939de68d9b2b, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 1.46, y: 1.43}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -3049,14 +3045,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1822175312}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0.9563047, w: 0.2923718}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 848806803}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 146}
 --- !u!1 &1916165412
 GameObject:
   m_ObjectHideFlags: 0

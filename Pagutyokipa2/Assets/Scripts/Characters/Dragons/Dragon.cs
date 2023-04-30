@@ -77,5 +77,10 @@ namespace Ryocatusn.Characters
             Gizmos.color = Color.red;
             Gizmos.DrawWireSphere(transform.position, attackRange);
         }
+
+        public JankenableObjectId GetId()
+        {
+            return id;
+        }
     }
 }
