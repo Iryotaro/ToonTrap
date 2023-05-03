@@ -98,7 +98,7 @@ SortingGroup:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_SortAtRoot: 0
+  m_SortAtRoot: 1
 --- !u!114 &8119194595144272838
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -232,7 +232,7 @@ SortingGroup:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: -10
-  m_SortAtRoot: 0
+  m_SortAtRoot: 1
 --- !u!114 &2384581012260664261
 MonoBehaviour:
   m_ObjectHideFlags: 0

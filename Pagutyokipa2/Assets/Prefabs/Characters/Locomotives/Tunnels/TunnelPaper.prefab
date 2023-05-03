@@ -97,7 +97,7 @@ SortingGroup:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_SortAtRoot: 0
+  m_SortAtRoot: 1
 --- !u!114 &5460391355879487404
 MonoBehaviour:
   m_ObjectHideFlags: 0
