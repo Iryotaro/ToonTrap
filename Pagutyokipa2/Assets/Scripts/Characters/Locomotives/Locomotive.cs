@@ -25,6 +25,7 @@ namespace Ryocatusn.Characters
             Create(createCommand);
 
             events.VictimLoseEvent
+                .Where(_ => locomotiveCars.Count - 1 >= 0)
                 .Subscribe(_ => BlowAway(locomotiveCars[locomotiveCars.Count - 1]))
                 .AddTo(this);
 

@@ -33,6 +33,10 @@ namespace Ryocatusn.Characters
             rigid = GetComponent<Rigidbody2D>();
             Collider2D collider = GetComponent<Collider2D>();
 
+            events.WinEvent
+                .Subscribe(_ => Destroy(gameObject))
+                .AddTo(this);
+
             events.ReAttackTriggerEvent
                 .Subscribe(_ => HandleReAttackTrigger())
                 .AddTo(this);
@@ -72,7 +76,6 @@ namespace Ryocatusn.Characters
         }
         private void OnHit(IReceiveAttack receiveAttack)
         {
-            if (!attackToOnlyPlayer) Debug.Log(receiveAttack.GetHashCode());
             Attack(receiveAttack);
         }
 
@@ -84,12 +87,12 @@ namespace Ryocatusn.Characters
             {
                 float time = Time.fixedTime;
                 Vector2 startPosition = transform.position;
-                Vector2 endPosition = ownerObject.transform.position;
 
                 while (GetTime() < 1)
                 {
                     yield return new WaitForFixedUpdate();
 
+                    Vector2 endPosition = ownerObject.transform.position;
                     transform.position = Vector2.Lerp(startPosition, endPosition, GetTime());
 
                     float angle = -90 + Mathf.Atan2(endPosition.y - transform.position.y, endPosition.x - transform.position.x) * Mathf.Rad2Deg;
@@ -97,6 +100,7 @@ namespace Ryocatusn.Characters
                 }
 
                 ReAttack();
+                Destroy(gameObject);
 
                 float GetTime()
                 {
