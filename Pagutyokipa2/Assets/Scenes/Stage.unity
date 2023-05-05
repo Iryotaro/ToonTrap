@@ -1166,7 +1166,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _sortingLayer: Default
-  _sortingOrder: 0
+  _sortingOrder: -10
   _tint: {r: 1, g: 1, b: 1, a: 1}
   _clip: {fileID: 11400000, guid: 7c5f5566c6ea09b41a43b11f28d81882, type: 2}
   _sequence: Default
@@ -1181,8 +1181,8 @@ SortingGroup:
   m_Enabled: 1
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_SortAtRoot: 0
+  m_SortingOrder: -10
+  m_SortAtRoot: 1
 --- !u!23 &217320866
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -1223,7 +1223,7 @@ MeshRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -10
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &217320867
 MeshFilter:
@@ -9533,7 +9533,7 @@ TilemapRenderer:
   m_SortingLayer: 0
   m_SortingOrder: -5
   m_ChunkSize: {x: 32, y: 32, z: 32}
-  m_ChunkCullingBounds: {x: 0.00040000677, y: 0.00040000677, z: 0}
+  m_ChunkCullingBounds: {x: 0.022499979, y: 0.022499979, z: 0}
   m_MaxChunkCount: 16
   m_MaxFrameAge: 16
   m_SortOrder: 0
@@ -11655,7 +11655,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _sortingLayer: Default
-  _sortingOrder: 0
+  _sortingOrder: -10
   _tint: {r: 1, g: 1, b: 1, a: 1}
   _clip: {fileID: 11400000, guid: 7c5f5566c6ea09b41a43b11f28d81882, type: 2}
   _sequence: Default
@@ -11670,8 +11670,8 @@ SortingGroup:
   m_Enabled: 1
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_SortAtRoot: 0
+  m_SortingOrder: -10
+  m_SortAtRoot: 1
 --- !u!23 &2109208324
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -11712,7 +11712,7 @@ MeshRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -10
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &2109208325
 MeshFilter:
