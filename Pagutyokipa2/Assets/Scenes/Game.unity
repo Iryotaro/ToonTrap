@@ -593,9 +593,9 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 2e5b212c3419d904b8781f51bd33c40d, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 78e838c297c263e4f9cca518d54163a1, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0
+  m_Volume: 0.5
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -1125,27 +1125,27 @@ MonoBehaviour:
   gameManager: {fileID: 1521828347}
   bullet: {fileID: 2487010197463091084, guid: 6776ec90d05a8bf4a8be4cd1d3c0f594, type: 3}
   attackSE:
-    audioClip: {fileID: 8300000, guid: bb326ffb746ffde4e8706ec646890afa, type: 3}
-    pitch: 2
-    volume: 0.7
+    audioClip: {fileID: 8300000, guid: 2c5292ba5cf254919a6b9e2b18e04f49, type: 3}
+    pitch: 1
+    volume: 0.5
     loop: 0
     onlyVisible: 1
   takeDamageSE:
-    audioClip: {fileID: 8300000, guid: 97fbf777d25fd3341b21ab09e57a8281, type: 3}
+    audioClip: {fileID: 8300000, guid: 7e9ee6dc04a5d40d1a5dfc4beb9865e7, type: 3}
     pitch: 1
-    volume: 0.7
+    volume: 0.5
     loop: 0
     onlyVisible: 1
   changeShapeSE:
-    audioClip: {fileID: 8300000, guid: bf13a8087a0bf6b4ea63b240c869a90b, type: 3}
+    audioClip: {fileID: 8300000, guid: 29bde6326b4c34ad8a12da475f79b50a, type: 3}
     pitch: 1
-    volume: 0.1
+    volume: 0.3
     loop: 0
     onlyVisible: 1
   dieSE:
-    audioClip: {fileID: 8300000, guid: ab3a5d67409a17743ab191b0ccc965e4, type: 3}
+    audioClip: {fileID: 8300000, guid: df729d213c4be44a9b55cd109f5cd4f9, type: 3}
     pitch: 1
-    volume: 0.15
+    volume: 0.5
     loop: 0
     onlyVisible: 0
 --- !u!61 &848806806

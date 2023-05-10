@@ -22,8 +22,6 @@ namespace Ryocatusn
 
         public PlayerInputMaster inputMaster { get; private set; }
 
-        private SEPlayer sePlayer;
-
         [SerializeField, Min(1)]
         private float m_moveRate = 1;
         [SerializeField, Min(1)]
@@ -67,16 +65,18 @@ namespace Ryocatusn
                 .Subscribe(_ => HandleDie())
                 .AddTo(this);
 
-            inputMaster.MoveEvent.Subscribe(_ => move = true).AddTo(this);
-            inputMaster.CancelMoveEvent.Subscribe(_ => move = false).AddTo(this);
-            inputMaster.ChangeDirectionEvent.Subscribe(x => tileTransform.ChangeDirection(x));
-            inputMaster.AttackEvent.Subscribe(_ => AttackTrigger()).AddTo(this);
-            inputMaster.ChangeShapeEvent.Subscribe(x => ChangeShape(x));
+            inputMaster.MoveEvent.Subscribe(_ => move = true).AddTo(this).AddTo(this);
+            inputMaster.CancelMoveEvent.Subscribe(_ => move = false).AddTo(this).AddTo(this);
+            inputMaster.ChangeDirectionEvent.Subscribe(x => tileTransform.ChangeDirection(x)).AddTo(this);
+            inputMaster.AttackEvent.Subscribe(_ => AttackTrigger()).AddTo(this).AddTo(this);
+            inputMaster.ChangeShapeEvent.Subscribe(x => ChangeShape(x)).AddTo(this);
 
-            sePlayer = new SEPlayer(gameObject);
+            SEPlayer sePlayer = new SEPlayer(gameObject);
 
-            events.AttackTriggerEvent.Subscribe(_ => sePlayer.Play(attackSE));
-            events.TakeDamageEvent.Subscribe(_ => sePlayer.Play(takeDamageSE));
+            events.AttackTriggerEvent.Subscribe(_ => sePlayer.Play(attackSE)).AddTo(this);
+            events.TakeDamageEvent.Subscribe(_ => sePlayer.Play(takeDamageSE)).AddTo(this);
+            events.ChangeShapeEvent.Subscribe(_ => sePlayer.Play(changeShapeSE)).AddTo(this);
+            events.DieEvent.Subscribe(_ => sePlayer.Play(dieSE)).AddTo(this);
 
             if (TryGetComponent(out PlayerView playerView)) playerView.StartView(this);
 
@@ -106,7 +106,6 @@ namespace Ryocatusn
         {
             if (jankenableObjectApplicationService.Get(id).shape == shape) return;
             jankenableObjectApplicationService.ChangeShape(id, shape);
-            sePlayer.Play(changeShapeSE);
         }
         private void AttackTrigger()
         {
@@ -120,7 +119,6 @@ namespace Ryocatusn
         }
         private void HandleDie()
         {
-            sePlayer.Play(dieSE);
             StageManager.activeStage.Over();
         }
 

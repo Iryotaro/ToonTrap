@@ -26,7 +26,8 @@ namespace Ryocatusn.Characters
                     x => swfClip.tint = x,
                     new Color(swfClip.tint.r, swfClip.tint.g, swfClip.tint.b, endValue),
                     duration
-                    );
+                    )
+                    .SetLink(gameObject);
             }
         }
     }

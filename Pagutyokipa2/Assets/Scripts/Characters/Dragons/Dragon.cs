@@ -4,6 +4,7 @@ using Ryocatusn.Janken.JankenableObjects;
 using System;
 using UniRx;
 using UnityEngine;
+using Ryocatusn.Audio;
 
 namespace Ryocatusn.Characters
 {
@@ -24,8 +25,10 @@ namespace Ryocatusn.Characters
         [SerializeField]
         private Transform shotPoint;
 
-        private Player player;
+        [SerializeField]
+        private SE attackSE;
 
+        private Player player;
         private Subject<Unit> attackEvent = new Subject<Unit>();
 
         private void Start()
@@ -50,6 +53,11 @@ namespace Ryocatusn.Characters
             StageManager.activeStage.SetupStageEvent
                 .Subscribe(x => player = x.player)
                 .AddTo(this);
+
+
+            SEPlayer sePlayer = new SEPlayer(gameObject);
+
+            events.AttackTriggerEvent.Subscribe(_ => sePlayer.Play(attackSE)).AddTo(this);
         }
 
         private void Update()
