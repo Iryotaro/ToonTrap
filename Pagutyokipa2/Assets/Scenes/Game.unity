@@ -1266,6 +1266,7 @@ MonoBehaviour:
     rockSprite: {fileID: 21300000, guid: 97b1beee62bfc8945b7a939de68d9b2b, type: 3}
     scissorsSprite: {fileID: 21300000, guid: 383ae05d12397074b9e8f45ada20eed7, type: 3}
     paperSprite: {fileID: 21300000, guid: e1de50f352ed70e4d80c5ad8bee54945, type: 3}
+  boomEffect: {fileID: 7613642669288603834, guid: 0cc15b2572954924a9c51ff8b8e328cb, type: 3}
 --- !u!1 &856993288
 GameObject:
   m_ObjectHideFlags: 0

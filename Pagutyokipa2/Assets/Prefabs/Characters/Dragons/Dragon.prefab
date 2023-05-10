@@ -470,12 +470,8 @@ MonoBehaviour:
     scissorsSpriteMesh: {fileID: 11400000, guid: 9413259499582b7478bd8306387fe980, type: 2}
     paperSpriteMesh: {fileID: 11400000, guid: 5223cc7159cf49846a29d0a5cd34baf5, type: 2}
   ik: {fileID: 9165573059315255983}
-  attackSE:
-    audioClip: {fileID: 0}
-    pitch: 1
-    volume: 0.5
-    loop: 0
-    onlyVisible: 1
+  shotPoint: {fileID: 9165573058471096035}
+  boomEffect: {fileID: 7613642669288603834, guid: 0cc15b2572954924a9c51ff8b8e328cb, type: 3}
 --- !u!1 &9165573059263719092
 GameObject:
   m_ObjectHideFlags: 0

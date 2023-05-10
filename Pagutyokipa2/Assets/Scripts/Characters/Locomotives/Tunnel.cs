@@ -62,17 +62,18 @@ namespace Ryocatusn.Characters
             }
             void CallAction()
             {
-                IDisposable disposable = null;
-                disposable = this.UpdateAsObservable()
-                    .Subscribe(_ =>
+                controller.clip.OnChangeCurrentFrameEvent += Call;
+
+                void Call(SwfClip clip)
+                {
+                    if (clip.currentFrame >= createLocomotiveFrames.GetFrame(shape))
                     {
-                        if (controller.clip.currentFrame == createLocomotiveFrames.GetFrame(shape))
-                        {
-                            CreateLocomotiveEvent();
-                            foreach (Delegate del in CreateLocomotiveEvent.GetInvocationList()) CreateLocomotiveEvent -= (Action)del;
-                            disposable.Dispose();
-                        }
-                    });
+                        CreateLocomotiveEvent();
+                        foreach (Delegate del in CreateLocomotiveEvent.GetInvocationList()) CreateLocomotiveEvent -= (Action)del;
+
+                        controller.clip.OnChangeCurrentFrameEvent -= Call;
+                    }
+                }
             }
         }
 

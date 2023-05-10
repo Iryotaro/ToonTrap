@@ -1,6 +1,5 @@
 using Anima2D;
 using DG.Tweening;
-using Ryocatusn.Audio;
 using Ryocatusn.Janken;
 using System;
 using System.Collections;
@@ -20,15 +19,12 @@ namespace Ryocatusn.Characters
         private JankenSpriteMeshes jankenSpriteMeshes;
         [SerializeField]
         private IkCCD2D ik;
-        [SerializeField]
-        private SE attackSE;
 
         [NonSerialized]
         public SkinnedMeshRenderer skinnedMeshRenderer;
 
         private Player player;
         private Vector2 gap;
-        private SEPlayer sePlayer;
 
         public void SetUp()
         {
@@ -36,19 +32,8 @@ namespace Ryocatusn.Characters
 
             Move();
 
-            sePlayer = new SEPlayer(gameObject, skinnedMeshRenderer);
-
             StageManager.activeStage.SetupStageEvent
                 .Subscribe(x => player = x.player);
-
-            dragon.events.AttackTriggerEvent
-                .Subscribe(x => HandleAttackTrigger())
-                .AddTo(this);
-        }
-
-        private void HandleAttackTrigger()
-        {
-            //sePlayer.Play(attackSE);
         }
 
         private void Move()

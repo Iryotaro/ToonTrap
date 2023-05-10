@@ -21,6 +21,8 @@ namespace Ryocatusn
         private SpriteRenderer spriteRenderer;
         [SerializeField]
         private JankenSprites jankenSprites;
+        [SerializeField]
+        private GameObject boomEffect;
 
         private TileTransform tileTransform;
 
@@ -78,6 +80,7 @@ namespace Ryocatusn
         }
         private void TakeDamage()
         {
+            Instantiate(boomEffect, transform.position, Quaternion.identity);
             CreateLensDistortionSequence();
         }
         private void ChangeAngle()

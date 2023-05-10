@@ -14,6 +14,7 @@ namespace Ryocatusn.Characters
             Sequence sequence = DOTween.Sequence();
 
             sequence
+                .SetLink(gameObject)
                 .Append(transform.DOScale(0.7f, 2))
                 .Join(DoFade(0, 2))
                 .OnComplete(() => Destroy(gameObject));
@@ -26,8 +27,7 @@ namespace Ryocatusn.Characters
                     x => swfClip.tint = x,
                     new Color(swfClip.tint.r, swfClip.tint.g, swfClip.tint.b, endValue),
                     duration
-                    )
-                    .SetLink(gameObject);
+                    );
             }
         }
     }
