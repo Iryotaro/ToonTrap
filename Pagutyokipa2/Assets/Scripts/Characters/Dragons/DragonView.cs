@@ -6,13 +6,17 @@ using System.Collections;
 using UniRx;
 using UniRx.Triggers;
 using UnityEngine;
+using Zenject;
 
 namespace Ryocatusn.Characters
 {
     [RequireComponent(typeof(SpriteMeshInstance))]
     [RequireComponent(typeof(SkinnedMeshRenderer))]
-    public class DragonView : MonoBehaviour, IForJankenViewEditor
+    public class DragonView : NetworkBehaviour, IForJankenViewEditor
     {
+        [Inject]
+        private StageManager stageManager;
+
         [SerializeField]
         private Dragon dragon;
         [SerializeField]
@@ -32,7 +36,7 @@ namespace Ryocatusn.Characters
 
             Move();
 
-            StageManager.activeStage.SetupStageEvent
+            stageManager.SetupStageEvent
                 .Subscribe(x => player = x.player);
         }
 

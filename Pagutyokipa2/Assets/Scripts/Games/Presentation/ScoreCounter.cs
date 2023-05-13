@@ -5,7 +5,7 @@ namespace Ryocatusn.Games
     public class ScoreCounter : MonoBehaviour
     {
         [SerializeField]
-        private GameManager gameManager;
+        private OffLineGameManager gameManager;
         private GameId id;
         private Player player;
 

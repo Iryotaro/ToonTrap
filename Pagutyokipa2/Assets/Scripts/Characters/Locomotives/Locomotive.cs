@@ -1,5 +1,4 @@
 using Cysharp.Threading.Tasks;
-using Microsoft.Extensions.DependencyInjection;
 using Ryocatusn.Janken;
 using Ryocatusn.Janken.AttackableObjects;
 using Ryocatusn.Janken.JankenableObjects;
@@ -7,15 +6,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UniRx;
 using UnityEngine;
+using Zenject;
 
 namespace Ryocatusn.Characters
 {
     public class Locomotive : JankenBehaviour
     {
+        [Inject]
+        private AttackableObjectApplicationService attackableObjectApplicationService;
+
         [SerializeField]
         private LocomotiveCar firstCarPrefab;
         [SerializeField]
         private LocomotiveCar carPrefab;
+
+        [Inject]
+        private DiContainer diContainer;
 
         private List<LocomotiveCar> locomotiveCars = new List<LocomotiveCar>();
 
@@ -55,11 +61,11 @@ namespace Ryocatusn.Characters
         private LocomotiveCar CreateCar(Hand.Shape shape, LocomotiveCar prefab, Vector2 createPosition)
         {
             LocomotiveCar car = Instantiate(prefab, transform.parent);
+            diContainer.InjectGameObject(car.gameObject);
             car.transform.position = createPosition;
 
             locomotiveCars.Add(car);
 
-            AttackableObjectApplicationService attackableObjectApplicationService = Installer.installer.serviceProvider.GetService<AttackableObjectApplicationService>();
             AttackableObjectCreateCommand command = new AttackableObjectCreateCommand(id, shape, new Atk(1));
             AttackableObjectId attackableObjectId = attackableObjectApplicationService.Create(command);
 

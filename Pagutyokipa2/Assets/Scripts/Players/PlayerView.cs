@@ -1,22 +1,29 @@
 ﻿using DG.Tweening;
-using Microsoft.Extensions.DependencyInjection;
+using Ryocatusn.Games;
 using Ryocatusn.Janken;
 using Ryocatusn.Janken.JankenableObjects;
 using Ryocatusn.TileTransforms;
+using System;
 using UniRx;
 using UniRx.Triggers;
 using UnityEngine;
+using Zenject;
+using Photon.Pun;
 
 namespace Ryocatusn
 {
     [RequireComponent(typeof(TileTransform))]
-    public class PlayerView : MonoBehaviour
+    public class PlayerView : NetworkBehaviour
     {
-        private JankenableObjectId id;
-        private Player player;
+        [Inject]
+        protected JankenableObjectApplicationService jankenableObjectApplicationService;
+        protected JankenableObjectId id;
+        protected JankenableObjectEvents events;
+        protected Player player;
 
-        [SerializeField]
-        private GameCamera gameCamera;
+        [Inject]
+        private GameManager gameManager;
+
         [SerializeField]
         private SpriteRenderer spriteRenderer;
         [SerializeField]
@@ -26,85 +33,88 @@ namespace Ryocatusn
 
         private TileTransform tileTransform;
 
-        private bool invincible = false;
         private float lastChangeSpriteTime;
+        private Action invincibleFinishEvent;
 
-        public void StartView(Player player)
+        public void Setup(Player player)
         {
-            JankenableObjectApplicationService jankenableObjectApplicationService = Installer.installer.serviceProvider.GetService<JankenableObjectApplicationService>();
+            tileTransform = GetComponent<TileTransform>();
 
             this.player = player;
             id = this.player.id;
 
-            tileTransform = GetComponent<TileTransform>();
-
-            JankenableObjectEvents events = jankenableObjectApplicationService.GetEvents(id);
+            events = jankenableObjectApplicationService.GetEvents(id);
 
             events.ChangeShapeEvent
-                .Subscribe(x => ChangeShape(x))
-                .AddTo(this);
-
-            events.AttackTriggerEvent
-                .Subscribe(_ => Shot())
+                .Subscribe(x => CallRpc(nameof(ChangeShape), x))
                 .AddTo(this);
 
             events.TakeDamageEvent
-                .Subscribe(_ => invincible = true);
+                .Subscribe(_ => invincibleFinishEvent = Invincible());
 
             events.TakeDamageEvent
-                .Subscribe(_ => TakeDamage());
+                .Subscribe(_ => CallRpc(nameof(TakeDamage)));
 
             events.FinishInvincibleTime
-                .Subscribe(_ => { invincible = false; spriteRenderer.enabled = true; });
-
-            events.DieEvent
-                .Subscribe(_ => Die());
+                .Subscribe(_ => invincibleFinishEvent?.Invoke());
 
             ChangeShape(jankenableObjectApplicationService.Get(id).shape);
 
             player.gameObject.UpdateAsObservable()
-                .Subscribe(_ =>
-                {
-                    if (invincible) Invincible();
-                    ChangeAngle();
-                });
+                .Subscribe(_ => ChangeAngle(player));
         }
 
+        [PunRPC]
         private void ChangeShape(Hand.Shape shape)
         {
             spriteRenderer.sprite = jankenSprites.GetAsset(shape);
         }
-        private void Shot()
-        {
 
-        }
-        private void TakeDamage()
-        {
-            Instantiate(boomEffect, transform.position, Quaternion.identity);
-            CreateLensDistortionSequence();
-        }
-        private void ChangeAngle()
+        private void ChangeAngle(Player player)
         {
             if (!player.inputMaster.isAllowedMove) return;
 
             player.transform.rotation = tileTransform.tileDirection.GetRotation();
         }
-        private void Invincible()
+
+        private Action Invincible()
         {
-            if (Time.fixedTime - lastChangeSpriteTime > 0.2f)
+            IDisposable disaposable = this.UpdateAsObservable()
+                .Subscribe(_ =>
+                {
+                    if (Time.fixedTime - lastChangeSpriteTime > 0.2f)
+                    {
+                        lastChangeSpriteTime = Time.fixedTime;
+                        spriteRenderer.enabled = !spriteRenderer.enabled;
+                    }
+                });
+
+            Action finish = null;
+            finish += () =>
             {
-                lastChangeSpriteTime = Time.fixedTime;
-                spriteRenderer.enabled = !spriteRenderer.enabled;
-            }
+                disaposable.Dispose();
+                spriteRenderer.enabled = true;
+            };
+
+            return finish;
         }
-        private void Die()
+
+        [PunRPC]
+        private void TakeDamage()
         {
+            CreateBoomEffect();
             CreateLensDistortionSequence();
         }
 
+        private void CreateBoomEffect()
+        {
+            Instantiate(boomEffect, transform.position, Quaternion.identity);
+        }
         private Sequence CreateLensDistortionSequence()
         {
             Sequence sequence = DOTween.Sequence();
+
+            GameCamera gameCamera = gameManager.gameContains.gameCamera;
 
             return sequence
                 .SetLink(gameCamera.gameObject)

@@ -1,12 +1,15 @@
 ﻿using Ryocatusn.Audio;
 using Ryocatusn.Characters;
+using Ryocatusn.Games;
 using Ryocatusn.Janken;
 using Ryocatusn.Janken.AttackableObjects;
 using Ryocatusn.Janken.JankenableObjects;
 using Ryocatusn.TileTransforms;
 using Ryocatusn.UI;
+using System;
 using UniRx;
 using UnityEngine;
+using Zenject;
 
 namespace Ryocatusn
 {
@@ -20,6 +23,10 @@ namespace Ryocatusn
         private bool move = false;
         private MoveRate moveRate;
 
+        [Inject]
+        [NonSerialized]
+        public GameManager gameManager;
+
         public PlayerInputMaster inputMaster { get; private set; }
 
         [SerializeField, Min(1)]
@@ -30,8 +37,9 @@ namespace Ryocatusn
         private float invincibleTime = 1;
         [SerializeField, Min(1)]
         private int atk = 1;
-        [SerializeField]
-        private GameManager gameManager;
+
+        [Inject]
+        private BulletFactory bulletFactory;
         [SerializeField]
         private Bullet bullet;
         
@@ -44,7 +52,7 @@ namespace Ryocatusn
         [SerializeField]
         private SE dieSE;
 
-        private void Start()
+        public void Setup()
         {
             JankenableObjectCreateCommand command = new JankenableObjectCreateCommand(new Hp(hp), new InvincibleTime(invincibleTime), Hand.Shape.Rock);
             Create(command);
@@ -78,7 +86,7 @@ namespace Ryocatusn
             events.ChangeShapeEvent.Subscribe(_ => sePlayer.Play(changeShapeSE)).AddTo(this);
             events.DieEvent.Subscribe(_ => sePlayer.Play(dieSE)).AddTo(this);
 
-            if (TryGetComponent(out PlayerView playerView)) playerView.StartView(this);
+            if (TryGetComponent(out PlayerView playerView)) playerView.Setup(this);
 
             if (gameManager != null) gameManager.SetStageEvent.Subscribe(_ => Init()).AddTo(this);
         }
@@ -115,11 +123,11 @@ namespace Ryocatusn
 
         private void HandleAttackTrigger(AttackableObjectId attackableObjectId)
         {
-            BulletFactory.Create(bullet, attackableObjectId, gameObject, transform.position, tileTransform.tileDirection);
+            bulletFactory.Create(bullet, attackableObjectId, gameObject, transform.position, tileTransform.tileDirection);
         }
         private void HandleDie()
         {
-            StageManager.activeStage.Over();
+            gameManager.nowStageManager.Over();
         }
 
         public JankenableObjectId GetId()

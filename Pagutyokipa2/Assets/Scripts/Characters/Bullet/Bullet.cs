@@ -1,10 +1,12 @@
 using Cysharp.Threading.Tasks;
+using Ryocatusn.Games;
 using Ryocatusn.Janken;
 using Ryocatusn.Janken.AttackableObjects;
 using System.Collections;
 using UniRx;
 using UniRx.Triggers;
 using UnityEngine;
+using Zenject;
 
 namespace Ryocatusn.Characters
 {
@@ -20,6 +22,9 @@ namespace Ryocatusn.Characters
         private float power;
         [SerializeField]
         private bool attackToOnlyPlayer = false;
+
+        [Inject]
+        GameManager gameManager;
 
         private Rigidbody2D rigid;
 
@@ -45,7 +50,7 @@ namespace Ryocatusn.Characters
                 .Subscribe(_ => Destroy(gameObject))
                 .AddTo(this);
 
-            StageManager.activeStage.SetupStageEvent
+            gameManager.nowStageManager.SetupStageEvent
                 .Subscribe(gameContains =>
                 {
                     this.OnTriggerEnter2DAsObservable()

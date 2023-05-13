@@ -4,12 +4,16 @@ using System.Linq;
 using UniRx;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using Zenject;
 
 namespace Ryocatusn
 {
     [RequireComponent(typeof(Tilemap))]
     public class Road : MonoBehaviour
     {
+        [Inject]
+        private StageManager stageManager;
+
         [SerializeField]
         private bool m_appear = false;
         [SerializeField]
@@ -50,10 +54,10 @@ namespace Ryocatusn
             if (appear) return;
             appear = true;
 
-            StageManager.activeStage.SetupStageEvent
+            stageManager.SetupStageEvent
                 .Subscribe(gameContains =>
                 {
-                    StageManager.activeStage.gameContains.Match(x => x.player.tileTransform.AddTilemap(tilemap));
+                    stageManager.gameContains.Match(x => x.player.tileTransform.AddTilemap(tilemap));
                     StartCoroutine(AppearRoadCoroutine(GetTiles(tilemap, gameContains.player)));
                 }).AddTo(this);
         }

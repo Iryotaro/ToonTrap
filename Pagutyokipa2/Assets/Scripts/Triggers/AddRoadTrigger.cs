@@ -1,21 +1,20 @@
 ﻿using System;
 using UnityEngine;
+using Zenject;
 
 namespace Ryocatusn
 {
     public class AddRoadTrigger : MonoBehaviour
     {
+        [Inject]
+        private StageManager stageManager;
+
         [SerializeField]
         private EnemiesAndNextRoad[] enemiesAndNextRoads;
-
-        private void Update()
-        {
-
-        }
-
+        
         private void AddRoad(Road[] roads)
         {
-            if (StageManager.activeStage == null) return;
+            if (stageManager == null) return;
 
             foreach (Road road in roads)
             {

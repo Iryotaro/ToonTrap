@@ -1,17 +1,18 @@
-using Microsoft.Extensions.DependencyInjection;
 using Ryocatusn.Janken.AttackableObjects;
 using Ryocatusn.Janken.JankenableObjects;
 using UniRx;
 using UniRx.Triggers;
 using UnityEngine;
+using Zenject;
 
 namespace Ryocatusn.Characters
 {
-    public class JankenBehaviour : MonoBehaviour
+    public class JankenBehaviour : NetworkBehaviour
     {
         public JankenableObjectId id { get; private set; }
+        [Inject]
+        protected JankenableObjectApplicationService jankenableObjectApplicationService { get; }
         public JankenableObjectEvents events { get; private set; }
-        protected JankenableObjectApplicationService jankenableObjectApplicationService { get; } = Installer.installer.serviceProvider.GetService<JankenableObjectApplicationService>();
 
         protected void Create(JankenableObjectCreateCommand command)
         {

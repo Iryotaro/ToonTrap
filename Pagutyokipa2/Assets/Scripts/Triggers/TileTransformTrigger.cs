@@ -2,12 +2,16 @@
 using System;
 using UniRx;
 using UnityEngine;
+using Zenject;
 
 namespace Ryocatusn
 {
     [RequireComponent(typeof(TileTransform))]
     public class TileTransformTrigger : MonoBehaviour
     {
+        [Inject]
+        private StageManager stageManager;
+
         private TileTransform tileTransform;
         private TileTransform playerTileTransform;
 
@@ -23,7 +27,7 @@ namespace Ryocatusn
         {
             tileTransform = GetComponent<TileTransform>();
 
-            StageManager.activeStage.SetupStageEvent
+            stageManager.SetupStageEvent
                 .Subscribe(gameContains =>
                 {
                     tileTransform.ChangeTilemap(RoadManager.instance.GetTilemaps(), transform.position);

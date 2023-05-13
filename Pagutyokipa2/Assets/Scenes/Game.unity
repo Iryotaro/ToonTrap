@@ -1067,9 +1067,9 @@ GameObject:
   - component: {fileID: 848806806}
   - component: {fileID: 848806804}
   - component: {fileID: 848806805}
-  - component: {fileID: 848806810}
+  - component: {fileID: 848806813}
   - component: {fileID: 848806808}
-  - component: {fileID: 848806807}
+  - component: {fileID: 848806812}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -1122,7 +1122,6 @@ MonoBehaviour:
   hp: 5
   invincibleTime: 1
   atk: 1
-  gameManager: {fileID: 1521828347}
   bullet: {fileID: 2487010197463091084, guid: 6776ec90d05a8bf4a8be4cd1d3c0f594, type: 3}
   attackSE:
     audioClip: {fileID: 8300000, guid: 2c5292ba5cf254919a6b9e2b18e04f49, type: 3}
@@ -1193,18 +1192,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.8, y: 0.8}
   m_EdgeRadius: 0
---- !u!114 &848806807
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 848806801}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a01fe80f68344e04b86f2285b7b261e0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &848806808
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1220,7 +1207,6 @@ MonoBehaviour:
   buttonMappingUI: {fileID: 724088718}
   hpBar: {fileID: 1916165414}
   winComboText: {fileID: 766288444}
-  gameManager: {fileID: 1521828347}
 --- !u!50 &848806809
 Rigidbody2D:
   serializedVersion: 4
@@ -1248,7 +1234,19 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &848806810
+--- !u!114 &848806812
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 848806801}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 85d186336394db940b9f21ce6354fd3d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &848806813
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1260,7 +1258,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 113e7cb184f411246b8e5da5333240ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameCamera: {fileID: 1536812631}
   spriteRenderer: {fileID: 1822175313}
   jankenSprites:
     rockSprite: {fileID: 21300000, guid: 97b1beee62bfc8945b7a939de68d9b2b, type: 3}
@@ -2297,6 +2294,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1521828346}
   - component: {fileID: 1521828347}
+  - component: {fileID: 1521828348}
+  - component: {fileID: 1521828349}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -2331,15 +2330,67 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 249a028e71cd11c40b24039211d0e9cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 848806805}
-  buttonMappingUI: {fileID: 724088718}
-  gameCamera: {fileID: 1536812631}
-  globalLight: {fileID: 387657330}
-  background: {fileID: 0}
-  bgm: {fileID: 673134496}
-  conversation: {fileID: 1788059086}
+  mainName: Game
   stageNames:
   - Stage
+  player: {fileID: 848806805}
+  playerButtonMappingUI: {fileID: 724088718}
+  gameCamera: {fileID: 1536812631}
+  background: {fileID: 0}
+  globalLight: {fileID: 387657330}
+  bgm: {fileID: 673134496}
+  conversation: {fileID: 1788059086}
+--- !u!114 &1521828348
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1521828345}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 89715ad69b973a14899afa2c6730b30b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _scriptableObjectInstallers:
+  - {fileID: 11400000, guid: 039068ae40120b04d9c3c187109c2af2, type: 2}
+  _monoInstallers: []
+  _installerPrefabs: []
+  _autoRun: 1
+  OnPreInstall:
+    m_PersistentCalls:
+      m_Calls: []
+  OnPostInstall:
+    m_PersistentCalls:
+      m_Calls: []
+  OnPreResolve:
+    m_PersistentCalls:
+      m_Calls: []
+  OnPostResolve:
+    m_PersistentCalls:
+      m_Calls: []
+  _parentNewObjectsUnderSceneContext: 0
+  _contractNames:
+  - Main
+  _parentContractNames: []
+--- !u!114 &1521828349
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1521828345}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0166d8ff8d905b048b2448179e1f5d11, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _components:
+  - {fileID: 1521828347}
+  _identifier: 
+  _useSceneContext: 0
+  _context: {fileID: 0}
+  _bindType: 3
 --- !u!1 &1536812624
 GameObject:
   m_ObjectHideFlags: 0
@@ -2533,8 +2584,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   volume: {fileID: 1221136467}
-  gameManager: {fileID: 1521828347}
-  player: {fileID: 848806805}
 --- !u!1 &1621955463
 GameObject:
   m_ObjectHideFlags: 0

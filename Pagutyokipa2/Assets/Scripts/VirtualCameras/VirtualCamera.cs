@@ -1,6 +1,7 @@
 ﻿using Cinemachine;
 using UniRx;
 using UnityEngine;
+using Zenject;
 
 namespace Ryocatusn
 {
@@ -8,6 +9,9 @@ namespace Ryocatusn
     public class VirtualCamera : MonoBehaviour
     {
         private CinemachineVirtualCamera virtualCamera;
+
+        [Inject]
+        private StageManager stageManager;
 
         [SerializeField]
         private bool focusPlayer;
@@ -18,7 +22,7 @@ namespace Ryocatusn
         {
             VirtualCameraManager.instance.Save(this);
 
-            StageManager.activeStage.SetupStageEvent
+            stageManager.SetupStageEvent
                 .Subscribe(x => { if (focusPlayer) FocusPlayer(x.player); })
                 .AddTo(this);
 

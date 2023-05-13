@@ -1,16 +1,20 @@
-using Microsoft.Extensions.DependencyInjection;
+using Ryocatusn.Games;
 using Ryocatusn.Janken.AttackableObjects;
 using UniRx;
 using UniRx.Triggers;
-using UnityEngine;
+using Zenject;
 
 namespace Ryocatusn.Characters
 {
-    public class AttackBehaviour : MonoBehaviour
+    public class AttackBehaviour : NetworkBehaviour
     {
         public AttackableObjectId id { get; private set; }
         protected AttackableObjectEvents events { get; private set; }
-        protected AttackableObjectApplicationService attackableObjectApplicationService { get; } = Installer.installer.serviceProvider.GetService<AttackableObjectApplicationService>();
+        [Inject]
+        protected AttackableObjectApplicationService attackableObjectApplicationService { get; }
+
+        [Inject]
+        private GameManager gameManager;
 
         private bool attackToOnlyPlayer;
         private Player player;
@@ -21,7 +25,7 @@ namespace Ryocatusn.Characters
             this.attackToOnlyPlayer = attackToOnlyPlayer;
             events = attackableObjectApplicationService.GetEvents(id);
 
-            StageManager.activeStage.SetupStageEvent
+            gameManager.nowStageManager.SetupStageEvent
                 .Subscribe(x => player = x.player)
                 .AddTo(this);
 

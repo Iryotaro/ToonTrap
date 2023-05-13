@@ -1,13 +1,15 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Photon.Pun.Demo.PunBasics;
 using Ryocatusn.Janken.JankenableObjects;
 using UniRx;
 using UnityEngine;
+using Zenject;
 
 namespace Ryocatusn.UI
 {
     public class PlayerUI : MonoBehaviour, IJankenableObjectUI
     {
-        private JankenableObjectApplicationService jankenableObjectApplicationService = Installer.installer.serviceProvider.GetService<JankenableObjectApplicationService>();
+        [Inject]
+        private JankenableObjectApplicationService jankenableObjectApplicationService { get; }
 
         [SerializeField]
         private ButtonMappingUI buttonMappingUI;
@@ -15,8 +17,6 @@ namespace Ryocatusn.UI
         private HPBar hpBar;
         [SerializeField]
         private TMPro.TextMeshProUGUI winComboText;
-        [SerializeField]
-        private GameManager gameManager;
 
         public void Setup(JankenableObjectId id)
         {

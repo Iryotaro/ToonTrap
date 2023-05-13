@@ -1,5 +1,4 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using Ryocatusn.Games.Stages;
+﻿using Ryocatusn.Games.Stages;
 using Ryocatusn.TileTransforms;
 using Ryocatusn.Util;
 using System;
@@ -7,6 +6,7 @@ using UniRx;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Tilemaps;
+using Zenject;
 
 namespace Ryocatusn
 {
@@ -14,7 +14,8 @@ namespace Ryocatusn
     public class StageManager : MonoBehaviour
     {
         public StageId id { get; private set; }
-        private StageApplicationService stageApplicationService = Installer.installer.serviceProvider.GetService<StageApplicationService>();
+        [Inject]
+        private StageApplicationService stageApplicationService { get; }
 
         public Option<GameContains> gameContains { get; private set; } = new Option<GameContains>(null);
 
@@ -26,33 +27,19 @@ namespace Ryocatusn
 
         public IObservable<GameContains> SetupStageEvent;
 
-        private event Action UnloadEvent;
-
-        public static StageManager activeStage { get; private set; }
-
         private void Start()
         {
             SetupStageEvent = setupStageEvent.Where(x => x != null).First();
-
-            activeStage = this;
 
             SceneManager.sceneUnloaded += scene =>
             {
                 if (!stageApplicationService.IsEnable(id)) return;
                 if (scene.name != stageApplicationService.Get(id).name.value) return;
-
-                UnloadEvent?.Invoke();
-
-                if (UnloadEvent == null) return;
-                foreach (Action action in UnloadEvent.GetInvocationList())
-                {
-                    UnloadEvent -= action;
-                }
             };
         }
         private void OnDestroy()
         {
-            activeStage = null;
+            setupStageEvent.Dispose();
         }
 
         public void SetupStage(StageId id, GameContains gameContains)
@@ -81,11 +68,6 @@ namespace Ryocatusn
         {
             if (!stageApplicationService.IsEnable(id)) return;
             stageApplicationService.Over(id);
-        }
-
-        public void AddResetHandler(Action handleReset)
-        {
-            UnloadEvent += handleReset;
         }
     }
 }

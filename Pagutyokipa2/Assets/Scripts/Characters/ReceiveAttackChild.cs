@@ -1,13 +1,14 @@
 using Ryocatusn.Janken.AttackableObjects;
 using Ryocatusn.Janken.JankenableObjects;
 using UnityEngine;
-using Microsoft.Extensions.DependencyInjection;
+using Zenject;
 
 namespace Ryocatusn.Characters
 {
     public class ReceiveAttackChild : MonoBehaviour, IReceiveAttack
     {
-        private AttackableObjectApplicationService attackableObjectApplicationService { get; } = Installer.installer.serviceProvider.GetService<AttackableObjectApplicationService>();
+        [Inject]
+        private AttackableObjectApplicationService attackableObjectApplicationService { get; }
 
         [SerializeField]
         private JankenBehaviour jankenBehaviour;

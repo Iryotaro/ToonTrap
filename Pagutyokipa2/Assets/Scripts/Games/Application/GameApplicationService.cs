@@ -40,7 +40,7 @@ namespace Ryocatusn.Games
                 None: () => throw new GameException("Gameが見つかりません")
                 );
         }
-        public GameData GetData(GameId id)
+        public GameData Get(GameId id)
         {
             Game game = gameRepository.Find(id).Get();
             if (game == null) throw new GameException("Gameが見つかりません");

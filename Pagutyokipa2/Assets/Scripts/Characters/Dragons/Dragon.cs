@@ -5,6 +5,9 @@ using System;
 using UniRx;
 using UnityEngine;
 using Ryocatusn.Audio;
+using Zenject;
+using Photon.Pun;
+using UniRx.Triggers;
 
 namespace Ryocatusn.Characters
 {
@@ -20,6 +23,12 @@ namespace Ryocatusn.Characters
         private float attackRange;
         [SerializeField, Min(1)]
         private float attackDelay = 1;
+
+        [Inject]
+        private StageManager stageManager;
+
+        [Inject]
+        private BulletFactory bulletFactory;
         [SerializeField]
         private Bullet bullet;
         [SerializeField]
@@ -33,41 +42,44 @@ namespace Ryocatusn.Characters
 
         private void Start()
         {
-            JankenableObjectCreateCommand command = new JankenableObjectCreateCommand(new Hp(1), shape, StageManager.activeStage.id);
+            JankenableObjectCreateCommand command = new JankenableObjectCreateCommand(new Hp(1), shape, stageManager.id);
             Create(command);
 
-            view.SetUp();
+            stageManager.SetupStageEvent
+                .Subscribe(x =>
+                {
+                    player = x.player;
 
-            attackEvent
-                .ThrottleFirst(TimeSpan.FromSeconds(attackDelay))
-                .Subscribe(_ => AttackTrigger());
+                    view.SetUp();
 
-            events.AttackTriggerEvent
-                .Subscribe(x => HandleAttackTrigger(x.id))
-                .AddTo(this);
+                    attackEvent
+                        .ThrottleFirst(TimeSpan.FromSeconds(attackDelay))
+                        .Subscribe(_ => CallRpc(nameof(AttackTrigger)));
 
-            events.DieEvent
-                .Subscribe(_ => Destroy(gameObject))
-                .AddTo(this);
+                    events.AttackTriggerEvent
+                        .Subscribe(x => HandleAttackTrigger(x.id))
+                        .AddTo(this);
 
-            StageManager.activeStage.SetupStageEvent
-                .Subscribe(x => player = x.player)
-                .AddTo(this);
+                    events.DieEvent
+                        .Subscribe(_ => CallRpc(nameof(HandleDie)))
+                        .AddTo(this);
 
+                    SEPlayer sePlayer = new SEPlayer(gameObject);
 
-            SEPlayer sePlayer = new SEPlayer(gameObject);
+                    events.AttackTriggerEvent.Subscribe(_ => sePlayer.Play(attackSE)).AddTo(this);
 
-            events.AttackTriggerEvent.Subscribe(_ => sePlayer.Play(attackSE)).AddTo(this);
+                    this.UpdateAsObservable()
+                    .Subscribe(_ =>
+                    {
+                        if (view.skinnedMeshRenderer.isVisible && player != null && Vector2.Distance(transform.position, player.transform.position) <= attackRange)
+                        {
+                            attackEvent.OnNext(Unit.Default);
+                        }
+                    });
+                });
         }
 
-        private void Update()
-        {
-            if (view.skinnedMeshRenderer.isVisible && player != null && Vector2.Distance(transform.position, player.transform.position) <= attackRange)
-            {
-                attackEvent.OnNext(Unit.Default);
-            }
-        }
-
+        [PunRPC]
         private void AttackTrigger()
         {
             AttackableObjectCreateCommand command = new AttackableObjectCreateCommand(id, GetData().shape, new Atk(atk));
@@ -76,8 +88,14 @@ namespace Ryocatusn.Characters
 
         private void HandleAttackTrigger(AttackableObjectId id)
         {
-            if (player != null) BulletFactory.Create(bullet, id, gameObject, shotPoint.transform.position, player.transform);
-            else BulletFactory.Create(bullet, id, gameObject, shotPoint.transform.position, shotPoint.transform.rotation);
+            if (player != null) bulletFactory.Create(bullet, id, gameObject, shotPoint.transform.position, player.transform);
+            else bulletFactory.Create(bullet, id, gameObject, shotPoint.transform.position, shotPoint.transform.rotation);
+        }
+
+        [PunRPC]
+        private void HandleDie()
+        {
+            DestroyThis();
         }
 
         private void OnDrawGizmosSelected()

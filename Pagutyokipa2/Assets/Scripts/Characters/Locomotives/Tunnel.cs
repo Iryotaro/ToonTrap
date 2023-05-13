@@ -1,9 +1,8 @@
 using FTRuntime;
 using Ryocatusn.Janken;
 using System;
-using UniRx;
-using UniRx.Triggers;
 using UnityEngine;
+using Zenject;
 
 namespace Ryocatusn.Characters
 {
@@ -20,11 +19,14 @@ namespace Ryocatusn.Characters
         [SerializeField]
         private Locomotive locomotive;
 
+        [Inject]
+        private DiContainer diContainer;
+
         private void Start()
         {
-            InvokeRepeating("A", 5, 8);
+            InvokeRepeating("Do", 5, 8);
         }
-        private void A()
+        private void Do()
         {
             Hand.Shape shape = (Hand.Shape)UnityEngine.Random.Range(0, 3);
             Action action;
@@ -35,6 +37,8 @@ namespace Ryocatusn.Characters
         private Locomotive CreateLocomotive(Hand.Shape shape)
         {
             Locomotive newLocomotive = Instantiate(locomotive, transform.parent);
+            diContainer.InjectGameObject(newLocomotive.gameObject);
+
             newLocomotive.SetUp(shape, railway, datas[UnityEngine.Random.Range(0, datas.Length)]);
             return newLocomotive;
         }

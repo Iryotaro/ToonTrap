@@ -17,7 +17,7 @@ namespace Ryocatusn.UI
         private BackgroundColors paperColors;
 
         [SerializeField]
-        private GameManager gameManager;
+        private OffLineGameManager gameManager;
 
         private void Start()
         {
