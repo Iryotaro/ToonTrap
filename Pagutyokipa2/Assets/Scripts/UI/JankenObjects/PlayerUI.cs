@@ -1,5 +1,4 @@
-﻿using Photon.Pun.Demo.PunBasics;
-using Ryocatusn.Janken.JankenableObjects;
+﻿using Ryocatusn.Janken.JankenableObjects;
 using UniRx;
 using UnityEngine;
 using Zenject;

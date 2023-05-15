@@ -6,7 +6,6 @@ using UniRx;
 using UnityEngine;
 using Ryocatusn.Audio;
 using Zenject;
-using Photon.Pun;
 using UniRx.Triggers;
 
 namespace Ryocatusn.Characters
@@ -54,14 +53,14 @@ namespace Ryocatusn.Characters
 
                     attackEvent
                         .ThrottleFirst(TimeSpan.FromSeconds(attackDelay))
-                        .Subscribe(_ => CallRpc(nameof(AttackTrigger)));
+                        .Subscribe(_ => AttackTrigger());
 
                     events.AttackTriggerEvent
                         .Subscribe(x => HandleAttackTrigger(x.id))
                         .AddTo(this);
 
                     events.DieEvent
-                        .Subscribe(_ => CallRpc(nameof(HandleDie)))
+                        .Subscribe(_ => HandleDie())
                         .AddTo(this);
 
                     SEPlayer sePlayer = new SEPlayer(gameObject);
@@ -79,7 +78,6 @@ namespace Ryocatusn.Characters
                 });
         }
 
-        [PunRPC]
         private void AttackTrigger()
         {
             AttackableObjectCreateCommand command = new AttackableObjectCreateCommand(id, GetData().shape, new Atk(atk));
@@ -92,10 +90,9 @@ namespace Ryocatusn.Characters
             else bulletFactory.Create(bullet, id, gameObject, shotPoint.transform.position, shotPoint.transform.rotation);
         }
 
-        [PunRPC]
         private void HandleDie()
         {
-            DestroyThis();
+            Destroy(gameObject);
         }
 
         private void OnDrawGizmosSelected()

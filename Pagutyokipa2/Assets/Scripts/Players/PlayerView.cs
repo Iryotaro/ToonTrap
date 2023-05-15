@@ -8,12 +8,11 @@ using UniRx;
 using UniRx.Triggers;
 using UnityEngine;
 using Zenject;
-using Photon.Pun;
 
 namespace Ryocatusn
 {
     [RequireComponent(typeof(TileTransform))]
-    public class PlayerView : NetworkBehaviour
+    public class PlayerView : MonoBehaviour
     {
         [Inject]
         protected JankenableObjectApplicationService jankenableObjectApplicationService;
@@ -46,14 +45,14 @@ namespace Ryocatusn
             events = jankenableObjectApplicationService.GetEvents(id);
 
             events.ChangeShapeEvent
-                .Subscribe(x => CallRpc(nameof(ChangeShape), x))
+                .Subscribe(x => ChangeShape(x))
                 .AddTo(this);
 
             events.TakeDamageEvent
                 .Subscribe(_ => invincibleFinishEvent = Invincible());
 
             events.TakeDamageEvent
-                .Subscribe(_ => CallRpc(nameof(TakeDamage)));
+                .Subscribe(_ => TakeDamage());
 
             events.FinishInvincibleTime
                 .Subscribe(_ => invincibleFinishEvent?.Invoke());
@@ -64,7 +63,6 @@ namespace Ryocatusn
                 .Subscribe(_ => ChangeAngle(player));
         }
 
-        [PunRPC]
         private void ChangeShape(Hand.Shape shape)
         {
             spriteRenderer.sprite = jankenSprites.GetAsset(shape);
@@ -99,7 +97,6 @@ namespace Ryocatusn
             return finish;
         }
 
-        [PunRPC]
         private void TakeDamage()
         {
             CreateBoomEffect();

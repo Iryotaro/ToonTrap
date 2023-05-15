@@ -2,11 +2,12 @@ using Ryocatusn.Games;
 using Ryocatusn.Janken.AttackableObjects;
 using UniRx;
 using UniRx.Triggers;
+using UnityEngine;
 using Zenject;
 
 namespace Ryocatusn.Characters
 {
-    public class AttackBehaviour : NetworkBehaviour
+    public class AttackBehaviour : MonoBehaviour
     {
         public AttackableObjectId id { get; private set; }
         protected AttackableObjectEvents events { get; private set; }

@@ -67,17 +67,11 @@ namespace Ryocatusn.Characters
         private bool IsAllowedToAttack(Collider2D collider, Player player)
         {
             IReceiveAttack receiveAttack = collider.GetComponentInChildren<IReceiveAttack>();
-            if (receiveAttack != null)
-            {
-                if (receiveAttack.GetId() == null) return false;
-                if (receiveAttack.GetId().Equals(Get().ownerId)) return false;
-                if (!attackToOnlyPlayer) return true;
-                return receiveAttack == (IReceiveAttack)player;
-            }
-            else
-            {
-                return false;
-            }
+            if (receiveAttack == null) return false;
+            if (receiveAttack.GetId() == null) return false;
+            if (receiveAttack.GetId().Equals(Get().ownerId)) return false;
+            if (!attackToOnlyPlayer) return true;
+            return receiveAttack == (IReceiveAttack)player;
         }
         private void OnHit(IReceiveAttack receiveAttack)
         {

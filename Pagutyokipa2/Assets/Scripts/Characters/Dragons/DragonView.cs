@@ -12,7 +12,7 @@ namespace Ryocatusn.Characters
 {
     [RequireComponent(typeof(SpriteMeshInstance))]
     [RequireComponent(typeof(SkinnedMeshRenderer))]
-    public class DragonView : NetworkBehaviour, IForJankenViewEditor
+    public class DragonView : MonoBehaviour, IForJankenViewEditor
     {
         [Inject]
         private StageManager stageManager;

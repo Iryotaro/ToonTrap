@@ -7,7 +7,7 @@ using Zenject;
 
 namespace Ryocatusn.Characters
 {
-    public class JankenBehaviour : NetworkBehaviour
+    public class JankenBehaviour : MonoBehaviour
     {
         public JankenableObjectId id { get; private set; }
         [Inject]
