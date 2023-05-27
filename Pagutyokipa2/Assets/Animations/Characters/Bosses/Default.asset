@@ -1,0 +1,83 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae0543fe805424df99fe08ce744cbe49, type: 3}
+  m_Name: Default
+  m_EditorClassIdentifier: 
+  m_PoseEntries:
+  - path: Scissors/ArmLeftBorn0
+    localPosition: {x: 1.1570361, y: 0.57417727, z: 0.000032030046}
+    localRotation: {x: 0, y: 0, z: -0.4870063, w: 0.8733985}
+    localScale: {x: 1, y: 1, z: 1}
+  - path: Scissors/ArmLeftBorn0/ArmLeftBorn1
+    localPosition: {x: 0.2700001, y: -0.000000029802322, z: 0}
+    localRotation: {x: 0, y: 0, z: 0.079955325, w: 0.9967985}
+    localScale: {x: 1, y: 1, z: 1}
+  - path: Scissors/ArmLeftBorn0/ArmLeftBorn1/ArmLeftBorn2
+    localPosition: {x: 0.24999993, y: 0.000000030035153, z: 0}
+    localRotation: {x: 0, y: 0, z: 0.18564944, w: 0.9826161}
+    localScale: {x: 1, y: 1, z: 1}
+  - path: Scissors/ArmLeftBorn0/ArmLeftBorn1/ArmLeftBorn2/ArmLeftBorn3
+    localPosition: {x: 0.29000005, y: -0.000000015366822, z: 0}
+    localRotation: {x: 0, y: 0, z: 0.28700945, w: 0.95792776}
+    localScale: {x: 1, y: 1, z: 1}
+  - path: Scissors/ArmLeftBorn0/ArmLeftBorn1/ArmLeftBorn2/ArmLeftBorn3/ArmLeftBorn4
+    localPosition: {x: 0.4211423, y: -0.00000017136335, z: 0}
+    localRotation: {x: 0, y: 0, z: 0.2404398, w: 0.9706641}
+    localScale: {x: 1, y: 1, z: 1}
+  - path: Scissors/ArmLeftBorn0/ArmLeftBorn1/ArmLeftBorn2/ArmLeftBorn3/ArmLeftBorn4/ArmLeftBorn5
+    localPosition: {x: 0.36593872, y: 0.000000007450581, z: 0}
+    localRotation: {x: 0, y: 0, z: 0.27783442, w: 0.960629}
+    localScale: {x: 1, y: 1, z: 1}
+  - path: Scissors/ArmLeftBorn0/ArmLeftBorn1/ArmLeftBorn2/ArmLeftBorn3/ArmLeftBorn4/ArmLeftBorn5/ArmLeftBorn6
+    localPosition: {x: 0.38516372, y: -0.000000007450581, z: 0}
+    localRotation: {x: 0, y: 0, z: 0.0933351, w: 0.9956348}
+    localScale: {x: 1, y: 1, z: 1}
+  - path: Scissors/ArmRightBorn0
+    localPosition: {x: -1.4561007, y: -0.43679965, z: 0.00024414062}
+    localRotation: {x: 0, y: 0, z: 0.71452147, w: 0.6996135}
+    localScale: {x: 1, y: 1, z: 1}
+  - path: Scissors/ArmRightBorn0/ArmRightBorn1
+    localPosition: {x: 0.3081541, y: -0.000000029802322, z: 0}
+    localRotation: {x: 0, y: 0, z: 0.361335, w: 0.9324361}
+    localScale: {x: 1, y: 1, z: 1}
+  - path: Scissors/ArmRightBorn0/ArmRightBorn1/ArmRightBorn2
+    localPosition: {x: 0.29491502, y: 0.000000026077032, z: 0}
+    localRotation: {x: 0, y: 0, z: 0.11684411, w: 0.9931503}
+    localScale: {x: 1, y: 1, z: 1}
+  - path: Scissors/ArmRightBorn0/ArmRightBorn1/ArmRightBorn2/ArmRightBorn3
+    localPosition: {x: 0.29403764, y: 0.00000014388934, z: 0}
+    localRotation: {x: 0, y: 0, z: 0.029456895, w: 0.99956614}
+    localScale: {x: 1, y: 1, z: 1}
+  - path: Scissors/ArmRightBorn0/ArmRightBorn1/ArmRightBorn2/ArmRightBorn3/ArmRightBorn4
+    localPosition: {x: 0.35339957, y: -0.0000000016771082, z: 0}
+    localRotation: {x: 0, y: 0, z: 0.06642194, w: 0.9977917}
+    localScale: {x: 1, y: 1, z: 1}
+  - path: Scissors/ArmRightBorn0/ArmRightBorn1/ArmRightBorn2/ArmRightBorn3/ArmRightBorn4/ArmRightBorn5
+    localPosition: {x: 0.23497193, y: 0.00000013457611, z: 0}
+    localRotation: {x: 0, y: 0, z: 0.11098329, w: 0.9938223}
+    localScale: {x: 1, y: 1, z: 1}
+  - path: Paper/SubBorn0
+    localPosition: {x: -1.8422253, y: 1.4813254, z: 0}
+    localRotation: {x: 0, y: 0, z: -0.92149186, w: 0.3883978}
+    localScale: {x: 1, y: 1, z: 1}
+  - path: Paper/SubBorn0/SubBorn1
+    localPosition: {x: 0.48717698, y: 0, z: 0}
+    localRotation: {x: 0, y: 0, z: 0.29162097, w: 0.95653397}
+    localScale: {x: 1, y: 1, z: 1}
+  - path: Paper/SubBorn0/SubBorn1/SubBorn2
+    localPosition: {x: 0.7568005, y: -0.00000024586916, z: 0}
+    localRotation: {x: 0, y: 0, z: 0.108999744, w: -0.9940418}
+    localScale: {x: 1, y: 1, z: 1}
+  - path: Paper/SubBorn0/SubBorn1/SubBorn2/SubBorn3
+    localPosition: {x: 0.6271342, y: -0.000000011874363, z: 0}
+    localRotation: {x: 0, y: 0, z: -0.095152594, w: 0.9954627}
+    localScale: {x: 1, y: 1, z: 1}

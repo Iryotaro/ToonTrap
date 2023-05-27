@@ -11,8 +11,6 @@ namespace Ryocatusn.UI
         private JankenableObjectApplicationService jankenableObjectApplicationService { get; }
 
         [SerializeField]
-        private ButtonMappingUI buttonMappingUI;
-        [SerializeField]
         private HPBar hpBar;
         [SerializeField]
         private TMPro.TextMeshProUGUI winComboText;
@@ -20,14 +18,6 @@ namespace Ryocatusn.UI
         public void Setup(JankenableObjectId id)
         {
             JankenableObjectEvents jankenableObjectEvents = jankenableObjectApplicationService.GetEvents(id);
-
-            jankenableObjectEvents.ChangeShapeEvent
-                .Subscribe(x => buttonMappingUI.HandleChangeShape(x))
-                .AddTo(this);
-
-            jankenableObjectEvents.JankenReverseEvent
-                .Subscribe(x => buttonMappingUI.HandleJankenReverse(x))
-                .AddTo(this);
 
             jankenableObjectEvents.ChangeHpEvent
                 .Subscribe(x => hpBar.ChangeHp(x))
