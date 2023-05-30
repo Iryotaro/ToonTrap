@@ -1,6 +1,5 @@
 using Anima2D;
 using DG.Tweening;
-using Ryocatusn.Janken;
 using System;
 using System.Collections;
 using UniRx;
@@ -10,34 +9,44 @@ using Zenject;
 
 namespace Ryocatusn.Characters
 {
-    [RequireComponent(typeof(SpriteMeshInstance))]
     [RequireComponent(typeof(SkinnedMeshRenderer))]
-    public class DragonView : MonoBehaviour, IForJankenViewEditor
+    public class DragonView : MonoBehaviour
     {
         [Inject]
         private StageManager stageManager;
 
         [SerializeField]
-        private Dragon dragon;
-        [SerializeField]
-        private JankenSpriteMeshes jankenSpriteMeshes;
-        [SerializeField]
         private IkCCD2D ik;
+        [SerializeField]
+        private DragonMouth dragonMouth;
 
         [NonSerialized]
-        public SkinnedMeshRenderer skinnedMeshRenderer;
+        public Transform shotPoint;
+
+        private SkinnedMeshRenderer skinnedMeshRenderer;
 
         private Player player;
         private Vector2 gap;
 
+        private Subject<Unit> attackTriggerEvent = new Subject<Unit>();
+
+        public IObservable<Unit> AttackTriggerEvent => attackTriggerEvent;
+
         public void SetUp()
         {
             skinnedMeshRenderer = GetComponent<SkinnedMeshRenderer>();
+            shotPoint = dragonMouth.shotPoint;
 
             Move();
 
+            dragonMouth.AttackTriggerEvent.Subscribe(_ => attackTriggerEvent.OnNext(Unit.Default));
+
             stageManager.SetupStageEvent
                 .Subscribe(x => player = x.player);
+        }
+        private void OnDestroy()
+        {
+            attackTriggerEvent.Dispose();
         }
 
         private void Move()
@@ -74,18 +83,14 @@ namespace Ryocatusn.Characters
                 }
             }
         }
-
-        public Hand.Shape GetShape()
+        public void StartAttackAnimation()
         {
-            if (dragon == null) return Hand.Shape.Rock;
-            return dragon.shape;
+            dragonMouth.StartAttackAnimation();
         }
-        public void UpdateView(Hand.Shape shape)
+        
+        public bool IsVisible()
         {
-            if (jankenSpriteMeshes.TryGetRenderer(out SpriteMeshInstance spriteMeshInstance, this))
-            {
-                spriteMeshInstance.spriteMesh = jankenSpriteMeshes.GetAsset(shape);
-            }
+            return skinnedMeshRenderer.isVisible;
         }
     }
 }

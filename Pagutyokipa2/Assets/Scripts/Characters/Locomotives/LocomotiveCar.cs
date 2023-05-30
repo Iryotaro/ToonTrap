@@ -59,6 +59,9 @@ namespace Ryocatusn.Characters
             tileTransform.ChangeTilemap(railway.tilemaps, transform.position);
             MoveAStar moveDataCreater = new MoveAStar(railway.startPosition.position, railway.endPosition.position, railway.tilemaps.ToList());
             tileTransform.SetMovement(moveDataCreater, new MoveRate(moveRate));
+            tileTransform.movement.Get().CompleteEvent
+                .Subscribe(_ => blowAwayEvent.OnNext(this))
+                .AddTo(this);
         }
         public void BlowAway()
         {

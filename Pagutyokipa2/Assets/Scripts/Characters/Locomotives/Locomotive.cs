@@ -80,6 +80,8 @@ namespace Ryocatusn.Characters
         {
             locomotiveCar.BlowAway();
             locomotiveCars.Remove(locomotiveCar);
+
+            if (locomotiveCars.Count == 0) Destroy(gameObject);
         }
     }
 }

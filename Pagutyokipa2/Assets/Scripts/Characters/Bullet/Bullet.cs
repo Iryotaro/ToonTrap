@@ -21,7 +21,7 @@ namespace Ryocatusn.Characters
         [SerializeField]
         private float power;
         [SerializeField]
-        private bool attackToOnlyPlayer = false;
+        private bool m_attackToOnlyPlayer = false;
 
         [Inject]
         GameManager gameManager;
@@ -32,7 +32,7 @@ namespace Ryocatusn.Characters
 
         public void SetUp(AttackableObjectId id, GameObject ownerObject)
         {
-            SetId(id, attackToOnlyPlayer);
+            SetId(id, m_attackToOnlyPlayer);
             this.ownerObject = ownerObject;
 
             rigid = GetComponent<Rigidbody2D>();
@@ -70,7 +70,7 @@ namespace Ryocatusn.Characters
             if (receiveAttack == null) return false;
             if (receiveAttack.GetId() == null) return false;
             if (receiveAttack.GetId().Equals(Get().ownerId)) return false;
-            if (!attackToOnlyPlayer) return true;
+            if (!m_attackToOnlyPlayer) return true;
             return receiveAttack == (IReceiveAttack)player;
         }
         private void OnHit(IReceiveAttack receiveAttack)

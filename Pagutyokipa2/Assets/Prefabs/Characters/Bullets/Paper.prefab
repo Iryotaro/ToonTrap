@@ -55,7 +55,7 @@ MonoBehaviour:
   m_Materials:
   - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 10
   m_BoneTransforms:
   - {fileID: 5900988641861488538}
   - {fileID: 5900988642885899056}

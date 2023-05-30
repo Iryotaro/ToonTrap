@@ -21,7 +21,7 @@
       "dependencies": {
         "com.unity.inputsystem": "1.2.0"
       },
-      "hash": "e4d4f850d22877fee5ae2d3026f7833a8ad992c6"
+      "hash": "634f7742fd28b5b05f70054faa511926e302c03e"
     },
     "com.unity.2d.animation": {
       "version": "9.0.1",
@@ -307,13 +307,6 @@
       "depth": 0,
       "source": "builtin",
       "dependencies": {}
-    },
-    "com.veriorpies.parrelsync": {
-      "version": "https://github.com/VeriorPies/ParrelSync.git?path=/ParrelSync",
-      "depth": 0,
-      "source": "git",
-      "dependencies": {},
-      "hash": "141b4e1e31966242a6fb7c495b52ac3d1221bc75"
     },
     "com.unity.modules.ai": {
       "version": "1.0.0",

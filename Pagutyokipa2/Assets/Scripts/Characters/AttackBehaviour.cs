@@ -20,6 +20,12 @@ namespace Ryocatusn.Characters
         private bool attackToOnlyPlayer;
         private Player player;
 
+        private void OnDestroy()
+        {
+            if (attackableObjectApplicationService == null) return;
+            attackableObjectApplicationService.Delete(id);
+        }
+
         protected void SetId(AttackableObjectId id, bool attackToOnlyPlayer)
         {
             this.id = id;

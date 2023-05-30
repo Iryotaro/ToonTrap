@@ -17,7 +17,7 @@ namespace Ryocatusn.Characters
                 .SetLink(gameObject)
                 .Append(transform.DOScale(0.7f, 2))
                 .Join(DoFade(0, 2))
-                .OnComplete(() => Destroy(gameObject));
+                .OnComplete(() => Destroy(gameObject.transform.parent.gameObject));
 
             Tween DoFade(float endValue, float duration)
             {

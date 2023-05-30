@@ -984,7 +984,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aac370a6e124cf04b8abdb349abd780a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buttonMappingUI: {fileID: 0}
   hpBar: {fileID: 1916165414}
   winComboText: {fileID: 766288444}
 --- !u!50 &848806809

@@ -1,7 +1,6 @@
 using Ryocatusn.Janken;
 using Ryocatusn.Janken.AttackableObjects;
 using Ryocatusn.Janken.JankenableObjects;
-using System;
 using UniRx;
 using UnityEngine;
 using Ryocatusn.Audio;
@@ -10,34 +9,34 @@ using UniRx.Triggers;
 
 namespace Ryocatusn.Characters
 {
-    public class Dragon : JankenBehaviour, IReceiveAttack
+    public class Dragon : JankenBehaviour, IReceiveAttack, IForJankenViewEditor
     {
         [SerializeField]
         public Hand.Shape shape;
-        [SerializeField]
-        private DragonView view;
         [SerializeField, Min(1)]
         private int atk = 1;
         [SerializeField, Min(0)]
         private float attackRange;
-        [SerializeField, Min(1)]
-        private float attackDelay = 1;
 
         [Inject]
         private StageManager stageManager;
 
         [Inject]
+        private DiContainer container;
+
+        [Inject]
         private BulletFactory bulletFactory;
         [SerializeField]
         private Bullet bullet;
+
         [SerializeField]
-        private Transform shotPoint;
+        private JankenPrefabs jankenPrefabs;
+        private DragonView dragonView;
 
         [SerializeField]
         private SE attackSE;
 
         private Player player;
-        private Subject<Unit> attackEvent = new Subject<Unit>();
 
         private void Start()
         {
@@ -49,19 +48,19 @@ namespace Ryocatusn.Characters
                 {
                     player = x.player;
 
-                    view.SetUp();
+                    dragonView.SetUp();
 
-                    attackEvent
-                        .ThrottleFirst(TimeSpan.FromSeconds(attackDelay))
-                        .Subscribe(_ => AttackTrigger());
+                    dragonView.AttackTriggerEvent
+                    .Subscribe(_ => AttackTrigger())
+                    .AddTo(this);
 
                     events.AttackTriggerEvent
-                        .Subscribe(x => HandleAttackTrigger(x.id))
-                        .AddTo(this);
+                    .Subscribe(x => HandleAttackTrigger(x.id))
+                    .AddTo(this);
 
                     events.DieEvent
-                        .Subscribe(_ => HandleDie())
-                        .AddTo(this);
+                    .Subscribe(_ => HandleDie())
+                    .AddTo(this);
 
                     SEPlayer sePlayer = new SEPlayer(gameObject);
 
@@ -70,9 +69,9 @@ namespace Ryocatusn.Characters
                     this.UpdateAsObservable()
                     .Subscribe(_ =>
                     {
-                        if (view.skinnedMeshRenderer.isVisible && player != null && Vector2.Distance(transform.position, player.transform.position) <= attackRange)
+                        if (dragonView.IsVisible() && player != null && Vector2.Distance(transform.position, player.transform.position) <= attackRange)
                         {
-                            attackEvent.OnNext(Unit.Default);
+                            dragonView.StartAttackAnimation();
                         }
                     });
                 });
@@ -86,8 +85,8 @@ namespace Ryocatusn.Characters
 
         private void HandleAttackTrigger(AttackableObjectId id)
         {
-            if (player != null) bulletFactory.Create(bullet, id, gameObject, shotPoint.transform.position, player.transform);
-            else bulletFactory.Create(bullet, id, gameObject, shotPoint.transform.position, shotPoint.transform.rotation);
+            if (player != null) bulletFactory.Create(bullet, id, gameObject, dragonView.shotPoint.transform.position, player.transform);
+            else bulletFactory.Create(bullet, id, gameObject, dragonView.shotPoint.transform.position, dragonView.shotPoint.transform.rotation);
         }
 
         private void HandleDie()
@@ -104,6 +103,25 @@ namespace Ryocatusn.Characters
         public JankenableObjectId GetId()
         {
             return id;
+        }
+
+        public Hand.Shape GetShape()
+        {
+            return shape;
+        }
+        public void UpdateView(Hand.Shape shape)
+        {
+            if (jankenPrefabs.TryGetRenderer(out GameObject gameObject, this))
+            {
+                for (int i = 0; i < transform.childCount; i++)
+                {
+                    DestroyImmediate(transform.GetChild(i).gameObject);
+                }
+                GameObject prefab = jankenPrefabs.GetAsset(shape);
+                GameObject newGameObject = Instantiate(prefab, gameObject.transform);
+                container.InjectGameObject(newGameObject);
+                dragonView = newGameObject.GetComponent<DragonView>();
+            }
         }
     }
 }

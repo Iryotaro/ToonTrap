@@ -14,6 +14,12 @@ namespace Ryocatusn.Characters
         protected JankenableObjectApplicationService jankenableObjectApplicationService { get; }
         public JankenableObjectEvents events { get; private set; }
 
+        private void OnDestroy()
+        {
+            if (jankenableObjectApplicationService == null) return;
+            jankenableObjectApplicationService.Delete(id);
+        }
+
         protected void Create(JankenableObjectCreateCommand command)
         {
             id = jankenableObjectApplicationService.Create(command);
