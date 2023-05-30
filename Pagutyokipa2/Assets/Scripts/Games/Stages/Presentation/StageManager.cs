@@ -1,7 +1,9 @@
-﻿using Ryocatusn.Games.Stages;
+﻿using ModestTree;
+using Ryocatusn.Games.Stages;
 using Ryocatusn.TileTransforms;
 using Ryocatusn.Util;
 using System;
+using System.Collections.Generic;
 using UniRx;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -19,13 +21,19 @@ namespace Ryocatusn
 
         public Option<GameContains> gameContains { get; private set; } = new Option<GameContains>(null);
 
-        public Tilemap[] roads;
+        [SerializeField]
+        private Tilemap firstRoad;
         [SerializeField]
         private TileTransform startTransform;
 
+        [NonSerialized]
+        public List<Tilemap> roads = new List<Tilemap>();
+
         private BehaviorSubject<GameContains> setupStageEvent = new BehaviorSubject<GameContains>(null);
+        private BehaviorSubject<Tilemap[]> addRoadEvent = new BehaviorSubject<Tilemap[]>(default);
 
         public IObservable<GameContains> SetupStageEvent;
+        public IObservable<Tilemap[]> AddRoadEvent => addRoadEvent;
 
         private void Start()
         {
@@ -57,7 +65,7 @@ namespace Ryocatusn
             player.Init();
 
             TileTransform playerTransform = player.tileTransform;
-            playerTransform.ChangeTilemap(roads, startTransform.tilePosition.Get().GetWorldPosition());
+            playerTransform.ChangeTilemap(new Tilemap[] { firstRoad }, startTransform.tilePosition.Get().GetWorldPosition());
         }
 
         public void Clear()
@@ -68,6 +76,13 @@ namespace Ryocatusn
         {
             if (!stageApplicationService.IsEnable(id)) return;
             stageApplicationService.Over(id);
+        }
+
+        public void AddRoad(Tilemap tilemap)
+        {
+            roads.Add(tilemap);
+            gameContains.Get().player.tileTransform.AddTilemap(tilemap);
+            addRoadEvent.OnNext(roads.ToArray());
         }
     }
 }

@@ -119,8 +119,13 @@ namespace Ryocatusn.Characters
                 }
                 GameObject prefab = jankenPrefabs.GetAsset(shape);
                 GameObject newGameObject = Instantiate(prefab, gameObject.transform);
-                container.InjectGameObject(newGameObject);
+                if (container != null) container.InjectGameObject(newGameObject);
                 dragonView = newGameObject.GetComponent<DragonView>();
+
+                foreach (ReceiveAttackChild receiveAttackChild in GetComponentsInChildren<ReceiveAttackChild>())
+                {
+                    receiveAttackChild.jankenBehaviour = this;
+                }
             }
         }
     }

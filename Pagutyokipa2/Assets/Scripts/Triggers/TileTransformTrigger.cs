@@ -34,6 +34,10 @@ namespace Ryocatusn
                     playerTileTransform = gameContains.player.tileTransform;
                 })
                 .AddTo(this);
+
+            stageManager.AddRoadEvent
+                .Subscribe(x =>tileTransform.ChangeTilemap(x, transform.position))
+                .AddTo(this);
         }
         private void OnDestroy()
         {

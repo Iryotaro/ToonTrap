@@ -10,10 +10,8 @@ namespace Ryocatusn.Characters
         [Inject]
         private AttackableObjectApplicationService attackableObjectApplicationService { get; }
 
-        [SerializeField]
-        private JankenBehaviour jankenBehaviour;
-        [SerializeField]
-        private AttackBehaviour attackBehaviour;
+        public JankenBehaviour jankenBehaviour;
+        public AttackBehaviour attackBehaviour;
 
         public JankenableObjectId GetId()
         {

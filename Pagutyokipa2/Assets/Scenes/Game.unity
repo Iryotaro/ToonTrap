@@ -1691,7 +1691,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mainName: Game
   stageNames:
-  - Stage
+  - EndlessStage
   player: {fileID: 848806805}
   playerButtonMappingUI: {fileID: 0}
   gameCamera: {fileID: 1536812631}
@@ -1815,7 +1815,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 6.78
+  orthographic size: 8
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -1839,7 +1839,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1536812624}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -10}
+  m_LocalPosition: {x: -3.5, y: -0.5, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

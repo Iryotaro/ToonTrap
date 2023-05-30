@@ -22,11 +22,11 @@ namespace Ryocatusn
         {
             VirtualCameraManager.instance.Save(this);
 
+            virtualCamera = GetComponent<CinemachineVirtualCamera>();
+
             stageManager.SetupStageEvent
                 .Subscribe(x => { if (focusPlayer) FocusPlayer(x.player); })
                 .AddTo(this);
-
-            virtualCamera = GetComponent<CinemachineVirtualCamera>();
 
             if (firstCamera) SetEnableCamera();
         }

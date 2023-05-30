@@ -42,6 +42,15 @@ namespace Ryocatusn
 
             tilemapRenderer.enabled = appear;
 
+            if (appear)
+            {
+                stageManager.SetupStageEvent
+                    .Subscribe(gameContains =>
+                    {
+                        stageManager.AddRoad(tilemap);
+                    }).AddTo(this);
+            }
+
             RoadManager.instance.Save(this);
         }
         private void OnDestroy()
@@ -57,7 +66,7 @@ namespace Ryocatusn
             stageManager.SetupStageEvent
                 .Subscribe(gameContains =>
                 {
-                    stageManager.gameContains.Match(x => x.player.tileTransform.AddTilemap(tilemap));
+                    stageManager.AddRoad(tilemap);
                     StartCoroutine(AppearRoadCoroutine(GetTiles(tilemap, gameContains.player)));
                 }).AddTo(this);
         }

@@ -1,43 +1,60 @@
-using Ryocatusn.StageCreaters;
-using Ryocatusn.TileTransforms;
+using Ryocatusn.Games;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using Zenject;
+using UniRx;
+using Ryocatusn.Games.Stages;
 
-public class StageCreater : MonoBehaviour
+namespace Ryocatusn.StageCreaters 
 {
-    [SerializeField]
-    private Area[] areas;
-    [SerializeField]
-    private Area firstArea;
-
-    [Inject]
-    private StageDataCreater stageDataCreater;
-    [Inject]
-    private AreaService areaService;
-
-    private void Start()
+    public class StageCreater : MonoBehaviour
     {
-        StageData stageData = stageDataCreater.Create(areas, firstArea, 10);
-        Create(stageData);
-    }
+        [SerializeField]
+        private Area[] areas;
+        [SerializeField]
+        private Area firstArea;
 
-    private void Create(StageData stageData)
-    {
-        List<Area> newAreas = new List<Area>();
-        foreach (Area area in stageData.areas)
+        [Inject]
+        private StageDataCreater stageDataCreater;
+        [Inject]
+        private DiContainer diContainer;
+        [Inject]
+        private GameManager gameManager;
+        [Inject]
+        private StageApplicationService stageApplicationService;
+
+        private void Start()
         {
-            Area newArea = Instantiate(area);
-            newAreas.Add(newArea);
+            StageData stageData = stageDataCreater.Create(areas, firstArea, 10);
+
+            gameManager.SetStageEvent
+                .Subscribe(x =>
+                {
+                    string stageName = stageApplicationService.Get(x.id).name.value;
+                    Create(stageData, stageName);
+                });
         }
 
-        for (int i = 0; i < newAreas.Count - 1; i++) 
+        private void Create(StageData stageData, string stageName)
         {
-            Area prevArea = newAreas[i];
-            Area nextArea = newAreas[i + 1];
+            List<Area> newAreas = new List<Area>();
+            foreach (Area area in stageData.areas)
+            {
+                Area newArea = diContainer.InstantiatePrefab(area).GetComponent<Area>();
+                SceneManager.MoveGameObjectToScene(newArea.gameObject, SceneManager.GetSceneByName(stageName));
+                newAreas.Add(newArea);
+            }
 
-            TilePosition tilePosition = areaService.GetNewNextAreaStartPosition(prevArea, nextArea);
-            nextArea.ChangePosition(tilePosition);
+            newAreas.Insert(0, firstArea);
+
+            for (int i = 0; i < newAreas.Count - 1; i++)
+            {
+                Area prevArea = newAreas[i];
+                Area nextArea = newAreas[i + 1];
+
+                nextArea.ChangePosition(prevArea.endJoint.GetPositoin());
+            }
         }
     }
 }

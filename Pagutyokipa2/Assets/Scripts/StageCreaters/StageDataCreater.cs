@@ -22,8 +22,6 @@ namespace Ryocatusn.StageCreaters
                 areaData.Add(area);
             }
 
-            areaData.Insert(0, firstArea);
-
             return new StageData(areaData.ToArray());
         }
 
@@ -31,7 +29,7 @@ namespace Ryocatusn.StageCreaters
         {
             Area[] candidateAreas = areas.Where(x => areaService.IsAllowedToConnect(prevArea, x)).ToArray();
 
-            return candidateAreas[Random.Range(0, candidateAreas.Count() - 1)];
+            return candidateAreas[Random.Range(0, candidateAreas.Count())];
         }
     }
 }

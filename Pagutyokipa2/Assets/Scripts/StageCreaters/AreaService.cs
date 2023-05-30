@@ -1,27 +1,17 @@
-using Ryocatusn.StageCreaters;
 using Ryocatusn.TileTransforms;
-using System.Collections.Generic;
-using System.Linq;
 
-public class AreaService
+namespace Ryocatusn.StageCreaters
 {
-    public bool IsAllowedToConnect(Area prevArea, Area nextArea)
+    public class AreaService
     {
-        foreach (TileDirection.Direction direction in nextArea.startJoint.allowDirections)
+        public bool IsAllowedToConnect(Area prevArea, Area nextArea)
         {
-            if (prevArea.endJoint.IsAllowedToConnect(direction)) return true;
-            else continue;
+            foreach (TileDirection.Direction direction in nextArea.startJoint.allowDirections)
+            {
+                if (prevArea.endJoint.IsAllowedToConnect(direction)) return true;
+                else continue;
+            }
+            return false;
         }
-        return false;
-    }
-    public TilePosition GetNewNextAreaStartPosition(Area prevArea, Area nextArea)
-    {
-        AreaJoint prevEndJoint = prevArea.endJoint;
-        AreaJoint nextStartJoint = nextArea.startJoint;
-
-        List<TileDirection.Direction> candidateDirections = prevEndJoint.allowDirections.ToList().FindAll(nextStartJoint.allowDirections.ToList().Contains);
-        TileDirection.Direction direction = candidateDirections[UnityEngine.Random.Range(0, candidateDirections.Count - 1)];
-
-        return prevEndJoint.GetPositoin().GetAroundTilePosition(new TileDirection(direction));
     }
 }

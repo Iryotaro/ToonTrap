@@ -14,7 +14,7 @@ namespace Ryocatusn.StageCreaters
             Vector2 newPosition = newStartPosition.GetWorldPosition();
             Vector2 differencePosition = newPosition - nowPosition;
 
-            transform.position = nowPosition + differencePosition;
+            transform.position = (Vector2)transform.position + differencePosition;
         }
     }
 }

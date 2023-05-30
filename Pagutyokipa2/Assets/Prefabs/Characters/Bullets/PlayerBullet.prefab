@@ -433,7 +433,7 @@ MonoBehaviour:
     scissorsPrefab: {fileID: 5596035267990628719, guid: b7c91a1326d5027408d2c05a823956ef, type: 3}
     paperPrefab: {fileID: 5900988641122403145, guid: 4092f00756c5894448252642264e3957, type: 3}
   power: 20
-  attackToOnlyPlayer: 0
+  m_attackToOnlyPlayer: 0
 --- !u!1 &3322439117983176485
 GameObject:
   m_ObjectHideFlags: 0

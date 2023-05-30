@@ -12,8 +12,6 @@ namespace Ryocatusn.Janken
 
         private void Awake()
         {
-            if (Application.isPlaying) return;
-
             ChangeSprite();
         }
         private void Update()
@@ -22,12 +20,9 @@ namespace Ryocatusn.Janken
 
             ChangeSprite();
         }
-
         private void Start()
         {
-            if (!Application.isPlaying) return;
-
-            ChangeSprite();
+            if (Application.isPlaying) ChangeSprite();
         }
 
         public void ChangeSprite()

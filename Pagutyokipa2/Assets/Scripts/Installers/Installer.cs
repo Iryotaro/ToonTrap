@@ -9,6 +9,7 @@ using Ryocatusn.Janken.AttackableObjects.Repository;
 using Ryocatusn.Janken.JankenableObjects;
 using Ryocatusn.Janken.JankenableObjects.Repository;
 using Ryocatusn.Janken.Repository;
+using Ryocatusn.StageCreaters;
 using UnityEngine;
 using Zenject;
 
@@ -32,6 +33,8 @@ namespace Ryocatusn
             Container.Bind<StageApplicationService>().AsTransient();
 
             Container.Bind<BulletFactory>().AsTransient();
+            Container.Bind<AreaService>().AsTransient();
+            Container.Bind<StageDataCreater>().AsTransient();
         }
     }
 }

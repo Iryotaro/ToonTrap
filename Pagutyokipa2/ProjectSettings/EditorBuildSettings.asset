@@ -8,9 +8,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Title.unity
     guid: 2cda990e2423bbf4892e6590ba056729
-  - enabled: 0
-    path: 
-    guid: 00000000000000000000000000000000
   - enabled: 1
     path: Assets/Scenes/Transition.unity
     guid: 5d1d99aecb0b37644ab383bdf45de99b
@@ -23,5 +20,8 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Stage.unity
     guid: c1ffdf1e6864a43aa8d73805f1095d73
+  - enabled: 1
+    path: Assets/Scenes/EndlessStage.unity
+    guid: 6fdb073b88a50954593c5bc1867677a4
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 3f5ad531c16e9854a8cd782eaa6ec00d, type: 2}
