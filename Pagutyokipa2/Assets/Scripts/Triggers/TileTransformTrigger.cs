@@ -1,4 +1,5 @@
-﻿using Ryocatusn.TileTransforms;
+﻿using Ryocatusn.Games;
+using Ryocatusn.TileTransforms;
 using System;
 using UniRx;
 using UnityEngine;
@@ -9,6 +10,8 @@ namespace Ryocatusn
     [RequireComponent(typeof(TileTransform))]
     public class TileTransformTrigger : MonoBehaviour
     {
+        [Inject]
+        private GameManager gameManager;
         [Inject]
         private StageManager stageManager;
 
@@ -27,16 +30,11 @@ namespace Ryocatusn
         {
             tileTransform = GetComponent<TileTransform>();
 
-            stageManager.SetupStageEvent
-                .Subscribe(gameContains =>
-                {
-                    tileTransform.ChangeTilemap(RoadManager.instance.GetTilemaps(), transform.position);
-                    playerTileTransform = gameContains.player.tileTransform;
-                })
-                .AddTo(this);
+            tileTransform.ChangeTilemap(RoadManager.instance.GetTilemaps(), transform.position);
+            playerTileTransform = gameManager.gameContains.player.tileTransform;
 
             stageManager.AddRoadEvent
-                .Subscribe(x =>tileTransform.ChangeTilemap(x, transform.position))
+                .Subscribe(x => tileTransform.ChangeTilemap(x, transform.position))
                 .AddTo(this);
         }
         private void OnDestroy()

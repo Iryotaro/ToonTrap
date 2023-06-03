@@ -54,8 +54,7 @@ namespace Ryocatusn
 
         public void Setup()
         {
-            JankenableObjectCreateCommand command = new JankenableObjectCreateCommand(new Hp(hp), new InvincibleTime(invincibleTime), Hand.Shape.Rock);
-            Create(command);
+            Create(new Hp(hp), new InvincibleTime(invincibleTime), Hand.Shape.Rock, null);
 
             tileTransform = GetComponent<TileTransform>();
             tileTransform.ChangeDirection(new TileDirection(TileDirection.Direction.Up));

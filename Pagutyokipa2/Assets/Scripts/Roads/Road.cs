@@ -1,3 +1,4 @@
+using Ryocatusn.Games;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +14,8 @@ namespace Ryocatusn
     {
         [Inject]
         private StageManager stageManager;
+        [Inject]
+        private GameManager gameManager;
 
         [SerializeField]
         private bool m_appear = false;
@@ -64,10 +67,10 @@ namespace Ryocatusn
             appear = true;
 
             stageManager.SetupStageEvent
-                .Subscribe(gameContains =>
+                .Subscribe(_ =>
                 {
                     stageManager.AddRoad(tilemap);
-                    StartCoroutine(AppearRoadCoroutine(GetTiles(tilemap, gameContains.player)));
+                    StartCoroutine(AppearRoadCoroutine(GetTiles(tilemap, gameManager.gameContains.player)));
                 }).AddTo(this);
         }
 

@@ -11,11 +11,11 @@ namespace Ryocatusn.Characters
     {
         public AttackableObjectId id { get; private set; }
         protected AttackableObjectEvents events { get; private set; }
-        [Inject]
-        protected AttackableObjectApplicationService attackableObjectApplicationService { get; }
 
         [Inject]
-        private GameManager gameManager;
+        protected AttackableObjectApplicationService attackableObjectApplicationService { get; }
+        [Inject]
+        protected GameManager gameManager;
 
         private bool attackToOnlyPlayer;
         private Player player;
@@ -32,9 +32,7 @@ namespace Ryocatusn.Characters
             this.attackToOnlyPlayer = attackToOnlyPlayer;
             events = attackableObjectApplicationService.GetEvents(id);
 
-            gameManager.nowStageManager.SetupStageEvent
-                .Subscribe(x => player = x.player)
-                .AddTo(this);
+            player = gameManager.gameContains.player;
 
             this.OnDestroyAsObservable()
                 .Subscribe(_ => attackableObjectApplicationService.Delete(id));

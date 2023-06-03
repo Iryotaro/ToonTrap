@@ -21,14 +21,15 @@ namespace Ryocatusn.Characters
         private LocomotiveCar carPrefab;
 
         [Inject]
+        private StageManager stageManager;
+        [Inject]
         private DiContainer diContainer;
 
         private List<LocomotiveCar> locomotiveCars = new List<LocomotiveCar>();
 
         public void SetUp(Hand.Shape shape, Railway railway, LocomotiveData data)
         {
-            JankenableObjectCreateCommand createCommand = new JankenableObjectCreateCommand(new Hp(data.numberOfCars), shape);
-            Create(createCommand);
+            Create(new Hp(data.numberOfCars), shape, stageManager.id);
 
             events.VictimLoseEvent
                 .Where(_ => locomotiveCars.Count - 1 >= 0)

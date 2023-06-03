@@ -1,7 +1,9 @@
-﻿using Ryocatusn.Janken;
+﻿using Ryocatusn.Games;
+using Ryocatusn.Janken;
 using Ryocatusn.Janken.AttackableObjects;
 using Ryocatusn.TileTransforms;
 using System;
+using System.Collections;
 using System.Linq;
 using UniRx;
 using UniRx.Triggers;
@@ -68,8 +70,15 @@ namespace Ryocatusn.Characters
             finishAttack = true;
             tileTransform.SetDisable();
             Rigidbody2D rigid = GetComponent<Rigidbody2D>();
-            rigid.AddForce(Quaternion.Euler(0, 0, UnityEngine.Random.Range(0, 360)) * (Vector2.up * 20), ForceMode2D.Impulse);
-            Destroy(gameObject, 3);
+            rigid.AddForce(Quaternion.Euler(0, 0, UnityEngine.Random.Range(0, 360)) * (Vector2.up * 15), ForceMode2D.Impulse);
+
+            StartCoroutine(DestroyWhenOutSideOfCamera());
+
+            IEnumerator DestroyWhenOutSideOfCamera()
+            {
+                yield return new WaitUntil(() => gameManager.gameContains.gameCamera.IsOutSideOfCamera(gameObject));
+                Destroy(gameObject);
+            }
         }
 
         public Hand.Shape GetShape()

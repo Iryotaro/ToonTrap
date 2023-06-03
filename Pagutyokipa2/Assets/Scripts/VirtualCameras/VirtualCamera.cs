@@ -2,6 +2,7 @@
 using UniRx;
 using UnityEngine;
 using Zenject;
+using Ryocatusn.Games;
 
 namespace Ryocatusn
 {
@@ -11,7 +12,7 @@ namespace Ryocatusn
         private CinemachineVirtualCamera virtualCamera;
 
         [Inject]
-        private StageManager stageManager;
+        private GameManager gameManager;
 
         [SerializeField]
         private bool focusPlayer;
@@ -24,10 +25,7 @@ namespace Ryocatusn
 
             virtualCamera = GetComponent<CinemachineVirtualCamera>();
 
-            stageManager.SetupStageEvent
-                .Subscribe(x => { if (focusPlayer) FocusPlayer(x.player); })
-                .AddTo(this);
-
+            if (focusPlayer) FocusPlayer(gameManager.gameContains.player);
             if (firstCamera) SetEnableCamera();
         }
         private void OnDestroy()

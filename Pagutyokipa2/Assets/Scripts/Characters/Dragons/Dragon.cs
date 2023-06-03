@@ -20,7 +20,6 @@ namespace Ryocatusn.Characters
 
         [Inject]
         private StageManager stageManager;
-
         [Inject]
         private DiContainer container;
 
@@ -40,41 +39,36 @@ namespace Ryocatusn.Characters
 
         private void Start()
         {
-            JankenableObjectCreateCommand command = new JankenableObjectCreateCommand(new Hp(1), shape, stageManager.id);
-            Create(command);
+            Create(new Hp(1), shape, stageManager.id);
 
-            stageManager.SetupStageEvent
-                .Subscribe(x =>
+            player = gameManager.gameContains.player;
+
+            dragonView.SetUp();
+
+            dragonView.AttackTriggerEvent
+            .Subscribe(_ => AttackTrigger())
+            .AddTo(this);
+
+            events.AttackTriggerEvent
+            .Subscribe(x => HandleAttackTrigger(x.id))
+            .AddTo(this);
+
+            events.DieEvent
+            .Subscribe(_ => HandleDie())
+            .AddTo(this);
+
+            SEPlayer sePlayer = new SEPlayer(gameObject);
+
+            events.AttackTriggerEvent.Subscribe(_ => sePlayer.Play(attackSE)).AddTo(this);
+
+            this.UpdateAsObservable()
+            .Subscribe(_ =>
+            {
+                if (dragonView.IsVisible() && player != null && Vector2.Distance(transform.position, player.transform.position) <= attackRange)
                 {
-                    player = x.player;
-
-                    dragonView.SetUp();
-
-                    dragonView.AttackTriggerEvent
-                    .Subscribe(_ => AttackTrigger())
-                    .AddTo(this);
-
-                    events.AttackTriggerEvent
-                    .Subscribe(x => HandleAttackTrigger(x.id))
-                    .AddTo(this);
-
-                    events.DieEvent
-                    .Subscribe(_ => HandleDie())
-                    .AddTo(this);
-
-                    SEPlayer sePlayer = new SEPlayer(gameObject);
-
-                    events.AttackTriggerEvent.Subscribe(_ => sePlayer.Play(attackSE)).AddTo(this);
-
-                    this.UpdateAsObservable()
-                    .Subscribe(_ =>
-                    {
-                        if (dragonView.IsVisible() && player != null && Vector2.Distance(transform.position, player.transform.position) <= attackRange)
-                        {
-                            dragonView.StartAttackAnimation();
-                        }
-                    });
-                });
+                    dragonView.StartAttackAnimation();
+                }
+            });
         }
 
         private void AttackTrigger()

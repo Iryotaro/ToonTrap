@@ -1,7 +1,5 @@
-﻿using ModestTree;
-using Ryocatusn.Games.Stages;
+﻿using Ryocatusn.Games.Stages;
 using Ryocatusn.TileTransforms;
-using Ryocatusn.Util;
 using System;
 using System.Collections.Generic;
 using UniRx;
@@ -18,8 +16,6 @@ namespace Ryocatusn
         public StageId id { get; private set; }
         [Inject]
         private StageApplicationService stageApplicationService { get; }
-
-        public Option<GameContains> gameContains { get; private set; } = new Option<GameContains>(null);
 
         [SerializeField]
         private Tilemap firstRoad;
@@ -54,10 +50,9 @@ namespace Ryocatusn
         {
             this.id = id;
 
-            this.gameContains.Set(gameContains);
-            SetupPlayer(this.gameContains.Get().player);
+            SetupPlayer(gameContains.player);
 
-            setupStageEvent.OnNext(this.gameContains.Get());
+            setupStageEvent.OnNext(gameContains);
         }
 
         private void SetupPlayer(Player player)
@@ -80,9 +75,14 @@ namespace Ryocatusn
 
         public void AddRoad(Tilemap tilemap)
         {
-            roads.Add(tilemap);
-            gameContains.Get().player.tileTransform.AddTilemap(tilemap);
-            addRoadEvent.OnNext(roads.ToArray());
+            SetupStageEvent
+                .Subscribe(gameContains =>
+                {
+                    roads.Add(tilemap);
+                    gameContains.player.tileTransform.AddTilemap(tilemap);
+                    addRoadEvent.OnNext(roads.ToArray());
+                })
+                .AddTo(gameObject);
         }
     }
 }

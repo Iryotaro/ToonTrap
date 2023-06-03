@@ -1,12 +1,10 @@
 using Cysharp.Threading.Tasks;
-using Ryocatusn.Games;
 using Ryocatusn.Janken;
 using Ryocatusn.Janken.AttackableObjects;
 using System.Collections;
 using UniRx;
 using UniRx.Triggers;
 using UnityEngine;
-using Zenject;
 
 namespace Ryocatusn.Characters
 {
@@ -23,11 +21,6 @@ namespace Ryocatusn.Characters
         [SerializeField]
         private bool m_attackToOnlyPlayer = false;
 
-        [Inject]
-        GameManager gameManager;
-
-        private Rigidbody2D rigid;
-
         private GameObject ownerObject;
 
         public void SetUp(AttackableObjectId id, GameObject ownerObject)
@@ -35,7 +28,6 @@ namespace Ryocatusn.Characters
             SetId(id, m_attackToOnlyPlayer);
             this.ownerObject = ownerObject;
 
-            rigid = GetComponent<Rigidbody2D>();
             Collider2D collider = GetComponent<Collider2D>();
 
             events.WinEvent
@@ -50,18 +42,20 @@ namespace Ryocatusn.Characters
                 .Subscribe(_ => Destroy(gameObject))
                 .AddTo(this);
 
-            gameManager.nowStageManager.SetupStageEvent
-                .Subscribe(gameContains =>
-                {
-                    this.OnTriggerEnter2DAsObservable()
-                    .Where(x => IsAllowedToAttack(x, gameContains.player))
-                    .Take(1)
-                    .Subscribe(x => OnHit(x.GetComponent<IReceiveAttack>()));
-                });
+            this.OnTriggerEnter2DAsObservable()
+            .Where(x => IsAllowedToAttack(x, gameManager.gameContains.player))
+            .Take(1)
+            .Subscribe(x => OnHit(x.GetComponent<IReceiveAttack>()));
 
-            rigid.AddForce(transform.up * power, ForceMode2D.Impulse);
+            GetComponent<Rigidbody2D>().AddForce(transform.up * power, ForceMode2D.Impulse);
 
-            Destroy(gameObject, 5);
+            StartCoroutine(DestroyWhenOutSideOfCamera());
+
+            IEnumerator DestroyWhenOutSideOfCamera()
+            {
+                yield return new WaitUntil(() => gameManager.gameContains.gameCamera.IsOutSideOfCamera(gameObject));
+                Destroy(gameObject);
+            }
         }
 
         private bool IsAllowedToAttack(Collider2D collider, Player player)

@@ -1,4 +1,5 @@
 using Ryocatusn.Conversations;
+using Ryocatusn.Games;
 using System;
 using UniRx;
 using UnityEngine;
@@ -10,17 +11,14 @@ namespace Ryocatusn
     public class ConversationTrigger : MonoBehaviour
     {
         [Inject]
-        private StageManager stageManager;
+        private GameManager gameManager;
 
         [SerializeField]
         private MessageAndWaitTime[] messageAndWaitTime;
 
         private void Start()
         {
-            Conversation conversation = null;
-            stageManager.SetupStageEvent
-                .Subscribe(gameContains => conversation = gameContains.conversation)
-                .AddTo(this);
+            Conversation conversation = gameManager.gameContains.conversation;
 
             GetComponent<TileTransformTrigger>().OnHitPlayerEvent
                 .FirstOrDefault()

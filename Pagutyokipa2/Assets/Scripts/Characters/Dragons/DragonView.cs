@@ -1,5 +1,6 @@
 using Anima2D;
 using DG.Tweening;
+using Ryocatusn.Games;
 using System;
 using System.Collections;
 using UniRx;
@@ -13,7 +14,7 @@ namespace Ryocatusn.Characters
     public class DragonView : MonoBehaviour
     {
         [Inject]
-        private StageManager stageManager;
+        private GameManager gameManager;
 
         [SerializeField]
         private IkCCD2D ik;
@@ -41,8 +42,7 @@ namespace Ryocatusn.Characters
 
             dragonMouth.AttackTriggerEvent.Subscribe(_ => attackTriggerEvent.OnNext(Unit.Default));
 
-            stageManager.SetupStageEvent
-                .Subscribe(x => player = x.player);
+            player = gameManager.gameContains.player;
         }
         private void OnDestroy()
         {

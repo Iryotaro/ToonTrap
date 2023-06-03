@@ -20,9 +20,10 @@ namespace Cinemachine
             if (stage == CinemachineCore.Stage.Body)
             {
                 Vector3 position = state.RawPosition;
-                if (lockX.isLocked) position.x = lockX.GetValue(position.x);
-                if (lockY.isLocked) position.y = lockY.GetValue(position.y);
-                if (lockZ.isLocked) position.z = lockZ.GetValue(position.z);
+                Vector3 parentPosition = transform.parent.position;
+                if (lockX.isLocked) position.x = parentPosition.x + lockX.GetValue(position.x);
+                if (lockY.isLocked) position.y = parentPosition.y + lockY.GetValue(position.y);
+                if (lockZ.isLocked) position.z = parentPosition.z + lockZ.GetValue(position.z);
                 state.RawPosition = position;
             }
         }
