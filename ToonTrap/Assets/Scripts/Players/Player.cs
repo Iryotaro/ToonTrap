@@ -6,7 +6,6 @@ using Ryocatusn.Janken.AttackableObjects;
 using Ryocatusn.Janken.JankenableObjects;
 using Ryocatusn.TileTransforms;
 using Ryocatusn.UI;
-using System;
 using UniRx;
 using UnityEngine;
 using Zenject;
@@ -22,10 +21,6 @@ namespace Ryocatusn
         public TileTransform tileTransform { get; private set; }
         private bool move = false;
         private MoveRate moveRate;
-
-        [Inject]
-        [NonSerialized]
-        public GameManager gameManager;
 
         public PlayerInputMaster inputMaster { get; private set; }
 

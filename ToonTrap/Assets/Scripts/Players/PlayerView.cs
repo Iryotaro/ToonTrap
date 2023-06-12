@@ -4,6 +4,7 @@ using Ryocatusn.Janken;
 using Ryocatusn.Janken.JankenableObjects;
 using Ryocatusn.TileTransforms;
 using System;
+using System.Collections;
 using UniRx;
 using UniRx.Triggers;
 using UnityEngine;
@@ -100,40 +101,12 @@ namespace Ryocatusn
         private void TakeDamage()
         {
             CreateBoomEffect();
-            CreateLensDistortionSequence();
+            gameManager.gameContains.gameCamera.Impulse();
         }
 
         private void CreateBoomEffect()
         {
             Instantiate(boomEffect, transform.position, Quaternion.identity);
-        }
-        private Sequence CreateLensDistortionSequence()
-        {
-            Sequence sequence = DOTween.Sequence();
-
-            GameCamera gameCamera = gameManager.gameContains.gameCamera;
-
-            return sequence
-                .SetLink(gameCamera.gameObject)
-                .Append(
-                DOTween.To
-                (
-                    () => gameCamera.lensDistortion.intensity.value,
-                    x => gameCamera.lensDistortion.intensity.value = x,
-                    -0.3f,
-                    0.6f
-                    )
-                )
-                .AppendInterval(0.3f)
-                .Append(
-                DOTween.To
-                (
-                    () => gameCamera.lensDistortion.intensity.value,
-                    x => gameCamera.lensDistortion.intensity.value = x,
-                    0,
-                    0.6f
-                    )
-                );
         }
     }
 }

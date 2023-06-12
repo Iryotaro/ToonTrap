@@ -1,13 +1,12 @@
-using Ryocatusn.Janken.JankenableObjects;
+using Cinemachine;
 using System;
 using UnityEngine;
 using UnityEngine.Rendering;
-using UnityEngine.Rendering.Universal;
-using Zenject;
 
 namespace Ryocatusn
 {
     [RequireComponent(typeof(Camera))]
+    [RequireComponent(typeof(CinemachineImpulseSource))]
     public class GameCamera : MonoBehaviour
     {
         [SerializeField]
@@ -15,25 +14,14 @@ namespace Ryocatusn
 
         [NonSerialized]
         public new Camera camera;
-        [NonSerialized]
-        public LensDistortion lensDistortion;
-        [NonSerialized]
-        public ColorAdjustments colorAdjustments;
+        private CinemachineImpulseSource impulseSource;
 
         private void Start()
         {
             camera = GetComponent<Camera>();
+            impulseSource = GetComponent<CinemachineImpulseSource>();
 
             VolumeProfile volumeProfile = volume.profile;
-
-            if (volumeProfile.TryGet(out LensDistortion lensDistortion))
-            {
-                this.lensDistortion = lensDistortion;
-            }
-            if (volumeProfile.TryGet(out ColorAdjustments colorAdjustments))
-            {
-                this.colorAdjustments = colorAdjustments;
-            }
         }
 
         public bool IsOutSideOfCamera(GameObject target)
@@ -41,6 +29,11 @@ namespace Ryocatusn
             Vector2 screenPos = camera.WorldToViewportPoint(target.transform.position);
             if (screenPos.x < 0f || screenPos.x > 1f || screenPos.y < 0f || screenPos.y > 1f) return true;
             return false;
+        }
+
+        public void Impulse()
+        {
+            impulseSource.GenerateImpulse();
         }
     }
 }
