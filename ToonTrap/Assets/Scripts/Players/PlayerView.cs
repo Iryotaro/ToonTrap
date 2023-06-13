@@ -4,7 +4,6 @@ using Ryocatusn.Janken;
 using Ryocatusn.Janken.JankenableObjects;
 using Ryocatusn.TileTransforms;
 using System;
-using System.Collections;
 using UniRx;
 using UniRx.Triggers;
 using UnityEngine;
@@ -47,6 +46,10 @@ namespace Ryocatusn
 
             events.ChangeShapeEvent
                 .Subscribe(x => ChangeShape(x))
+                .AddTo(this);
+
+            events.AttackTriggerEvent
+                .Subscribe(_ => PlayAttackAnimation())
                 .AddTo(this);
 
             events.TakeDamageEvent
@@ -96,6 +99,24 @@ namespace Ryocatusn
             };
 
             return finish;
+        }
+        
+        private void PlayAttackAnimation()
+        {
+            IDisposable disposable = this.UpdateAsObservable()
+                .ObserveOn(Scheduler.MainThreadEndOfFrame)
+                .Subscribe(_ => SetScaleClamp());
+
+            DOTween.Sequence()
+                .Append(transform.DOScale(transform.localScale * 1.4f, 0.1f).SetEase(Ease.OutCubic))
+                .Append(transform.DOScale(Vector3.one, 0.1f).SetEase(Ease.InCubic))
+                .OnComplete(() => disposable.Dispose());
+
+            void SetScaleClamp()
+            {
+                float scale = Mathf.Clamp(transform.localScale.x, 1, 2);
+                transform.localScale = new Vector2(scale, scale);
+            }
         }
 
         private void TakeDamage()

@@ -71,6 +71,15 @@ public partial class @InputMaster : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Special"",
+                    ""type"": ""Button"",
+                    ""id"": ""08783fe8-4095-405a-88b2-d25132d58598"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -172,6 +181,17 @@ public partial class @InputMaster : IInputActionCollection2, IDisposable
                     ""action"": ""Attack"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ab482033-b02b-43ef-99b8-c43f99b89b89"",
+                    ""path"": ""<Keyboard>/enter"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Special"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -261,6 +281,7 @@ public partial class @InputMaster : IInputActionCollection2, IDisposable
         m_Player_Rock = m_Player.FindAction("Rock", throwIfNotFound: true);
         m_Player_Scissors = m_Player.FindAction("Scissors", throwIfNotFound: true);
         m_Player_Paper = m_Player.FindAction("Paper", throwIfNotFound: true);
+        m_Player_Special = m_Player.FindAction("Special", throwIfNotFound: true);
         // Title
         m_Title = asset.FindActionMap("Title", throwIfNotFound: true);
         m_Title_MousePosition = m_Title.FindAction("MousePosition", throwIfNotFound: true);
@@ -332,6 +353,7 @@ public partial class @InputMaster : IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Rock;
     private readonly InputAction m_Player_Scissors;
     private readonly InputAction m_Player_Paper;
+    private readonly InputAction m_Player_Special;
     public struct PlayerActions
     {
         private @InputMaster m_Wrapper;
@@ -341,6 +363,7 @@ public partial class @InputMaster : IInputActionCollection2, IDisposable
         public InputAction @Rock => m_Wrapper.m_Player_Rock;
         public InputAction @Scissors => m_Wrapper.m_Player_Scissors;
         public InputAction @Paper => m_Wrapper.m_Player_Paper;
+        public InputAction @Special => m_Wrapper.m_Player_Special;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -365,6 +388,9 @@ public partial class @InputMaster : IInputActionCollection2, IDisposable
                 @Paper.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPaper;
                 @Paper.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPaper;
                 @Paper.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPaper;
+                @Special.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSpecial;
+                @Special.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSpecial;
+                @Special.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSpecial;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -384,6 +410,9 @@ public partial class @InputMaster : IInputActionCollection2, IDisposable
                 @Paper.started += instance.OnPaper;
                 @Paper.performed += instance.OnPaper;
                 @Paper.canceled += instance.OnPaper;
+                @Special.started += instance.OnSpecial;
+                @Special.performed += instance.OnSpecial;
+                @Special.canceled += instance.OnSpecial;
             }
         }
     }
@@ -469,6 +498,7 @@ public partial class @InputMaster : IInputActionCollection2, IDisposable
         void OnRock(InputAction.CallbackContext context);
         void OnScissors(InputAction.CallbackContext context);
         void OnPaper(InputAction.CallbackContext context);
+        void OnSpecial(InputAction.CallbackContext context);
     }
     public interface ITitleActions
     {

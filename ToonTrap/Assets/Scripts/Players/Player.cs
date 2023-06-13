@@ -1,6 +1,5 @@
 ﻿using Ryocatusn.Audio;
 using Ryocatusn.Characters;
-using Ryocatusn.Games;
 using Ryocatusn.Janken;
 using Ryocatusn.Janken.AttackableObjects;
 using Ryocatusn.Janken.JankenableObjects;
@@ -67,10 +66,11 @@ namespace Ryocatusn
                 .Subscribe(_ => HandleDie())
                 .AddTo(this);
 
-            inputMaster.MoveEvent.Subscribe(_ => move = true).AddTo(this).AddTo(this);
-            inputMaster.CancelMoveEvent.Subscribe(_ => move = false).AddTo(this).AddTo(this);
+            inputMaster.MoveEvent.Subscribe(_ => move = true).AddTo(this);
+            inputMaster.SpecialEvent.Subscribe(_ => Special()).AddTo(this);
+            inputMaster.CancelMoveEvent.Subscribe(_ => move = false).AddTo(this);
             inputMaster.ChangeDirectionEvent.Subscribe(x => tileTransform.ChangeDirection(x)).AddTo(this);
-            inputMaster.AttackEvent.Subscribe(_ => AttackTrigger()).AddTo(this).AddTo(this);
+            inputMaster.AttackEvent.Subscribe(_ => AttackTrigger()).AddTo(this);
             inputMaster.ChangeShapeEvent.Subscribe(x => ChangeShape(x)).AddTo(this);
 
             SEPlayer sePlayer = new SEPlayer(gameObject);
@@ -101,8 +101,13 @@ namespace Ryocatusn
 
         private void Move()
         {
-            MoveTranslate moveTranslate = new MoveTranslate(tileTransform.tilePosition.Get(), tileTransform.tileDirection);
-            tileTransform.SetMovement(moveTranslate, moveRate);
+            IMoveDataCreater moveDataCreater = new MoveTranslate(tileTransform.tilePosition.Get(), tileTransform.tileDirection);
+            tileTransform.SetMovement(moveDataCreater, moveRate);
+        }
+        private void Special()
+        {
+            IMoveDataCreater moveDataCreater = new MoveStraightLine(tileTransform.tilePosition.Get(), tileTransform.tileDirection, 4);
+            tileTransform.SetMovement(moveDataCreater, new MoveRate(50), TileTransform.SetMovementMode.Force);
         }
         private void ChangeShape(Hand.Shape shape)
         {

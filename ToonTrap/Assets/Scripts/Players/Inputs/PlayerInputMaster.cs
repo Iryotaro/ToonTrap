@@ -25,13 +25,15 @@ namespace Ryocatusn
         [NonSerialized]
         public Key[] scissorsKeys = new Key[] { Key.W, Key.A };
 
-        private Subject<float> moveEvent = new Subject<float>();
+        private Subject<Unit> moveEvent = new Subject<Unit>();
+        private Subject<Unit> specialEvent = new Subject<Unit>();
         private Subject<Unit> cancelMoveEvent = new Subject<Unit>();
         private Subject<TileDirection> changeDirectionEvent = new Subject<TileDirection>();
         private Subject<float> attackEvent = new Subject<float>();
         private Subject<Hand.Shape> changeShapeEvent = new Subject<Hand.Shape>();
 
         public IObservable<Unit> MoveEvent { get; private set; }
+        public IObservable<Unit> SpecialEvent { get; private set; }
         public IObservable<Unit> CancelMoveEvent { get; private set; }
         public IObservable<TileDirection> ChangeDirectionEvent { get; private set; }
         public IObservable<Unit> AttackEvent { get; private set; }
@@ -56,15 +58,17 @@ namespace Ryocatusn
         {
             input = new InputMaster();
 
-            input.Player.Move.performed += ctx => moveEvent.OnNext(Time.fixedTime);
+            input.Player.Move.performed += ctx => moveEvent.OnNext(Unit.Default);
             input.Player.Move.canceled += _ => cancelMoveEvent.OnNext(Unit.Default);
             input.Player.Move.performed += ctx => changeDirectionEvent.OnNext(new TileDirection(ctx.ReadValue<Vector2>()));
+            input.Player.Special.performed += ctx => specialEvent.OnNext(Unit.Default);
             input.Player.Attack.performed += ctx => attackEvent.OnNext(Time.fixedTime);
             //input.Player.Rock.performed += ctx => rockEvent.OnNext(Unit.Default);
             //input.Player.Scissors.performed += ctx => scissorsEvent.OnNext(Unit.Default);
             //input.Player.Paper.performed += ctx => paperEvent.OnNext(Unit.Default);
 
-            MoveEvent = moveEvent.Where(_ => isAllowedMove).Select(_ => Unit.Default);
+            MoveEvent = moveEvent.Where(_ => isAllowedMove);
+            SpecialEvent = specialEvent.Where(_ => isAllowedMove);
             CancelMoveEvent = cancelMoveEvent;
             ChangeDirectionEvent = changeDirectionEvent.Where(_ => isAllowedMove);
             AttackEvent = attackEvent.Where(_ => isAllowedAttack).Select(_ => Unit.Default);
