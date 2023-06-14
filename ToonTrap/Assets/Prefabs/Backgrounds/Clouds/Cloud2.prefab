@@ -115,7 +115,7 @@ MonoBehaviour:
   _tint: {r: 1, g: 1, b: 1, a: 1}
   _clip: {fileID: 11400000, guid: f1d67980465bd8e478b7f04fcaea319e, type: 2}
   _sequence: Default
-  _currentFrame: 0
+  _currentFrame: 21
 --- !u!114 &2615727274494979189
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -130,7 +130,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _autoPlay: 1
   _useUnscaledDt: 0
-  _rateScale: 1
+  _rateScale: 0.5
   _groupName: 
   _playMode: 0
   _loopMode: 1

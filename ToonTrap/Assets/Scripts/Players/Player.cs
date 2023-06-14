@@ -121,9 +121,9 @@ namespace Ryocatusn
             IMoveDataCreater moveDataCreater = new MoveStraightLine(tileTransform.tilePosition.Get(), tileTransform.tileDirection, moveStraightLineCount);
             tileTransform.SetMovement(moveDataCreater, new MoveRate(50), TileTransform.SetMovementMode.Force);
 
-            tileTransform.movement.Get().CompleteEvent
+            tileTransform.movement.Match(x => x.CompleteEvent
                 .Subscribe(_ => isAllowedToReceiveAttack = true)
-                .AddTo(this);
+                .AddTo(this));
         }
         private void ChangeShape(Hand.Shape shape)
         {

@@ -1,4 +1,5 @@
 using FTRuntime;
+using Ryocatusn.Games;
 using Ryocatusn.Janken;
 using System;
 using UnityEngine;
@@ -20,17 +21,22 @@ namespace Ryocatusn.Characters
         private Railway railway;
         [SerializeField]
         private Locomotive locomotive;
+        [SerializeField]
+        private bool autoPlay = true;
 
+        [Inject]
+        private GameManager gameManager;
         [Inject]
         private DiContainer diContainer;
 
         private void Start()
         {
-
-            InvokeRepeating(nameof(Do), 0, 8 / rateScale);
+            if (autoPlay) InvokeRepeating(nameof(Play), 0, 8 / rateScale);
         }
-        private void Do()
+        public void Play()
         {
+            if (gameManager.gameContains.gameCamera.IsOutSideOfCamera(gameObject)) return;
+
             Hand.Shape shape = (Hand.Shape)UnityEngine.Random.Range(0, 3);
             Action action;
             action = () => CreateLocomotive(shape);
