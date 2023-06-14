@@ -19,8 +19,6 @@ namespace Ryocatusn.Characters
         private float attackRange;
 
         [Inject]
-        private StageManager stageManager;
-        [Inject]
         private DiContainer container;
 
         [Inject]
@@ -37,9 +35,12 @@ namespace Ryocatusn.Characters
 
         private Player player;
 
+        public bool isAllowedToReceiveAttack { get; private set; } = true;
+
+
         private void Start()
         {
-            Create(new Hp(1), shape, stageManager.id);
+            Create(new Hp(1), shape);
 
             player = gameManager.gameContains.player;
 

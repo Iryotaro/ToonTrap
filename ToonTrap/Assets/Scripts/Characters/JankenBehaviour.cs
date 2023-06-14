@@ -26,14 +26,14 @@ namespace Ryocatusn.Characters
             jankenableObjectApplicationService.Delete(id);
         }
 
-        protected void Create(Hp hp, InvincibleTime invincibleTime, Hand.Shape shape, StageId stageId)
+        protected void Create(Hp hp, InvincibleTime invincibleTime, Hand.Shape shape)
         {
-            JankenableObjectCreateCommand command = new JankenableObjectCreateCommand(hp, invincibleTime, shape, stageId);
+            JankenableObjectCreateCommand command = new JankenableObjectCreateCommand(hp, invincibleTime, shape);
             Create(command);
         }
-        protected void Create(Hp hp, Hand.Shape shape, StageId stageId)
+        protected void Create(Hp hp, Hand.Shape shape)
         {
-            JankenableObjectCreateCommand command = new JankenableObjectCreateCommand(hp, shape, stageId);
+            JankenableObjectCreateCommand command = new JankenableObjectCreateCommand(hp, shape);
             Create(command);
         }
         private void Create(JankenableObjectCreateCommand command)

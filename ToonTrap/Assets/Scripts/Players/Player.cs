@@ -1,4 +1,5 @@
-﻿using Ryocatusn.Audio;
+﻿using Cysharp.Threading.Tasks;
+using Ryocatusn.Audio;
 using Ryocatusn.Characters;
 using Ryocatusn.Janken;
 using Ryocatusn.Janken.AttackableObjects;
@@ -22,6 +23,8 @@ namespace Ryocatusn
         private MoveRate moveRate;
 
         public PlayerInputMaster inputMaster { get; private set; }
+
+        public bool isAllowedToReceiveAttack { get; private set; } = true;
 
         [SerializeField, Min(1)]
         private float m_moveRate = 1;
@@ -48,7 +51,7 @@ namespace Ryocatusn
 
         public void Setup()
         {
-            Create(new Hp(hp), new InvincibleTime(invincibleTime), Hand.Shape.Rock, null);
+            Create(new Hp(hp), new InvincibleTime(invincibleTime), Hand.Shape.Rock);
 
             tileTransform = GetComponent<TileTransform>();
             tileTransform.ChangeDirection(new TileDirection(TileDirection.Direction.Up));
@@ -106,8 +109,21 @@ namespace Ryocatusn
         }
         private void Special()
         {
-            IMoveDataCreater moveDataCreater = new MoveStraightLine(tileTransform.tilePosition.Get(), tileTransform.tileDirection, 4);
+            //仮
+            int winCombo = GetData().winCombo;
+            int moveStraightLineCount = 0;
+            if (5 <= winCombo && winCombo < 20) moveStraightLineCount = 2;
+            if (20 <= winCombo && winCombo < 50) moveStraightLineCount = 4;
+            if (50 <= winCombo) moveStraightLineCount = 7;
+
+            isAllowedToReceiveAttack = false;
+
+            IMoveDataCreater moveDataCreater = new MoveStraightLine(tileTransform.tilePosition.Get(), tileTransform.tileDirection, moveStraightLineCount);
             tileTransform.SetMovement(moveDataCreater, new MoveRate(50), TileTransform.SetMovementMode.Force);
+
+            tileTransform.movement.Get().CompleteEvent
+                .Subscribe(_ => isAllowedToReceiveAttack = true)
+                .AddTo(this);
         }
         private void ChangeShape(Hand.Shape shape)
         {
