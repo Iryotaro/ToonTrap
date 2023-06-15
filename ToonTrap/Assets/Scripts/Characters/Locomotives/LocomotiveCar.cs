@@ -91,7 +91,7 @@ namespace Ryocatusn.Characters
             {
                 for (int i = 0; i < transform.childCount; i++)
                 {
-                    DestroyImmediate(transform.GetChild(i).gameObject);
+                    Destroy(transform.GetChild(i).gameObject);
                 }
                 GameObject prefab = jankenPrefabs.GetAsset(shape);
                 Instantiate(prefab, gameObject.transform);

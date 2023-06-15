@@ -1,8 +1,10 @@
+using Cysharp.Threading.Tasks;
 using FTRuntime;
 using Ryocatusn.Games;
 using Ryocatusn.Janken;
 using System;
 using UnityEngine;
+using UniRx;
 using Zenject;
 
 namespace Ryocatusn.Characters
@@ -14,9 +16,7 @@ namespace Ryocatusn.Characters
         [SerializeField, Min(0.5f)]
         private float rateScale = 1;
         [SerializeField]
-        private JankenSwfClipControllers jankenSwfClips;
-        [SerializeField]
-        private CreateLocomotiveFrames createLocomotiveFrames;
+        private JankenTunnels jankenTunnels;
         [SerializeField]
         private Railway railway;
         [SerializeField]
@@ -53,64 +53,29 @@ namespace Ryocatusn.Characters
         }
         private void PlayAnimation(Hand.Shape shape, Action CreateLocomotiveEvent)
         {
-            SwfClipController controller = CreateController();
-            if (controller == null) return;
+            TunnelAnimator tunnelAnimator = CreateController();
+            if (tunnelAnimator == null) return;
 
-            controller.rateScale = rateScale;
+            tunnelAnimator.ChangeRateScale(rateScale);
 
-            CallAction();
+            tunnelAnimator.CreateLocomotiveEvent
+                .Subscribe(_ => CreateLocomotiveEvent())
+                .AddTo(this);
 
-            SwfClipController CreateController()
+            TunnelAnimator CreateController()
             {
-                if (jankenSwfClips.TryGetRenderer(out GameObject gameObject, this))
+                if (jankenTunnels.TryGetRenderer(out GameObject gameObject, this))
                 {
                     for (int i = 0; i < transform.childCount; i++)
                     {
                         DestroyImmediate(transform.GetChild(i).gameObject);
                     }
-                    return Instantiate(jankenSwfClips.GetAsset(shape), gameObject.transform);
+                    return Instantiate(jankenTunnels.GetAsset(shape), gameObject.transform);
                 }
                 else
                 {
                     return null;
                 }
-            }
-            void CallAction()
-            {
-                controller.clip.OnChangeCurrentFrameEvent += Call;
-
-                void Call(SwfClip clip)
-                {
-                    if (clip.currentFrame >= createLocomotiveFrames.GetFrame(shape))
-                    {
-                        CreateLocomotiveEvent();
-                        foreach (Delegate del in CreateLocomotiveEvent.GetInvocationList()) CreateLocomotiveEvent -= (Action)del;
-
-                        controller.clip.OnChangeCurrentFrameEvent -= Call;
-                    }
-                }
-            }
-        }
-
-        [Serializable]
-        public class CreateLocomotiveFrames
-        {
-            [Min(0)]
-            public float rockFrame;
-            [Min(0)]
-            public float scissorsFrame;
-            [Min(0)]
-            public float paperFrame;
-
-            public float GetFrame(Hand.Shape shape)
-            {
-                return shape switch
-                {
-                    Hand.Shape.Rock => rockFrame,
-                    Hand.Shape.Scissors => scissorsFrame,
-                    Hand.Shape.Paper => paperFrame,
-                    _ => 0
-                };
             }
         }
     }
