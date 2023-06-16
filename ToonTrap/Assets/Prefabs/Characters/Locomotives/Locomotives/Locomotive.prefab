@@ -30,7 +30,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 16
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2315983667368237227
 MonoBehaviour:
@@ -46,3 +46,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   firstCarPrefab: {fileID: 4268688979533358511, guid: 3cee3a9db8b932d429f0eb76eec2834a, type: 3}
   carPrefab: {fileID: 6051432422800080408, guid: 8947b4d76a9881c4fb7276caee9e9dbf, type: 3}
+  blowAwaySe:
+    audioClip: {fileID: 8300000, guid: 8b23b175a78d6b5458322e3a6c9905d0, type: 3}
+    pitch: 1
+    volume: 0.5
+    loop: 0
+    onlyVisible: 1

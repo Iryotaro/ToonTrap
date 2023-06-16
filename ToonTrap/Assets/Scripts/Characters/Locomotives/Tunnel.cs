@@ -16,7 +16,7 @@ namespace Ryocatusn.Characters
         [SerializeField, Min(0.5f)]
         private float rateScale = 1;
         [SerializeField]
-        private JankenTunnels jankenTunnels;
+        private JankenTunnelAnimators jankenTunnelAnimators;
         [SerializeField]
         private Railway railway;
         [SerializeField]
@@ -64,13 +64,13 @@ namespace Ryocatusn.Characters
 
             TunnelAnimator CreateController()
             {
-                if (jankenTunnels.TryGetRenderer(out GameObject gameObject, this))
+                if (jankenTunnelAnimators.TryGetRenderer(out GameObject gameObject, this))
                 {
                     for (int i = 0; i < transform.childCount; i++)
                     {
-                        DestroyImmediate(transform.GetChild(i).gameObject);
+                        Destroy(transform.GetChild(i).gameObject);
                     }
-                    return Instantiate(jankenTunnels.GetAsset(shape), gameObject.transform);
+                    return Instantiate(jankenTunnelAnimators.GetAsset(shape), gameObject.transform);
                 }
                 else
                 {

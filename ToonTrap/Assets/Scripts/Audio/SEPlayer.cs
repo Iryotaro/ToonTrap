@@ -120,7 +120,7 @@ namespace Ryocatusn.Audio
             }
 
             Camera mainCamera = Camera.main;
-            Vector2 screenPoint = mainCamera.WorldToViewportPoint(position);
+            Vector2 screenPoint = (Vector2)mainCamera.WorldToViewportPoint(position);
             if (screenPoint.x >= 0 && screenPoint.x <= 1 &&
                 screenPoint.y >= 0 && screenPoint.y <= 1) return true;
             return false;

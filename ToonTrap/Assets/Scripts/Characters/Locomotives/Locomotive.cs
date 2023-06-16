@@ -1,4 +1,5 @@
 using Cysharp.Threading.Tasks;
+using Ryocatusn.Audio;
 using Ryocatusn.Janken;
 using Ryocatusn.Janken.AttackableObjects;
 using Ryocatusn.Janken.JankenableObjects;
@@ -19,6 +20,9 @@ namespace Ryocatusn.Characters
         private LocomotiveCar firstCarPrefab;
         [SerializeField]
         private LocomotiveCar carPrefab;
+
+        [SerializeField]
+        private SE blowAwaySe;
 
         [Inject]
         private DiContainer diContainer;
@@ -81,6 +85,9 @@ namespace Ryocatusn.Characters
             locomotiveCars.Remove(locomotiveCar);
 
             if (locomotiveCars.Count == 0) Destroy(gameObject);
+
+            SEPlayer sePlayer = new SEPlayer(locomotiveCar.gameObject);
+            sePlayer.Play(blowAwaySe);
         }
     }
 }

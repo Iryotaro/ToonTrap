@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 922281357643673503}
   - component: {fileID: 5460391355879487404}
   - component: {fileID: 1530096451700508594}
-  - component: {fileID: 2408588159428722412}
+  - component: {fileID: 8964746494377705271}
   m_Layer: 0
   m_Name: TunnelPaper
   m_TagString: Untagged
@@ -35,7 +35,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &8709873926506536273
 MeshFilter:
@@ -135,7 +135,7 @@ MonoBehaviour:
   _groupName: 
   _playMode: 0
   _loopMode: 0
---- !u!114 &2408588159428722412
+--- !u!114 &8964746494377705271
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -144,7 +144,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 6321784478669198615}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5c1ffff6545953d49a92558353b60721, type: 3}
+  m_Script: {fileID: 11500000, guid: 237c5e38db9ebba44999093cc7d54f1b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  createLocomotiveFrame: 86
+  createLocomotiveFrame: 92
+  surpriseSE:
+    audioClip: {fileID: 8300000, guid: a95cc0731b14a52458d77d3af9af79cc, type: 3}
+    pitch: 1
+    volume: 1
+    loop: 0
+    onlyVisible: 1

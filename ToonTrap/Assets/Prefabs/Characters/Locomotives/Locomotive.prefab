@@ -48,10 +48,10 @@ MonoBehaviour:
   datas:
   - {fileID: 11400000, guid: bc15b357102fe2849919e836aba50cbe, type: 2}
   rateScale: 1
-  jankenTunnels:
+  jankenTunnelAnimators:
     rockAnimator: {fileID: 5292805874993857064, guid: a4bdb38f29899a54d8359b748a311134, type: 3}
     scissorsAnimator: {fileID: 6146362455021034938, guid: 7624529f0c869d74384975c4a7f7460f, type: 3}
-    paperAnimator: {fileID: 2408588159428722412, guid: aea6a1f25514562449ed50e2d146987d, type: 3}
+    paperAnimator: {fileID: 8964746494377705271, guid: aea6a1f25514562449ed50e2d146987d, type: 3}
   railway: {fileID: 8726365514626366185}
   locomotive: {fileID: 2315983667368237227, guid: 94f68ab6e913fe749ae6b9f643ab6278, type: 3}
   autoPlay: 1

@@ -119,6 +119,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a4883745341f2c4bbefa7c29d41819d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sunSE:
+    audioClip: {fileID: 8300000, guid: 445d4375ef341d544aaa0e033afa7631, type: 3}
+    pitch: 2
+    volume: 0.5
+    loop: 0
+    onlyVisible: 1
 --- !u!1 &8401115232081300021
 GameObject:
   m_ObjectHideFlags: 0

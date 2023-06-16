@@ -26,7 +26,8 @@ namespace Ryocatusn
 
         public bool IsOutSideOfCamera(GameObject target)
         {
-            Vector2 screenPos = camera.WorldToViewportPoint(target.transform.position);
+            Vector2 screenPos = (Vector2)camera.WorldToViewportPoint(target.transform.position);
+
             if (screenPos.x < 0f || screenPos.x > 1f || screenPos.y < 0f || screenPos.y > 1f) return true;
             return false;
         }
