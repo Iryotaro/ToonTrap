@@ -4,7 +4,7 @@ using UnityEngine;
 namespace Ryocatusn
 {
     [RequireComponent(typeof(SwfClipController))]
-    public class Effect : MonoBehaviour
+    public class BoomEffect : MonoBehaviour
     {
         private SwfClipController swfClipController;
 
@@ -14,14 +14,11 @@ namespace Ryocatusn
 
             swfClipController.OnRewindPlayingEvent += Delete;
         }
-        private void OnDestroy()
-        {
-            swfClipController.OnRewindPlayingEvent -= Delete;
-        }
 
-        private void Delete(SwfClipController controller)
+        private void Delete(SwfClipController swfClipController)
         {
             Destroy(gameObject);
+            swfClipController.OnRewindPlayingEvent -= Delete;
         }
     }
 }
