@@ -29,9 +29,9 @@ namespace Ryocatusn.Janken.JankenableObjects
         private Subject<Unit> winEvent = new Subject<Unit>();
         private Subject<Unit> loseEvent = new Subject<Unit>();
         private Subject<Unit> drawEvent = new Subject<Unit>();
-        private Subject<Unit> attackerWinEvent = new Subject<Unit>();
-        private Subject<Unit> attackerLoseEvent = new Subject<Unit>();
-        private Subject<Unit> attackerDrawEvent = new Subject<Unit>();
+        private Subject<JankenableObjectId> attackerWinEvent = new Subject<JankenableObjectId>();
+        private Subject<JankenableObjectId> attackerLoseEvent = new Subject<JankenableObjectId>();
+        private Subject<JankenableObjectId> attackerDrawEvent = new Subject<JankenableObjectId>();
         private Subject<Unit> victimWinEvent = new Subject<Unit>();
         private Subject<Unit> victimLoseEvent = new Subject<Unit>();
         private Subject<Unit> victimDrawEvent = new Subject<Unit>();
@@ -48,9 +48,9 @@ namespace Ryocatusn.Janken.JankenableObjects
         public IObservable<Unit> WinEvent => winEvent;
         public IObservable<Unit> LoseEvent => loseEvent;
         public IObservable<Unit> DrawEvent => drawEvent;
-        public IObservable<Unit> AttackerWinEvent => attackerWinEvent;
-        public IObservable<Unit> AttackerLoseEvent => attackerLoseEvent;
-        public IObservable<Unit> AttackerDrawEvent => attackerDrawEvent;
+        public IObservable<JankenableObjectId> AttackerWinEvent => attackerWinEvent;
+        public IObservable<JankenableObjectId> AttackerLoseEvent => attackerLoseEvent;
+        public IObservable<JankenableObjectId> AttackerDrawEvent => attackerDrawEvent;
         public IObservable<Unit> VictimWinEvent => victimWinEvent;
         public IObservable<Unit> VictimLoseEvent => victimLoseEvent;
         public IObservable<Unit> VictimDrawEvent => victimDrawEvent;
@@ -114,24 +114,24 @@ namespace Ryocatusn.Janken.JankenableObjects
         {
             doJankenEvent.OnNext(Unit.Default);
         }
-        public void AttackerWin()
+        public void AttackerWin(JankenableObject victim)
         {
             winCombo++;
 
             winEvent.OnNext(Unit.Default);
-            attackerWinEvent.OnNext(Unit.Default);
+            attackerWinEvent.OnNext(victim.id);
         }
-        public void AttackerLose()
+        public void AttackerLose(JankenableObject victim)
         {
             winCombo = 0;
 
             loseEvent.OnNext(Unit.Default);
-            attackerLoseEvent.OnNext(Unit.Default);
+            attackerLoseEvent.OnNext(victim.id);
         }
-        public void AttackerDraw()
+        public void AttackerDraw(JankenableObject victim)
         {
             drawEvent.OnNext(Unit.Default);
-            attackerDrawEvent.OnNext(Unit.Default);
+            attackerDrawEvent.OnNext(victim.id);
         }
 
         public void VictimWin()

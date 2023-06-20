@@ -52,7 +52,7 @@ namespace Ryocatusn.Janken.AttackableObjects
 
         public void Win(JankenableObject victim)
         {
-            owner.AttackerWin();
+            owner.AttackerWin(victim);
             victim.VictimLose();
 
             owner.DoJanken();
@@ -63,7 +63,7 @@ namespace Ryocatusn.Janken.AttackableObjects
         }
         public void Lose(JankenableObject victim)
         {
-            owner.AttackerLose();
+            owner.AttackerLose(victim);
             victim.VictimWin();
 
             owner.DoJanken();
@@ -75,7 +75,7 @@ namespace Ryocatusn.Janken.AttackableObjects
         }
         public void Draw(JankenableObject victim)
         {
-            owner.AttackerDraw();
+            owner.AttackerDraw(victim);
             victim.VictimDraw();
 
             owner.DoJanken();

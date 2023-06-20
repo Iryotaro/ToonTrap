@@ -21,7 +21,7 @@
       "dependencies": {
         "com.unity.inputsystem": "1.2.0"
       },
-      "hash": "44471f00ca335db168b3f2fe6e8ffd8aa9868905"
+      "hash": "2b1cebffe288d5caadbc139c9770d27379a24c60"
     },
     "com.unity.2d.animation": {
       "version": "9.0.1",

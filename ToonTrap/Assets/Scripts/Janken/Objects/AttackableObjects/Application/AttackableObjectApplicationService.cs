@@ -67,6 +67,8 @@ namespace Ryocatusn.Janken.AttackableObjects
         }
         public void Attack(AttackableObjectId id, IReceiveAttack receiveAttack)
         {
+            if (!receiveAttack.isAllowedToReceiveAttack) return;
+
             AttackableObject attackableObject = null;
             JankenableObject attacker = null;
             JankenableObject victim = null;

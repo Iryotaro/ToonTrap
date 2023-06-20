@@ -116,11 +116,10 @@ namespace Ryocatusn
             if (20 <= winCombo && winCombo < 50) moveStraightLineCount = 4;
             if (50 <= winCombo) moveStraightLineCount = 7;
 
-            isAllowedToReceiveAttack = false;
-
             IMoveDataCreater moveDataCreater = new MoveStraightLine(tileTransform.tilePosition.Get(), tileTransform.tileDirection, moveStraightLineCount);
             tileTransform.SetMovement(moveDataCreater, new MoveRate(50), TileTransform.SetMovementMode.Force);
 
+            tileTransform.movement.Match(_ => isAllowedToReceiveAttack = false);
             tileTransform.movement.Match(x => x.CompleteEvent
                 .Subscribe(_ => isAllowedToReceiveAttack = true)
                 .AddTo(this));

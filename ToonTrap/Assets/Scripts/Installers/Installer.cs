@@ -32,6 +32,7 @@ namespace Ryocatusn
             Container.Bind<GameApplicationService>().AsTransient();
             Container.Bind<StageApplicationService>().AsTransient();
 
+            Container.Bind<CharacterManager>().AsSingle();
             Container.Bind<BulletFactory>().AsTransient();
             Container.Bind<AreaService>().AsTransient();
             Container.Bind<StageDataCreater>().AsTransient();

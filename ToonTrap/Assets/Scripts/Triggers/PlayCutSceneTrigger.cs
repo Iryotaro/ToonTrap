@@ -4,6 +4,7 @@ using Ryocatusn.Characters;
 using System.Collections;
 using Zenject;
 using Ryocatusn.Games;
+using Ryocatusn.Audio;
 
 namespace Ryocatusn
 {
@@ -16,6 +17,8 @@ namespace Ryocatusn
         private Tunnel tunnel;
         [SerializeField]
         private ParticleSystem effect;
+        [SerializeField]
+        private SE se;
 
         private VirtualCamera beginCamera;
         private ParticleSystem newEffect;
@@ -25,8 +28,6 @@ namespace Ryocatusn
 
         private void Start()
         {
-            beginCamera = VirtualCameraManager.instance.FindEnableCamera().Get();
-
             newEffect = Instantiate(effect, gameManager.gameContains.gameCamera.transform);
             newEffect.transform.position = new Vector3(18, 0, 10);
 
@@ -39,12 +40,16 @@ namespace Ryocatusn
         
         private IEnumerator Play()
         {
+            beginCamera = VirtualCameraManager.instance.FindEnableCamera().Get();
+
             gameManager.gameContains.player.inputMaster.SetActiveAll(false);
             virtualCamera.SetEnableCamera();
             newEffect.Play();
+            new SEPlayer(gameObject).Play(se);
             yield return new WaitForSeconds(1);
             tunnel.Play();
             newEffect.Stop();
+            Destroy(newEffect);
             yield return new WaitForSeconds(5);
             if (beginCamera != null) beginCamera.SetEnableCamera();
             gameManager.gameContains.player.inputMaster.SetActiveAll(true);

@@ -124,7 +124,7 @@ MonoBehaviour:
     pitch: 2
     volume: 0.5
     loop: 0
-    onlyVisible: 1
+    onlyVisible: 0
 --- !u!1 &8401115232081300021
 GameObject:
   m_ObjectHideFlags: 0

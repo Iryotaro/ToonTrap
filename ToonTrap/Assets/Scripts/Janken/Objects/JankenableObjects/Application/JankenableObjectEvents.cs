@@ -20,9 +20,9 @@ namespace Ryocatusn.Janken.JankenableObjects
         public IObservable<Unit> WinEvent { get; }
         public IObservable<Unit> LoseEvent { get; }
         public IObservable<Unit> DrawEvent { get; }
-        public IObservable<Unit> AttackerWinEvent { get; }
-        public IObservable<Unit> AttackerLoseEvent { get; }
-        public IObservable<Unit> AttackerDrawEvent { get; }
+        public IObservable<JankenableObjectId> AttackerWinEvent { get; }
+        public IObservable<JankenableObjectId> AttackerLoseEvent { get; }
+        public IObservable<JankenableObjectId> AttackerDrawEvent { get; }
         public IObservable<Unit> VictimWinEvent { get; }
         public IObservable<Unit> VictimLoseEvent { get; }
         public IObservable<Unit> VictimDrawEvent { get; }
@@ -41,9 +41,9 @@ namespace Ryocatusn.Janken.JankenableObjects
             IObservable<Unit> WinEvent,
             IObservable<Unit> LoseEvent,
             IObservable<Unit> DrawEvent,
-            IObservable<Unit> AttackerWinEvent,
-            IObservable<Unit> AttackerLoseEvent,
-            IObservable<Unit> AttackerDrawEvent,
+            IObservable<JankenableObjectId> AttackerWinEvent,
+            IObservable<JankenableObjectId> AttackerLoseEvent,
+            IObservable<JankenableObjectId> AttackerDrawEvent,
             IObservable<Unit> VictimWinEvent,
             IObservable<Unit> VictimLoseEvent,
             IObservable<Unit> VictimDrawEvent

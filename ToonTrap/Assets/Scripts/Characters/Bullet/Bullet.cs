@@ -5,6 +5,7 @@ using System.Collections;
 using UniRx;
 using UniRx.Triggers;
 using UnityEngine;
+using Ryocatusn.Audio;
 
 namespace Ryocatusn.Characters
 {
@@ -20,6 +21,8 @@ namespace Ryocatusn.Characters
         private float power;
         [SerializeField]
         private bool m_attackToOnlyPlayer = false;
+        [SerializeField]
+        private SE reAttackSE;
 
         private GameObject ownerObject;
 
@@ -97,10 +100,12 @@ namespace Ryocatusn.Characters
 
                 float GetTime()
                 {
-                    //�񎟊֐�
+                    //�񎟊֐�
                     return Mathf.Pow(Time.fixedTime - time, 2);
                 }
             }
+
+            new SEPlayer(gameObject).Play(reAttackSE);
         }
 
         public Hand.Shape GetShape()

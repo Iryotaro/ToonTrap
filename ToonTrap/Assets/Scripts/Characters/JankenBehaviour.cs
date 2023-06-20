@@ -1,5 +1,4 @@
 using Ryocatusn.Games;
-using Ryocatusn.Games.Stages;
 using Ryocatusn.Janken;
 using Ryocatusn.Janken.AttackableObjects;
 using Ryocatusn.Janken.JankenableObjects;
@@ -18,12 +17,15 @@ namespace Ryocatusn.Characters
         [Inject]
         protected JankenableObjectApplicationService jankenableObjectApplicationService { get; }
         [Inject]
+        protected CharacterManager characterManager;
+        [Inject]
         protected GameManager gameManager;
 
         private void OnDestroy()
         {
             if (jankenableObjectApplicationService == null) return;
             jankenableObjectApplicationService.Delete(id);
+            characterManager.Delete(id);
         }
 
         protected void Create(Hp hp, InvincibleTime invincibleTime, Hand.Shape shape)
@@ -41,6 +43,8 @@ namespace Ryocatusn.Characters
             id = jankenableObjectApplicationService.Create(command);
             events = jankenableObjectApplicationService.GetEvents(id);
 
+            characterManager.Save(this);
+
             this.OnDestroyAsObservable()
                 .Subscribe(_ => jankenableObjectApplicationService.Delete(id));
         }
@@ -52,6 +56,10 @@ namespace Ryocatusn.Characters
         protected void AttackTrigger(AttackableObjectCreateCommand command, IReceiveAttack[] receiveAttacks = null)
         {
             jankenableObjectApplicationService.AttackTrigger(id, command, receiveAttacks);
+        }
+        protected void AttackTrigger(AttackableObjectCreateCommand command, IReceiveAttack receiveAttack)
+        {
+            jankenableObjectApplicationService.AttackTrigger(id, command, new IReceiveAttack[] { receiveAttack });
         }
     }
 }
