@@ -11,10 +11,12 @@ namespace Ryocatusn.Janken
         public static bool reverse { private set; get; } = false;
 
         private Subject<Shape> changeShapeEvent = new Subject<Shape>();
-        private static Subject<bool> jankenReverseEvent = new Subject<bool>();
 
         public IObservable<Shape> ChangeShapeEvent => changeShapeEvent;
-        public static IObservable<bool> JankenReverseEvent => jankenReverseEvent;
+
+        private static Shape[] sequence = new Shape[3] { Shape.Rock, Shape.Scissors, Shape.Paper };
+        public static Shape[] rsp { get; } = new Shape[3] { Shape.Rock, Shape.Scissors, Shape.Paper };
+        public static Shape[] rps { get; } = new Shape[3] { Shape.Rock, Shape.Paper, Shape.Scissors };
 
         public enum Shape
         {
@@ -40,12 +42,18 @@ namespace Ryocatusn.Janken
             changeShapeEvent.Dispose();
         }
 
-        public static void JankenReverse(bool reverse)
+        public static void SetSequence(Shape[] sequence)
         {
-            if (Hand.reverse == reverse) return;
-
-            Hand.reverse = reverse;
-            jankenReverseEvent.OnNext(reverse);
+            Hand.sequence = sequence;
+        }
+        public static Shape[] GetSequence()
+        {
+            return sequence;
+        }
+        public static Shape GetNextShape(Shape shape)
+        {
+            int index = (Array.IndexOf(sequence, shape) + 1) % 3;
+            return sequence[index];
         }
 
         public bool Equals(Hand other)

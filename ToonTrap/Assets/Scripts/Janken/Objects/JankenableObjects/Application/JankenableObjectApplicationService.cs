@@ -55,7 +55,6 @@ namespace Ryocatusn.Janken.JankenableObjects
             return new JankenableObjectEvents
                 (
                 handApplicationService.GetEvents(jankenableObject.handId).ChangeShapeEvent,
-                handApplicationService.GetEvents(jankenableObject.handId).JankenReverseEvent,
                 jankenableObject.TakeDamageEvent,
                 jankenableObject.FinishInvincibleTime,
                 jankenableObject.ResetHpEvent,

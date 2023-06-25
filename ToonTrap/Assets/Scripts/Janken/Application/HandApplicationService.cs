@@ -30,7 +30,7 @@ namespace Ryocatusn.Janken
             Option<Hand> hand = handRepository.Find(id);
             hand.Match(None: () => throw new JankenException("Handが見つかりません"));
 
-            return new HandEvents(hand.Get().ChangeShapeEvent, Hand.JankenReverseEvent);
+            return new HandEvents(hand.Get().ChangeShapeEvent);
         }
         public JankenResult DoJanken(HandId[] ids)
         {

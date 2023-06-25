@@ -1,8 +1,6 @@
 using Ryocatusn.Janken;
 using Ryocatusn.TileTransforms;
-using Ryocatusn.Util;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using UniRx;
 using UnityEngine;
@@ -12,6 +10,10 @@ namespace Ryocatusn
 {
     public class PlayerInputMaster : MonoBehaviour
     {
+        [SerializeField]
+        private UnityEngine.UI.Image testImage;
+        private Hand.Shape testChangeShape;
+
         private InputMaster input;
 
         public bool isAllowedMove { get; private set; } = true;
@@ -63,6 +65,7 @@ namespace Ryocatusn
             input.Player.Move.performed += ctx => changeDirectionEvent.OnNext(new TileDirection(ctx.ReadValue<Vector2>()));
             input.Player.Special.performed += ctx => specialEvent.OnNext(Unit.Default);
             input.Player.Attack.performed += ctx => attackEvent.OnNext(Time.fixedTime);
+            input.Player.ChangeHand.performed += ctx => changeShapeEvent.OnNext(GetChangeShape());
             //input.Player.Rock.performed += ctx => rockEvent.OnNext(Unit.Default);
             //input.Player.Scissors.performed += ctx => scissorsEvent.OnNext(Unit.Default);
             //input.Player.Paper.performed += ctx => paperEvent.OnNext(Unit.Default);
@@ -84,31 +87,53 @@ namespace Ryocatusn
             //RockEvent = rockEvent.Where(_ => isAllowedRock);
             //ScissorsEvent = scissorsEvent.Where(_ => isAllowedScissors);
             //PaperEvent = paperEvent.Where(_ => isAllowedPaper);
-        }
-        private void Update()
-        {
-            Hand.Shape hand = GetHand();
-            changeShapeEvent.OnNext(hand);
+
+            StartCoroutine(test());
+            System.Collections.IEnumerator test()
+            {
+                while (true)
+                {
+                    testChangeShape = Hand.GetNextShape(testChangeShape);
+                    testImage.color = testChangeShape switch
+                    {
+                        Hand.Shape.Rock => Color.red,
+                        Hand.Shape.Scissors => Color.yellow,
+                        Hand.Shape.Paper => Color.blue,
+                        _ => Color.white
+                    };
+                    yield return new WaitForSeconds(1);
+                }
+            }
         }
 
-        private Hand.Shape GetHand()
+        private Hand.Shape GetChangeShape()
         {
-            Keyboard keyboard = Keyboard.current;
-            List<Key> inputKeys = keyboard.allKeys.Where(x => x.isPressed).Select(x => x.keyCode).ToList();
-
-            if (inputKeys.ContainsArray(rockKeys))
-            {
-                return Hand.Shape.Rock;
-            }
-            else if (inputKeys.ContainsArray(scissorsKeys))
-            {
-                return Hand.Shape.Scissors;
-            }
-            else
-            {
-                return Hand.Shape.Paper;
-            }
+            return testChangeShape;
         }
+        //private void Update()
+        //{
+        //    Hand.Shape hand = GetHand();
+        //    changeShapeEvent.OnNext(hand);
+        //}
+
+        //private Hand.Shape GetHand()
+        //{
+        //    Keyboard keyboard = Keyboard.current;
+        //    List<Key> inputKeys = keyboard.allKeys.Where(x => x.isPressed).Select(x => x.keyCode).ToList();
+
+        //    if (inputKeys.ContainsArray(rockKeys))
+        //    {
+        //        return Hand.Shape.Rock;
+        //    }
+        //    else if (inputKeys.ContainsArray(scissorsKeys))
+        //    {
+        //        return Hand.Shape.Scissors;
+        //    }
+        //    else
+        //    {
+        //        return Hand.Shape.Paper;
+        //    }
+        //}
 
         public void SetActive(SetPlayerInputActiveCommand command)
         {

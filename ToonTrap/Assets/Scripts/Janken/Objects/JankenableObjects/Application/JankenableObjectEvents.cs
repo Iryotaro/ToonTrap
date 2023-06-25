@@ -7,7 +7,6 @@ namespace Ryocatusn.Janken.JankenableObjects
     public class JankenableObjectEvents
     {
         public IObservable<Hand.Shape> ChangeShapeEvent { get; }
-        public IObservable<bool> JankenReverseEvent { get; }
 
         public IObservable<Hp> TakeDamageEvent { get; }
         public IObservable<Unit> FinishInvincibleTime { get; }
@@ -30,7 +29,6 @@ namespace Ryocatusn.Janken.JankenableObjects
         public JankenableObjectEvents
             (
             IObservable<Hand.Shape> ChangeShapeEvent,
-            IObservable<bool> JankenReverseEvent,
             IObservable<Hp> TakeDamageEvent,
             IObservable<Unit> FinishInvincibleTime,
             IObservable<Hp> ResetHpEvent,
@@ -50,7 +48,6 @@ namespace Ryocatusn.Janken.JankenableObjects
             )
         {
             this.ChangeShapeEvent = ChangeShapeEvent;
-            this.JankenReverseEvent = JankenReverseEvent;
             this.TakeDamageEvent = TakeDamageEvent;
             this.FinishInvincibleTime = FinishInvincibleTime;
             this.ResetHpEvent = ResetHpEvent;

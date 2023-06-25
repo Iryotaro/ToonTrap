@@ -50,13 +50,13 @@ namespace Ryocatusn.Characters
             events.AttackerWinEvent
                 .Select(x => characterManager.Find(x) as Player)
                 .Where(x => x != null)
-                .Subscribe(x => HandleAAA(x))
+                .Subscribe(x => BouncePlayer(x))
                 .AddTo(this);
 
             events.AttackerDrawEvent
                 .Select(x => characterManager.Find(x) as Player)
                 .Where(x => x != null)
-                .Subscribe(x => HandleAAA(x))
+                .Subscribe(x => BouncePlayer(x))
                 .AddTo(this);
 
             this.OnTriggerEnter2DAsObservable()
@@ -78,14 +78,14 @@ namespace Ryocatusn.Characters
             }
         }
 
-        private void HandleAAA(Player player)
+        private void BouncePlayer(Player player)
         {
             if (player.tileTransform.movement.Get() == null) return;
 
             TilePosition tilePosition = player.tileTransform.tilePosition.Get();
             TileDirection tileDirection = new TileDirection(player.tileTransform.angle + 180);
-            IMoveDataCreater moveDataCreater = new MoveStraightLine(tilePosition, tileDirection, 2);
-            player.tileTransform.SetMovement(moveDataCreater, new MoveRate(3), TileTransform.SetMovementMode.Force);
+            IMoveDataCreater moveDataCreater = new MoveStraightLine(tilePosition, tileDirection, 1);
+            player.tileTransform.SetMovement(moveDataCreater, new MoveRate(4), TileTransform.SetMovementMode.Force);
         }
 
         public JankenableObjectId GetId()

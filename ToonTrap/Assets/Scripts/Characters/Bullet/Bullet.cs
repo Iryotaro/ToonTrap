@@ -25,6 +25,7 @@ namespace Ryocatusn.Characters
         private SE reAttackSE;
 
         private GameObject ownerObject;
+        private bool isAllowedToDestroy = true;
 
         public void SetUp(AttackableObjectId id, GameObject ownerObject)
         {
@@ -56,8 +57,15 @@ namespace Ryocatusn.Characters
 
             IEnumerator DestroyWhenOutSideOfCamera()
             {
-                yield return new WaitUntil(() => gameManager.gameContains.gameCamera.IsOutSideOfCamera(gameObject));
+                yield return new WaitUntil(() => IsAllowedToDestroy());
                 Destroy(gameObject);
+
+                bool IsAllowedToDestroy()
+                {
+                    if (!isAllowedToDestroy) return false;
+                    if (!gameManager.gameContains.gameCamera.IsOutSideOfCamera(gameObject)) return false;
+                    return true;
+                }
             }
         }
 
@@ -77,6 +85,8 @@ namespace Ryocatusn.Characters
 
         private void HandleReAttackTrigger()
         {
+            isAllowedToDestroy = false;
+
             StartCoroutine(Move());
 
             IEnumerator Move()
