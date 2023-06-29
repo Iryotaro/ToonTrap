@@ -3,10 +3,12 @@ using Ryocatusn.Janken;
 using Ryocatusn.Janken.JankenableObjects;
 using Ryocatusn.Janken.AttackableObjects;
 using UniRx;
+using Ryocatusn.Photographers;
+using Zenject;
 
 namespace Ryocatusn.Characters
 {
-    public class StickyNote : JankenBehaviour
+    public class StickyNote : JankenBehaviour, IPhotographerSubject
     {
         private Hand.Shape shape = Hand.Shape.Paper;
         [SerializeField, Min(1)]
@@ -16,6 +18,12 @@ namespace Ryocatusn.Characters
         private TileTransformTrigger trigger;
         [SerializeField]
         private StickyNoteSniperScope sniperScope;
+
+        [Inject]
+        private PhotographerSubjectManager photographerSubjectManager;
+
+        public int priority { get; } = 10;
+        public int photographerCameraSize { get; } = 3;
 
         private void Start()
         {
@@ -29,6 +37,12 @@ namespace Ryocatusn.Characters
             events.AttackTriggerEvent
                 .Subscribe(x => HandleAttackTrigger(x.id, x.receiveAttacks[0]))
                 .AddTo(this);
+
+            photographerSubjectManager.Save(this);
+        }
+        private void OnDestroy()
+        {
+            photographerSubjectManager.Delete(this);
         }
 
         private void HandleTileTransformTrigger()
@@ -39,6 +53,11 @@ namespace Ryocatusn.Characters
         private void HandleAttackTrigger(AttackableObjectId id, IReceiveAttack receiveAttack)
         {
             sniperScope.Setup(id, receiveAttack);
+        }
+
+        public Vector3 GetPosition()
+        {
+            return transform.position;
         }
     }
 }

@@ -10,6 +10,7 @@ using Ryocatusn.Janken.JankenableObjects;
 using Ryocatusn.Janken.JankenableObjects.Repository;
 using Ryocatusn.Janken.Repository;
 using Ryocatusn.StageCreaters;
+using Ryocatusn.Photographers;
 using UnityEngine;
 using Zenject;
 
@@ -36,6 +37,7 @@ namespace Ryocatusn
             Container.Bind<BulletFactory>().AsTransient();
             Container.Bind<AreaService>().AsTransient();
             Container.Bind<StageDataCreater>().AsTransient();
+            Container.Bind<PhotographerSubjectManager>().AsSingle();
         }
     }
 }

@@ -21,17 +21,18 @@ namespace Ryocatusn.Characters
         [Inject]
         protected GameManager gameManager;
 
-        private void OnDestroy()
-        {
-            if (jankenableObjectApplicationService == null) return;
-            jankenableObjectApplicationService.Delete(id);
-            characterManager.Delete(id);
-        }
-
         protected void Create(Hp hp, InvincibleTime invincibleTime, Hand.Shape shape)
         {
             JankenableObjectCreateCommand command = new JankenableObjectCreateCommand(hp, invincibleTime, shape);
             Create(command);
+
+            this.OnDestroyAsObservable()
+                .Subscribe(_ =>
+                {
+                    if (jankenableObjectApplicationService == null) return;
+                    jankenableObjectApplicationService.Delete(id);
+                    characterManager.Delete(id);
+                });
         }
         protected void Create(Hp hp, Hand.Shape shape)
         {
