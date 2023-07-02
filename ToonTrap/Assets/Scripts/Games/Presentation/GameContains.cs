@@ -10,7 +10,6 @@ namespace Ryocatusn
         public Player player { get; }
         public ButtonMappingUI playerButtonMappingUI;
         public GameCamera gameCamera { get; }
-        public GameBackground background { get; }
         public Light2D globalLight { get; }
         public AudioSource bgm { get; }
         public Conversation conversation { get; }
@@ -20,7 +19,6 @@ namespace Ryocatusn
             Player player,
             ButtonMappingUI playerButtonMappingUI,
             GameCamera gameCamera,
-            GameBackground background,
             Light2D globalLight,
             AudioSource bgm,
             Conversation conversation
@@ -29,7 +27,6 @@ namespace Ryocatusn
             this.player = player;
             this.playerButtonMappingUI = playerButtonMappingUI;
             this.gameCamera = gameCamera;
-            this.background = background;
             this.globalLight = globalLight;
             this.bgm = bgm;
             this.conversation = conversation;

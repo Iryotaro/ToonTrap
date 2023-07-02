@@ -58,7 +58,7 @@ namespace Ryocatusn.Characters
             .Subscribe(_ => HandleDie())
             .AddTo(this);
 
-            SEPlayer sePlayer = new SEPlayer(gameObject);
+            SEPlayer sePlayer = new SEPlayer(gameObject, gameManager.gameContains.gameCamera);
 
             events.AttackTriggerEvent.Subscribe(_ => sePlayer.Play(attackSE)).AddTo(this);
 

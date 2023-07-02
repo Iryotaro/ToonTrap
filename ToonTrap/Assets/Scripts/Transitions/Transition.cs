@@ -6,6 +6,8 @@ using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using Ryocatusn.Games;
+using Zenject;
 
 namespace Ryocatusn
 {
@@ -21,6 +23,9 @@ namespace Ryocatusn
         private SE transitionSE;
         [SerializeField]
         private JankenSprites handSprites;
+
+        [Inject]
+        private GameManager gameManager;
 
         private static string[] unloadSceneNames;
         private static string[] loadSceneNames;
@@ -59,7 +64,7 @@ namespace Ryocatusn
 
         private void Start()
         {
-            SEPlayer sePlayer = new SEPlayer(gameObject);
+            SEPlayer sePlayer = new SEPlayer(gameObject, gameManager.gameContains.gameCamera);
             sePlayer.DontDestroyOnLoad();
             sePlayer.Play(transitionSE);
 

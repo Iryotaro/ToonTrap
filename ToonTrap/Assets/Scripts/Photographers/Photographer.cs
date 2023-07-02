@@ -1,7 +1,6 @@
 using UnityEngine;
 using Zenject;
 using UniRx;
-using Ryocatusn.Util;
 
 namespace Ryocatusn.Photographers
 {
@@ -31,10 +30,8 @@ namespace Ryocatusn.Photographers
         private void ChangeTarget(IPhotographerSubject photographerSubject)
         {
             //ノイズ発生
-            if (target != null) target.gameObject.ChangeLayerIncludeChildren(0);
 
             target = photographerSubject;
-            target.gameObject.ChangeLayerIncludeChildren(LayerMask.NameToLayer("PhotographerTarget"));
             photographerCamera.orthographicSize = target.photographerCameraSize;
         }
 

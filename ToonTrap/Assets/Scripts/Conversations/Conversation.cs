@@ -3,6 +3,8 @@ using Ryocatusn.Audio;
 using Ryocatusn.Util;
 using System;
 using TMPro;
+using Zenject;
+using Ryocatusn.Games;
 using UnityEngine;
 
 namespace Ryocatusn.Conversations
@@ -16,6 +18,9 @@ namespace Ryocatusn.Conversations
         [SerializeField]
         private bool boss;
 
+        [Inject]
+        private GameManager gameManager;
+
         private Option<Message> showingMessage = new Option<Message>(null);
         private Option<Tween> textTween = new Option<Tween>(null);
 
@@ -27,7 +32,7 @@ namespace Ryocatusn.Conversations
         private void Start()
         {
             HideMessage();
-            sePlayer = new SEPlayer(gameObject);
+            sePlayer = new SEPlayer(gameObject, gameManager.gameContains.gameCamera);
 
             if (boss) transform.DOShakePosition(1, 20).SetLoops(-1).SetLink(gameObject);
         }

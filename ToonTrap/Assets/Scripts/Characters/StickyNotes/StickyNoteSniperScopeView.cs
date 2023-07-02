@@ -5,6 +5,8 @@ using UniRx;
 using System;
 using UnityEngine.UI;
 using Ryocatusn.Audio;
+using Zenject;
+using Ryocatusn.Games;
 
 namespace Ryocatusn.Characters
 {
@@ -20,6 +22,9 @@ namespace Ryocatusn.Characters
         [SerializeField]
         private SE warning;
 
+        [Inject]
+        private GameManager gameManager;
+
         private Subject<Unit> shotSubject = new Subject<Unit>();
 
         public IObservable<Unit> ShotSubject => shotSubject;
@@ -27,7 +32,7 @@ namespace Ryocatusn.Characters
         public void SetUp(AttackableObjectId attackableObjectId, int chaseTime)
         {
             image = GetComponent<Image>();
-            sePlayer = new SEPlayer(gameObject);
+            sePlayer = new SEPlayer(gameObject, gameManager.gameContains.gameCamera);
 
             DOTween.Sequence()
                 .Append(Appear())

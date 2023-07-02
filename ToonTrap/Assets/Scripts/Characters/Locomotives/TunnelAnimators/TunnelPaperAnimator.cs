@@ -2,6 +2,8 @@ using FTRuntime;
 using Ryocatusn.Audio;
 using UniRx;
 using UnityEngine;
+using Zenject;
+using Ryocatusn.Games;
 
 namespace Ryocatusn.Characters
 {
@@ -14,6 +16,9 @@ namespace Ryocatusn.Characters
 
         [SerializeField]
         private SE surpriseSE;
+
+        [Inject]
+        private GameManager gameManager;
 
         private Subject<Unit> playSurpriseSEEvent = new Subject<Unit>();
 
@@ -56,7 +61,7 @@ namespace Ryocatusn.Characters
 
         private void PlaySurpriseSE()
         {
-            SEPlayer sePlayer = new SEPlayer(gameObject);
+            SEPlayer sePlayer = new SEPlayer(gameObject, gameManager.gameContains.gameCamera);
             sePlayer.Play(surpriseSE);
         }
     }

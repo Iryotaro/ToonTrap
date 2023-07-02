@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 5460391355879487404}
   - component: {fileID: 1530096451700508594}
   - component: {fileID: 8964746494377705271}
+  - component: {fileID: 8870083811825718634}
   m_Layer: 0
   m_Name: TunnelPaper
   m_TagString: Untagged
@@ -154,3 +155,15 @@ MonoBehaviour:
     volume: 1
     loop: 0
     onlyVisible: 0
+--- !u!114 &8870083811825718634
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6321784478669198615}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dfcc9d1f3e14e4710aa46d87dc3555dd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

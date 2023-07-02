@@ -20,13 +20,13 @@ namespace Ryocatusn
         {
             camera = GetComponent<Camera>();
             impulseSource = GetComponent<CinemachineImpulseSource>();
-
-            VolumeProfile volumeProfile = volume.profile;
         }
 
-        public bool IsOutSideOfCamera(GameObject target)
+        public bool IsOutSideOfCamera(GameObject target, bool debug = false)
         {
-            Vector2 screenPos = (Vector2)camera.WorldToViewportPoint(target.transform.position);
+            Vector2 screenPos = camera.WorldToViewportPoint(target.transform.position);
+
+            if (debug) Debug.Log(screenPos);
 
             if (screenPos.x < 0f || screenPos.x > 1f || screenPos.y < 0f || screenPos.y > 1f) return true;
             return false;

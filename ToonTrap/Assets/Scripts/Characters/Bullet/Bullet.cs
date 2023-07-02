@@ -115,7 +115,7 @@ namespace Ryocatusn.Characters
                 }
             }
 
-            new SEPlayer(gameObject).Play(reAttackSE);
+            new SEPlayer(gameObject, gameManager.gameContains.gameCamera).Play(reAttackSE);
         }
 
         public Hand.Shape GetShape()

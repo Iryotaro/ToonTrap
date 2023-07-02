@@ -1,6 +1,8 @@
 ﻿using Ryocatusn.Audio;
 using UniRx;
 using UnityEngine;
+using Ryocatusn.Games;
+using Zenject;
 
 namespace Ryocatusn.Characters
 {
@@ -10,7 +12,10 @@ namespace Ryocatusn.Characters
         private Animator animator;
 
         [SerializeField]
-        private SE sunSE; 
+        private SE sunSE;
+
+        [Inject]
+        private GameManager gameManager;
 
         private void Awake()
         {
@@ -28,7 +33,7 @@ namespace Ryocatusn.Characters
         }
         public void HandlePlaySunSEFromAnimation()
         {
-            SEPlayer sePlayer = new SEPlayer(gameObject);
+            SEPlayer sePlayer = new SEPlayer(gameObject, gameManager.gameContains.gameCamera);
             sePlayer.Play(sunSE);
         }
     }

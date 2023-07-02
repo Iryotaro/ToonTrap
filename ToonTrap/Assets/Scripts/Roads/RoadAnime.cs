@@ -1,5 +1,7 @@
 using Ryocatusn.Audio;
 using UnityEngine;
+using Ryocatusn.Games;
+using Zenject;
 
 namespace Ryocatusn
 {
@@ -10,9 +12,12 @@ namespace Ryocatusn
         [SerializeField]
         private SE se;
 
+        [Inject]
+        private GameManager gameManager;
+
         private void Start()
         {
-            new SEPlayer(gameObject).Play(se);
+            new SEPlayer(gameObject, gameManager.gameContains.gameCamera).Play(se);
         }
         public void ChangeSprite(Sprite sprite)
         {

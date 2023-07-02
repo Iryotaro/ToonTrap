@@ -4,37 +4,20 @@ using System.Collections.Generic;
 using UniRx;
 using UniRx.Triggers;
 using UnityEngine;
-using UnityEngine.Tilemaps;
 
 namespace Ryocatusn.Audio
 {
     public class SEPlayer
     {
         private GameObject owner { get; }
-        private Renderer renderer { get; }
-        private Tilemap tilemap { get; }
         private List<SE> seList = new List<SE>();
         private bool dontDestroyOnLoad = false;
+        private GameCamera gameCamera;
 
-        public SEPlayer(GameObject owner)
+        public SEPlayer(GameObject owner, GameCamera gameCamera)
         {
             this.owner = owner;
-
-            this.owner.OnDestroyAsObservable()
-                .Subscribe(_ => Delete());
-        }
-        public SEPlayer(GameObject owner, Renderer renderer)
-        {
-            this.owner = owner;
-            this.renderer = renderer;
-
-            this.owner.OnDestroyAsObservable()
-                .Subscribe(_ => Delete());
-        }
-        public SEPlayer(GameObject owner, Tilemap tilemap)
-        {
-            this.owner = owner;
-            this.tilemap = tilemap;
+            this.gameCamera = gameCamera;
 
             this.owner.OnDestroyAsObservable()
                 .Subscribe(_ => Delete());
@@ -103,27 +86,7 @@ namespace Ryocatusn.Audio
             if (!se.onlyVisible) return true;
             if (owner == null) return false;
 
-            if (renderer != null)
-            {
-                if (renderer.isVisible) return true;
-                else return false;
-            }
-
-            Vector3 position = owner.transform.position;
-            if (tilemap != null)
-            {
-                foreach (Vector3Int pos in tilemap.cellBounds.allPositionsWithin)
-                {
-                    if (!tilemap.HasTile(pos)) continue;
-                    position = tilemap.CellToWorld(pos) + Vector3.Scale(tilemap.cellSize, tilemap.transform.lossyScale) / 2;
-                }
-            }
-
-            Camera mainCamera = Camera.main;
-            Vector2 screenPoint = (Vector2)mainCamera.WorldToViewportPoint(position);
-            if (screenPoint.x >= 0 && screenPoint.x <= 1 &&
-                screenPoint.y >= 0 && screenPoint.y <= 1) return true;
-            return false;
+            return !gameCamera.IsOutSideOfCamera(owner);
         }
 
         private void Delete()

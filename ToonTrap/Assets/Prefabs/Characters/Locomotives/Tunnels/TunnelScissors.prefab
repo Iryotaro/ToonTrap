@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 1088607190972104461}
   - component: {fileID: 194709352417098795}
   - component: {fileID: 6146362455021034938}
+  - component: {fileID: 5581295512330598700}
   m_Layer: 0
   m_Name: TunnelScissors
   m_TagString: Untagged
@@ -154,3 +155,15 @@ MonoBehaviour:
     volume: 0.5
     loop: 0
     onlyVisible: 0
+--- !u!114 &5581295512330598700
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5122584830697478555}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dfcc9d1f3e14e4710aa46d87dc3555dd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

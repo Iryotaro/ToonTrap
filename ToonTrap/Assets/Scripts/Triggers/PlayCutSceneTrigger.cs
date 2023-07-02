@@ -45,7 +45,7 @@ namespace Ryocatusn
             gameManager.gameContains.player.inputMaster.SetActiveAll(false);
             virtualCamera.SetEnableCamera();
             newEffect.Play();
-            new SEPlayer(gameObject).Play(se);
+            new SEPlayer(gameObject, gameManager.gameContains.gameCamera).Play(se);
             yield return new WaitForSeconds(1);
             tunnel.Play();
             newEffect.Stop();

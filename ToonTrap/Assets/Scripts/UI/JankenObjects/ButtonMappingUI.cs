@@ -2,6 +2,8 @@
 using Ryocatusn.Audio;
 using Ryocatusn.Janken;
 using UnityEngine;
+using Ryocatusn.Games;
+using Zenject;
 
 namespace Ryocatusn.UI
 {
@@ -18,11 +20,14 @@ namespace Ryocatusn.UI
         [SerializeField]
         private SE jankenReverseSE;
 
+        [Inject]
+        private GameManager gameManager;
+
         private SEPlayer sePlayer;
 
         private void Start()
         {
-            sePlayer = new SEPlayer(gameObject);
+            sePlayer = new SEPlayer(gameObject, gameManager.gameContains.gameCamera);
         }
         public void HandleChangeShape(Hand.Shape shape)
         {

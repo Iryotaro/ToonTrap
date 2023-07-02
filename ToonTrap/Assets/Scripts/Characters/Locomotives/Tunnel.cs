@@ -1,5 +1,4 @@
 using Cysharp.Threading.Tasks;
-using FTRuntime;
 using Ryocatusn.Games;
 using Ryocatusn.Janken;
 using System;
@@ -70,7 +69,9 @@ namespace Ryocatusn.Characters
                     {
                         Destroy(transform.GetChild(i).gameObject);
                     }
-                    return Instantiate(jankenTunnelAnimators.GetAsset(shape), gameObject.transform);
+                    TunnelAnimator tunnelAnimator = Instantiate(jankenTunnelAnimators.GetAsset(shape), gameObject.transform);
+                    diContainer.InjectGameObject(tunnelAnimator.gameObject);
+                    return tunnelAnimator;
                 }
                 else
                 {

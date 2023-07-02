@@ -6,7 +6,7 @@ using UnityEngine;
 using Cysharp.Threading.Tasks;
 using UniRx;
 
-namespace Ryocatusn
+namespace Ryocatusn.Games
 {
     public class OffLineGameManager : GameManager
     {
@@ -17,17 +17,15 @@ namespace Ryocatusn
         [SerializeField]
         private GameCamera gameCamera;
         [SerializeField]
-        private GameBackground background;
-        [SerializeField]
         private Light2D globalLight;
         [SerializeField]
         private AudioSource bgm;
         [SerializeField]
         private Conversation conversation;
         
-        private void Start()
+        private void Awake()
         {
-            GameContains gameContains = new GameContains(player, playerButtonMappingUI, gameCamera, background, globalLight, bgm, conversation);
+            GameContains gameContains = new GameContains(player, playerButtonMappingUI, gameCamera, globalLight, bgm, conversation);
             Create(gameContains);
 
             events.NextSceneEvent

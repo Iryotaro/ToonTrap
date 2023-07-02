@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 6467309257477745684}
   - component: {fileID: 6467309257477745685}
   - component: {fileID: 6467309257477745686}
+  - component: {fileID: 7211013712041748767}
   m_Layer: 0
   m_Name: Cloud1
   m_TagString: Untagged
@@ -134,3 +135,15 @@ MonoBehaviour:
   _groupName: 
   _playMode: 0
   _loopMode: 1
+--- !u!114 &7211013712041748767
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6467309257477745687}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dfcc9d1f3e14e4710aa46d87dc3555dd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

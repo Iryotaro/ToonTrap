@@ -86,7 +86,7 @@ namespace Ryocatusn.Characters
 
             if (locomotiveCars.Count == 0) Destroy(gameObject);
 
-            SEPlayer sePlayer = new SEPlayer(locomotiveCar.gameObject);
+            SEPlayer sePlayer = new SEPlayer(locomotiveCar.gameObject, gameManager.gameContains.gameCamera);
             sePlayer.Play(blowAwaySe);
         }
     }

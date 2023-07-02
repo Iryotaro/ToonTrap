@@ -49,6 +49,7 @@ namespace Ryocatusn
         [SerializeField]
         private SE dieSE;
 
+
         public void Setup()
         {
             Create(new Hp(hp), new InvincibleTime(invincibleTime), Hand.Shape.Rock);
@@ -76,7 +77,7 @@ namespace Ryocatusn
             inputMaster.AttackEvent.Subscribe(_ => AttackTrigger()).AddTo(this);
             inputMaster.ChangeShapeEvent.Subscribe(x => ChangeShape(x)).AddTo(this);
 
-            SEPlayer sePlayer = new SEPlayer(gameObject);
+            SEPlayer sePlayer = new SEPlayer(gameObject, gameManager.gameContains.gameCamera);
 
             events.AttackTriggerEvent.Subscribe(_ => sePlayer.Play(attackSE)).AddTo(this);
             events.TakeDamageEvent.Subscribe(_ => sePlayer.Play(takeDamageSE)).AddTo(this);
