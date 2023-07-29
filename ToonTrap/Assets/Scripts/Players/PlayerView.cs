@@ -74,7 +74,7 @@ namespace Ryocatusn
 
         private void ChangeAngle(Player player)
         {
-            if (!player.inputMaster.isAllowedMove) return;
+            if (!player.inputMaster.isAllowedToMove) return;
 
             player.transform.rotation = tileTransform.tileDirection.GetRotation();
         }

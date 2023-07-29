@@ -13,8 +13,6 @@ namespace Ryocatusn.Games
         [SerializeField]
         private Player player;
         [SerializeField]
-        private ButtonMappingUI playerButtonMappingUI;
-        [SerializeField]
         private GameCamera gameCamera;
         [SerializeField]
         private Light2D globalLight;
@@ -25,7 +23,7 @@ namespace Ryocatusn.Games
         
         private void Awake()
         {
-            GameContains gameContains = new GameContains(player, playerButtonMappingUI, gameCamera, globalLight, bgm, conversation);
+            GameContains gameContains = new GameContains(player, gameCamera, globalLight, bgm, conversation);
             Create(gameContains);
 
             events.NextSceneEvent

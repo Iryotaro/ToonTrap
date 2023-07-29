@@ -16,6 +16,7 @@ namespace Ryocatusn
     [RequireComponent(typeof(Collider2D))]
     [RequireComponent(typeof(TileTransform))]
     [RequireComponent(typeof(PlayerInputMaster))]
+    [RequireComponent(typeof(PlayerJankenSelector))]
     public class Player : JankenBehaviour, IReceiveAttack
     {
         public TileTransform tileTransform { get; private set; }
@@ -23,6 +24,8 @@ namespace Ryocatusn
         private MoveRate moveRate;
 
         public PlayerInputMaster inputMaster { get; private set; }
+
+        private PlayerJankenSelector jankenSelector;
 
         public bool isAllowedToReceiveAttack { get; private set; } = true;
 
@@ -49,7 +52,6 @@ namespace Ryocatusn
         [SerializeField]
         private SE dieSE;
 
-
         public void Setup()
         {
             Create(new Hp(hp), new InvincibleTime(invincibleTime), Hand.Shape.Rock);
@@ -58,9 +60,11 @@ namespace Ryocatusn
             tileTransform.ChangeDirection(new TileDirection(TileDirection.Direction.Up));
             moveRate = new MoveRate(m_moveRate);
 
-            if (TryGetComponent(out IJankenableObjectUI jankenableObjectUI)) jankenableObjectUI.Setup(id);
+            if (TryGetComponent(out PlayerUI playerUI)) playerUI.Setup(id);
 
             inputMaster = GetComponent<PlayerInputMaster>();
+
+            jankenSelector = GetComponent<PlayerJankenSelector>();
 
             events.AttackTriggerEvent
                 .Subscribe(x => HandleAttackTrigger(x.id))
@@ -75,7 +79,7 @@ namespace Ryocatusn
             inputMaster.CancelMoveEvent.Subscribe(_ => move = false).AddTo(this);
             inputMaster.ChangeDirectionEvent.Subscribe(x => tileTransform.ChangeDirection(x)).AddTo(this);
             inputMaster.AttackEvent.Subscribe(_ => AttackTrigger()).AddTo(this);
-            inputMaster.ChangeShapeEvent.Subscribe(x => ChangeShape(x)).AddTo(this);
+            inputMaster.ChangeShapeEvent.Subscribe(_ => ChangeShape()).AddTo(this);
 
             SEPlayer sePlayer = new SEPlayer(gameObject, gameManager.gameContains.gameCamera);
 
@@ -125,10 +129,10 @@ namespace Ryocatusn
                 .Subscribe(_ => isAllowedToReceiveAttack = true)
                 .AddTo(this));
         }
-        private void ChangeShape(Hand.Shape shape)
+        private void ChangeShape()
         {
-            if (jankenableObjectApplicationService.Get(id).shape == shape) return;
-            jankenableObjectApplicationService.ChangeShape(id, shape);
+            if (jankenableObjectApplicationService.Get(id).shape == jankenSelector.GetSelectShape()) return;
+            jankenableObjectApplicationService.ChangeShape(id, jankenSelector.GetSelectShape());
         }
         private void AttackTrigger()
         {

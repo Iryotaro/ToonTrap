@@ -10,17 +10,11 @@ namespace Ryocatusn
 {
     public class PlayerInputMaster : MonoBehaviour
     {
-        [SerializeField]
-        private UnityEngine.UI.Image testImage;
-        private Hand.Shape testChangeShape;
-
         private InputMaster input;
 
-        public bool isAllowedMove { get; private set; } = true;
-        public bool isAllowedAttack { get; private set; } = true;
-        public bool isAllowedRock { get; private set; } = true;
-        public bool isAllowedScissors { get; private set; } = true;
-        public bool isAllowedPaper { get; private set; } = true;
+        public bool isAllowedToMove { get; private set; } = true;
+        public bool isAllowedToAttack { get; private set; } = true;
+        public bool isAllowedToChangeShape { get; private set; } = true;
 
         [NonSerialized]
         public Key[] rockKeys = new Key[] { Key.R, Key.E, Key.W, Key.A };
@@ -32,14 +26,14 @@ namespace Ryocatusn
         private Subject<Unit> cancelMoveEvent = new Subject<Unit>();
         private Subject<TileDirection> changeDirectionEvent = new Subject<TileDirection>();
         private Subject<float> attackEvent = new Subject<float>();
-        private Subject<Hand.Shape> changeShapeEvent = new Subject<Hand.Shape>();
+        private Subject<Unit> changeShapeEvent = new Subject<Unit>();
 
         public IObservable<Unit> MoveEvent { get; private set; }
         public IObservable<Unit> SpecialEvent { get; private set; }
         public IObservable<Unit> CancelMoveEvent { get; private set; }
         public IObservable<TileDirection> ChangeDirectionEvent { get; private set; }
         public IObservable<Unit> AttackEvent { get; private set; }
-        public IObservable<Hand.Shape> ChangeShapeEvent { get; private set; }
+        public IObservable<Unit> ChangeShapeEvent { get; private set; }
 
         private void OnEnable()
         {
@@ -65,51 +59,23 @@ namespace Ryocatusn
             input.Player.Move.performed += ctx => changeDirectionEvent.OnNext(new TileDirection(ctx.ReadValue<Vector2>()));
             input.Player.Special.performed += ctx => specialEvent.OnNext(Unit.Default);
             input.Player.Attack.performed += ctx => attackEvent.OnNext(Time.fixedTime);
-            input.Player.ChangeHand.performed += ctx => changeShapeEvent.OnNext(GetChangeShape());
+            input.Player.ChangeHand.performed += ctx => changeShapeEvent.OnNext(Unit.Default);
             //input.Player.Rock.performed += ctx => rockEvent.OnNext(Unit.Default);
             //input.Player.Scissors.performed += ctx => scissorsEvent.OnNext(Unit.Default);
             //input.Player.Paper.performed += ctx => paperEvent.OnNext(Unit.Default);
 
-            MoveEvent = moveEvent.Where(_ => isAllowedMove);
-            SpecialEvent = specialEvent.Where(_ => isAllowedMove);
+            MoveEvent = moveEvent.Where(_ => isAllowedToMove);
+            SpecialEvent = specialEvent.Where(_ => isAllowedToMove);
             CancelMoveEvent = cancelMoveEvent;
-            ChangeDirectionEvent = changeDirectionEvent.Where(_ => isAllowedMove);
-            AttackEvent = attackEvent.Where(_ => isAllowedAttack).Select(_ => Unit.Default);
-            ChangeShapeEvent = changeShapeEvent
-                .Where(x =>
-                {
-                    if (x == Hand.Shape.Rock) return isAllowedRock;
-                    if (x == Hand.Shape.Scissors) return isAllowedScissors;
-                    if (x == Hand.Shape.Paper) return isAllowedPaper;
-                    return false;
-                });
+            ChangeDirectionEvent = changeDirectionEvent.Where(_ => isAllowedToMove);
+            AttackEvent = attackEvent.Where(_ => isAllowedToAttack).Select(_ => Unit.Default);
+            ChangeShapeEvent = changeShapeEvent.Where(_ => isAllowedToChangeShape);
 
             //RockEvent = rockEvent.Where(_ => isAllowedRock);
             //ScissorsEvent = scissorsEvent.Where(_ => isAllowedScissors);
             //PaperEvent = paperEvent.Where(_ => isAllowedPaper);
-
-            StartCoroutine(test());
-            System.Collections.IEnumerator test()
-            {
-                while (true)
-                {
-                    testChangeShape = Hand.GetNextShape(testChangeShape);
-                    testImage.color = testChangeShape switch
-                    {
-                        Hand.Shape.Rock => Color.red,
-                        Hand.Shape.Scissors => Color.yellow,
-                        Hand.Shape.Paper => Color.blue,
-                        _ => Color.white
-                    };
-                    yield return new WaitForSeconds(1);
-                }
-            }
         }
 
-        private Hand.Shape GetChangeShape()
-        {
-            return testChangeShape;
-        }
         //private void Update()
         //{
         //    Hand.Shape hand = GetHand();
@@ -137,33 +103,31 @@ namespace Ryocatusn
 
         public void SetActive(SetPlayerInputActiveCommand command)
         {
-            isAllowedMove = command.move ?? isAllowedMove;
-            isAllowedAttack = command.attack ?? isAllowedAttack;
-            isAllowedRock = command.rock ?? isAllowedRock;
-            isAllowedScissors = command.scissors ?? isAllowedScissors;
-            isAllowedPaper = command.paper ?? isAllowedPaper;
+            isAllowedToMove = command.move ?? isAllowedToMove;
+            isAllowedToAttack = command.attack ?? isAllowedToAttack;
+            isAllowedToChangeShape = command.changeShape ?? isAllowedToChangeShape;
 
-            if (!isAllowedMove) cancelMoveEvent.OnNext(Unit.Default);
+            if (!isAllowedToMove) cancelMoveEvent.OnNext(Unit.Default);
         }
         public void SetActiveAll(bool active)
         {
-            SetActive(new SetPlayerInputActiveCommand(active, active, active, active, active));
+            SetActive(new SetPlayerInputActiveCommand(active, active, active));
         }
 
-        public void SetMoveKeys(string moveUpPath, string moveDownPath, string moveLeftPath, string moveRightPath)
-        {
-            input.Player.Move.ApplyBindingOverride(new InputBinding { path = "<Keyboard>/upArrow", overridePath = moveUpPath });
-            input.Player.Move.ApplyBindingOverride(new InputBinding { path = "<Keyboard>/downArrow", overridePath = moveDownPath });
-            input.Player.Move.ApplyBindingOverride(new InputBinding { path = "<Keyboard>/leftArrow", overridePath = moveLeftPath });
-            input.Player.Move.ApplyBindingOverride(new InputBinding { path = "<Keyboard>/rightArrow", overridePath = moveRightPath });
-        }
-        public void SetRockKeys(Key[] keys)
-        {
-            rockKeys = keys;
-        }
-        public void SetScissorsKeys(Key[] keys)
-        {
-            scissorsKeys = keys;
-        }
+        //public void SetMoveKeys(string moveUpPath, string moveDownPath, string moveLeftPath, string moveRightPath)
+        //{
+        //    input.Player.Move.ApplyBindingOverride(new InputBinding { path = "<Keyboard>/upArrow", overridePath = moveUpPath });
+        //    input.Player.Move.ApplyBindingOverride(new InputBinding { path = "<Keyboard>/downArrow", overridePath = moveDownPath });
+        //    input.Player.Move.ApplyBindingOverride(new InputBinding { path = "<Keyboard>/leftArrow", overridePath = moveLeftPath });
+        //    input.Player.Move.ApplyBindingOverride(new InputBinding { path = "<Keyboard>/rightArrow", overridePath = moveRightPath });
+        //}
+        //public void SetRockKeys(Key[] keys)
+        //{
+        //    rockKeys = keys;
+        //}
+        //public void SetScissorsKeys(Key[] keys)
+        //{
+        //    scissorsKeys = keys;
+        //}
     }
 }

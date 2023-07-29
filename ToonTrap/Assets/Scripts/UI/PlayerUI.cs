@@ -5,7 +5,7 @@ using Zenject;
 
 namespace Ryocatusn.UI
 {
-    public class PlayerUI : MonoBehaviour, IJankenableObjectUI
+    public class PlayerUI : MonoBehaviour
     {
         [Inject]
         private JankenableObjectApplicationService jankenableObjectApplicationService { get; }
