@@ -712,6 +712,7 @@ GameObject:
   m_Component:
   - component: {fileID: 75888443}
   - component: {fileID: 75888442}
+  - component: {fileID: 75888447}
   - component: {fileID: 75888446}
   - component: {fileID: 75888445}
   m_Layer: 0
@@ -735,6 +736,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   firstRoad: {fileID: 1965850817}
   startTransform: {fileID: 1698930182}
+  stageStartPresenter: {fileID: 75888447}
 --- !u!4 &75888443
 Transform:
   m_ObjectHideFlags: 0
@@ -801,6 +803,18 @@ MonoBehaviour:
   _contractNames: []
   _parentContractNames:
   - Main
+--- !u!114 &75888447
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 75888441}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 067a40864136c0147ad731fc0ee2e722, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &80918247
 GameObject:
   m_ObjectHideFlags: 0

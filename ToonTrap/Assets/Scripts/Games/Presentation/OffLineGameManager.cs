@@ -5,6 +5,7 @@ using UnityEngine.Rendering.Universal;
 using UnityEngine;
 using Cysharp.Threading.Tasks;
 using UniRx;
+using Ryocatusn.Characters;
 
 namespace Ryocatusn.Games
 {
@@ -12,6 +13,8 @@ namespace Ryocatusn.Games
     {
         [SerializeField]
         private Player player;
+        [SerializeField]
+        private PlayerBody playerBody;
         [SerializeField]
         private GameCamera gameCamera;
         [SerializeField]
@@ -23,7 +26,7 @@ namespace Ryocatusn.Games
         
         private void Awake()
         {
-            GameContains gameContains = new GameContains(player, gameCamera, globalLight, bgm, conversation);
+            GameContains gameContains = new GameContains(player, playerBody, gameCamera, globalLight, bgm, conversation);
             Create(gameContains);
 
             events.NextSceneEvent

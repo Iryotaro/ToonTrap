@@ -16,5 +16,9 @@ namespace Ryocatusn.Util
         {
             return Color.HSVToRGB(colorHSV.h, colorHSV.s, colorHSV.v);
         }
+        public static Color ChangeAlpha(this Color color, float a)
+        {
+            return new Color(color.r, color.g, color.b, a);
+        }
     }
 }

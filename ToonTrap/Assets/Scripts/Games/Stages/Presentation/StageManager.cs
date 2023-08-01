@@ -21,6 +21,8 @@ namespace Ryocatusn
         private Tilemap firstRoad;
         [SerializeField]
         private TileTransform startTransform;
+        [SerializeField]
+        private StageStartPresenter stageStartPresenter;
 
         [NonSerialized]
         public List<Tilemap> roads = new List<Tilemap>();
@@ -50,17 +52,10 @@ namespace Ryocatusn
         {
             this.id = id;
 
-            SetupPlayer(gameContains.player);
+            Action finish = () => { setupStageEvent.OnNext(gameContains); };
 
-            setupStageEvent.OnNext(gameContains);
-        }
-
-        private void SetupPlayer(Player player)
-        {
-            player.Init();
-
-            TileTransform playerTransform = player.tileTransform;
-            playerTransform.ChangeTilemap(new Tilemap[] { firstRoad }, startTransform.tilePosition.Get().GetWorldPosition());
+            Vector2 startPosition = startTransform.tilePosition.Get().GetWorldPosition();
+            stageStartPresenter.Play(startPosition, firstRoad, finish);
         }
 
         public void Clear()

@@ -1,5 +1,5 @@
-﻿using Ryocatusn.Conversations;
-using Ryocatusn.UI;
+﻿using Ryocatusn.Characters;
+using Ryocatusn.Conversations;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
 
@@ -8,6 +8,7 @@ namespace Ryocatusn
     public class GameContains
     {
         public Player player { get; }
+        public PlayerBody playerBody { get; }
         public GameCamera gameCamera { get; }
         public Light2D globalLight { get; }
         public AudioSource bgm { get; }
@@ -16,6 +17,7 @@ namespace Ryocatusn
         public GameContains
             (
             Player player,
+            PlayerBody playerBody,
             GameCamera gameCamera,
             Light2D globalLight,
             AudioSource bgm,
@@ -23,6 +25,7 @@ namespace Ryocatusn
             )
         {
             this.player = player;
+            this.playerBody = playerBody;
             this.gameCamera = gameCamera;
             this.globalLight = globalLight;
             this.bgm = bgm;

@@ -1,6 +1,9 @@
 using UnityEngine;
 using Zenject;
 using UniRx;
+using DG.Tweening;
+using Ryocatusn.Audio;
+using Ryocatusn.Games;
 
 namespace Ryocatusn.Photographers
 {
@@ -10,11 +13,23 @@ namespace Ryocatusn.Photographers
         private PhotographerSubjectManager photographerSubjectManager;
         [SerializeField]
         private Camera photographerCamera;
+        [SerializeField]
+        private Material material;
+        [SerializeField]
+        private SE noiseSE;
+
+        [Inject]
+        private GameManager gameManager;
+
+        private SEPlayer sePlayer;
 
         private IPhotographerSubject target;
 
         private void Start()
         {
+            ChangeNoiseAlpha(1);
+            sePlayer = new SEPlayer(gameObject, gameManager.gameContains.gameCamera);
+
             photographerSubjectManager.SaveSubject
                 .Where(x => IsAllowedToChangeTarget(x))
                 .Subscribe(x => ChangeTarget(x))
@@ -29,10 +44,34 @@ namespace Ryocatusn.Photographers
         }
         private void ChangeTarget(IPhotographerSubject photographerSubject)
         {
-            //ノイズ発生
+            MakeNoise();
 
             target = photographerSubject;
             photographerCamera.orthographicSize = target.photographerCameraSize;
+        }
+
+        private void MakeNoise()
+        {
+            sePlayer.Play(noiseSE);
+
+            DOTween.Sequence()
+                .AppendCallback(() => ChangeNoiseAlpha(1))
+                .Append(ChangeAlpha(0)).SetEase(Ease.OutBounce);
+
+            Tween ChangeAlpha(float endValue)
+            {
+                return DOTween.To
+                    (
+                    () => material.GetFloat("_alpha"),
+                    x => ChangeNoiseAlpha(x),
+                    endValue,
+                    3
+                    );
+            }
+        }
+        private void ChangeNoiseAlpha(float alpha)
+        {
+            material.SetFloat("_alpha", alpha);
         }
 
         private void Update()

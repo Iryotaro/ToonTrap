@@ -118,6 +118,8 @@ namespace Ryocatusn.Games
 
         private void SetupStage(StageId stageId, GameContains gameContains)
         {
+            gameContains.player.inputMaster.SetActiveAll(false);
+
             //LoadScene’¼Œã‚¾‚ÆGetRootGameObjects‚ÅŽæ“¾‚Å‚«‚È‚¢
             Observable.NextFrame().Subscribe(x =>
             {
