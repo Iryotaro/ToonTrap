@@ -154,7 +154,7 @@ MonoBehaviour:
     pitch: 1
     volume: 1
     loop: 0
-    onlyVisible: 0
+    onlyVisible: 1
 --- !u!114 &8870083811825718634
 MonoBehaviour:
   m_ObjectHideFlags: 0
