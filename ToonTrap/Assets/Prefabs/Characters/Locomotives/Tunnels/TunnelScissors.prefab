@@ -152,7 +152,7 @@ MonoBehaviour:
   thunderSE:
     audioClip: {fileID: 8300000, guid: e9a46b3680187cf42b9d3decec126f2e, type: 3}
     pitch: 3
-    volume: 0.5
+    volume: 0.25
     loop: 0
     onlyVisible: 1
 --- !u!114 &5581295512330598700
