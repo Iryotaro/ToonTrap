@@ -1,6 +1,9 @@
 using UnityEngine;
 using System.Collections;
 using System.Linq;
+using UniRx;
+using System;
+using UnityEngine.UI;
 
 namespace Ryocatusn.Characters
 {
@@ -16,6 +19,10 @@ namespace Ryocatusn.Characters
         private float speed = 1;
         [SerializeField]
         private bool autoPlay = false;
+
+        private Subject<Unit> onCompleted = new Subject<Unit>();
+
+        public IObservable<Unit> OnCompleted => onCompleted;
 
         public enum PlayMode
         {
@@ -37,7 +44,23 @@ namespace Ryocatusn.Characters
         {
             if (autoPlay) Play();
         }
+        private void OnDestroy()
+        {
+            onCompleted.Dispose();
+        }
 
+        public void ShowFirstFrame()
+        {
+            HideAllFrames();
+            frames[0].gameObject.SetActive(true);
+        }
+        public void HideAllFrames()
+        {
+            foreach (Frame frame in frames)
+            {
+                frame.gameObject.SetActive(false);
+            }
+        }
         public void Play()
         {
             StartCoroutine(PlayEnumerator());
@@ -46,10 +69,7 @@ namespace Ryocatusn.Characters
             {
                 while (true)
                 {
-                    foreach (Frame frame in frames)
-                    {
-                        frame.gameObject.SetActive(false);
-                    }
+                    HideAllFrames();
                     foreach (Frame frame in frames)
                     {
                         frame.gameObject.SetActive(true);
@@ -61,6 +81,7 @@ namespace Ryocatusn.Characters
 
                     if (loopMode == LoopMode.Once) break;
                 }
+                onCompleted.OnNext(Unit.Default);
             }
         }
     }

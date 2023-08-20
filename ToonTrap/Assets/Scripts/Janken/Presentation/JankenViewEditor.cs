@@ -14,15 +14,9 @@ namespace Ryocatusn.Janken
         {
             ChangeSprite();
         }
-        private void Update()
-        {
-            if (Application.isPlaying) return;
-
-            ChangeSprite();
-        }
         private void Start()
         {
-            if (Application.isPlaying) ChangeSprite();
+            ChangeSprite();
         }
 
         public void ChangeSprite()

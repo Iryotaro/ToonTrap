@@ -55,6 +55,10 @@ namespace Ryocatusn.Janken
             int index = (Array.IndexOf(sequence, shape) + 1) % 3;
             return sequence[index];
         }
+        public static Shape GetRandomShape()
+        {
+            return (Shape)UnityEngine.Random.Range(0, 3);
+        }
 
         public bool Equals(Hand other)
         {

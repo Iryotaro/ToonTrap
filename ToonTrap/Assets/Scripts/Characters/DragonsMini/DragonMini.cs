@@ -37,7 +37,6 @@ namespace Ryocatusn.Characters
 
         public bool isAllowedToReceiveAttack { get; private set; } = true;
 
-
         private void Start()
         {
             Create(new Hp(1), shape);

@@ -36,7 +36,7 @@ namespace Ryocatusn.Characters
         {
             if (gameManager.gameContains.gameCamera.IsOutSideOfCamera(gameObject)) return;
 
-            Hand.Shape shape = (Hand.Shape)UnityEngine.Random.Range(0, 3);
+            Hand.Shape shape = Hand.GetRandomShape();
             Action action;
             action = () => CreateLocomotive(shape);
             PlayAnimation(shape, action);

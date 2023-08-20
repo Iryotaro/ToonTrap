@@ -110,7 +110,7 @@ namespace Ryocatusn.Characters
 
                 float GetTime()
                 {
-                    //�񎟊֐�
+                    //二次関数
                     return Mathf.Pow(Time.fixedTime - time, 2);
                 }
             }
