@@ -1,7 +1,7 @@
 using Ryocatusn.Janken;
 using Ryocatusn.Janken.JankenableObjects;
 using UnityEngine;
-using System;
+using UniRx;
 
 namespace Ryocatusn.Characters
 {
@@ -15,34 +15,37 @@ namespace Ryocatusn.Characters
 
         private DragonAnimator dragonAnimator;
 
+        [SerializeField]
+        private AppearType appearType;
+
+        public enum AppearType
+        {
+            FirstAppearance,
+            Appear
+        }
+
         public bool isAllowedToReceiveAttack { get; } = true;
 
         private void Start()
         {
             Hand.Shape shape = Hand.GetRandomShape();
             Create(new Hp(hp), shape);
+
+            gameManager.SetStageEvent
+                .Subscribe(_ => { if (appearType == AppearType.FirstAppearance) dragonAnimator.ShowAppearanceFirstFrame(); })
+                .AddTo(this);
         }
 
-        public bool FirstAppearance(out Action appearAction)
-        {
-            appearAction = null;
-            if (dragonAnimator == null) return false;
-
-            dragonAnimator.ShowFirstAppearanceFirstFrame();
-
-            Action finishFirstAppearance = () =>
-            {
-                dragonAnimator.PlayAnimation(DragonAnimator.AnimationType.Provocation);
-            };
-
-            appearAction = () => dragonAnimator.PlayAnimation(DragonAnimator.AnimationType.FirstAppearance, finishFirstAppearance);
-            return true;
-        }
         public void Appear()
         {
             if (dragonAnimator == null) return;
 
-            dragonAnimator.PlayAnimation(DragonAnimator.AnimationType.Appear);
+            if (appearType == AppearType.Appear) dragonAnimator.PlayAnimation(DragonAnimator.AnimationType.Appear);
+            else dragonAnimator.PlayAnimations(new DragonAnimator.AnimationType[2] 
+            {
+                DragonAnimator.AnimationType.FirstAppearance,
+                DragonAnimator.AnimationType.Provocation
+            });
         }
 
         public JankenableObjectId GetId()

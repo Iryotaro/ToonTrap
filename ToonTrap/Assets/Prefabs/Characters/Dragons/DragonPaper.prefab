@@ -403,6 +403,7 @@ GameObject:
   - component: {fileID: 2263946171434289768}
   - component: {fileID: 1648607698601961578}
   - component: {fileID: 941509205}
+  - component: {fileID: 722661117215751977}
   m_Layer: 0
   m_Name: Dragon5
   m_TagString: Untagged
@@ -490,6 +491,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   interval: 1
+--- !u!114 &722661117215751977
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 167835366224206902}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d991a60684e95b947a3b2d7fc48e5c27, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  poo: {fileID: 5593724689180260735, guid: cd1fb301546e73d4b89a2d70d50e3d87, type: 3}
 --- !u!1 &167835366248914887
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using UniRx;
+using System.Linq;
 
 namespace Ryocatusn.Characters
 {
@@ -26,16 +27,29 @@ namespace Ryocatusn.Characters
             Attack1
         }
 
-        public void ShowFirstAppearanceFirstFrame()
+        public void ShowAppearanceFirstFrame()
         {
-            firstAppearance.ShowFirstFrame();
+            HideAllFrames();
+            FrameAnimator frameAnimator = GetAnimator(AnimationType.FirstAppearance);
+            frameAnimator.ShowSpecificFrame(0);
         }
-        public void PlayAnimation(AnimationType animationType, Action finishAction = null)
+        public FrameAnimator PlayAnimation(AnimationType animationType)
         {
             FrameAnimator frameAnimator = GetAnimator(animationType);
             HideAllFrames();
             frameAnimator.Play();
-            if (finishAction != null) frameAnimator.OnCompleted.Subscribe(_ => finishAction()).AddTo(this);
+            return frameAnimator;
+        }
+        public void PlayAnimations(AnimationType[] animationTypes)
+        {
+            for (int i = 0; i < animationTypes.Count() - 1; i++)
+            {
+                FrameAnimator frameAnimator = PlayAnimation(animationTypes[i]);
+                AnimationType nextAnimationType = animationTypes[i + 1];
+                frameAnimator.CompleteSubjet
+                    .Subscribe(_ => PlayAnimation(nextAnimationType))
+                    .AddTo(this);
+            }
         }
         private void HideAllFrames()
         {

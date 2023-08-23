@@ -3,7 +3,7 @@ using System.Collections;
 using System.Linq;
 using UniRx;
 using System;
-using UnityEngine.UI;
+using UnityEditor.Profiling;
 
 namespace Ryocatusn.Characters
 {
@@ -20,9 +20,9 @@ namespace Ryocatusn.Characters
         [SerializeField]
         private bool autoPlay = false;
 
-        private Subject<Unit> onCompleted = new Subject<Unit>();
+        private Subject<Unit> completeSubject = new Subject<Unit>();
 
-        public IObservable<Unit> OnCompleted => onCompleted;
+        public IObservable<Unit> CompleteSubjet => completeSubject;
 
         public enum PlayMode
         {
@@ -46,19 +46,18 @@ namespace Ryocatusn.Characters
         }
         private void OnDestroy()
         {
-            onCompleted.Dispose();
+            completeSubject.Dispose();
         }
 
-        public void ShowFirstFrame()
+        public void ShowSpecificFrame(int index)
         {
-            HideAllFrames();
-            frames[0].gameObject.SetActive(true);
+            frames[index].Show();
         }
         public void HideAllFrames()
         {
             foreach (Frame frame in frames)
             {
-                frame.gameObject.SetActive(false);
+                frame.Hide();
             }
         }
         public void Play()
@@ -69,19 +68,18 @@ namespace Ryocatusn.Characters
             {
                 while (true)
                 {
-                    HideAllFrames();
                     foreach (Frame frame in frames)
                     {
-                        frame.gameObject.SetActive(true);
+                        frame.Show();
                         yield return new WaitForSeconds(frame.interval / speed);
-                        frame.gameObject.SetActive(false);
+                        frame.Hide();
                     }
 
-                    frames[frames.Length - 1].gameObject.SetActive(true);
+                    frames[frames.Length - 1].Show();
 
                     if (loopMode == LoopMode.Once) break;
                 }
-                onCompleted.OnNext(Unit.Default);
+                completeSubject.OnNext(Unit.Default);
             }
         }
     }
