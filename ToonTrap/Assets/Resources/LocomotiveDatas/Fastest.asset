@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Fastest
   m_EditorClassIdentifier: 
   numberOfCars: 10
-  moveRate: 20
+  moveRate: 10

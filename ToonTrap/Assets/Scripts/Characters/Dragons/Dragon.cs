@@ -41,10 +41,11 @@ namespace Ryocatusn.Characters
             if (dragonAnimator == null) return;
 
             if (appearType == AppearType.Appear) dragonAnimator.PlayAnimation(DragonAnimator.AnimationType.Appear);
-            else dragonAnimator.PlayAnimations(new DragonAnimator.AnimationType[2] 
+            else dragonAnimator.PlayAnimations(new DragonAnimator.AnimationType[3] 
             {
                 DragonAnimator.AnimationType.FirstAppearance,
-                DragonAnimator.AnimationType.Provocation
+                DragonAnimator.AnimationType.Provocation,
+                DragonAnimator.AnimationType.Disappear,
             });
         }
 

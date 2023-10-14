@@ -19,6 +19,8 @@ namespace Ryocatusn.Characters
         private float attackRange;
 
         [Inject]
+        private StageManager stageManager;
+        [Inject]
         private DiContainer container;
 
         [Inject]
@@ -61,14 +63,19 @@ namespace Ryocatusn.Characters
 
             events.AttackTriggerEvent.Subscribe(_ => sePlayer.Play(attackSE)).AddTo(this);
 
-            this.UpdateAsObservable()
-            .Subscribe(_ =>
-            {
-                if (dragonView.IsVisible() && player != null && Vector2.Distance(transform.position, player.transform.position) <= attackRange)
+            stageManager.SetupStageEvent
+                .Subscribe(_ =>
                 {
-                    dragonView.StartAttackAnimation();
-                }
-            });
+                    this.UpdateAsObservable()
+                    .Subscribe(_ =>
+                    {
+                        if (dragonView.IsVisible() && player != null && Vector2.Distance(transform.position, player.transform.position) <= attackRange)
+                        {
+                            dragonView.StartAttackAnimation();
+                        }
+                    });
+                })
+                .AddTo(this);
         }
 
         private void AttackTrigger()

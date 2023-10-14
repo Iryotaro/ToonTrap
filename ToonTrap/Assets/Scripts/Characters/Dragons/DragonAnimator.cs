@@ -2,6 +2,7 @@ using System;
 using UnityEngine;
 using UniRx;
 using System.Linq;
+using System.Collections;
 
 namespace Ryocatusn.Characters
 {
@@ -14,6 +15,8 @@ namespace Ryocatusn.Characters
         [SerializeField]
         private FrameAnimator appear;
         [SerializeField]
+        private FrameAnimator disappear;
+        [SerializeField]
         private FrameAnimator attack1;
 
         [SerializeField]
@@ -24,6 +27,7 @@ namespace Ryocatusn.Characters
             FirstAppearance,
             Provocation,
             Appear,
+            Disappear,
             Attack1
         }
 
@@ -40,16 +44,15 @@ namespace Ryocatusn.Characters
             frameAnimator.Play();
             return frameAnimator;
         }
-        public void PlayAnimations(AnimationType[] animationTypes)
+        public void PlayAnimations(AnimationType[] animationTypes, int index = 0)
         {
-            for (int i = 0; i < animationTypes.Count() - 1; i++)
-            {
-                FrameAnimator frameAnimator = PlayAnimation(animationTypes[i]);
-                AnimationType nextAnimationType = animationTypes[i + 1];
-                frameAnimator.CompleteSubjet
-                    .Subscribe(_ => PlayAnimation(nextAnimationType))
-                    .AddTo(this);
-            }
+            if (animationTypes.Length <= index) return;
+
+            AnimationType animationType = animationTypes[index];
+            FrameAnimator animator = PlayAnimation(animationType);
+            animator.CompleteSubjet
+                .Subscribe(_ => PlayAnimations(animationTypes, index + 1))
+                .AddTo(this);
         }
         private void HideAllFrames()
         {
@@ -65,6 +68,7 @@ namespace Ryocatusn.Characters
                 AnimationType.FirstAppearance => firstAppearance,
                 AnimationType.Provocation => provocation,
                 AnimationType.Appear => appear,
+                AnimationType.Disappear => disappear,
                 AnimationType.Attack1 => attack1,
                 _ => null
             };

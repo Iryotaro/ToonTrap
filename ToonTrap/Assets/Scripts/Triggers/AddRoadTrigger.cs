@@ -1,4 +1,7 @@
-﻿using System;
+﻿using Cysharp.Threading.Tasks;
+using System;
+using UniRx;
+using UniRx.Triggers;
 using UnityEngine;
 using Zenject;
 
@@ -11,7 +14,28 @@ namespace Ryocatusn
 
         [SerializeField]
         private EnemiesAndNextRoad[] enemiesAndNextRoads;
-        
+
+        private void Start()
+        {
+            foreach (EnemiesAndNextRoad enemiesAndNextRoad in enemiesAndNextRoads)
+            {
+                int destroyCount = 0;
+                foreach (GameObject enemy in enemiesAndNextRoad.enemies)
+                {
+                    enemy.OnDestroyAsObservable()
+                        .Subscribe(_ =>
+                        {
+                            destroyCount++;
+                            if (destroyCount == enemiesAndNextRoad.enemies.Length)
+                            {
+                                AddRoad(enemiesAndNextRoad.roads);
+                            }
+                        })
+                        .AddTo(this);
+                }
+            }
+        }
+
         private void AddRoad(Road[] roads)
         {
             if (stageManager == null) return;
