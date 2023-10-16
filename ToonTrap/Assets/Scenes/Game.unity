@@ -1676,6 +1676,50 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   jankenSelectorUI: {fileID: 140151250}
+--- !u!1 &873480135
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 873480137}
+  - component: {fileID: 873480136}
+  m_Layer: 0
+  m_Name: '[SwfManager]'
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &873480136
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 873480135}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f455e092ebcb64c3e94de2e2f2f7a614, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &873480137
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 873480135}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 13
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &901296338
 GameObject:
   m_ObjectHideFlags: 0
@@ -1830,7 +1874,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -7552582706839291426, guid: 70151917862195944bd7cde7ffb62802, type: 3}
       propertyPath: m_RootOrder
-      value: 13
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: -7552582706839291426, guid: 70151917862195944bd7cde7ffb62802, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3589,50 +3633,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2025011787}
   m_CullTransparentMesh: 1
---- !u!1 &2030571287
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2030571289}
-  - component: {fileID: 2030571288}
-  m_Layer: 0
-  m_Name: '[SwfManager]'
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &2030571288
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2030571287}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f455e092ebcb64c3e94de2e2f2f7a614, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!4 &2030571289
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2030571287}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 12
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2039771226
 GameObject:
   m_ObjectHideFlags: 0
@@ -3787,7 +3787,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2061144923}
   m_LocalRotation: {x: -0, y: -0, z: 0.4851912, w: 0.8744081}
-  m_LocalPosition: {x: -755.58374, y: -355.92288, z: -7968.423}
+  m_LocalPosition: {x: -755.58374, y: -355.92288, z: 0}
   m_LocalScale: {x: 64.63277, y: 64.63277, z: 64.63277}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -4018,9 +4018,9 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2107336321}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1132, y: -189, z: -7960.428}
-  m_LocalScale: {x: 60.000004, y: 60.000004, z: 60.000004}
-  m_ConstrainProportionsScale: 1
+  m_LocalPosition: {x: -727.33, y: -189, z: 0}
+  m_LocalScale: {x: -60, y: 60, z: 60}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1463959059}
   m_RootOrder: -1
@@ -4039,6 +4039,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cameraFinalResult: {fileID: 366099782}
   leftHandAnimator: {fileID: 2061144926}
+  attackAnimation: {fileID: 11400000, guid: 6b1429028a362f541a21851f1b49a134, type: 2}
+  idleAnimation: {fileID: 11400000, guid: 495d6c81af8b1f7468c5ce33e2166ae0, type: 2}
 --- !u!4 &1958637149574545413
 Transform:
   m_ObjectHideFlags: 0

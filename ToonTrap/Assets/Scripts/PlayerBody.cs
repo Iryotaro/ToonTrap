@@ -17,6 +17,11 @@ namespace Ryocatusn.Characters
         [SerializeField]
         private Animator leftHandAnimator;
         private SwfClipController swfClipController;
+        
+        [SerializeField]
+        private SwfClipAsset attackAnimation;
+        [SerializeField]
+        private SwfClipAsset idleAnimation;
 
         [Inject]
         private GameManager gameManager;
@@ -35,7 +40,7 @@ namespace Ryocatusn.Characters
                 //敵がプレイヤーに攻撃しないよう距離を開けてる
                 player.transform.position = new Vector2(-1000, -1000);
                 player.inputMaster.SetActiveAll(false);
-                swfClipController.Play(true);
+                PlaySwfAnimation(attackAnimation);
                 //左手を打つタイミング
                 yield return new WaitUntil(() => swfClipController.clip.currentFrame >= 49);
                 leftHandAnimator.Play("Shot");
@@ -55,8 +60,19 @@ namespace Ryocatusn.Characters
                     {
                         player.tileTransform.ChangeTilemap(new Tilemap[] { firstRoad }, startPosition);
                         player.inputMaster.SetActiveAll(true);
+
+                        //Idleアニメーションに移動
+                        swfClipController.loopMode = SwfClipController.LoopModes.Loop;
+                        PlaySwfAnimation(idleAnimation);
+
                         finish();
                     });
+            }
+
+            void PlaySwfAnimation(SwfClipAsset swfAnimation)
+            {
+                swfClipController.clip.clip = swfAnimation;
+                swfClipController.Play(true);
             }
         }
     }
