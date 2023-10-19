@@ -31,8 +31,6 @@ namespace Ryocatusn.Games
         public StageManager nowStageManager { get; private set; }
 
         [SerializeField]
-        private string mainName = "Game";
-        [SerializeField]
         private string[] stageNames;
 
         private Subject<StageManager> setStageEvent = new Subject<StageManager>();
@@ -81,7 +79,7 @@ namespace Ryocatusn.Games
                     StageData prevStageData = prevStageData = stageApplicationService.Get(x);
 
                     Hand.Shape shape = jankenableObjectApplicationService.Get(gameContains.player.id).shape;
-                    Transition.LoadScene(prevStageData.name.value, nextStageData.name.value, new TransitionSettings(gameContains.player.transform, gameContains.gameCamera.camera, shape), () =>
+                    gameContains.transition.LoadScene(prevStageData.name.value, nextStageData.name.value, new TransitionSettings(gameContains.player.transform, shape), () =>
                     {
                         SetupStage(nextStageId, gameContains);
                         gameContains.player.inputMaster.SetActiveAll(true);
@@ -146,7 +144,7 @@ namespace Ryocatusn.Games
             StageData finalStageData = stageApplicationService.Get(finalStageId);
 
             Hand.Shape shape = jankenableObjectApplicationService.Get(player.id).shape;
-            Transition.LoadScene(new string[] { finalStageData.name.value, mainName }, new string[] { sceneName }, new TransitionSettings(player.transform, gameContains.gameCamera.camera, shape));
+            //Transition.LoadScene(new string[] { finalStageData.name.value, mainName }, new string[] { sceneName }, new TransitionSettings(player.transform, gameContains.gameCamera.camera, shape));
         }
     }
 }

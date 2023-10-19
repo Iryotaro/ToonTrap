@@ -5,6 +5,7 @@ using UniRx;
 using System;
 using Ryocatusn.Janken.AttackableObjects;
 using Zenject;
+using Ryocatusn.Audio;
 
 namespace Ryocatusn.Characters
 {
@@ -22,6 +23,10 @@ namespace Ryocatusn.Characters
         private Bullet bullet;
         [SerializeField]
         private Transform shotPoint;
+        [SerializeField]
+        private SE attackSe;
+
+        private SEPlayer sePlayer;
 
         [Inject]
         private BulletFactory bulletFactory;
@@ -47,6 +52,8 @@ namespace Ryocatusn.Characters
             events.AttackTriggerEvent
                 .Subscribe(x => Shot(x.id))
                 .AddTo(this);
+
+            sePlayer = new SEPlayer(gameObject, gameManager.gameContains.gameCamera);
         }
 
         public void Appear()
@@ -69,6 +76,7 @@ namespace Ryocatusn.Characters
         }
         private void Shot(AttackableObjectId id)
         {
+            sePlayer.Play(attackSe);
             bulletFactory.Create(bullet, id, gameObject, shotPoint.position, gameManager.gameContains.player.transform);
         }
 

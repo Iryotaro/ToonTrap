@@ -406,6 +406,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   poo: {fileID: 5593724689180260735, guid: cd1fb301546e73d4b89a2d70d50e3d87, type: 3}
+  pooSE:
+    audioClip: {fileID: 8300000, guid: 98a8763607864ae4b9ed91d30d7597f4, type: 3}
+    pitch: 1
+    volume: 0.5
+    loop: 0
+    onlyVisible: 0
 --- !u!1 &167835366248914887
 GameObject:
   m_ObjectHideFlags: 0

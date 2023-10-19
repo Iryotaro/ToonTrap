@@ -13,6 +13,8 @@ namespace Ryocatusn
     public class Road : MonoBehaviour
     {
         [Inject]
+        private DiContainer diContainer;
+        [Inject]
         private StageManager stageManager;
         [Inject]
         private GameManager gameManager;
@@ -107,6 +109,7 @@ namespace Ryocatusn
             RoadAnime newRoadAnime = Instantiate(roadAnime, transform);
             newRoadAnime.transform.position = position + roadAnime.transform.lossyScale / 2;
             newRoadAnime.ChangeSprite(spriteDictionary[tilemap.WorldToCell(position)]);
+            diContainer.InjectGameObject(newRoadAnime.gameObject);
             return newRoadAnime;
         }
     }

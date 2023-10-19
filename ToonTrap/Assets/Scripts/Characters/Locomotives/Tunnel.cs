@@ -5,10 +5,11 @@ using System;
 using UnityEngine;
 using UniRx;
 using Zenject;
+using Ryocatusn.Photographers;
 
 namespace Ryocatusn.Characters
 {
-    public class Tunnel : MonoBehaviour
+    public class Tunnel : MonoBehaviour, IPhotographerSubject
     {
         [SerializeField]
         private LocomotiveData[] datas;
@@ -24,19 +25,35 @@ namespace Ryocatusn.Characters
         private bool autoPlay = true;
 
         [Inject]
+        private DiContainer diContainer;
+        [Inject]
         private GameManager gameManager;
         [Inject]
-        private DiContainer diContainer;
+        private PhotographerSubjectManager photographerSubjectManager;
 
         private void Start()
         {
             if (autoPlay) InvokeRepeating(nameof(Play), 0, 8 / rateScale);
+
+            photographerSubjectManager.Save(this);
         }
+        private void OnDestroy()
+        {
+            photographerSubjectManager.Delete(this);
+        }
+
+        [SerializeField]
+        private Hand.Shape _shape = Hand.Shape.Rock;
+
+        public int priority { get; } = 0;
+
+        public int photographerCameraSize { get; } = 3;
+
         public void Play()
         {
-            if (gameManager.gameContains.gameCamera.IsOutSideOfCamera(gameObject)) return;
+            //if (gameManager.gameContains.gameCamera.IsOutSideOfCamera(gameObject)) return;
 
-            Hand.Shape shape = Hand.GetRandomShape();
+            Hand.Shape shape = _shape;//Hand.GetRandomShape();
             Action action;
             action = () => CreateLocomotive(shape);
             PlayAnimation(shape, action);
@@ -78,6 +95,11 @@ namespace Ryocatusn.Characters
                     return null;
                 }
             }
+        }
+
+        public Vector3 GetPosition()
+        {
+            return transform.position + new Vector3(0, 1.5f, 0);
         }
     }
 }

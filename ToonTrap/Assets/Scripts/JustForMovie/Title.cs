@@ -15,7 +15,7 @@ namespace Ryocatusn
         public void GameStart()
         {
             start.transform.DOScale(new Vector2(1.3f, 1.3f), 0.07f).SetEase(Ease.OutSine).SetLoops(2, LoopType.Yoyo).SetLink(start);
-            Transition.LoadScene("Title", "Game", new TransitionSettings(null, null, Janken.Hand.Shape.Paper));
+            //Transition.LoadScene("Title", "Game", new TransitionSettings(Janken.Hand.Shape.Paper));
         }
     }
 }

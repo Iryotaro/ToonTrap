@@ -14,7 +14,7 @@ namespace Ryocatusn.Audio
         private bool dontDestroyOnLoad = false;
         private GameCamera gameCamera;
 
-        public SEPlayer(GameObject owner, GameCamera gameCamera)
+        public SEPlayer(GameObject owner, GameCamera gameCamera = null)
         {
             this.owner = owner;
             this.gameCamera = gameCamera;
@@ -85,6 +85,7 @@ namespace Ryocatusn.Audio
         {
             if (!se.onlyVisible) return true;
             if (owner == null) return false;
+            if (gameCamera == null) return true;
 
             return !gameCamera.IsOutSideOfCamera(owner);
         }

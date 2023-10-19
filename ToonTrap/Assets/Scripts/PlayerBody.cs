@@ -1,5 +1,6 @@
 using DG.Tweening;
 using FTRuntime;
+using Ryocatusn.Audio;
 using Ryocatusn.Games;
 using System;
 using System.Collections;
@@ -23,6 +24,9 @@ namespace Ryocatusn.Characters
         [SerializeField]
         private SwfClipAsset idleAnimation;
 
+        [SerializeField]
+        private SE playerShotSE;
+
         [Inject]
         private GameManager gameManager;
 
@@ -44,6 +48,7 @@ namespace Ryocatusn.Characters
                 PlaySwfAnimation(attackAnimation);
                 //左手を打つタイミング
                 yield return new WaitUntil(() => swfClipController.clip.currentFrame >= 49);
+                new SEPlayer(gameObject).Play(playerShotSE);
                 leftHandAnimator.Play("Shot");
                 //左手のアニメーションが終わるタイミング
                 yield return new WaitForSeconds(1.2f);

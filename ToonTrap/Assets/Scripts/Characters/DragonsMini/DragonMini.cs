@@ -6,10 +6,11 @@ using UnityEngine;
 using Ryocatusn.Audio;
 using Zenject;
 using UniRx.Triggers;
+using Ryocatusn.Photographers;
 
 namespace Ryocatusn.Characters
 {
-    public class DragonMini : JankenBehaviour, IReceiveAttack, IForJankenViewEditor
+    public class DragonMini : JankenBehaviour, IReceiveAttack, IForJankenViewEditor, IPhotographerSubject
     {
         [SerializeField]
         public Hand.Shape shape;
@@ -38,6 +39,14 @@ namespace Ryocatusn.Characters
         private Player player;
 
         public bool isAllowedToReceiveAttack { get; private set; } = true;
+
+        public int priority { get; } = 0;
+
+        public int photographerCameraSize { get; } = 2;
+
+        [Inject]
+        private PhotographerSubjectManager photographerSubjectManager;
+
 
         private void Start()
         {
@@ -76,6 +85,12 @@ namespace Ryocatusn.Characters
                     });
                 })
                 .AddTo(this);
+
+            photographerSubjectManager.Save(this);
+        }
+        private void OnDestroy()
+        {
+            photographerSubjectManager.Delete(this);
         }
 
         private void AttackTrigger()
@@ -129,6 +144,11 @@ namespace Ryocatusn.Characters
                     receiveAttackChild.jankenBehaviour = this;
                 }
             }
+        }
+
+        public Vector3 GetPosition()
+        {
+            return transform.position;
         }
     }
 }

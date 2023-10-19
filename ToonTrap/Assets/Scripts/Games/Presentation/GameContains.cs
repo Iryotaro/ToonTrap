@@ -13,6 +13,7 @@ namespace Ryocatusn
         public Light2D globalLight { get; }
         public AudioSource bgm { get; }
         public Conversation conversation { get; }
+        public Transition transition { get; }
 
         public GameContains
             (
@@ -21,7 +22,8 @@ namespace Ryocatusn
             GameCamera gameCamera,
             Light2D globalLight,
             AudioSource bgm,
-            Conversation conversation
+            Conversation conversation,
+            Transition transition
             )
         {
             this.player = player;
@@ -30,6 +32,7 @@ namespace Ryocatusn
             this.globalLight = globalLight;
             this.bgm = bgm;
             this.conversation = conversation;
+            this.transition = transition;
         }
     }
 }

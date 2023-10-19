@@ -4,6 +4,9 @@ using UniRx;
 using DG.Tweening;
 using Ryocatusn.Audio;
 using Ryocatusn.Games;
+using System.Collections;
+using UniRx.Triggers;
+using Cysharp.Threading.Tasks;
 
 namespace Ryocatusn.Photographers
 {
@@ -13,6 +16,8 @@ namespace Ryocatusn.Photographers
         private PhotographerSubjectManager photographerSubjectManager;
         [SerializeField]
         private Camera photographerCamera;
+        [SerializeField]
+        private Canvas photographerCanvas;
         [SerializeField]
         private Material material;
         [SerializeField]
@@ -27,13 +32,34 @@ namespace Ryocatusn.Photographers
 
         private void Start()
         {
+            //なぜかこの工程をいれなければ、Transitionで画面が真っ黒になる
+            photographerCanvas.gameObject.SetActive(true);
+
             ChangeNoiseAlpha(1);
             sePlayer = new SEPlayer(gameObject, gameManager.gameContains.gameCamera);
 
-            photographerSubjectManager.SaveSubject
-                .Where(x => IsAllowedToChangeTarget(x))
-                .Subscribe(x => ChangeTarget(x))
-                .AddTo(this);
+
+            //ランダムにターゲットを映す
+            StartCoroutine(ChangeTargetEnumerator());
+            IEnumerator ChangeTargetEnumerator()
+            {
+                yield return new WaitForSeconds(5);
+
+                //新しく追加されたターゲットのPriorityが高ければ映す
+                photographerSubjectManager.SaveSubject
+                    .Where(x => IsAllowedToChangeTarget(x))
+                    .Subscribe(x => ChangeTarget(x))
+                    .AddTo(this);
+
+                while (true)
+                {
+                    yield return new WaitForSeconds(Random.Range(6, 12));
+                    if (photographerSubjectManager.TryFindRandom(out IPhotographerSubject photographerSubject))
+                    {
+                        ChangeTarget(photographerSubject);
+                    }
+                }
+            }
         }
 
         private bool IsAllowedToChangeTarget(IPhotographerSubject photographerSubject)
@@ -44,39 +70,57 @@ namespace Ryocatusn.Photographers
         }
         private void ChangeTarget(IPhotographerSubject photographerSubject)
         {
-            MakeNoise();
+            MakeNoiseMoment();
 
             target = photographerSubject;
             photographerCamera.orthographicSize = target.photographerCameraSize;
+
+            photographerSubject.gameObject.OnDestroyAsObservable()
+                .Subscribe(_ => OnTargetDestroyed())
+                .AddTo(this);
         }
 
-        private void MakeNoise()
+        private void MakeNoiseMoment()
         {
             sePlayer.Play(noiseSE);
 
             DOTween.Sequence()
                 .AppendCallback(() => ChangeNoiseAlpha(1))
-                .Append(ChangeAlpha(0)).SetEase(Ease.OutBounce);
+                .Append(ChangeAlphaTween(0, 3)).SetEase(Ease.OutBounce);
+        }
+        private void MakeNoise()
+        {
+            sePlayer.Play(noiseSE);
 
-            Tween ChangeAlpha(float endValue)
-            {
-                return DOTween.To
-                    (
-                    () => material.GetFloat("_alpha"),
-                    x => ChangeNoiseAlpha(x),
-                    endValue,
-                    3
-                    );
-            }
+            DOTween.Sequence()
+                .AppendCallback(() => ChangeNoiseAlpha(0))
+                .Append(ChangeAlphaTween(1, 1)).SetEase(Ease.Linear);
         }
         private void ChangeNoiseAlpha(float alpha)
         {
             material.SetFloat("_alpha", alpha);
         }
+        private Tween ChangeAlphaTween(float endValue, float duration)
+        {
+            return DOTween.To
+                (
+                () => material.GetFloat("_alpha"),
+                x => ChangeNoiseAlpha(x),
+                endValue,
+                duration
+                );
+        }
+
+        private void OnTargetDestroyed()
+        {
+            target = null;
+            MakeNoise();
+        }
 
         private void Update()
         {
             if (target == null) return;
+
             Vector3 targetPosition = target.GetPosition();
             photographerCamera.transform.position = new Vector3(targetPosition.x, targetPosition.y, -10);
         }

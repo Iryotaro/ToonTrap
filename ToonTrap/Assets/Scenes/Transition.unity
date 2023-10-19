@@ -292,6 +292,7 @@ MonoBehaviour:
     rockSprite: {fileID: 21300000, guid: d29a473ae68fff94d8930eb95a641d9b, type: 3}
     scissorsSprite: {fileID: 21300000, guid: 6817f6a3a10306e478c923761a3f541c, type: 3}
     paperSprite: {fileID: 21300000, guid: 6b5eb86f766e75743b8b3745bfe2211b, type: 3}
+  transitionScene: 1
 --- !u!1 &1347591035
 GameObject:
   m_ObjectHideFlags: 0

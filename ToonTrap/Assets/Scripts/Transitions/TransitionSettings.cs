@@ -7,7 +7,6 @@ namespace Ryocatusn
     {
         private bool defaultPosition { get; }
         private Transform focusTransform { get; }
-        private Camera camera { get; }
         public Hand.Shape shape { get; }
 
         public static TransitionSettings Default()
@@ -15,11 +14,10 @@ namespace Ryocatusn
             return new TransitionSettings();
         }
 
-        public TransitionSettings(Transform focusTransform, Camera camera)
+        public TransitionSettings(Transform focusTransform)
         {
             defaultPosition = false;
             this.focusTransform = focusTransform;
-            this.camera = camera;
             shape = Random.Range(1, 3 + 1) switch
             {
                 1 => Hand.Shape.Rock,
@@ -28,11 +26,15 @@ namespace Ryocatusn
                 _ => default
             };
         }
-        public TransitionSettings(Transform focusTransform, Camera camera, Hand.Shape shape)
+        public TransitionSettings(Transform focusTransform, Hand.Shape shape)
         {
             defaultPosition = false;
             this.focusTransform = focusTransform;
-            this.camera = camera;
+            this.shape = shape;
+        }
+        public TransitionSettings(Hand.Shape shape)
+        {
+            defaultPosition = true;
             this.shape = shape;
         }
         private TransitionSettings()
@@ -47,7 +49,7 @@ namespace Ryocatusn
             };
         }
 
-        public void SetPosition(RectTransform rectTransform)
+        public void SetPosition(RectTransform rectTransform, Camera camera)
         {
             if (defaultPosition)
             {

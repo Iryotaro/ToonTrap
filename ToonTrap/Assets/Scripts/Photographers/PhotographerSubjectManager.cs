@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using UniRx;
 using System;
 
@@ -18,9 +17,13 @@ namespace Ryocatusn.Photographers
 			photographerSubjects.Add(photographerSubject);
 			saveSubject.OnNext(photographerSubject);
 		}
-		public IPhotographerSubject FindByPriority()
+		public bool TryFindRandom(out IPhotographerSubject photographerSubject)
 		{
-			return photographerSubjects.OrderByDescending(x => x.priority).FirstOrDefault();
+			photographerSubject = null;
+			if (photographerSubjects.Count == 0) return false;
+
+			photographerSubject = photographerSubjects[UnityEngine.Random.Range(0, photographerSubjects.Count - 1)];
+			return true;
 		}
 		public void Delete(IPhotographerSubject photographerSubject)
 		{

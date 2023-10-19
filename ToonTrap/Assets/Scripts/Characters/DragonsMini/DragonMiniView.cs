@@ -1,6 +1,7 @@
 using Anima2D;
 using DG.Tweening;
 using Ryocatusn.Games;
+using Ryocatusn.Photographers;
 using System;
 using System.Collections;
 using UniRx;
@@ -32,6 +33,7 @@ namespace Ryocatusn.Characters
         private Subject<Unit> attackTriggerEvent = new Subject<Unit>();
 
         public IObservable<Unit> AttackTriggerEvent => attackTriggerEvent;
+
 
         public void SetUp()
         {

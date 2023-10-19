@@ -1,6 +1,4 @@
 ﻿using Ryocatusn.Conversations;
-using Ryocatusn.Games;
-using Ryocatusn.UI;
 using UnityEngine.Rendering.Universal;
 using UnityEngine;
 using Cysharp.Threading.Tasks;
@@ -23,10 +21,12 @@ namespace Ryocatusn.Games
         private AudioSource bgm;
         [SerializeField]
         private Conversation conversation;
+        [SerializeField]
+        private Transition transition;
         
         private void Awake()
         {
-            GameContains gameContains = new GameContains(player, playerBody, gameCamera, globalLight, bgm, conversation);
+            GameContains gameContains = new GameContains(player, playerBody, gameCamera, globalLight, bgm, conversation, transition);
             Create(gameContains);
 
             events.NextSceneEvent
