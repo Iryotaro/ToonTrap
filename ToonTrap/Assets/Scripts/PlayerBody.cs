@@ -40,6 +40,7 @@ namespace Ryocatusn.Characters
                 //敵がプレイヤーに攻撃しないよう距離を開けてる
                 player.transform.position = new Vector2(-1000, -1000);
                 player.inputMaster.SetActiveAll(false);
+                swfClipController.loopMode = SwfClipController.LoopModes.Once;
                 PlaySwfAnimation(attackAnimation);
                 //左手を打つタイミング
                 yield return new WaitUntil(() => swfClipController.clip.currentFrame >= 49);

@@ -68,14 +68,14 @@ namespace Ryocatusn.Characters
             {
                 while (true)
                 {
-                    foreach (Frame frame in frames)
+                    for (int i = 0; i < frames.Length; i++)
                     {
+                        Frame frame = frames[i];
+
                         frame.Show();
                         yield return new WaitForSeconds(frame.interval / speed);
-                        frame.Hide();
+                        if (i != frames.Length - 1) frame.Hide();
                     }
-
-                    frames[frames.Length - 1].Show();
 
                     if (loopMode == LoopMode.Once) break;
                 }

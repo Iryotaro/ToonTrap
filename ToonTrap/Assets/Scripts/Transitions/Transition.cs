@@ -64,7 +64,9 @@ namespace Ryocatusn
 
         private void Start()
         {
-            SEPlayer sePlayer = new SEPlayer(gameObject, gameManager.gameContains.gameCamera);
+            active = false;
+
+            SEPlayer sePlayer = new SEPlayer(gameObject, gameManager != null ? gameManager.gameContains.gameCamera : null);
             sePlayer.DontDestroyOnLoad();
             sePlayer.Play(transitionSE);
 

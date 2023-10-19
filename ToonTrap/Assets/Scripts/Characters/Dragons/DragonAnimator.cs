@@ -1,8 +1,7 @@
 using System;
 using UnityEngine;
 using UniRx;
-using System.Linq;
-using System.Collections;
+using Ryocatusn.Games;
 
 namespace Ryocatusn.Characters
 {
@@ -18,9 +17,15 @@ namespace Ryocatusn.Characters
         private FrameAnimator disappear;
         [SerializeField]
         private FrameAnimator attack1;
+        [SerializeField]
+        private FrameAnimator damage;
 
         [SerializeField]
         private Frame attackFrame;
+
+        private Subject<Unit> attackSubject = new Subject<Unit>();
+
+        public IObservable<Unit> AttackSubject => attackSubject;
 
         public enum AnimationType
         {
@@ -28,7 +33,19 @@ namespace Ryocatusn.Characters
             Provocation,
             Appear,
             Disappear,
-            Attack1
+            Attack1,
+            Damage
+        }
+
+        private void Start()
+        {
+            attackFrame.ShowSubject
+                .Subscribe(_ => attackSubject.OnNext(Unit.Default))
+                .AddTo(this);
+        }
+        private void OnDestroy()
+        {
+            attackSubject.Dispose();
         }
 
         public void ShowAppearanceFirstFrame()
@@ -47,7 +64,7 @@ namespace Ryocatusn.Characters
         public void PlayAnimations(AnimationType[] animationTypes, int index = 0)
         {
             if (animationTypes.Length <= index) return;
-
+            
             AnimationType animationType = animationTypes[index];
             FrameAnimator animator = PlayAnimation(animationType);
             animator.CompleteSubjet
@@ -70,6 +87,7 @@ namespace Ryocatusn.Characters
                 AnimationType.Appear => appear,
                 AnimationType.Disappear => disappear,
                 AnimationType.Attack1 => attack1,
+                AnimationType.Damage => damage,
                 _ => null
             };
         }

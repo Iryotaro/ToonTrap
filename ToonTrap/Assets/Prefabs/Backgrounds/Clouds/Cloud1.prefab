@@ -85,7 +85,7 @@ MeshRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: -10
+  m_SortingOrder: -15
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!210 &6467309257477745684
 SortingGroup:
@@ -97,7 +97,7 @@ SortingGroup:
   m_Enabled: 1
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: -10
+  m_SortingOrder: -15
   m_SortAtRoot: 1
 --- !u!114 &6467309257477745685
 MonoBehaviour:
@@ -112,7 +112,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _sortingLayer: Default
-  _sortingOrder: -10
+  _sortingOrder: -15
   _tint: {r: 1, g: 1, b: 1, a: 1}
   _clip: {fileID: 11400000, guid: 4ed741388292f624da8c9b9c221833bd, type: 2}
   _sequence: Default

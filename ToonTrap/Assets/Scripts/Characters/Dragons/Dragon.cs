@@ -2,6 +2,9 @@ using Ryocatusn.Janken;
 using Ryocatusn.Janken.JankenableObjects;
 using UnityEngine;
 using UniRx;
+using System;
+using Ryocatusn.Janken.AttackableObjects;
+using Zenject;
 
 namespace Ryocatusn.Characters
 {
@@ -9,14 +12,19 @@ namespace Ryocatusn.Characters
     {
         [SerializeField]
         private int hp;
-
         [SerializeField]
         private JankenDragonAnimators jankenDragonAnimators;
-
-        private DragonAnimator dragonAnimator;
-
+        [NonSerialized]
+        public DragonAnimator dragonAnimator;
         [SerializeField]
         private AppearType appearType;
+        [SerializeField]
+        private Bullet bullet;
+        [SerializeField]
+        private Transform shotPoint;
+
+        [Inject]
+        private BulletFactory bulletFactory;
 
         public enum AppearType
         {
@@ -28,11 +36,16 @@ namespace Ryocatusn.Characters
 
         private void Start()
         {
-            Hand.Shape shape = Hand.GetRandomShape();
-            Create(new Hp(hp), shape);
+            //Hand.Shape shape = Hand.GetRandomShape();
+            //Create(new Hp(hp), shape);
+            Create(new Hp(hp), Hand.Shape.Paper);
 
             gameManager.SetStageEvent
                 .Subscribe(_ => { if (appearType == AppearType.FirstAppearance) dragonAnimator.ShowAppearanceFirstFrame(); })
+                .AddTo(this);
+
+            events.AttackTriggerEvent
+                .Subscribe(x => Shot(x.id))
                 .AddTo(this);
         }
 
@@ -47,6 +60,16 @@ namespace Ryocatusn.Characters
                 DragonAnimator.AnimationType.Provocation,
                 DragonAnimator.AnimationType.Disappear,
             });
+        }
+        
+        private void Attack()
+        {
+            AttackableObjectCreateCommand command = new AttackableObjectCreateCommand(id, GetShape(), new Atk(1));
+            AttackTrigger(command);
+        }
+        private void Shot(AttackableObjectId id)
+        {
+            bulletFactory.Create(bullet, id, gameObject, shotPoint.position, gameManager.gameContains.player.transform);
         }
 
         public JankenableObjectId GetId()
@@ -66,11 +89,20 @@ namespace Ryocatusn.Characters
             {
                 for (int i = 0; i < transform.childCount; i++)
                 {
-                    if (Application.isPlaying) Destroy(transform.GetChild(i).gameObject);
-                    else DestroyImmediate(transform.GetChild(i).gameObject);
+                    GameObject childObject = transform.GetChild(i).gameObject;
+
+                    if (!childObject.TryGetComponent(out DragonAnimator anime)) continue;
+
+                    if (Application.isPlaying) Destroy(childObject);
+                    else DestroyImmediate(childObject);
                 }
                 DragonAnimator dragonAnimator = jankenDragonAnimators.GetAsset(shape);
+                dragonAnimator.transform.position = Vector3.zero;
                 this.dragonAnimator = Instantiate(dragonAnimator, gameObject.transform);
+
+                this.dragonAnimator.AttackSubject
+                    .Subscribe(_ => Attack())
+                    .AddTo(this);
             }
         }
     }

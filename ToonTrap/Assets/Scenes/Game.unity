@@ -1139,7 +1139,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &766288443
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2569,6 +2569,7 @@ MonoBehaviour:
   mainName: Game
   stageNames:
   - Stage1
+  - StageDragon_movie
   - StageDragon
   - Tutorial
   player: {fileID: 848806805}

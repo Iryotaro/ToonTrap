@@ -24,6 +24,9 @@ EditorBuildSettings:
     path: Assets/Scenes/StageDragon.unity
     guid: bf8c8cf6c2b263f4ca6777ffb875f2f1
   - enabled: 1
+    path: Assets/Scenes/StageDragon_movie.unity
+    guid: d36b51bd332242d479aefaabf1f4a500
+  - enabled: 1
     path: Assets/Scenes/Stage1.unity
     guid: c1ffdf1e6864a43aa8d73805f1095d73
   m_configObjects:
