@@ -44,6 +44,8 @@ namespace Ryocatusn.Characters
 
         public int photographerCameraSize { get; } = 2;
 
+        public Subject<Unit> showOnPhotographerEvent { get; }
+
         [Inject]
         private PhotographerSubjectManager photographerSubjectManager;
 

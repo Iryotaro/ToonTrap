@@ -3,17 +3,16 @@ using Ryocatusn.Janken.AttackableObjects;
 using DG.Tweening;
 using UniRx;
 using System;
-using UnityEngine.UI;
 using Ryocatusn.Audio;
 using Zenject;
 using Ryocatusn.Games;
 
 namespace Ryocatusn.Characters
 {
-    [RequireComponent(typeof(Image))]
+    [RequireComponent(typeof(SpriteRenderer))]
     public class StickyNoteSniperScopeView : MonoBehaviour
     {
-        private Image image;
+        private SpriteRenderer spriteRenderer;
 
         private SEPlayer sePlayer;
 
@@ -31,7 +30,7 @@ namespace Ryocatusn.Characters
 
         public void SetUp(AttackableObjectId attackableObjectId, int chaseTime)
         {
-            image = GetComponent<Image>();
+            spriteRenderer = GetComponent<SpriteRenderer>();
             sePlayer = new SEPlayer(gameObject, gameManager.gameContains.gameCamera);
 
             DOTween.Sequence()
@@ -49,29 +48,29 @@ namespace Ryocatusn.Characters
         {
             return DOTween.Sequence()
                 .AppendCallback(() => sePlayer.Play(appearSE))
-                .AppendCallback(() => image.enabled = true)
+                .AppendCallback(() => spriteRenderer.enabled = true)
                 .AppendInterval(1f / 4)
-                .AppendCallback(() => image.enabled = false)
+                .AppendCallback(() => spriteRenderer.enabled = false)
                 .AppendInterval(1f / 4)
-                .AppendCallback(() => image.enabled = true)
+                .AppendCallback(() => spriteRenderer.enabled = true)
                 .AppendInterval(1f / 4)
-                .AppendCallback(() => image.enabled = false)
+                .AppendCallback(() => spriteRenderer.enabled = false)
                 .AppendInterval(1f / 4)
-                .AppendCallback(() => image.enabled = true);
+                .AppendCallback(() => spriteRenderer.enabled = true);
         }
 
         private Tween Disappear()
         {
             return DOTween.Sequence()
-                .AppendCallback(() => image.enabled = false)
+                .AppendCallback(() => spriteRenderer.enabled = false)
                 .AppendInterval(1f / 4)
-                .AppendCallback(() => image.enabled = true)
+                .AppendCallback(() => spriteRenderer.enabled = true)
                 .AppendInterval(1f / 4)
-                .AppendCallback(() => image.enabled = false)
+                .AppendCallback(() => spriteRenderer.enabled = false)
                 .AppendInterval(1f / 4)
-                .AppendCallback(() => image.enabled = true)
+                .AppendCallback(() => spriteRenderer.enabled = true)
                 .AppendInterval(1f / 4)
-                .AppendCallback(() => image.enabled = false);
+                .AppendCallback(() => spriteRenderer.enabled = false);
         }
     }
 }

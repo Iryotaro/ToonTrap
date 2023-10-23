@@ -23,13 +23,11 @@ namespace Ryocatusn.Characters
 
         public int priority { get; } = 10;
         public int photographerCameraSize { get; } = 3;
-        
+        public Subject<Unit> showOnPhotographerEvent { get; }
+
         public void Setup()
         {
             Create(new Hp(1), shape);
-
-            AttackableObjectCreateCommand command = new AttackableObjectCreateCommand(id, shape, new Atk(atk));
-            AttackTrigger(command, gameManager.gameContains.player);
 
             events.AttackTriggerEvent
                 .Subscribe(x => HandleAttackTrigger(x.id, x.receiveAttacks[0]))
@@ -40,6 +38,10 @@ namespace Ryocatusn.Characters
                 .AddTo(this);
 
             photographerSubjectManager.Save(this);
+
+            AttackableObjectCreateCommand command = new AttackableObjectCreateCommand(id, shape, new Atk(atk));
+            AttackTrigger(command, gameManager.gameContains.player);
+
         }
         private void OnDestroy()
         {

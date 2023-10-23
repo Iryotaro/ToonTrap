@@ -7,7 +7,6 @@ using UniRx.Triggers;
 
 namespace Ryocatusn.Characters
 {
-    [RequireComponent(typeof(RectTransform))]
     [RequireComponent(typeof(StickyNoteSniperScopeView))]
     public class StickyNoteSniperScope : AttackBehaviour
     {
@@ -17,17 +16,14 @@ namespace Ryocatusn.Characters
         private IReceiveAttack targetReceiveAttack;
         private List<IReceiveAttack> reachReceiveAttacks = new List<IReceiveAttack>();
 
-        private RectTransform rectTransform;
-        private RectTransform canvasRectTransform;
-
         private Subject<Unit> shotSubject = new Subject<Unit>();
 
         public IObservable<Unit> ShotSubject => shotSubject;
 
         public void Setup(AttackableObjectId id, IReceiveAttack receiveAttack)
         {
-            rectTransform = GetComponent<RectTransform>();
-            canvasRectTransform = rectTransform.parent.GetComponent<RectTransform>();
+            transform.parent = null;
+
             StickyNoteSniperScopeView view = GetComponent<StickyNoteSniperScopeView>();
 
             targetReceiveAttack = receiveAttack;
@@ -37,7 +33,7 @@ namespace Ryocatusn.Characters
 
             Vector2 randomViewport = new Vector2(UnityEngine.Random.Range(0, 1f), UnityEngine.Random.Range(0, 1f));
             Vector2 randomWorldPosition = gameCamera.camera.ViewportToWorldPoint(randomViewport);
-            ChangeWorldPosition(randomWorldPosition);
+            transform.position = randomWorldPosition;
 
             view.SetUp(id, chaseTime);
 
@@ -76,17 +72,7 @@ namespace Ryocatusn.Characters
             Vector2 playerPosition = gameManager.gameContains.player.transform.position;
             Vector2 currentVelocity = Vector2.zero;
             Vector2 worldPosition = Vector2.SmoothDamp(transform.position, playerPosition, ref currentVelocity, 0.1f);
-            ChangeWorldPosition(worldPosition);
-        }
-
-        private void ChangeWorldPosition(Vector3 worldPosition)
-        {
-            Camera camera = gameManager.gameContains.gameCamera.camera;
-
-            Vector2 screenPosition = RectTransformUtility.WorldToScreenPoint(camera, worldPosition);
-            Vector2 pos;
-            RectTransformUtility.ScreenPointToLocalPointInRectangle(canvasRectTransform, screenPosition, camera, out pos);
-            rectTransform.localPosition = pos;
+            transform.position = worldPosition;
         }
 
         private void Shot()

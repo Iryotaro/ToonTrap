@@ -1,11 +1,12 @@
-using Cysharp.Threading.Tasks;
-using Ryocatusn.Games;
 using Ryocatusn.Janken;
 using System;
 using UnityEngine;
 using UniRx;
 using Zenject;
 using Ryocatusn.Photographers;
+using System.Collections;
+using Cysharp.Threading.Tasks;
+using System.Threading;
 
 namespace Ryocatusn.Characters
 {
@@ -21,42 +22,64 @@ namespace Ryocatusn.Characters
         private Railway railway;
         [SerializeField]
         private Locomotive locomotive;
-        [SerializeField]
-        private bool autoPlay = true;
+
+        private Subject<Unit> playEvent = new Subject<Unit>();
+
+        private bool isRepeating = false;
 
         [Inject]
         private DiContainer diContainer;
         [Inject]
-        private GameManager gameManager;
-        [Inject]
         private PhotographerSubjectManager photographerSubjectManager;
+
+        public int priority { get; } = 0;
+
+        public int photographerCameraSize { get; } = 3;
+
+        public Subject<Unit> showOnPhotographerEvent { get; } = new Subject<Unit>();
 
         private void Start()
         {
-            if (autoPlay) InvokeRepeating(nameof(Play), 0, 8 / rateScale);
-
             photographerSubjectManager.Save(this);
+
+            playEvent
+                .ThrottleFirst(TimeSpan.FromSeconds(5 / rateScale))
+                .Subscribe(_ =>
+                {
+                    Hand.Shape shape = Hand.GetRandomShape();
+                    Action action;
+                    action = () => CreateLocomotive(shape);
+                    PlayAnimation(shape, action);
+                })
+                .AddTo(this);
+
+            showOnPhotographerEvent
+                .DelaySubscription(TimeSpan.FromSeconds(1.5f))
+                .Subscribe(_ => Play())
+                .AddTo(this);
         }
         private void OnDestroy()
         {
             photographerSubjectManager.Delete(this);
         }
 
-        [SerializeField]
-        private Hand.Shape _shape = Hand.Shape.Rock;
-
-        public int priority { get; } = 0;
-
-        public int photographerCameraSize { get; } = 3;
+        private void Update()
+        {
+            if (isRepeating) Play();
+        }
 
         public void Play()
         {
-            //if (gameManager.gameContains.gameCamera.IsOutSideOfCamera(gameObject)) return;
+            playEvent.OnNext(Unit.Default);
+        }
 
-            Hand.Shape shape = _shape;//Hand.GetRandomShape();
-            Action action;
-            action = () => CreateLocomotive(shape);
-            PlayAnimation(shape, action);
+        public void Repeat()
+        {
+            isRepeating = true;
+        }
+        public void StopRepeat()
+        {
+            isRepeating = false;
         }
 
         private Locomotive CreateLocomotive(Hand.Shape shape)

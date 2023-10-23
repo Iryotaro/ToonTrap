@@ -1,3 +1,4 @@
+using UniRx;
 using UnityEngine;
 
 namespace Ryocatusn.Photographers
@@ -7,6 +8,7 @@ namespace Ryocatusn.Photographers
         public int priority { get; }
         public int photographerCameraSize { get; }
         public GameObject gameObject { get; }
+        public Subject<Unit> showOnPhotographerEvent { get; }
         public Vector3 GetPosition();
     }
 }

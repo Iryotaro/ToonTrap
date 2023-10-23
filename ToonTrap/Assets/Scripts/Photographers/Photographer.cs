@@ -75,6 +75,8 @@ namespace Ryocatusn.Photographers
             target = photographerSubject;
             photographerCamera.orthographicSize = target.photographerCameraSize;
 
+            target.showOnPhotographerEvent?.OnNext(Unit.Default);
+
             photographerSubject.gameObject.OnDestroyAsObservable()
                 .Subscribe(_ => OnTargetDestroyed())
                 .AddTo(this);
