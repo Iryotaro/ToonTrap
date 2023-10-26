@@ -21,6 +21,8 @@ namespace Ryocatusn.Characters
         private SE appearSE;
         [SerializeField]
         private SE warningSE;
+        [SerializeField]
+        private SE hitSE;
 
         [SerializeField]
         private GameObject bullet;
@@ -108,6 +110,7 @@ namespace Ryocatusn.Characters
         }
         private void Hit()
         {
+            sePlayer.Play(hitSE);
             spriteRenderer.enabled = false;
             hitEvent.OnNext(Unit.Default);
             PlayHitEffects();

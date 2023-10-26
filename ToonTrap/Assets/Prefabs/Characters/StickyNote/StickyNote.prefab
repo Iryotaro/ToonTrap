@@ -5056,6 +5056,12 @@ MonoBehaviour:
     volume: 0.3
     loop: 0
     onlyVisible: 0
+  hitSE:
+    audioClip: {fileID: 8300000, guid: 4b4dd7245f6104c8c8eb07ccf6b386ed, type: 3}
+    pitch: 1
+    volume: 0.5
+    loop: 0
+    onlyVisible: 0
   bullet: {fileID: 2102544530133689870, guid: 413555b39c6e75044a40ea1acdef71e0, type: 3}
   shotPoint: {fileID: 4456971452407985716}
   bulletHitUpToTime: 0.6
@@ -10505,7 +10511,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 927ee24590255d143a538e8419f1ed2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 2
+  speed: 7
   atk: 1
   sniperScope: {fileID: 7641038067993458439}
 --- !u!50 &6013028704861442669

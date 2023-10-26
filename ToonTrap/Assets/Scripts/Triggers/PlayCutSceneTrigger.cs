@@ -29,7 +29,7 @@ namespace Ryocatusn
         private void Start()
         {
             newEffect = Instantiate(effect, gameManager.gameContains.gameCamera.transform);
-            newEffect.transform.position = new Vector3(18, 0, 10);
+            newEffect.transform.position = new Vector3(18, 0, 0);
 
             GetComponent<TileTransformTrigger>()
                 .OnHitPlayerEvent

@@ -32,7 +32,7 @@ namespace Ryocatusn
                             destroyCount++;
                             if (destroyCount == enemiesAndNextRoad.enemies.Length)
                             {
-                                AddRoad(enemiesAndNextRoad.roads);
+                                AddRoads(enemiesAndNextRoad.roads);
                             }
                         })
                         .AddTo(this);
@@ -40,7 +40,7 @@ namespace Ryocatusn
             }
         }
 
-        private void AddRoad(Road[] roads)
+        private void AddRoads(Road[] roads)
         {
             if (stageManager == null) return;
 

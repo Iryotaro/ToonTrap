@@ -5,11 +5,14 @@ using Ryocatusn.Games;
 
 namespace Ryocatusn.Characters
 {
-    [RequireComponent(typeof(TileTransformTrigger))]
     public class StickyNoteTrigger : MonoBehaviour
     {
         [SerializeField]
         private StickyNote stickyNote;
+        [SerializeField]
+        private TileTransformTrigger[] triggers;
+        [SerializeField, Range(0, 1)]
+        private float viewportX;
         [SerializeField, Range(0, 1)]
         private float viewportY;
 
@@ -20,12 +23,13 @@ namespace Ryocatusn.Characters
 
         private void Start()
         {
-            TileTransformTrigger trigger = GetComponent<TileTransformTrigger>();
-
-            trigger.OnHitPlayerEvent
-                .FirstOrDefault()
-                .Subscribe(_ => Create())
-                .AddTo(this);
+            foreach (TileTransformTrigger trigger in triggers)
+            {
+                trigger.OnHitPlayerEvent
+                    .FirstOrDefault()
+                    .Subscribe(_ => Create())
+                    .AddTo(this);
+            }
         }
 
         private void Create()
@@ -37,7 +41,7 @@ namespace Ryocatusn.Characters
 
             StickyNote newStickyNote = Instantiate(stickyNote, createPosition, Quaternion.identity);
             diContainer.InjectGameObject(newStickyNote.gameObject);
-            newStickyNote.Setup();
+            newStickyNote.Setup(new Vector2(viewportX, viewportY));
         }
     }
 }

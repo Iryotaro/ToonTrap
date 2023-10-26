@@ -2,6 +2,7 @@
 using Ryocatusn.TileTransforms;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UniRx;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -28,10 +29,10 @@ namespace Ryocatusn
         public List<Tilemap> roads = new List<Tilemap>();
 
         private BehaviorSubject<GameContains> setupStageEvent = new BehaviorSubject<GameContains>(null);
-        private BehaviorSubject<Tilemap[]> addRoadEvent = new BehaviorSubject<Tilemap[]>(new Tilemap[] {  });
+        private BehaviorSubject<Tilemap[]> changeRoadEvent = new BehaviorSubject<Tilemap[]>(new Tilemap[] {  });
 
         public IObservable<GameContains> SetupStageEvent;
-        public IObservable<Tilemap[]> AddRoadEvent => addRoadEvent;
+        public IObservable<Tilemap[]> ChangeRoadEvent => changeRoadEvent;
 
         private void Start()
         {
@@ -75,9 +76,20 @@ namespace Ryocatusn
                 {
                     roads.Add(tilemap);
                     gameContains.player.tileTransform.AddTilemap(tilemap);
-                    addRoadEvent.OnNext(roads.ToArray());
+                    changeRoadEvent.OnNext(roads.ToArray());
                 })
-                .AddTo(gameObject);
+                .AddTo(this);
+        }
+        public void RemoveRoad(Tilemap tilemap)
+        {
+            SetupStageEvent
+                .Subscribe(gameContains =>
+                {
+                    roads.Remove(tilemap);
+                    gameContains.player.tileTransform.ChangeTilemap(roads.ToArray(), gameContains.player.transform.position);
+                    changeRoadEvent.OnNext(roads.ToArray());
+                })
+                .AddTo(this);
         }
     }
 }

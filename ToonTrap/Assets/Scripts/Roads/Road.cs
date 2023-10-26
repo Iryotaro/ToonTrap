@@ -1,3 +1,4 @@
+using DG.Tweening;
 using Ryocatusn.Games;
 using System.Collections;
 using System.Collections.Generic;
@@ -75,20 +76,45 @@ namespace Ryocatusn
                     StartCoroutine(AppearRoadCoroutine(GetTiles(tilemap, gameManager.gameContains.player)));
                 }).AddTo(this);
         }
+        public void Disappear()
+        {
+            if (!appear) return;
+            appear = false;
+
+            stageManager.SetupStageEvent
+                .Subscribe(_ =>
+                {
+                    stageManager.RemoveRoad(tilemap);
+                    StartCoroutine(DisappearRoadCoroutine(GetTiles(tilemap, gameManager.gameContains.player)));
+                }).AddTo(this);
+        }
 
         private IEnumerator AppearRoadCoroutine(List<Vector3Int> positions)
         {
-            List<RoadAnime> roadAnimes = new List<RoadAnime>();
-            foreach (Vector3Int position in positions)
+            RoadAnime[] roadAnimes = CreateAnimeTiles(positions, RoadAnime.AnimeType.Appear);
+            
+            foreach (RoadAnime roadAnime in roadAnimes)
             {
-                roadAnimes.Add(AppearTile(tilemap.CellToWorld(position), roadAnime));
+                roadAnime.Play();
                 yield return new WaitForSeconds(0.05f);
             }
 
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(0.3f);
+            tilemapRenderer.enabled = true;
+            foreach (RoadAnime roadAnime in roadAnimes) Destroy(roadAnime.gameObject);
+        }
+        private IEnumerator DisappearRoadCoroutine(List<Vector3Int> positions)
+        {
+            RoadAnime[] roadAnimes = CreateAnimeTiles(positions, RoadAnime.AnimeType.Disappear);
+            tilemapRenderer.enabled = false;
+
+            foreach (RoadAnime roadAnime in roadAnimes)
+            {
+                roadAnime.Play();
+                yield return new WaitForSeconds(0.05f);
+            }
 
             foreach (RoadAnime roadAnime in roadAnimes) Destroy(roadAnime.gameObject);
-            tilemapRenderer.enabled = true;
         }
 
         private List<Vector3Int> GetTiles(Tilemap tilemap, Player player)
@@ -104,12 +130,23 @@ namespace Ryocatusn
 
             return positions;
         }
-        private RoadAnime AppearTile(Vector3 position, RoadAnime roadAnime)
+        private RoadAnime[] CreateAnimeTiles(List<Vector3Int> positions, RoadAnime.AnimeType type)
+        {
+            List<RoadAnime> roadAnimes = new List<RoadAnime>();
+            foreach (Vector3Int position in positions)
+            {
+                RoadAnime roadAnime = CreateAnimeTile(tilemap.CellToWorld(position), this.roadAnime, type);
+                roadAnimes.Add(roadAnime);
+            }
+            return roadAnimes.ToArray();
+        }
+        private RoadAnime CreateAnimeTile(Vector3 position, RoadAnime roadAnime, RoadAnime.AnimeType type)
         {
             RoadAnime newRoadAnime = Instantiate(roadAnime, transform);
             newRoadAnime.transform.position = position + roadAnime.transform.lossyScale / 2;
             newRoadAnime.ChangeSprite(spriteDictionary[tilemap.WorldToCell(position)]);
             diContainer.InjectGameObject(newRoadAnime.gameObject);
+            newRoadAnime.Setup(type);
             return newRoadAnime;
         }
     }

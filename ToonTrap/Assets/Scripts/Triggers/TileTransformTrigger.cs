@@ -34,7 +34,7 @@ namespace Ryocatusn
             tileTransform.ChangeTilemap(RoadManager.instance.GetTilemaps(), transform.position);
             playerTileTransform = gameManager.gameContains.player.tileTransform;
 
-            stageManager.AddRoadEvent
+            stageManager.ChangeRoadEvent
                 .Subscribe(x => tileTransform.ChangeTilemap(x, transform.position))
                 .AddTo(this);
         }
