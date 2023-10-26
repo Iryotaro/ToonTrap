@@ -8,12 +8,14 @@ using Zenject;
 
 namespace Ryocatusn.Characters
 {
+    [RequireComponent(typeof(Animator))]
     public class StickyNote : JankenBehaviour, IPhotographerSubject
     {
         private Hand.Shape shape = Hand.Shape.Paper;
         [SerializeField, Min(1)]
         private int atk = 1;
         private bool finishToShot;
+        private Animator animator;
 
         [SerializeField]
         private StickyNoteSniperScope sniperScope;
@@ -27,6 +29,8 @@ namespace Ryocatusn.Characters
 
         public void Setup()
         {
+            animator = GetComponent<Animator>();
+
             Create(new Hp(1), shape);
 
             events.AttackTriggerEvent
@@ -34,7 +38,7 @@ namespace Ryocatusn.Characters
                 .AddTo(this);
 
             sniperScope.ShotSubject
-                .Subscribe(_ => finishToShot = true)
+                .Subscribe(_ => HandleShot())
                 .AddTo(this);
 
             photographerSubjectManager.Save(this);
@@ -51,6 +55,11 @@ namespace Ryocatusn.Characters
         private void HandleAttackTrigger(AttackableObjectId id, IReceiveAttack receiveAttack)
         {
             sniperScope.Setup(id, receiveAttack);
+        }
+        private void HandleShot()
+        {
+            animator.SetTrigger("Attack");
+            finishToShot = true;
         }
 
         public Vector3 GetPosition()
