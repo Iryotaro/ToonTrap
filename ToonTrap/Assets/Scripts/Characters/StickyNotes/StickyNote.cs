@@ -9,13 +9,17 @@ using Zenject;
 namespace Ryocatusn.Characters
 {
     [RequireComponent(typeof(Animator))]
+    [RequireComponent(typeof(Rigidbody2D))]
     public class StickyNote : JankenBehaviour, IPhotographerSubject
     {
         private Hand.Shape shape = Hand.Shape.Paper;
+        [SerializeField]
+        private float speed;
         [SerializeField, Min(1)]
         private int atk = 1;
         private bool finishToShot;
         private Animator animator;
+        private Rigidbody2D rigid;
 
         [SerializeField]
         private StickyNoteSniperScope sniperScope;
@@ -30,6 +34,7 @@ namespace Ryocatusn.Characters
         public void Setup()
         {
             animator = GetComponent<Animator>();
+            rigid = GetComponent<Rigidbody2D>();
 
             Create(new Hp(1), shape);
 
@@ -37,7 +42,7 @@ namespace Ryocatusn.Characters
                 .Subscribe(x => HandleAttackTrigger(x.id, x.receiveAttacks[0]))
                 .AddTo(this);
 
-            sniperScope.ShotSubject
+            sniperScope.ShotEvent
                 .Subscribe(_ => HandleShot())
                 .AddTo(this);
 
@@ -69,13 +74,24 @@ namespace Ryocatusn.Characters
 
         private void Update()
         {
+            if (finishToShot) MoveUp();
             Move();
-            if (IsAllowedToDelete()) Destroy(gameManager);
+            if (IsAllowedToDelete())
+            {
+                Destroy(sniperScope.gameObject);
+                Destroy(gameObject);
+            }
+        }
+
+        private void MoveUp()
+        {
+            rigid.AddForce(Vector2.up * 3);
         }
         private void Move()
         {
-            transform.Translate(3 * Time.deltaTime, 0, 0);
+            transform.Translate(speed * Time.deltaTime, 0, 0);
         }
+
         private bool IsAllowedToDelete()
         {
             if (!finishToShot) return false;

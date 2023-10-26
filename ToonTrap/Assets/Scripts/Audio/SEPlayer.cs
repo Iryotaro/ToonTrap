@@ -42,10 +42,10 @@ namespace Ryocatusn.Audio
             }
 
             AudioSource audioSource = sePlayer.AddComponent<AudioSource>();
-            audioSource.clip = se.audioClip;
-            audioSource.pitch = se.pitch;
-            audioSource.volume = se.volume;
-            audioSource.loop = se.loop;
+            audioSource.clip = se.AudioClip;
+            audioSource.pitch = se.Pitch;
+            audioSource.volume = se.Volume;
+            audioSource.loop = se.Loop;
             se.audioSource = audioSource;
 
             return audioSource;
@@ -63,7 +63,7 @@ namespace Ryocatusn.Audio
             if (foundSE != null) audioSource = foundSE.audioSource;
             else audioSource = AddSE(se);
 
-            if (!audioSource.loop) audioSource.PlayOneShot(se.audioClip);
+            if (!audioSource.loop) audioSource.PlayOneShot(se.AudioClip);
             else audioSource.Play();
         }
         public void Stop(SE se)
@@ -83,7 +83,7 @@ namespace Ryocatusn.Audio
 
         private bool IsAllowedPlay(SE se)
         {
-            if (!se.onlyVisible) return true;
+            if (!se.OnlyVisible) return true;
             if (owner == null) return false;
             if (gameCamera == null) return true;
 

@@ -6,6 +6,7 @@ using Ryocatusn.Audio;
 using Zenject;
 using Ryocatusn.Games;
 using System.Collections;
+using DG.Tweening;
 
 namespace Ryocatusn.Characters
 {
@@ -19,81 +20,103 @@ namespace Ryocatusn.Characters
         [SerializeField]
         private SE appearSE;
         [SerializeField]
-        private SE warning;
+        private SE warningSE;
 
         [SerializeField]
-        private ParticleSystem attackEffect1;
+        private GameObject bullet;
         [SerializeField]
-        private ParticleSystem attackEffect2;
+        private Transform shotPoint;
+
+        [SerializeField]
+        private float bulletHitUpToTime = 0.6f;
+
+        [SerializeField]
+        private ParticleSystem hitEffect1;
+        [SerializeField]
+        private ParticleSystem hitEffect2;
 
         [Inject]
         private GameManager gameManager;
 
-        private Subject<Unit> shotSubject = new Subject<Unit>();
+        private Subject<Unit> shotEvent = new Subject<Unit>();
+        private Subject<Unit> hitEvent = new Subject<Unit>();
 
-        public IObservable<Unit> ShotSubject => shotSubject;
+        public IObservable<Unit> ShotEvent => shotEvent;
+        public IObservable<Unit> HitEvent => hitEvent;
 
         public void SetUp(AttackableObjectId attackableObjectId, int chaseTime)
         {
             spriteRenderer = GetComponent<SpriteRenderer>();
             sePlayer = new SEPlayer(gameObject, gameManager.gameContains.gameCamera);
 
-            ShotSubject
-                .Subscribe(_ => PlayAttackEffects())
-                .AddTo(this);
-
             StartCoroutine(PlayEnumerator());
             IEnumerator PlayEnumerator()
             {
-                bool finishAppear = false;
-                Appear(() => finishAppear = true);
-                yield return new WaitUntil(() => finishAppear);
-                yield return new WaitForSeconds(chaseTime);
-                bool finishDisappear = false;
-                Disappear(() => finishDisappear = true);
-                yield return new WaitUntil(() => finishDisappear);
-                shotSubject.OnNext(Unit.Default);
+                sePlayer.Play(appearSE);
+
+                float time = Time.fixedTime;
+                warningSE = warningSE.ChangePitch(0.6f);
+                while (Time.fixedTime - time < chaseTime * 0.6f)
+                {
+                    Flash();
+                    yield return new WaitForSeconds(0.4f);
+                }
+
+                warningSE = warningSE.ChangePitch(1f);
+                bool one = true;
+                while (Time.fixedTime - time < chaseTime)
+                {
+                    Flash();
+                    yield return new WaitForSeconds(0.1f);
+
+                    if (chaseTime - (Time.fixedTime - time) < bulletHitUpToTime && one)
+                    {
+                        one = false;
+                        Shot();
+                    }
+                }
+
+                Hit();
             }
         }
         private void OnDestroy()
         {
-            shotSubject.Dispose();
+            shotEvent.Dispose();
+            hitEvent.Dispose();
         }
 
-        private void Appear(Action finish)
+        private void Flash()
         {
-            StartCoroutine(AppearEnumerator());
-            IEnumerator AppearEnumerator()
+            StartCoroutine(FlashEnumearator());
+            IEnumerator FlashEnumearator()
             {
-                for (int i = 0; i < 5; i++)
-                {
-                    spriteRenderer.enabled = !spriteRenderer.enabled;
-                    yield return new WaitForSeconds(1f / 5);
-                }
-                spriteRenderer.enabled = true;
-                finish();
-            }
-        }
-
-        private void Disappear(Action finish)
-        {
-            StartCoroutine(DisappearEnumerator());
-            IEnumerator DisappearEnumerator()
-            {
-                for (int i = 0; i < 15; i++)
-                {
-                    spriteRenderer.enabled = !spriteRenderer.enabled;
-                    yield return new WaitForSeconds(1f / 20);
-                }
+                sePlayer.Play(warningSE);
                 spriteRenderer.enabled = false;
-                finish();
+                yield return new WaitForSeconds(0.05f);
+                spriteRenderer.enabled = true;
             }
         }
-
-        private void PlayAttackEffects()
+        private void Shot()
         {
-            attackEffect1.Play();
-            attackEffect2.Play();
+            shotEvent.OnNext(Unit.Default);
+
+            GameObject bullet = Instantiate(this.bullet, shotPoint.transform.position, Quaternion.identity);
+            bullet.transform
+                .DOMove(gameManager.gameContains.player.transform.position, bulletHitUpToTime)
+                .SetEase(Ease.InQuart)
+                .OnComplete(() => Destroy(bullet));
+        }
+        private void Hit()
+        {
+            spriteRenderer.enabled = false;
+            hitEvent.OnNext(Unit.Default);
+            PlayHitEffects();
+        }
+
+        private void PlayHitEffects()
+        {
+            hitEffect1.Play();
+            hitEffect2.Play();
         }
     }
 }

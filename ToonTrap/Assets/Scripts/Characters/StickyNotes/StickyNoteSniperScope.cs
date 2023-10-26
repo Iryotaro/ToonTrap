@@ -16,9 +16,11 @@ namespace Ryocatusn.Characters
         private IReceiveAttack targetReceiveAttack;
         private List<IReceiveAttack> reachReceiveAttacks = new List<IReceiveAttack>();
 
-        private Subject<Unit> shotSubject = new Subject<Unit>();
+        private Subject<Unit> shotEvent = new Subject<Unit>();
+        private Subject<Unit> hitEvent = new Subject<Unit>();
 
-        public IObservable<Unit> ShotSubject => shotSubject;
+        public IObservable<Unit> ShotEvent => shotEvent;
+        public IObservable<Unit> HitEvent => hitEvent;
 
         public void Setup(AttackableObjectId id, IReceiveAttack receiveAttack)
         {
@@ -58,13 +60,17 @@ namespace Ryocatusn.Characters
             this.UpdateAsObservable()
                 .Subscribe(_ => ChaseToPlayer());
 
-            view.ShotSubject
-                .Subscribe(_ => Shot())
+            view.ShotEvent
+                .Subscribe(_ => shotEvent.OnNext(Unit.Default))
+                .AddTo(this);
+
+            view.HitEvent
+                .Subscribe(_ => Hit())
                 .AddTo(this);
         }
         private void OnDestroy()
         {
-            shotSubject.Dispose();
+            hitEvent.Dispose();
         }
 
         private void ChaseToPlayer()
@@ -75,10 +81,10 @@ namespace Ryocatusn.Characters
             transform.position = worldPosition;
         }
 
-        private void Shot()
+        private void Hit()
         {
             if (reachReceiveAttacks.Contains(targetReceiveAttack)) Attack(targetReceiveAttack);
-            shotSubject.OnNext(Unit.Default);
+            hitEvent.OnNext(Unit.Default);
         }
     }
 }

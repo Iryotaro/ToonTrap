@@ -1,4 +1,5 @@
 ﻿using Cysharp.Threading.Tasks;
+using Ryocatusn.Games;
 using System;
 using UniRx;
 using UniRx.Triggers;
@@ -9,6 +10,8 @@ namespace Ryocatusn
 {
     public class AddRoadTrigger : MonoBehaviour
     {
+        [Inject]
+        private GameManager gameManager;
         [Inject]
         private StageManager stageManager;
 
@@ -23,6 +26,7 @@ namespace Ryocatusn
                 foreach (GameObject enemy in enemiesAndNextRoad.enemies)
                 {
                     enemy.OnDestroyAsObservable()
+                        .Where(x => gameManager.gameContains.player != null)
                         .Subscribe(_ =>
                         {
                             destroyCount++;
