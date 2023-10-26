@@ -59,6 +59,11 @@ namespace Ryocatusn
             stageStartPresenter.Play(startPosition, firstRoad, finish);
         }
 
+        public StageData GetData()
+        {
+            return stageApplicationService.Get(id);
+        }
+
         public void Clear()
         {
             stageApplicationService.Clear(id);

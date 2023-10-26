@@ -25,6 +25,8 @@ namespace Ryocatusn
 
         [Inject]
         private GameManager gameManager;
+        [Inject]
+        private StageManager stageManager;
 
         private void Start()
         {
@@ -33,6 +35,7 @@ namespace Ryocatusn
 
             GetComponent<TileTransformTrigger>()
                 .OnHitPlayerEvent
+                .Where(x => stageManager.GetData().countOfRetry == 1)
                 .FirstOrDefault()
                 .Subscribe(_ => StartCoroutine(Play()))
                 .AddTo(this);
