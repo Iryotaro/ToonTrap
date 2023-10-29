@@ -85,7 +85,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5694652519332753651}
-  - component: {fileID: 5694652519332753644}
   - component: {fileID: 5694652519332753645}
   m_Layer: 8
   m_Name: SpotLight
@@ -117,18 +116,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 400, y: 400}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &5694652519332753644
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5694652519332753650}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7057d691b2bd6c748b2c52bfbd709c9f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &5694652519332753645
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -143,6 +130,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   intencity: 0.862
   diff: 0.255
+  distortion:
+    strength: 2
+    randomStrength: 0
+    duration: 1
+    randomDuration: 0.2
   outer: {fileID: 5694652519425464205}
   middle: {fileID: 5694652519035078961}
   inner: {fileID: 5694652519401018244}
