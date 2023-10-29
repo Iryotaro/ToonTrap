@@ -1,13 +1,14 @@
-﻿using Cysharp.Threading.Tasks;
-using Ryocatusn.Audio;
+﻿using Ryocatusn.Audio;
 using Ryocatusn.Characters;
 using Ryocatusn.Janken;
 using Ryocatusn.Janken.AttackableObjects;
 using Ryocatusn.Janken.JankenableObjects;
 using Ryocatusn.TileTransforms;
 using Ryocatusn.UI;
+using System.Linq;
 using UniRx;
 using UnityEngine;
+using UnityEngine.UI;
 using Zenject;
 
 namespace Ryocatusn
@@ -152,6 +153,35 @@ namespace Ryocatusn
         public JankenableObjectId GetId()
         {
             return id;
+        }
+
+
+        [SerializeField]
+        private Camera finalResultCamera;
+        [SerializeField]
+        private CanvasScaler canvasScaler;
+        [SerializeField]
+        private RawImage gameScreen;
+
+        private Vector2 GetViewportOnFinalResult(Vector2 targetPosition)
+        {
+            Vector2 targetViewportOnGameScreen = gameManager.gameContains.gameCamera.camera.WorldToViewportPoint(targetPosition);
+
+            Vector2 referenceResolution = canvasScaler.referenceResolution;
+
+            Vector2 screenAnchoredPosition = gameScreen.rectTransform.anchoredPosition;
+            Vector2 screenScreenPosition = screenAnchoredPosition + referenceResolution / 2;
+            Vector2 screenSizeDelta = gameScreen.rectTransform.sizeDelta;
+
+            Vector2 screenBottomLeftCornerScreenPosition = screenScreenPosition - screenSizeDelta / 2;
+            Vector2 screenTopRightCornerScreenPosition = screenScreenPosition + screenSizeDelta / 2;
+
+            Debug.Log(screenBottomLeftCornerScreenPosition);
+
+            Vector2 targetScreenPosition = screenBottomLeftCornerScreenPosition + (screenTopRightCornerScreenPosition - screenBottomLeftCornerScreenPosition) * targetViewportOnGameScreen;
+
+            Vector2 targetViewportOnFinalResult = targetScreenPosition / referenceResolution;
+            return  targetViewportOnFinalResult;
         }
     }
 }

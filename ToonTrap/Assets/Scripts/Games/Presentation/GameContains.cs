@@ -2,6 +2,7 @@
 using Ryocatusn.Conversations;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
+using Ryocatusn.Lights;
 
 namespace Ryocatusn
 {
@@ -10,7 +11,7 @@ namespace Ryocatusn
         public Player player { get; }
         public PlayerBody playerBody { get; }
         public GameCamera gameCamera { get; }
-        public Light2D globalLight { get; }
+        public GlobalLight globalLight { get; }
         public AudioSource bgm { get; }
         public Conversation conversation { get; }
         public Transition transition { get; }
@@ -20,7 +21,7 @@ namespace Ryocatusn
             Player player,
             PlayerBody playerBody,
             GameCamera gameCamera,
-            Light2D globalLight,
+            GlobalLight globalLight,
             AudioSource bgm,
             Conversation conversation,
             Transition transition

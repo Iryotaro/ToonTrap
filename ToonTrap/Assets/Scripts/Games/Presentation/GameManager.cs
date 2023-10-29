@@ -1,3 +1,4 @@
+using DG.Tweening.Core.Easing;
 using Ryocatusn.Games.Stages;
 using Ryocatusn.Janken;
 using Ryocatusn.Janken.JankenableObjects;
@@ -8,6 +9,7 @@ using UniRx;
 using UniRx.Triggers;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 using Zenject;
 
 namespace Ryocatusn.Games
@@ -29,6 +31,13 @@ namespace Ryocatusn.Games
 
         public GameContains gameContains { get; private set; }
         public StageManager nowStageManager { get; private set; }
+
+        [SerializeField]
+        private CanvasScaler finalResultCanvasScaler;
+        [SerializeField]
+        private RawImage gameScreen;
+        [SerializeField]
+        private Camera finalResultCamera;
 
         [SerializeField]
         private string[] stageNames;
@@ -145,6 +154,29 @@ namespace Ryocatusn.Games
 
             Hand.Shape shape = jankenableObjectApplicationService.Get(player.id).shape;
             //Transition.LoadScene(new string[] { finalStageData.name.value, mainName }, new string[] { sceneName }, new TransitionSettings(player.transform, gameContains.gameCamera.camera, shape));
+        }
+
+        public Vector2 GetViewportOnFinalResult(Vector2 targetPosition)
+        {
+            Vector2 targetViewportOnGameScreen = gameContains.gameCamera.camera.WorldToViewportPoint(targetPosition);
+
+            Vector2 referenceResolution = finalResultCanvasScaler.referenceResolution;
+
+            Vector2 screenAnchoredPosition = gameScreen.rectTransform.anchoredPosition;
+            Vector2 screenScreenPosition = screenAnchoredPosition + referenceResolution / 2;
+            Vector2 screenSizeDelta = gameScreen.rectTransform.sizeDelta;
+
+            Vector2 screenBottomLeftCornerScreenPosition = screenScreenPosition - screenSizeDelta / 2;
+            Vector2 screenTopRightCornerScreenPosition = screenScreenPosition + screenSizeDelta / 2;
+
+            Vector2 targetScreenPosition = screenBottomLeftCornerScreenPosition + (screenTopRightCornerScreenPosition - screenBottomLeftCornerScreenPosition) * targetViewportOnGameScreen;
+
+            Vector2 targetViewportOnFinalResult = targetScreenPosition / referenceResolution;
+            return targetViewportOnFinalResult;
+        }
+        public Vector2 GetWorldPositoinOnFinalResult(Vector2 targetPosition)
+        {
+            return finalResultCamera.ViewportToWorldPoint(GetViewportOnFinalResult(targetPosition));
         }
     }
 }

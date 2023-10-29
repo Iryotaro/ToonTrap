@@ -4,6 +4,7 @@ using UnityEngine;
 using Cysharp.Threading.Tasks;
 using UniRx;
 using Ryocatusn.Characters;
+using Ryocatusn.Lights;
 
 namespace Ryocatusn.Games
 {
@@ -16,7 +17,7 @@ namespace Ryocatusn.Games
         [SerializeField]
         private GameCamera gameCamera;
         [SerializeField]
-        private Light2D globalLight;
+        private GlobalLight globalLight;
         [SerializeField]
         private AudioSource bgm;
         [SerializeField]
