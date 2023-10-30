@@ -1,14 +1,21 @@
-using System;
-using UnityEngine;
-
 namespace Ryocatusn.Lights
 {
-    [Serializable]
     public class LightContains
     {
-        [SerializeField]
-        private GlobalLight globalLight;
-        [SerializeField]
-        private SpotLight spotLight;
+        public GlobalLight globalLight { get; }
+        public PlayerLight playerLight { get; }
+        public PlayerBodyLight playerBodyLight { get; }
+
+        public LightContains
+            (
+            GlobalLight globalLight,
+            PlayerLight playerLight,
+            PlayerBodyLight playerBodyLight
+            )
+        {
+            this.globalLight = globalLight;
+            this.playerLight = playerLight;
+            this.playerBodyLight = playerBodyLight;
+        }
     }
 }

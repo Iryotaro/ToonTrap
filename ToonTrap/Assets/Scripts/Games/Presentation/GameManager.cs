@@ -5,6 +5,7 @@ using Ryocatusn.Janken.JankenableObjects;
 using Ryocatusn.Util;
 using System;
 using System.Linq;
+using TMPro;
 using UniRx;
 using UniRx.Triggers;
 using UnityEngine;
@@ -45,6 +46,21 @@ namespace Ryocatusn.Games
         private Subject<StageManager> setStageEvent = new Subject<StageManager>();
 
         public IObservable<StageManager> SetStageEvent => setStageEvent;
+
+        private Vector2 referenceResolution;
+        private Vector2 screenBottomLeftCornerScreenPosition;
+        private Vector2 screenTopRightCornerScreenPosition;
+
+        private void Start()
+        {
+            referenceResolution = finalResultCanvasScaler.referenceResolution;
+            Vector2 screenAnchoredPosition = gameScreen.rectTransform.anchoredPosition;
+            Vector2 screenScreenPosition = screenAnchoredPosition + referenceResolution / 2;
+            Vector2 screenSizeDelta = gameScreen.rectTransform.sizeDelta;
+
+            screenBottomLeftCornerScreenPosition = screenScreenPosition - screenSizeDelta / 2;
+            screenTopRightCornerScreenPosition = screenScreenPosition + screenSizeDelta / 2;
+        }
 
         protected void Create(GameContains gameContains)
         {
@@ -156,27 +172,30 @@ namespace Ryocatusn.Games
             //Transition.LoadScene(new string[] { finalStageData.name.value, mainName }, new string[] { sceneName }, new TransitionSettings(player.transform, gameContains.gameCamera.camera, shape));
         }
 
-        public Vector2 GetViewportOnFinalResult(Vector2 targetPosition)
+        public Vector2 GetWorldPositoinOnFinalResult(Vector2 targetPositionOnGame)
         {
-            Vector2 targetViewportOnGameScreen = gameContains.gameCamera.camera.WorldToViewportPoint(targetPosition);
-
-            Vector2 referenceResolution = finalResultCanvasScaler.referenceResolution;
-
-            Vector2 screenAnchoredPosition = gameScreen.rectTransform.anchoredPosition;
-            Vector2 screenScreenPosition = screenAnchoredPosition + referenceResolution / 2;
-            Vector2 screenSizeDelta = gameScreen.rectTransform.sizeDelta;
-
-            Vector2 screenBottomLeftCornerScreenPosition = screenScreenPosition - screenSizeDelta / 2;
-            Vector2 screenTopRightCornerScreenPosition = screenScreenPosition + screenSizeDelta / 2;
+            Vector2 targetViewportOnGameScreen = gameContains.gameCamera.camera.WorldToViewportPoint(targetPositionOnGame);
 
             Vector2 targetScreenPosition = screenBottomLeftCornerScreenPosition + (screenTopRightCornerScreenPosition - screenBottomLeftCornerScreenPosition) * targetViewportOnGameScreen;
 
             Vector2 targetViewportOnFinalResult = targetScreenPosition / referenceResolution;
-            return targetViewportOnFinalResult;
+
+            Vector2 worldPositionOnFinalResult = finalResultCamera.ViewportToWorldPoint(targetViewportOnFinalResult);
+
+            return worldPositionOnFinalResult;
         }
-        public Vector2 GetWorldPositoinOnFinalResult(Vector2 targetPosition)
+        //GetWorldPositionOnFinalResultÇÃãtä÷êî
+        public Vector2 GetWorldPositionOnGame(Vector2 targetPositionOnFinalResult)
         {
-            return finalResultCamera.ViewportToWorldPoint(GetViewportOnFinalResult(targetPosition));
+            Vector2 targetViewportOnFinalResult = finalResultCamera.WorldToViewportPoint(targetPositionOnFinalResult);
+
+            Vector2 targetScreenPosition = targetViewportOnFinalResult * referenceResolution;
+
+            Vector2 targetViewportOnGameScreen = targetScreenPosition / (screenBottomLeftCornerScreenPosition + (screenTopRightCornerScreenPosition - screenBottomLeftCornerScreenPosition));
+
+            Vector2 targetPositionOnGame = gameContains.gameCamera.camera.ViewportToWorldPoint(targetViewportOnGameScreen);
+
+            return targetPositionOnGame;
         }
     }
 }

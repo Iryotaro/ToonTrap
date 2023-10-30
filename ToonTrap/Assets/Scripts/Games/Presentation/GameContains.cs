@@ -1,7 +1,5 @@
-﻿using Ryocatusn.Characters;
-using Ryocatusn.Conversations;
+﻿using Ryocatusn.Conversations;
 using UnityEngine;
-using UnityEngine.Rendering.Universal;
 using Ryocatusn.Lights;
 
 namespace Ryocatusn
@@ -11,7 +9,7 @@ namespace Ryocatusn
         public Player player { get; }
         public PlayerBody playerBody { get; }
         public GameCamera gameCamera { get; }
-        public GlobalLight globalLight { get; }
+        public LightContains lightContains { get; }
         public AudioSource bgm { get; }
         public Conversation conversation { get; }
         public Transition transition { get; }
@@ -21,7 +19,7 @@ namespace Ryocatusn
             Player player,
             PlayerBody playerBody,
             GameCamera gameCamera,
-            GlobalLight globalLight,
+            LightContains lightContains,
             AudioSource bgm,
             Conversation conversation,
             Transition transition
@@ -30,7 +28,7 @@ namespace Ryocatusn
             this.player = player;
             this.playerBody = playerBody;
             this.gameCamera = gameCamera;
-            this.globalLight = globalLight;
+            this.lightContains = lightContains;
             this.bgm = bgm;
             this.conversation = conversation;
             this.transition = transition;

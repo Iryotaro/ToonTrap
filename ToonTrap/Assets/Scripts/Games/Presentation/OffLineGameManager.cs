@@ -1,9 +1,7 @@
 ﻿using Ryocatusn.Conversations;
-using UnityEngine.Rendering.Universal;
 using UnityEngine;
 using Cysharp.Threading.Tasks;
 using UniRx;
-using Ryocatusn.Characters;
 using Ryocatusn.Lights;
 
 namespace Ryocatusn.Games
@@ -19,6 +17,10 @@ namespace Ryocatusn.Games
         [SerializeField]
         private GlobalLight globalLight;
         [SerializeField]
+        private PlayerLight playerLight;
+        [SerializeField]
+        private PlayerBodyLight playerBodyLight;
+        [SerializeField]
         private AudioSource bgm;
         [SerializeField]
         private Conversation conversation;
@@ -27,7 +29,8 @@ namespace Ryocatusn.Games
         
         private void Awake()
         {
-            GameContains gameContains = new GameContains(player, playerBody, gameCamera, globalLight, bgm, conversation, transition);
+            LightContains lightContains = new LightContains(globalLight, playerLight, playerBodyLight);
+            GameContains gameContains = new GameContains(player, playerBody, gameCamera, lightContains, bgm, conversation, transition);
             Create(gameContains);
 
             events.NextSceneEvent
