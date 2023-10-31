@@ -37,7 +37,7 @@ namespace Ryocatusn
         private SE playerShotSE;
 
         private Vector2 defaultPosition;
-        private Vector2 offsetWhenLight = new Vector2(-1.58f, -1.34f);
+        private Vector2 offsetWhenLight = new Vector2(-1.86f, -1.58f);
         private State state = State.None;
         private SwfClipController swfClipController;
 

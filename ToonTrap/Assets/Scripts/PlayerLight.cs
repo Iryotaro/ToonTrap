@@ -2,6 +2,7 @@ using Ryocatusn.Games;
 using System;
 using UnityEngine;
 using Zenject;
+using Ryocatusn.Lights;
 
 namespace Ryocatusn
 {
@@ -15,9 +16,7 @@ namespace Ryocatusn
         public SpotLight spotLight;
 
         [SerializeField]
-        private Transform extraPosition1;
-        [SerializeField]
-        private Transform extraPosition2;
+        private Transform extraPosition;
 
         private void Start()
         {
@@ -29,7 +28,7 @@ namespace Ryocatusn
             Vector2 playerWorldPositionOnFinalResult = gameManager.GetWorldPositoinOnFinalResult(player.transform.position);
             transform.position = playerWorldPositionOnFinalResult;
 
-            spotLight.TurnOnExtra(extraPosition1.position, extraPosition2.position);
+            spotLight.TurnOnExtra(extraPosition.position);
         }
     }
 }

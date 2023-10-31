@@ -17,8 +17,6 @@ namespace Ryocatusn.Photographers
         [SerializeField]
         private Camera photographerCamera;
         [SerializeField]
-        private Canvas photographerCanvas;
-        [SerializeField]
         private Material material;
         [SerializeField]
         private SE noiseSE;
@@ -32,12 +30,8 @@ namespace Ryocatusn.Photographers
 
         private void Start()
         {
-            //なぜかこの工程をいれなければ、Transitionで画面が真っ黒になる
-            photographerCanvas.gameObject.SetActive(true);
-
             ChangeNoiseAlpha(1);
             sePlayer = new SEPlayer(gameObject, gameManager.gameContains.gameCamera);
-
 
             //ランダムにターゲットを映す
             StartCoroutine(ChangeTargetEnumerator());

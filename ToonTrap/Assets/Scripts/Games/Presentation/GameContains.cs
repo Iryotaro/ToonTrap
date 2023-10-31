@@ -1,6 +1,7 @@
 ﻿using Ryocatusn.Conversations;
 using UnityEngine;
 using Ryocatusn.Lights;
+using Ryocatusn.Characters;
 
 namespace Ryocatusn
 {
@@ -8,6 +9,7 @@ namespace Ryocatusn
     {
         public Player player { get; }
         public PlayerBody playerBody { get; }
+        public LightMan lightMan { get; }
         public GameCamera gameCamera { get; }
         public LightContains lightContains { get; }
         public AudioSource bgm { get; }
@@ -18,6 +20,7 @@ namespace Ryocatusn
             (
             Player player,
             PlayerBody playerBody,
+            LightMan lightMan,
             GameCamera gameCamera,
             LightContains lightContains,
             AudioSource bgm,
@@ -27,6 +30,7 @@ namespace Ryocatusn
         {
             this.player = player;
             this.playerBody = playerBody;
+            this.lightMan = lightMan;
             this.gameCamera = gameCamera;
             this.lightContains = lightContains;
             this.bgm = bgm;

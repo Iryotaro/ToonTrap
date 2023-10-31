@@ -235,7 +235,7 @@ Transform:
   - {fileID: 3115611697930743535}
   - {fileID: 7222533683089911118}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &3115611698677166487
 MonoBehaviour:
@@ -266,7 +266,6 @@ MonoBehaviour:
   extraPositionsAroundLight: {fileID: 3115611698799622659}
   extraPositionAroundLight1: {fileID: 3115611699525418789}
   extraPositionAroundLight2: {fileID: 3115611698806859758}
-  lightCamera: {fileID: 0}
 --- !u!1 &3115611698799622658
 GameObject:
   m_ObjectHideFlags: 0
@@ -534,8 +533,8 @@ SpriteShapeRenderer:
   - {fileID: 21300000, guid: 608e61deb05c54660bebf5a4dd2ee02d, type: 3}
   - {fileID: 21300000, guid: 608e61deb05c54660bebf5a4dd2ee02d, type: 3}
   m_LocalAABB:
-    m_Center: {x: -4.649172, y: -1.1697872, z: 0}
-    m_Extent: {x: 5.064538, y: 3.0503829, z: 0}
+    m_Center: {x: -4.5710506, y: -1.0551546, z: 0}
+    m_Extent: {x: 4.986417, y: 2.9357502, z: 0}
   m_SpriteSortPoint: 0
 --- !u!114 &7222533683089911112
 MonoBehaviour:
@@ -568,15 +567,7 @@ MonoBehaviour:
       spriteIndex: 0
       corner: 1
       m_CornerMode: 1
-    - position: {x: -9.450367, y: -4.22017, z: 0.00044250488}
-      leftTangent: {x: 0, y: 0, z: 0}
-      rightTangent: {x: 0, y: 0, z: 0}
-      mode: 0
-      height: 0.1
-      spriteIndex: 0
-      corner: 1
-      m_CornerMode: 1
-    - position: {x: -9.71371, y: -3.5221767, z: 0.00044250488}
+    - position: {x: -9.557467, y: -3.9909048, z: 0.00044250488}
       leftTangent: {x: 0, y: 0, z: 0}
       rightTangent: {x: 0, y: 0, z: 0}
       mode: 0

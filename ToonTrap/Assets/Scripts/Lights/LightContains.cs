@@ -4,13 +4,13 @@ namespace Ryocatusn.Lights
     {
         public GlobalLight globalLight { get; }
         public PlayerLight playerLight { get; }
-        public PlayerBodyLight playerBodyLight { get; }
+        public SwfClipLight playerBodyLight { get; }
 
         public LightContains
             (
             GlobalLight globalLight,
             PlayerLight playerLight,
-            PlayerBodyLight playerBodyLight
+            SwfClipLight playerBodyLight
             )
         {
             this.globalLight = globalLight;

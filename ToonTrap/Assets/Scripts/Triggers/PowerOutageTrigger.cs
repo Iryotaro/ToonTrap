@@ -27,6 +27,7 @@ namespace Ryocatusn
             gameContains.lightContains.playerLight.spotLight.on = false;
 
             DOTween.Sequence()
+                .SetLink(gameObject)
                 .Append(gameContains.lightContains.globalLight.DoChangeItencity(0, 1))
                 .SetEase(Ease.InOutCubic)
                 .AppendInterval(0.5f)
@@ -36,9 +37,10 @@ namespace Ryocatusn
                     gameContains.playerBody.HoldLight();
                 })
                 .AppendInterval(3)
-                .AppendCallback(() =>
+                .OnComplete(() =>
                 {
                     gameContains.lightContains.playerLight.spotLight.on = true;
+                    gameContains.lightMan.Appear();
                 });
         }
     }

@@ -3,6 +3,7 @@ using UnityEngine;
 using Cysharp.Threading.Tasks;
 using UniRx;
 using Ryocatusn.Lights;
+using Ryocatusn.Characters;
 
 namespace Ryocatusn.Games
 {
@@ -13,13 +14,15 @@ namespace Ryocatusn.Games
         [SerializeField]
         private PlayerBody playerBody;
         [SerializeField]
+        private LightMan lightMan;
+        [SerializeField]
         private GameCamera gameCamera;
         [SerializeField]
         private GlobalLight globalLight;
         [SerializeField]
         private PlayerLight playerLight;
         [SerializeField]
-        private PlayerBodyLight playerBodyLight;
+        private SwfClipLight playerBodyLight;
         [SerializeField]
         private AudioSource bgm;
         [SerializeField]
@@ -30,7 +33,7 @@ namespace Ryocatusn.Games
         private void Awake()
         {
             LightContains lightContains = new LightContains(globalLight, playerLight, playerBodyLight);
-            GameContains gameContains = new GameContains(player, playerBody, gameCamera, lightContains, bgm, conversation, transition);
+            GameContains gameContains = new GameContains(player, playerBody, lightMan, gameCamera, lightContains, bgm, conversation, transition);
             Create(gameContains);
 
             events.NextSceneEvent

@@ -6,7 +6,7 @@ using System.Collections;
 using UnityEngine.U2D;
 using System.Collections.Generic;
 
-namespace Ryocatusn
+namespace Ryocatusn.Lights
 {
     [ExecuteAlways()]
     public class SpotLight : MonoBehaviour
@@ -112,13 +112,12 @@ namespace Ryocatusn
 
                 extra.transform.position = Vector3.zero;
 
-                Vector2 avaragePos = (extraPositions[0] + extraPositions[1]) / 2;
-                float angle = MathF.Atan2(avaragePos.y - normal.position.y, avaragePos.x - normal.position.x) * Mathf.Rad2Deg - 90;
+                float angle = MathF.Atan2(extraPositions[0].y - normal.position.y, extraPositions[0].x - normal.position.x) * Mathf.Rad2Deg - 90;
                 extraPositionsAroundLight.transform.localEulerAngles = new Vector3(0, 0, angle);
 
                 extra.spriteShapeRenderer.material.SetFloat("_angle", angle);
 
-                for (int i = 0; i < 4; i++)
+                for (int i = 0; i < 3; i++)
                 {
                     extra.spline.SetPosition(i, extraPositions[i]);
                 }
@@ -129,12 +128,10 @@ namespace Ryocatusn
             }
         }
 
-        [SerializeField]
-        private Camera lightCamera;
-        public void TurnOnExtra(Vector2 screenPos1, Vector2 screenPos2)
+        public void TurnOnExtra(Vector2 extraPosition)
         {
             onExtra = true;
-            extraPositions = new List<Vector2> { screenPos1, screenPos2, extraPositionAroundLight1.position, extraPositionAroundLight2.position };
+            extraPositions = new List<Vector2> { extraPosition, extraPositionAroundLight1.position, extraPositionAroundLight2.position };
         }
         public void TurnOffExtra()
         {

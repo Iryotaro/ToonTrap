@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: SpotLightExtra
+  m_Name: LightManLightExtra
   m_Shader: {fileID: -6465566751694194690, guid: cd7ff3617b241274981c695efa8bcc50, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -113,7 +113,7 @@ Material:
     - _WorkflowMode: 1
     - _ZWrite: 1
     - _alpha: 0
-    - _degree: 216.4
+    - _degree: 0
     m_Colors:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
