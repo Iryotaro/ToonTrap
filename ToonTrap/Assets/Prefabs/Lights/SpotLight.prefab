@@ -251,6 +251,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   on: 1
   intensity: 0.82
+  lightScale: 1
   diff: 0.29
   extraIntensity: 0.142
   distortion:

@@ -22,7 +22,7 @@ namespace Ryocatusn.Lights
             swfClipController = GetComponent<SwfClipController>();
             meshRenderer = GetComponent<MeshRenderer>();
         }
-        private void Update()
+        private void LateUpdate()
         {
             Color color = swfClipController.clip.tint;
             swfClipController.clip.tint = new Color(color.r, color.g, color.b, intensity);

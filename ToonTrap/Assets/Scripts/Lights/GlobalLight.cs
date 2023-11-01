@@ -2,6 +2,7 @@ using UnityEngine;
 using Ryocatusn.Util;
 using UnityEngine.UI;
 using DG.Tweening;
+using System;
 
 namespace Ryocatusn.Lights
 {

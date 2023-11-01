@@ -18,8 +18,22 @@ namespace Ryocatusn
                 .FirstOrDefault()
                 .Subscribe(_ => PowerOutage())
                 .AddTo(this);
+
+            gameManager
+                .SetStageEvent
+                .Subscribe(x => 
+                {
+                    x.OverEvent
+                    .Subscribe(_ => ResetLight())
+                    .AddTo(this);
+
+                    x.ClearEvent
+                    .Subscribe(_ => ResetLight())
+                    .AddTo(this);
+                })
+                .AddTo(this);
         }
-        
+
         private void PowerOutage()
         {
             GameContains gameContains = gameManager.gameContains;
@@ -27,7 +41,7 @@ namespace Ryocatusn
             gameContains.lightContains.playerLight.spotLight.on = false;
 
             DOTween.Sequence()
-                .SetLink(gameObject)
+                .SetLink(gameContains.lightContains.globalLight.gameObject)
                 .Append(gameContains.lightContains.globalLight.DoChangeItencity(0, 1))
                 .SetEase(Ease.InOutCubic)
                 .AppendInterval(0.5f)
@@ -42,6 +56,19 @@ namespace Ryocatusn
                     gameContains.lightContains.playerLight.spotLight.on = true;
                     gameContains.lightMan.Appear();
                 });
+        }
+        private void ResetLight()
+        {
+            GameContains gameContains = gameManager.gameContains;
+            gameContains.lightContains.playerBodyLight.on = false;
+            gameContains.lightContains.playerLight.spotLight.on = false;
+
+            gameContains.playerBody.Idle();
+            gameContains.lightMan.Disappear();
+
+            gameContains.lightContains.globalLight.DoChangeItencity(1, 1)
+                .SetLink(gameContains.lightContains.globalLight.gameObject)
+                .SetEase(Ease.InOutCubic);
         }
     }
 }

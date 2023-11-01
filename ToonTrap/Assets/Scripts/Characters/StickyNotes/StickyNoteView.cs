@@ -82,6 +82,7 @@ namespace Ryocatusn
 
             returnBullet.transform
                 .DOMove(transform.position, 0.6f)
+                .SetLink(gameObject)
                 .SetEase(Ease.InQuart)
                 .OnComplete(() => 
                 {
@@ -89,6 +90,10 @@ namespace Ryocatusn
                     animator.SetTrigger("Damage");
                     Destroy(returnBullet);
                 });
+
+            this.OnDestroyAsObservable()
+                .Where(_=> returnBullet != null)
+                .Subscribe(_ => Destroy(returnBullet));
         }
 
         private void Update()

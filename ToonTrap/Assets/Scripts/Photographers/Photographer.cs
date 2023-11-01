@@ -52,6 +52,10 @@ namespace Ryocatusn.Photographers
                     {
                         ChangeTarget(photographerSubject);
                     }
+                    else
+                    {
+                        MakeNoise();
+                    }
                 }
             }
         }

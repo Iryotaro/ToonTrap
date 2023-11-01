@@ -18,7 +18,7 @@ namespace Ryocatusn.Lights
         {
             spriteRenderer = GetComponent<SpriteRenderer>();
         }
-        private void Update()
+        private void LateUpdate()
         {
             Color color = spriteRenderer.color;
             spriteRenderer.color = new Color(color.r, color.g, color.b, intensity);

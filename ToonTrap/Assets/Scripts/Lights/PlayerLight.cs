@@ -1,10 +1,10 @@
 using Ryocatusn.Games;
+using Ryocatusn.Lights;
 using System;
 using UnityEngine;
 using Zenject;
-using Ryocatusn.Lights;
 
-namespace Ryocatusn
+namespace Ryocatusn.Lights
 {
     [RequireComponent(typeof(SpotLight))]
     public class PlayerLight : MonoBehaviour

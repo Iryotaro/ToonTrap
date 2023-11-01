@@ -23,7 +23,12 @@ namespace Ryocatusn
         private Camera cameraFinalResult;
         [SerializeField]
         private Animator leftHandAnimator;
-        
+
+        [SerializeField]
+        private SpriteRenderer leftHandSpriteRenderer;
+        [SerializeField]
+        private JankenSprites leftHands;
+
         [SerializeField]
         private JankenSwfClipAssets attackAnimations;
         [SerializeField]
@@ -73,6 +78,10 @@ namespace Ryocatusn
                 .Where(_ => state == State.IdleLight)
                 .Subscribe(_ => IdleLight())
                 .AddTo(this);
+
+            playerEvents.ChangeShapeEvent
+                .Subscribe(x => leftHandSpriteRenderer.sprite = leftHands.GetAsset(x))
+                .AddTo(this);
         }
         public void ShotLeftHand(Player player, Tilemap firstRoad, Vector2 startPosition, Action finish)
         {
@@ -84,6 +93,7 @@ namespace Ryocatusn
             IEnumerator ShotLeftHandEnumerator()
             {
                 //敵がプレイヤーに攻撃しないよう距離を開けてる
+                player.tileTransform.SetDisable();
                 player.transform.position = new Vector2(-1000, -1000);
                 player.inputMaster.SetActiveAll(false);
                 PlayAnimation(attackAnimations, GetShape(), SwfClipController.LoopModes.Once);

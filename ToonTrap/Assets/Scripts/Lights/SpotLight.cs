@@ -18,6 +18,8 @@ namespace Ryocatusn.Lights
         public float diff;
         [Range(0, 1)]
         public float extraIntensity;
+        [Min(0.2f)]
+        public float lightScale = 0.2f;
         public Distortion distortion;
         [SerializeField]
         private Transform normal;
@@ -47,7 +49,7 @@ namespace Ryocatusn.Lights
                 StartCoroutine(MakeDistoration());
                 IEnumerator MakeDistoration()
                 {
-                    Vector3 defaultSize = transform.localScale;
+                    Vector3 defaultSize = transform.localScale * lightScale;
 
                     while (true)
                     {
@@ -112,7 +114,7 @@ namespace Ryocatusn.Lights
 
                 extra.transform.position = Vector3.zero;
 
-                float angle = MathF.Atan2(extraPositions[0].y - normal.position.y, extraPositions[0].x - normal.position.x) * Mathf.Rad2Deg - 90;
+                float angle = MathF.Atan2(extraPositions[0].y - normal.position.y, extraPositions[0].x - normal.position.x) * Mathf.Rad2Deg + 90;
                 extraPositionsAroundLight.transform.localEulerAngles = new Vector3(0, 0, angle);
 
                 extra.spriteShapeRenderer.material.SetFloat("_angle", angle);

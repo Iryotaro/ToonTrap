@@ -30,9 +30,13 @@ namespace Ryocatusn
 
         private BehaviorSubject<GameContains> setupStageEvent = new BehaviorSubject<GameContains>(null);
         private BehaviorSubject<Tilemap[]> changeRoadEvent = new BehaviorSubject<Tilemap[]>(new Tilemap[] {  });
+        private Subject<Unit> overEvent = new Subject<Unit>();
+        private Subject<Unit> clearEvent = new Subject<Unit>();
 
         public IObservable<GameContains> SetupStageEvent;
         public IObservable<Tilemap[]> ChangeRoadEvent => changeRoadEvent;
+        public IObservable<Unit> OverEvent => overEvent;
+        public IObservable<Unit> ClearEvent => clearEvent;
 
         private void Start()
         {
@@ -47,6 +51,9 @@ namespace Ryocatusn
         private void OnDestroy()
         {
             setupStageEvent.Dispose();
+            changeRoadEvent.Dispose();
+            overEvent.Dispose();
+            clearEvent.Dispose();
         }
 
         public void SetupStage(StageId id, GameContains gameContains)
@@ -67,11 +74,13 @@ namespace Ryocatusn
         public void Clear()
         {
             stageApplicationService.Clear(id);
+            clearEvent.OnNext(Unit.Default);
         }
         public void Over()
         {
             if (!stageApplicationService.IsEnable(id)) return;
             stageApplicationService.Over(id);
+            overEvent.OnNext(Unit.Default);
         }
 
         public void AddRoad(Tilemap tilemap)
