@@ -6,28 +6,31 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/Title.unity
-    guid: 2cda990e2423bbf4892e6590ba056729
-  - enabled: 1
-    path: Assets/Scenes/Transition.unity
-    guid: 5d1d99aecb0b37644ab383bdf45de99b
-  - enabled: 1
     path: Assets/Scenes/Game.unity
     guid: a61922f29be9148498b6809bd3e855ee
-  - enabled: 1
-    path: Assets/Scenes/Clear.unity
-    guid: 087922c9b0ef4489d909f03793735f9e
   - enabled: 1
     path: Assets/Scenes/Tutorial.unity
     guid: 0c9d983c2c7b1074bb501dcb4f8f8c06
   - enabled: 1
-    path: Assets/Scenes/StageDragon.unity
+    path: Assets/Scenes/Stage1.unity
+    guid: b99611338baeef64a9085f29c4f07ff8
+  - enabled: 1
+    path: Assets/Scenes/Stage2.unity
+    guid: 220e2467ec619f040b837cd70e13daee
+  - enabled: 1
+    path: Assets/Scenes/Stage3.unity
+    guid: c1ffdf1e6864a43aa8d73805f1095d73
+  - enabled: 1
+    path: Assets/Scenes/Stage4.unity
     guid: bf8c8cf6c2b263f4ca6777ffb875f2f1
   - enabled: 1
-    path: Assets/Scenes/StageDragon_movie.unity
-    guid: d36b51bd332242d479aefaabf1f4a500
+    path: Assets/Scenes/Transition.unity
+    guid: 5d1d99aecb0b37644ab383bdf45de99b
   - enabled: 1
-    path: Assets/Scenes/Stage1.unity
-    guid: c1ffdf1e6864a43aa8d73805f1095d73
+    path: Assets/Scenes/Title.unity
+    guid: 2cda990e2423bbf4892e6590ba056729
+  - enabled: 1
+    path: Assets/Scenes/Clear.unity
+    guid: 087922c9b0ef4489d909f03793735f9e
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 3f5ad531c16e9854a8cd782eaa6ec00d, type: 2}

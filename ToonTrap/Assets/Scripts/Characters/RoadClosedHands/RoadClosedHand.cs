@@ -16,8 +16,6 @@ namespace Ryocatusn.Characters
         [SerializeField, Min(1)]
         private int atk = 1;
         [SerializeField]
-        private TileTransformTrigger trigger;
-        [SerializeField]
         private SpriteRenderer spriteRendererMain;
         [SerializeField]
         private SpriteRenderer spriteRendererAdditional;

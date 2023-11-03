@@ -1,5 +1,14 @@
 {
   "dependencies": {
+    "com.copocopo.textmeshpro.animator": {
+      "version": "https://github.com/coposuke/TextMeshProAnimator.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {
+        "com.unity.textmeshpro": "2.0.1"
+      },
+      "hash": "091256dbd10a924eb0d9129631d493a844550d77"
+    },
     "com.cysharp.unitask": {
       "version": "https://github.com/Cysharp/UniTask.git?path=src/UniTask/Assets/Plugins/UniTask",
       "depth": 0,

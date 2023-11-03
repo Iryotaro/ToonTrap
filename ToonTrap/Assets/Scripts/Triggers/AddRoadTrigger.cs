@@ -12,8 +12,6 @@ namespace Ryocatusn
     {
         [Inject]
         private GameManager gameManager;
-        [Inject]
-        private StageManager stageManager;
 
         [SerializeField]
         private EnemiesAndNextRoad[] enemiesAndNextRoads;
@@ -42,8 +40,6 @@ namespace Ryocatusn
 
         private void AddRoads(Road[] roads)
         {
-            if (stageManager == null) return;
-
             foreach (Road road in roads)
             {
                 if (road == null) continue;

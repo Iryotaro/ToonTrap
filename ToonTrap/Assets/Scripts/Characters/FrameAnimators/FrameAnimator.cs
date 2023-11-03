@@ -3,7 +3,6 @@ using System.Collections;
 using System.Linq;
 using UniRx;
 using System;
-using UnityEditor.Profiling;
 
 namespace Ryocatusn.Characters
 {

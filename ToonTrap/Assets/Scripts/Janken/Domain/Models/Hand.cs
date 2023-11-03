@@ -14,7 +14,7 @@ namespace Ryocatusn.Janken
 
         public IObservable<Shape> ChangeShapeEvent => changeShapeEvent;
 
-        private static Shape[] sequence = new Shape[3] { Shape.Rock, Shape.Scissors, Shape.Paper };
+        private static Shape[] sequence = new Shape[3] { Shape.Rock, Shape.Paper, Shape.Scissors };
         public static Shape[] rsp { get; } = new Shape[3] { Shape.Rock, Shape.Scissors, Shape.Paper };
         public static Shape[] rps { get; } = new Shape[3] { Shape.Rock, Shape.Paper, Shape.Scissors };
 

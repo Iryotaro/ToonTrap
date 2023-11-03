@@ -18,6 +18,9 @@ namespace Ryocatusn.Characters
         private int atk = 1;
         [SerializeField, Min(0)]
         private float attackRange;
+        [SerializeField]
+        [Min(0)]
+        private float attackWaitTime = 0;
 
         [Inject]
         private StageManager stageManager;
@@ -77,11 +80,13 @@ namespace Ryocatusn.Characters
             stageManager.SetupStageEvent
                 .Subscribe(_ =>
                 {
+                    float lastTimeAttack = 0;
                     this.UpdateAsObservable()
                     .Subscribe(_ =>
                     {
-                        if (dragonView.IsVisible() && player != null && Vector2.Distance(transform.position, player.transform.position) <= attackRange)
+                        if (dragonView.IsVisible() && player != null && Vector2.Distance(transform.position, player.transform.position) <= attackRange && Time.fixedTime - lastTimeAttack > attackWaitTime)
                         {
+                            lastTimeAttack = Time.fixedTime;
                             dragonView.StartAttackAnimation();
                         }
                     });

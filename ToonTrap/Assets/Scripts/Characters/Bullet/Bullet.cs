@@ -26,6 +26,7 @@ namespace Ryocatusn.Characters
 
         private GameObject ownerObject;
         private bool isAllowedToDestroy = true;
+        private bool finishToAttack = false;
 
         public void SetUp(AttackableObjectId id, GameObject ownerObject)
         {
@@ -38,6 +39,14 @@ namespace Ryocatusn.Characters
                 .Subscribe(_ => Destroy(gameObject))
                 .AddTo(this);
 
+            events.WinEvent
+                .Subscribe(_ => finishToAttack = true)
+                .AddTo(this);
+
+            events.LoseEvent
+                .Subscribe(_ => finishToAttack = true)
+                .AddTo(this);
+
             events.ReAttackTriggerEvent
                 .Subscribe(_ => HandleReAttackTrigger())
                 .AddTo(this);
@@ -48,7 +57,6 @@ namespace Ryocatusn.Characters
 
             this.OnTriggerEnter2DAsObservable()
             .Where(x => IsAllowedToAttack(x, gameManager.gameContains.player))
-            .Take(1)
             .Subscribe(x => OnHit(x.GetComponent<IReceiveAttack>()));
 
             GetComponent<Rigidbody2D>().AddForce(transform.up * power, ForceMode2D.Impulse);
@@ -72,6 +80,7 @@ namespace Ryocatusn.Characters
         private bool IsAllowedToAttack(Collider2D collider, Player player)
         {
             IReceiveAttack receiveAttack = collider.GetComponentInChildren<IReceiveAttack>();
+            if (finishToAttack) return false;
             if (receiveAttack == null) return false;
             if (receiveAttack.GetId() == null) return false;
             if (receiveAttack.GetId().Equals(Get().ownerId)) return false;
