@@ -15,7 +15,7 @@ namespace Ryocatusn
     [RequireComponent(typeof(Collider2D))]
     [RequireComponent(typeof(TileTransform))]
     [RequireComponent(typeof(PlayerInputMaster))]
-    [RequireComponent(typeof(PlayerJankenSelector))]
+    [RequireComponent(typeof(PlayerJankenChanger))]
     public class Player : JankenBehaviour, IReceiveAttack
     {
         public TileTransform tileTransform { get; private set; }
@@ -24,7 +24,7 @@ namespace Ryocatusn
 
         public PlayerInputMaster inputMaster { get; private set; }
 
-        private PlayerJankenSelector jankenSelector;
+        private PlayerJankenChanger jankenChanger;
 
         public bool isAllowedToReceiveAttack { get; private set; } = true;
 
@@ -63,7 +63,7 @@ namespace Ryocatusn
 
             inputMaster = GetComponent<PlayerInputMaster>();
 
-            jankenSelector = GetComponent<PlayerJankenSelector>();
+            jankenChanger = GetComponent<PlayerJankenChanger>();
 
             events.AttackTriggerEvent
                 .Subscribe(x => HandleAttackTrigger(x.id))
@@ -130,8 +130,9 @@ namespace Ryocatusn
         }
         private void ChangeShape()
         {
-            if (jankenableObjectApplicationService.Get(id).shape == jankenSelector.GetSelectShape()) return;
-            jankenableObjectApplicationService.ChangeShape(id, jankenSelector.GetSelectShape());
+            if (jankenableObjectApplicationService.Get(id).shape == jankenChanger.GetShape()) return;
+            jankenableObjectApplicationService.ChangeShape(id, jankenChanger.GetShape());
+            jankenChanger.ChangePlayerShape();
         }
         private void AttackTrigger()
         {

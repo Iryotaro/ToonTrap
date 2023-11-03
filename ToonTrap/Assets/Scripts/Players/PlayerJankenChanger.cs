@@ -5,32 +5,37 @@ using Ryocatusn.UI;
 
 namespace Ryocatusn
 {
-    public class PlayerJankenSelector : MonoBehaviour
+    public class PlayerJankenChanger : MonoBehaviour
     {
         private Hand.Shape selectShape;
         private float rate = 1;
 
         [SerializeField]
-        private PlayerJankenSelectorUI jankenSelectorUI;
+        private PlayerJankenChangerUI playerJankenChangerUI;
 
         private void Start()
         {
-            StartCoroutine(ChangeSelectShape());
+            StartCoroutine(ChangeShape());
             
-            IEnumerator ChangeSelectShape()
+            IEnumerator ChangeShape()
             {
                 while (true)
                 {
                     selectShape = Hand.GetNextShape(selectShape);
-                    jankenSelectorUI.ChangeSelectShape(selectShape, rate);
+                    playerJankenChangerUI.ChangeShape(selectShape);
                     yield return new WaitForSeconds(1 / rate);
                 }
             }
         }
 
-        public Hand.Shape GetSelectShape()
+        public Hand.Shape GetShape()
         {
             return selectShape;
+        }
+
+        public void ChangePlayerShape()
+        {
+            playerJankenChangerUI.ChangePlayerShape();
         }
     }
 }
