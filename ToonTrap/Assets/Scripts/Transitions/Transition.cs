@@ -5,9 +5,8 @@ using Ryocatusn.Janken;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using Ryocatusn.Games;
-using Zenject;
 using System;
+using UniRx;
 
 namespace Ryocatusn
 {
@@ -24,53 +23,21 @@ namespace Ryocatusn
         [SerializeField]
         private JankenSprites handSprites;
 
-        [Inject]
-        private GameManager gameManager;
-
         private TransitionSettings transitionSettings;
-
-        //public static bool LoadScene(string unloadSceneName, string loadSceneName, TransitionSettings transitionFocus, Action onLoadScene = null)
-        //{
-        //    if (active) return false;
-        //    active = true;
-
-        //    unloadSceneNames = new string[] { unloadSceneName };
-        //    loadSceneNames = new string[] { loadSceneName };
-        //    Transition.transitionSettings = transitionFocus;
-        //    Transition.onLoadScene = onLoadScene;
-
-        //    SceneManager.LoadScene("Transition", LoadSceneMode.Additive);
-
-        //    return true;
-        //}
-        //public static bool LoadScene(string[] unloadSceneNames, string[] loadSceneNames, TransitionSettings transitionFocus, Action onLoadScene = null)
-        //{
-        //    if (active) return false;
-        //    active = true;
-
-        //    Transition.unloadSceneNames = unloadSceneNames;
-        //    Transition.loadSceneNames = loadSceneNames;
-        //    Transition.transitionSettings = transitionFocus;
-        //    Transition.onLoadScene = onLoadScene;
-
-        //    SceneManager.LoadScene("Transition", LoadSceneMode.Additive);
-
-        //    return true;
-        //}
 
         private void Start()
         {
             transitionSettings = TransitionSettings.Default();
         }
-        public void LoadScene(string unloadSceneName, string loadSceneName, TransitionSettings transitionSettings, Action finish)
+        public void LoadScene(string unloadSceneName, string loadSceneName, TransitionSettings transitionSettings, Action finish = null)
         {
             LoadScene(new string[] { unloadSceneName }, new string[] { loadSceneName }, transitionSettings, finish);
         }
-        public void LoadScene(string[] unloadSceneNames, string[] loadSceneNames, TransitionSettings transitionSettings, Action finish)
+        public void LoadScene(string[] unloadSceneNames, string[] loadSceneNames, TransitionSettings transitionSettings, Action finish = null)
         {
             this.transitionSettings = transitionSettings;
 
-            SEPlayer sePlayer = new SEPlayer(gameObject, gameManager != null ? gameManager.gameContains.gameCamera : null);
+            SEPlayer sePlayer = new SEPlayer(gameObject);
             sePlayer.DontDestroyOnLoad();
             sePlayer.Play(transitionSE);
 
@@ -87,10 +54,16 @@ namespace Ryocatusn
                     {
                         SceneManager.LoadScene(loadSceneName, LoadSceneMode.Additive);
                     }
-                    foreach (string unloadSceneName in unloadSceneNames)
+                    
+                    Observable.NextFrame()
+                    .Subscribe(_ =>
                     {
-                        SceneManager.UnloadSceneAsync(unloadSceneName);
-                    }
+                        foreach (string unloadSceneName in unloadSceneNames)
+                        {
+                            SceneManager.UnloadSceneAsync(unloadSceneName);
+                        }
+                    })
+                    .AddTo(this);
                 })
                 .AppendInterval(0.5f)
                 .Append(EnlargeTransitionMask(transitionMask, 3))
@@ -123,11 +96,6 @@ namespace Ryocatusn
                 .SetEase(shrinkEase);
         }
 
-        private void Update()
-        {
-            //ChangeMaskPosition();
-        }
-
         private void ChangeHandSprite()
         {
             Sprite handSprite = transitionSettings.shape switch
@@ -140,11 +108,6 @@ namespace Ryocatusn
 
             transitionImage.sprite = handSprite;
             transitionImage.SetNativeSize();
-        }
-        private void ChangeMaskPosition()
-        {
-            RectTransform maskRectTransform = transitionMask.GetComponent<RectTransform>();
-            transitionSettings.SetPosition(maskRectTransform, gameManager.gameContains.gameCamera.camera);
         }
     }
 }

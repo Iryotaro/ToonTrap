@@ -2,6 +2,9 @@ using System.Collections;
 using UnityEngine;
 using Ryocatusn.Janken;
 using Ryocatusn.UI;
+using Zenject;
+using Ryocatusn.Games;
+using UniRx;
 
 namespace Ryocatusn
 {
@@ -13,10 +16,15 @@ namespace Ryocatusn
         [SerializeField]
         private PlayerJankenChangerUI playerJankenChangerUI;
 
+        [Inject]
+        private GameManager gameManager;
+
         private void Start()
         {
-            StartCoroutine(ChangeShape());
-            
+            gameManager.SetStageEvent
+                .Subscribe(_ => StartCoroutine(ChangeShape()))
+                .AddTo(this);
+
             IEnumerator ChangeShape()
             {
                 while (true)
@@ -33,9 +41,9 @@ namespace Ryocatusn
             return selectShape;
         }
 
-        public void ChangePlayerShape()
+        public void ChangePlayerShape(Hand.Shape shape)
         {
-            playerJankenChangerUI.ChangePlayerShape();
+            playerJankenChangerUI.ChangePlayerShape(shape);
         }
     }
 }

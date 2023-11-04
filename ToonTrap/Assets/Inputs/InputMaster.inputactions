@@ -198,44 +198,64 @@
             "id": "96a11827-4914-4e59-85cf-90dbeb64edd7",
             "actions": [
                 {
-                    "name": "MousePosition",
-                    "type": "Value",
-                    "id": "5b17fb5d-e882-4b2c-9e47-d63a04189291",
-                    "expectedControlType": "Vector2",
+                    "name": "SelectUp",
+                    "type": "Button",
+                    "id": "d5562d8b-dc35-408e-8541-202b02188a7f",
+                    "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": true
+                    "initialStateCheck": false
                 },
                 {
-                    "name": "Test",
-                    "type": "Value",
-                    "id": "a858f2a0-35a6-45e3-b54e-3ab3488aeafe",
-                    "expectedControlType": "Vector2",
+                    "name": "SelectDown",
+                    "type": "Button",
+                    "id": "b9be3828-5f30-4d22-9f50-f4bddbd2cf28",
+                    "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": true
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Decide",
+                    "type": "Button",
+                    "id": "3049e1c1-eb6a-45c9-92fb-0cf30d555e13",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
                 {
                     "name": "",
-                    "id": "308deb3d-f42e-4a44-9d70-03a5779b6136",
-                    "path": "<Mouse>/position",
+                    "id": "95b2a507-5f8a-4d06-92de-c409c05d3ecf",
+                    "path": "<Keyboard>/upArrow",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "MousePosition",
+                    "action": "SelectUp",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
-                    "id": "2c2421bc-51f2-4f38-b32a-4654e1c377eb",
-                    "path": "<Mouse>/delta",
+                    "id": "30817a43-5181-451f-b1b0-b39a6acfba62",
+                    "path": "<Keyboard>/downArrow",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Test",
+                    "action": "SelectDown",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "fc2786fa-2d5f-495d-add1-d930b30b0bea",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Decide",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

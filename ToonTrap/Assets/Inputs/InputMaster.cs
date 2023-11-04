@@ -220,44 +220,64 @@ public partial class @InputMaster : IInputActionCollection2, IDisposable
             ""id"": ""96a11827-4914-4e59-85cf-90dbeb64edd7"",
             ""actions"": [
                 {
-                    ""name"": ""MousePosition"",
-                    ""type"": ""Value"",
-                    ""id"": ""5b17fb5d-e882-4b2c-9e47-d63a04189291"",
-                    ""expectedControlType"": ""Vector2"",
+                    ""name"": ""SelectUp"",
+                    ""type"": ""Button"",
+                    ""id"": ""d5562d8b-dc35-408e-8541-202b02188a7f"",
+                    ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
-                    ""initialStateCheck"": true
+                    ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Test"",
-                    ""type"": ""Value"",
-                    ""id"": ""a858f2a0-35a6-45e3-b54e-3ab3488aeafe"",
-                    ""expectedControlType"": ""Vector2"",
+                    ""name"": ""SelectDown"",
+                    ""type"": ""Button"",
+                    ""id"": ""b9be3828-5f30-4d22-9f50-f4bddbd2cf28"",
+                    ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
-                    ""initialStateCheck"": true
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Decide"",
+                    ""type"": ""Button"",
+                    ""id"": ""3049e1c1-eb6a-45c9-92fb-0cf30d555e13"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
                 {
                     ""name"": """",
-                    ""id"": ""308deb3d-f42e-4a44-9d70-03a5779b6136"",
-                    ""path"": ""<Mouse>/position"",
+                    ""id"": ""95b2a507-5f8a-4d06-92de-c409c05d3ecf"",
+                    ""path"": ""<Keyboard>/upArrow"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""MousePosition"",
+                    ""action"": ""SelectUp"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
                 {
                     ""name"": """",
-                    ""id"": ""2c2421bc-51f2-4f38-b32a-4654e1c377eb"",
-                    ""path"": ""<Mouse>/delta"",
+                    ""id"": ""30817a43-5181-451f-b1b0-b39a6acfba62"",
+                    ""path"": ""<Keyboard>/downArrow"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Test"",
+                    ""action"": ""SelectDown"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""fc2786fa-2d5f-495d-add1-d930b30b0bea"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Decide"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -305,8 +325,9 @@ public partial class @InputMaster : IInputActionCollection2, IDisposable
         m_Player_ChangeHand = m_Player.FindAction("ChangeHand", throwIfNotFound: true);
         // Title
         m_Title = asset.FindActionMap("Title", throwIfNotFound: true);
-        m_Title_MousePosition = m_Title.FindAction("MousePosition", throwIfNotFound: true);
-        m_Title_Test = m_Title.FindAction("Test", throwIfNotFound: true);
+        m_Title_SelectUp = m_Title.FindAction("SelectUp", throwIfNotFound: true);
+        m_Title_SelectDown = m_Title.FindAction("SelectDown", throwIfNotFound: true);
+        m_Title_Decide = m_Title.FindAction("Decide", throwIfNotFound: true);
         // Game
         m_Game = asset.FindActionMap("Game", throwIfNotFound: true);
         m_Game_BackToTitle = m_Game.FindAction("BackToTitle", throwIfNotFound: true);
@@ -450,14 +471,16 @@ public partial class @InputMaster : IInputActionCollection2, IDisposable
     // Title
     private readonly InputActionMap m_Title;
     private ITitleActions m_TitleActionsCallbackInterface;
-    private readonly InputAction m_Title_MousePosition;
-    private readonly InputAction m_Title_Test;
+    private readonly InputAction m_Title_SelectUp;
+    private readonly InputAction m_Title_SelectDown;
+    private readonly InputAction m_Title_Decide;
     public struct TitleActions
     {
         private @InputMaster m_Wrapper;
         public TitleActions(@InputMaster wrapper) { m_Wrapper = wrapper; }
-        public InputAction @MousePosition => m_Wrapper.m_Title_MousePosition;
-        public InputAction @Test => m_Wrapper.m_Title_Test;
+        public InputAction @SelectUp => m_Wrapper.m_Title_SelectUp;
+        public InputAction @SelectDown => m_Wrapper.m_Title_SelectDown;
+        public InputAction @Decide => m_Wrapper.m_Title_Decide;
         public InputActionMap Get() { return m_Wrapper.m_Title; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -467,22 +490,28 @@ public partial class @InputMaster : IInputActionCollection2, IDisposable
         {
             if (m_Wrapper.m_TitleActionsCallbackInterface != null)
             {
-                @MousePosition.started -= m_Wrapper.m_TitleActionsCallbackInterface.OnMousePosition;
-                @MousePosition.performed -= m_Wrapper.m_TitleActionsCallbackInterface.OnMousePosition;
-                @MousePosition.canceled -= m_Wrapper.m_TitleActionsCallbackInterface.OnMousePosition;
-                @Test.started -= m_Wrapper.m_TitleActionsCallbackInterface.OnTest;
-                @Test.performed -= m_Wrapper.m_TitleActionsCallbackInterface.OnTest;
-                @Test.canceled -= m_Wrapper.m_TitleActionsCallbackInterface.OnTest;
+                @SelectUp.started -= m_Wrapper.m_TitleActionsCallbackInterface.OnSelectUp;
+                @SelectUp.performed -= m_Wrapper.m_TitleActionsCallbackInterface.OnSelectUp;
+                @SelectUp.canceled -= m_Wrapper.m_TitleActionsCallbackInterface.OnSelectUp;
+                @SelectDown.started -= m_Wrapper.m_TitleActionsCallbackInterface.OnSelectDown;
+                @SelectDown.performed -= m_Wrapper.m_TitleActionsCallbackInterface.OnSelectDown;
+                @SelectDown.canceled -= m_Wrapper.m_TitleActionsCallbackInterface.OnSelectDown;
+                @Decide.started -= m_Wrapper.m_TitleActionsCallbackInterface.OnDecide;
+                @Decide.performed -= m_Wrapper.m_TitleActionsCallbackInterface.OnDecide;
+                @Decide.canceled -= m_Wrapper.m_TitleActionsCallbackInterface.OnDecide;
             }
             m_Wrapper.m_TitleActionsCallbackInterface = instance;
             if (instance != null)
             {
-                @MousePosition.started += instance.OnMousePosition;
-                @MousePosition.performed += instance.OnMousePosition;
-                @MousePosition.canceled += instance.OnMousePosition;
-                @Test.started += instance.OnTest;
-                @Test.performed += instance.OnTest;
-                @Test.canceled += instance.OnTest;
+                @SelectUp.started += instance.OnSelectUp;
+                @SelectUp.performed += instance.OnSelectUp;
+                @SelectUp.canceled += instance.OnSelectUp;
+                @SelectDown.started += instance.OnSelectDown;
+                @SelectDown.performed += instance.OnSelectDown;
+                @SelectDown.canceled += instance.OnSelectDown;
+                @Decide.started += instance.OnDecide;
+                @Decide.performed += instance.OnDecide;
+                @Decide.canceled += instance.OnDecide;
             }
         }
     }
@@ -532,8 +561,9 @@ public partial class @InputMaster : IInputActionCollection2, IDisposable
     }
     public interface ITitleActions
     {
-        void OnMousePosition(InputAction.CallbackContext context);
-        void OnTest(InputAction.CallbackContext context);
+        void OnSelectUp(InputAction.CallbackContext context);
+        void OnSelectDown(InputAction.CallbackContext context);
+        void OnDecide(InputAction.CallbackContext context);
     }
     public interface IGameActions
     {

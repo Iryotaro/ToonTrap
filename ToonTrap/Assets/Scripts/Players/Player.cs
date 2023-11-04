@@ -132,7 +132,7 @@ namespace Ryocatusn
         {
             if (jankenableObjectApplicationService.Get(id).shape == jankenChanger.GetShape()) return;
             jankenableObjectApplicationService.ChangeShape(id, jankenChanger.GetShape());
-            jankenChanger.ChangePlayerShape();
+            jankenChanger.ChangePlayerShape(jankenChanger.GetShape());
         }
         private void AttackTrigger()
         {
