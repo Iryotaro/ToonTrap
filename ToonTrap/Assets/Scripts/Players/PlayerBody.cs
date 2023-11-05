@@ -17,8 +17,6 @@ namespace Ryocatusn
     [RequireComponent(typeof(SwfClipController))]
     public class PlayerBody : MonoBehaviour
     {
-        private JankenableObjectId playerId;
-
         [SerializeField]
         private Camera cameraFinalResult;
         [SerializeField]
@@ -40,6 +38,9 @@ namespace Ryocatusn
 
         [SerializeField]
         private SE playerShotSE;
+
+        private JankenableObjectId playerId;
+        private Hand.Shape shape;
 
         private Vector2 defaultPosition;
         private Vector2 offsetWhenLight = new Vector2(-1.86f, -1.58f);
@@ -66,18 +67,7 @@ namespace Ryocatusn
             swfClipController = GetComponent<SwfClipController>();
 
             playerId = gameManager.gameContains.player.id;
-
             JankenableObjectEvents playerEvents = gameManager.gameContains.player.events;
-
-            playerEvents.ChangeShapeEvent
-                .Where(_ => state == State.Idle)
-                .Subscribe(_ => Idle())
-                .AddTo(this);
-
-            playerEvents.ChangeShapeEvent
-                .Where(_ => state == State.IdleLight)
-                .Subscribe(_ => IdleLight())
-                .AddTo(this);
 
             playerEvents.ChangeShapeEvent
                 .Subscribe(x => leftHandSpriteRenderer.sprite = leftHands.GetAsset(x))
@@ -182,10 +172,17 @@ namespace Ryocatusn
             return OnCompleteEvent;
         }
 
+        public void UpdateHandShape()
+        {
+            shape = jankenableObjectApplicationService.Get(playerId).shape;
+
+            if (state == State.Idle) Idle();
+            else if (state == State.IdleLight) Idle();
+        }
+
         private Hand.Shape GetShape()
         {
-            if (playerId != null) return jankenableObjectApplicationService.Get(playerId).shape;
-            else return Hand.Shape.Rock;
+            return shape;
         }
     }
 }

@@ -26,7 +26,7 @@ namespace Ryocatusn
 
         private PlayerJankenChanger jankenChanger;
 
-        public bool isAllowedToReceiveAttack { get; private set; } = true;
+        public bool isAllowedToReceiveAttack { get; set; } = true;
 
         [SerializeField, Min(1)]
         private float m_moveRate = 1;

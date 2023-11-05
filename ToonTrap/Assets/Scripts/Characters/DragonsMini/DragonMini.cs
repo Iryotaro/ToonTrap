@@ -41,7 +41,7 @@ namespace Ryocatusn.Characters
 
         private Player player;
 
-        public bool isAllowedToReceiveAttack { get; private set; } = true;
+        public bool isAllowedToReceiveAttack { get; set; } = true;
 
         public int priority { get; } = 0;
 

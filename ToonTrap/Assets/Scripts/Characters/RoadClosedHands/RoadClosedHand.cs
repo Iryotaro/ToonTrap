@@ -27,7 +27,7 @@ namespace Ryocatusn.Characters
         [Inject]
         private AttackableObjectApplicationService attackableObjectApplicationService;
 
-        public bool isAllowedToReceiveAttack { get; } = true;
+        public bool isAllowedToReceiveAttack { get; set; } = true;
 
         private void Start()
         {

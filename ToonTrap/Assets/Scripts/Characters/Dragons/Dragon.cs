@@ -37,7 +37,7 @@ namespace Ryocatusn.Characters
             Appear
         }
 
-        public bool isAllowedToReceiveAttack { get; } = true;
+        public bool isAllowedToReceiveAttack { get; set; } = true;
 
         private void Start()
         {

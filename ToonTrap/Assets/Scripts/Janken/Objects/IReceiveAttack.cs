@@ -3,5 +3,5 @@
 public interface IReceiveAttack
 {
     JankenableObjectId GetId();
-    public bool isAllowedToReceiveAttack { get; }
+    public bool isAllowedToReceiveAttack { get; set; }
 }

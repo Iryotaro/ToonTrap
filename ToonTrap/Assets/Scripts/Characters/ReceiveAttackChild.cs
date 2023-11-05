@@ -13,7 +13,7 @@ namespace Ryocatusn.Characters
         public JankenBehaviour jankenBehaviour;
         public AttackBehaviour attackBehaviour;
 
-        public bool isAllowedToReceiveAttack { get; private set; } = true;
+        public bool isAllowedToReceiveAttack { get; set; } = true;
 
         public JankenableObjectId GetId()
         {

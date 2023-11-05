@@ -64,6 +64,11 @@ namespace Ryocatusn
 
             Vector2 startPosition = startTransform.tilePosition.Get().GetWorldPosition();
             stageStartPresenter.Play(startPosition, firstRoad, finish);
+
+            gameContains.player.isAllowedToReceiveAttack = false;
+            SetupStageEvent
+                .Subscribe(_ => gameContains.player.isAllowedToReceiveAttack = true)
+                .AddTo(this);
         }
 
         public StageData GetData()
