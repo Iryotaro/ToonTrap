@@ -85,7 +85,6 @@ namespace Ryocatusn
                 //敵がプレイヤーに攻撃しないよう距離を開けてる
                 player.tileTransform.SetDisable();
                 player.transform.position = new Vector2(-1000, -1000);
-                player.inputMaster.SetActiveAll(false);
                 PlayAnimation(attackAnimations, GetShape(), SwfClipController.LoopModes.Once);
                 //左手を打つタイミング
                 yield return new WaitUntil(() => swfClipController.clip.currentFrame >= 49);
@@ -105,7 +104,6 @@ namespace Ryocatusn
                     .OnComplete(() =>
                     {
                         player.tileTransform.ChangeTilemap(new Tilemap[] { firstRoad }, startPosition);
-                        player.inputMaster.SetActiveAll(true);
 
                         Idle();
 

@@ -66,8 +66,13 @@ namespace Ryocatusn
             stageStartPresenter.Play(startPosition, firstRoad, finish);
 
             gameContains.player.isAllowedToReceiveAttack = false;
+            gameContains.player.inputMaster.SetActiveAll(false);
             SetupStageEvent
-                .Subscribe(_ => gameContains.player.isAllowedToReceiveAttack = true)
+                .Subscribe(_ =>
+                {
+                    gameContains.player.isAllowedToReceiveAttack = true;
+                    gameContains.player.inputMaster.SetActiveAll(true);
+                })
                 .AddTo(this);
         }
 

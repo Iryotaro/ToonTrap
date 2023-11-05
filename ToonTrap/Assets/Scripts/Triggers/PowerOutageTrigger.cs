@@ -40,6 +40,8 @@ namespace Ryocatusn
             gameContains.lightContains.playerBodyLight.on = false;
             gameContains.lightContains.playerLight.spotLight.on = false;
 
+            gameContains.player.inputMaster.SetActiveAll(false);
+
             DOTween.Sequence()
                 .SetLink(gameContains.lightContains.globalLight.gameObject)
                 .Append(gameContains.lightContains.globalLight.DoChangeItencity(0, 1))
@@ -55,6 +57,7 @@ namespace Ryocatusn
                 {
                     gameContains.lightContains.playerLight.spotLight.on = true;
                     gameContains.lightMan.Appear();
+                    gameContains.player.inputMaster.SetActiveAll(true);
                 });
         }
         private void ResetLight()

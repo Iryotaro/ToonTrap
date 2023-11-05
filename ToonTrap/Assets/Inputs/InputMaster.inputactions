@@ -51,15 +51,6 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Special",
-                    "type": "Button",
-                    "id": "08783fe8-4095-405a-88b2-d25132d58598",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
                     "name": "ChangeHand",
                     "type": "Button",
                     "id": "e0409578-62b1-4aa5-b3cc-0b29f9fedb42",
@@ -166,17 +157,6 @@
                     "processors": "",
                     "groups": "",
                     "action": "Attack",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "ab482033-b02b-43ef-99b8-c43f99b89b89",
-                    "path": "<Keyboard>/enter",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Special",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },

@@ -74,7 +74,6 @@ namespace Ryocatusn
                 .AddTo(this);
 
             inputMaster.MoveEvent.Subscribe(_ => move = true).AddTo(this);
-            inputMaster.SpecialEvent.Subscribe(_ => Special()).AddTo(this);
             inputMaster.CancelMoveEvent.Subscribe(_ => move = false).AddTo(this);
             inputMaster.ChangeDirectionEvent.Subscribe(x => tileTransform.ChangeDirection(x)).AddTo(this);
             inputMaster.AttackEvent.Subscribe(_ => AttackTrigger()).AddTo(this);
@@ -111,23 +110,7 @@ namespace Ryocatusn
             IMoveDataCreater moveDataCreater = new MoveTranslate(tileTransform.tilePosition.Get(), tileTransform.tileDirection);
             tileTransform.SetMovement(moveDataCreater, moveRate);
         }
-        private void Special()
-        {
-            //仮
-            int winCombo = GetData().winCombo;
-            int moveStraightLineCount = 0;
-            if (5 <= winCombo && winCombo < 20) moveStraightLineCount = 2;
-            if (20 <= winCombo && winCombo < 50) moveStraightLineCount = 4;
-            if (50 <= winCombo) moveStraightLineCount = 7;
 
-            IMoveDataCreater moveDataCreater = new MoveStraightLine(tileTransform.tilePosition.Get(), tileTransform.tileDirection, moveStraightLineCount);
-            tileTransform.SetMovement(moveDataCreater, new MoveRate(50), TileTransform.SetMovementMode.Force);
-
-            tileTransform.movement.Match(_ => isAllowedToReceiveAttack = false);
-            tileTransform.movement.Match(x => x.CompleteEvent
-                .Subscribe(_ => isAllowedToReceiveAttack = true)
-                .AddTo(this));
-        }
         private void ChangeShape()
         {
             if (jankenableObjectApplicationService.Get(id).shape == jankenChanger.GetShape()) return;

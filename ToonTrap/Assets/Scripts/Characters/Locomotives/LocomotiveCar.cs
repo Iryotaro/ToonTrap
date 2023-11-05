@@ -69,10 +69,22 @@ namespace Ryocatusn.Characters
             finishAttack = true;
             tileTransform.SetDisable();
             Rigidbody2D rigid = GetComponent<Rigidbody2D>();
-            rigid.AddForce(Quaternion.Euler(0, 0, UnityEngine.Random.Range(0, 360)) * (Vector2.up * 15), ForceMode2D.Impulse);
 
+            Quaternion angle = Quaternion.Euler(0, 0, UnityEngine.Random.Range(0, 360));
+            rigid.AddForce(angle * (Vector2.up * 20), ForceMode2D.Impulse);
+
+            StartCoroutine(Move(angle));
             StartCoroutine(DestroyWhenOutSideOfCamera());
 
+            //たまに上手いこと飛んでいかないため
+            IEnumerator Move(Quaternion angle)
+            {
+                while (true)
+                {
+                    yield return new WaitForFixedUpdate();
+                    rigid.AddForce(angle * (Vector2.up * 5), ForceMode2D.Force);
+                }
+            }
             IEnumerator DestroyWhenOutSideOfCamera()
             {
                 yield return new WaitUntil(() => gameManager.gameContains.gameCamera.IsOutSideOfCamera(gameObject));

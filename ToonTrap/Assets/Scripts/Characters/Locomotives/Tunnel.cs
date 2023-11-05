@@ -4,9 +4,7 @@ using UnityEngine;
 using UniRx;
 using Zenject;
 using Ryocatusn.Photographers;
-using System.Collections;
 using Cysharp.Threading.Tasks;
-using System.Threading;
 
 namespace Ryocatusn.Characters
 {

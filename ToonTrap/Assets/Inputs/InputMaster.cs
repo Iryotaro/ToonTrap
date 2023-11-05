@@ -73,15 +73,6 @@ public partial class @InputMaster : IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Special"",
-                    ""type"": ""Button"",
-                    ""id"": ""08783fe8-4095-405a-88b2-d25132d58598"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
                     ""name"": ""ChangeHand"",
                     ""type"": ""Button"",
                     ""id"": ""e0409578-62b1-4aa5-b3cc-0b29f9fedb42"",
@@ -188,17 +179,6 @@ public partial class @InputMaster : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Attack"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""ab482033-b02b-43ef-99b8-c43f99b89b89"",
-                    ""path"": ""<Keyboard>/enter"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Special"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -321,7 +301,6 @@ public partial class @InputMaster : IInputActionCollection2, IDisposable
         m_Player_Rock = m_Player.FindAction("Rock", throwIfNotFound: true);
         m_Player_Scissors = m_Player.FindAction("Scissors", throwIfNotFound: true);
         m_Player_Paper = m_Player.FindAction("Paper", throwIfNotFound: true);
-        m_Player_Special = m_Player.FindAction("Special", throwIfNotFound: true);
         m_Player_ChangeHand = m_Player.FindAction("ChangeHand", throwIfNotFound: true);
         // Title
         m_Title = asset.FindActionMap("Title", throwIfNotFound: true);
@@ -395,7 +374,6 @@ public partial class @InputMaster : IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Rock;
     private readonly InputAction m_Player_Scissors;
     private readonly InputAction m_Player_Paper;
-    private readonly InputAction m_Player_Special;
     private readonly InputAction m_Player_ChangeHand;
     public struct PlayerActions
     {
@@ -406,7 +384,6 @@ public partial class @InputMaster : IInputActionCollection2, IDisposable
         public InputAction @Rock => m_Wrapper.m_Player_Rock;
         public InputAction @Scissors => m_Wrapper.m_Player_Scissors;
         public InputAction @Paper => m_Wrapper.m_Player_Paper;
-        public InputAction @Special => m_Wrapper.m_Player_Special;
         public InputAction @ChangeHand => m_Wrapper.m_Player_ChangeHand;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
@@ -432,9 +409,6 @@ public partial class @InputMaster : IInputActionCollection2, IDisposable
                 @Paper.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPaper;
                 @Paper.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPaper;
                 @Paper.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPaper;
-                @Special.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSpecial;
-                @Special.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSpecial;
-                @Special.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSpecial;
                 @ChangeHand.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnChangeHand;
                 @ChangeHand.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnChangeHand;
                 @ChangeHand.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnChangeHand;
@@ -457,9 +431,6 @@ public partial class @InputMaster : IInputActionCollection2, IDisposable
                 @Paper.started += instance.OnPaper;
                 @Paper.performed += instance.OnPaper;
                 @Paper.canceled += instance.OnPaper;
-                @Special.started += instance.OnSpecial;
-                @Special.performed += instance.OnSpecial;
-                @Special.canceled += instance.OnSpecial;
                 @ChangeHand.started += instance.OnChangeHand;
                 @ChangeHand.performed += instance.OnChangeHand;
                 @ChangeHand.canceled += instance.OnChangeHand;
@@ -556,7 +527,6 @@ public partial class @InputMaster : IInputActionCollection2, IDisposable
         void OnRock(InputAction.CallbackContext context);
         void OnScissors(InputAction.CallbackContext context);
         void OnPaper(InputAction.CallbackContext context);
-        void OnSpecial(InputAction.CallbackContext context);
         void OnChangeHand(InputAction.CallbackContext context);
     }
     public interface ITitleActions

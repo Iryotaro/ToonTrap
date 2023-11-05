@@ -127,7 +127,8 @@ namespace Ryocatusn
 
         private void CreateBoomEffect()
         {
-            Instantiate(boomEffect, transform.position, Quaternion.identity);
+            GameObject boomEffect = Instantiate(this.boomEffect, transform.position, Quaternion.identity);
+            Destroy(boomEffect, 5);
         }
     }
 }
