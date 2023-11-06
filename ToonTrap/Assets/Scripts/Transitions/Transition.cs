@@ -7,9 +7,11 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using System;
 using UniRx;
+using System.Linq;
 
 namespace Ryocatusn
 {
+    [RequireComponent(typeof(Canvas))]
     public class Transition : MonoBehaviour
     {
         [SerializeField]
@@ -25,16 +27,43 @@ namespace Ryocatusn
 
         private TransitionSettings transitionSettings;
 
-        private void Start()
+        private bool isLoading = false;
+
+        public static void FullLoadScene(string unloadSceneName, string loadSceneName, TransitionSettings transitionSettings, Action<bool> finish = null)
         {
-            transitionSettings = TransitionSettings.Default();
+            Transition.FullLoadScenes(new string[] { unloadSceneName }, new string[] { loadSceneName }, transitionSettings, finish);
         }
-        public void LoadScene(string unloadSceneName, string loadSceneName, TransitionSettings transitionSettings, Action finish = null)
+        public static void FullLoadScenes(string[] unloadSceneNames, string[] loadSceneNames, TransitionSettings transitionSettings, Action<bool> finish = null)
         {
-            LoadScene(new string[] { unloadSceneName }, new string[] { loadSceneName }, transitionSettings, finish);
+            SceneManager.LoadScene("FullTransition", LoadSceneMode.Additive);
+            Observable.NextFrame()
+                .FirstOrDefault()
+                .Subscribe(_ =>
+                {
+                    GameObject[] rootGameObjects = SceneManager.GetSceneByName("FullTransition").GetRootGameObjects();
+                    Transition transition = rootGameObjects.Select(x => x.GetComponent<Transition>()).Where(x => x != null).First();
+
+                    transition.LoadScenes(unloadSceneNames, loadSceneNames, transitionSettings, x =>
+                    {
+                        SceneManager.UnloadSceneAsync("FullTransition");
+                        finish?.Invoke(x);
+                    });
+                });
         }
-        public void LoadScene(string[] unloadSceneNames, string[] loadSceneNames, TransitionSettings transitionSettings, Action finish = null)
+
+        public void LoadScene(string unloadSceneName, string loadSceneName, TransitionSettings transitionSettings, Action<bool> finish = null)
         {
+            LoadScenes(new string[] { unloadSceneName }, new string[] { loadSceneName }, transitionSettings, finish);
+        }
+        public void LoadScenes(string[] unloadSceneNames, string[] loadSceneNames, TransitionSettings transitionSettings, Action<bool> finish = null)
+        {
+            if (isLoading) 
+            {
+                finish?.Invoke(false);
+                return;
+            };
+            isLoading = true;
+
             this.transitionSettings = transitionSettings;
 
             SEPlayer sePlayer = new SEPlayer(gameObject);
@@ -44,30 +73,27 @@ namespace Ryocatusn
             ChangeHandSprite();
 
             Sequence sequence = DOTween.Sequence();
-
             sequence
                 .SetLink(transitionMask.gameObject)
                 .Append(ShrinkTransitionMask(transitionMask, 3))
                 .AppendCallback(() =>
                 {
-                    foreach (string loadSceneName in loadSceneNames)
-                    {
-                        SceneManager.LoadScene(loadSceneName, LoadSceneMode.Additive);
-                    }
+                    LoadScenes(loadSceneNames);
                     
                     Observable.NextFrame()
                     .Subscribe(_ =>
                     {
-                        foreach (string unloadSceneName in unloadSceneNames)
-                        {
-                            SceneManager.UnloadSceneAsync(unloadSceneName);
-                        }
+                        UnloadScenes(unloadSceneNames);
                     })
                     .AddTo(this);
                 })
                 .AppendInterval(0.5f)
                 .Append(EnlargeTransitionMask(transitionMask, 3))
-                .OnComplete(() => finish?.Invoke());
+                .OnComplete(() =>
+                {
+                    isLoading = false;
+                    finish?.Invoke(true);
+                });
         }
 
         private Tween EnlargeTransitionMask(Unmask transitionMask, float duration)
@@ -94,6 +120,22 @@ namespace Ryocatusn
                 duration
                 )
                 .SetEase(shrinkEase);
+        }
+
+        private void LoadScenes(string[] loadSceneNames)
+        {
+            foreach (string loadSceneName in loadSceneNames)
+            {
+                SceneManager.LoadScene(loadSceneName, LoadSceneMode.Additive);
+            }
+        }
+
+        private void UnloadScenes(string[] unloadSceneNames)
+        {
+            foreach (string unloadSceneName in unloadSceneNames)
+            {
+                SceneManager.UnloadSceneAsync(unloadSceneName);
+            }
         }
 
         private void ChangeHandSprite()

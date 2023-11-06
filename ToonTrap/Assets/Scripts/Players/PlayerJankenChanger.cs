@@ -22,6 +22,7 @@ namespace Ryocatusn
         private void Start()
         {
             gameManager.SetStageEvent
+                .FirstOrDefault()
                 .Subscribe(_ => StartCoroutine(ChangeShape()))
                 .AddTo(this);
 

@@ -12,6 +12,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Game.unity
     guid: a61922f29be9148498b6809bd3e855ee
   - enabled: 1
+    path: Assets/Scenes/FullTransition.unity
+    guid: 218a58ee3d5eee445a97ffc6624a9e0b
+  - enabled: 1
     path: Assets/Scenes/Tutorial.unity
     guid: 0c9d983c2c7b1074bb501dcb4f8f8c06
   - enabled: 1
@@ -30,10 +33,7 @@ EditorBuildSettings:
     path: Assets/Scenes/Stage5.unity
     guid: bf8c8cf6c2b263f4ca6777ffb875f2f1
   - enabled: 1
-    path: Assets/Scenes/Transition.unity
-    guid: 5d1d99aecb0b37644ab383bdf45de99b
-  - enabled: 1
-    path: Assets/Scenes/Clear.unity
-    guid: 087922c9b0ef4489d909f03793735f9e
+    path: Assets/Scenes/Stage6.unity
+    guid: db907cca1c656d148b172d96a70b44d7
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 3f5ad531c16e9854a8cd782eaa6ec00d, type: 2}

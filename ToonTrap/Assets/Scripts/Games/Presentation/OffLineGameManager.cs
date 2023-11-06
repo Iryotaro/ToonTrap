@@ -22,18 +22,16 @@ namespace Ryocatusn.Games
         [SerializeField]
         private PlayerLight playerLight;
         [SerializeField]
-        private SwfClipLight playerBodyLight;
-        [SerializeField]
         private AudioSource bgm;
         [SerializeField]
-        private Conversation conversation;
+        private WeatherEffects weatherEffects;
         [SerializeField]
         private Transition transition;
         
         private void Awake()
         {
-            LightContains lightContains = new LightContains(globalLight, playerLight, playerBodyLight);
-            GameContains gameContains = new GameContains(player, playerBody, lightMan, gameCamera, lightContains, bgm, conversation, transition);
+            LightContains lightContains = new LightContains(globalLight, playerLight);
+            GameContains gameContains = new GameContains(player, playerBody, lightMan, gameCamera, lightContains, bgm, weatherEffects, transition);
             Create(gameContains);
 
             events.NextSceneEvent

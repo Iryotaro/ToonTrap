@@ -104,8 +104,10 @@ namespace Ryocatusn.Games
                     StageData prevStageData = prevStageData = stageApplicationService.Get(x);
 
                     Hand.Shape shape = jankenableObjectApplicationService.Get(gameContains.player.id).shape;
-                    gameContains.transition.LoadScene(prevStageData.name.value, nextStageData.name.value, new TransitionSettings(gameContains.player.transform, shape), () =>
+                    gameContains.transition.LoadScene(prevStageData.name.value, nextStageData.name.value, new TransitionSettings(gameContains.player.transform, shape), x =>
                     {
+                        if (!x) Debug.LogError("NextStage‚ÉŽ¸”s‚µ‚Ü‚µ‚½");
+
                         SetupStage(nextStageId, gameContains);
                         gameContains.player.inputMaster.SetActiveAll(true);
                     });
@@ -120,10 +122,6 @@ namespace Ryocatusn.Games
         protected void MoveToClear(StageId finalStageId)
         {
             MoveToScene(finalStageId, gameContains.player, "Clear");
-        }
-        protected void MoveToOver(StageId finalStageId)
-        {
-            MoveToScene(finalStageId, gameContains.player, "Over");
         }
         protected void ResetStage(StageId stageId)
         {
@@ -169,7 +167,7 @@ namespace Ryocatusn.Games
             StageData finalStageData = stageApplicationService.Get(finalStageId);
 
             Hand.Shape shape = jankenableObjectApplicationService.Get(player.id).shape;
-            //Transition.LoadScene(new string[] { finalStageData.name.value, mainName }, new string[] { sceneName }, new TransitionSettings(player.transform, gameContains.gameCamera.camera, shape));
+            gameContains.transition.LoadScenes(new string[] { finalStageData.name.value, "Game" }, new string[] { sceneName }, new TransitionSettings(shape));
         }
 
         public Vector2 GetWorldPositoinOnFinalResult(Vector2 targetPositionOnGame)

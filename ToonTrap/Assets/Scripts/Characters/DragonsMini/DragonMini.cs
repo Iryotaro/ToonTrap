@@ -59,7 +59,13 @@ namespace Ryocatusn.Characters
 
             player = gameManager.gameContains.player;
 
-            dragonView.SetUp();
+            stageManager
+                .SetupStageEvent
+                .Subscribe(_ =>
+                {
+                    dragonView.SetUp();
+                })
+                .AddTo(this);
 
             dragonView.AttackTriggerEvent
             .Subscribe(_ => AttackTrigger())

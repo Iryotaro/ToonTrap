@@ -1,3 +1,4 @@
+using Ryocatusn.Audio;
 using Ryocatusn.Janken;
 using Ryocatusn.Janken.JankenableObjects;
 using Ryocatusn.Lights;
@@ -28,11 +29,15 @@ namespace Ryocatusn.Characters
         [SerializeField]
         [Min(1)]
         private float changeShapeWaitTime;
+        [SerializeField]
+        private SE se;
 
         private Vector2 randomPosition;
         private bool appeared = false;
 
         private Animator animator;
+
+        private SEPlayer sePlayer;
 
         private void Start()
         {
@@ -68,6 +73,8 @@ namespace Ryocatusn.Characters
                     ChangeShape(Hand.GetRandomShape());
                 }
             }
+
+            sePlayer = new SEPlayer(gameObject);
         }
 
         private void Update()
@@ -161,6 +168,12 @@ namespace Ryocatusn.Characters
                     Vector2 currentVelocity = Vector2.zero;
                     spotLight.transform.position = Vector2.SmoothDamp(spotLight.transform.position, randomPosition, ref currentVelocity, 0.2f);
                 });
+        }
+
+        public void PlaySE(float volume)
+        {
+            se = se.ChangeVolume(volume);
+            sePlayer.Play(se);
         }
     }
 }

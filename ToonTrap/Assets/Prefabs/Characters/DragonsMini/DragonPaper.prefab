@@ -461,7 +461,6 @@ GameObject:
   m_Component:
   - component: {fileID: 6855164781039902297}
   - component: {fileID: 6855164781039902294}
-  - component: {fileID: 6855164781039902296}
   m_Layer: 0
   m_Name: Born3IK
   m_TagString: Untagged
@@ -520,33 +519,6 @@ MonoBehaviour:
     targetPosition: {x: 0.13157654, y: 0.06546116, z: 0}
     iterations: 10
     damping: 0.8
---- !u!50 &6855164781039902296
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6855164781039902295}
-  m_BodyType: 0
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
 --- !u!1 &6855164781234264419
 GameObject:
   m_ObjectHideFlags: 0

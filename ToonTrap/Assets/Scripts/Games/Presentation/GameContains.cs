@@ -1,5 +1,4 @@
-﻿using Ryocatusn.Conversations;
-using UnityEngine;
+﻿using UnityEngine;
 using Ryocatusn.Lights;
 using Ryocatusn.Characters;
 
@@ -13,7 +12,7 @@ namespace Ryocatusn
         public GameCamera gameCamera { get; }
         public LightContains lightContains { get; }
         public AudioSource bgm { get; }
-        public Conversation conversation { get; }
+        public WeatherEffects weatherEffects { get; }
         public Transition transition { get; }
 
         public GameContains
@@ -24,7 +23,7 @@ namespace Ryocatusn
             GameCamera gameCamera,
             LightContains lightContains,
             AudioSource bgm,
-            Conversation conversation,
+            WeatherEffects weatherEffects,
             Transition transition
             )
         {
@@ -34,7 +33,7 @@ namespace Ryocatusn
             this.gameCamera = gameCamera;
             this.lightContains = lightContains;
             this.bgm = bgm;
-            this.conversation = conversation;
+            this.weatherEffects = weatherEffects;
             this.transition = transition;
         }
     }

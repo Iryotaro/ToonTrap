@@ -11,12 +11,18 @@ namespace Ryocatusn
     {
         [Inject]
         private GameManager gameManager;
+        [SerializeField]
+        private bool outage = true;
 
         private void Start()
         {
             GetComponent<TileTransformTrigger>().OnHitPlayerEvent
                 .FirstOrDefault()
-                .Subscribe(_ => PowerOutage())
+                .Subscribe(_ =>
+                {
+                    if (outage) PowerOutage();
+                    else ResetLight();
+                })
                 .AddTo(this);
 
             gameManager
@@ -37,7 +43,6 @@ namespace Ryocatusn
         private void PowerOutage()
         {
             GameContains gameContains = gameManager.gameContains;
-            gameContains.lightContains.playerBodyLight.on = false;
             gameContains.lightContains.playerLight.spotLight.on = false;
 
             gameContains.player.inputMaster.SetActiveAll(false);
@@ -49,7 +54,6 @@ namespace Ryocatusn
                 .AppendInterval(0.5f)
                 .AppendCallback(() =>
                 {
-                    gameContains.lightContains.playerBodyLight.on = true;
                     gameContains.playerBody.HoldLight();
                 })
                 .AppendInterval(3)
@@ -63,7 +67,6 @@ namespace Ryocatusn
         private void ResetLight()
         {
             GameContains gameContains = gameManager.gameContains;
-            gameContains.lightContains.playerBodyLight.on = false;
             gameContains.lightContains.playerLight.spotLight.on = false;
 
             gameContains.playerBody.Idle();

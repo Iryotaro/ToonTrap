@@ -18,13 +18,13 @@ namespace Ryocatusn
 
         private void Start()
         {
-            Conversation conversation = gameManager.gameContains.conversation;
+            //Conversation conversation = gameManager.gameContains.conversation;
 
-            GetComponent<TileTransformTrigger>().OnHitPlayerEvent
-                .FirstOrDefault()
-                .Where(_ => conversation != null)
-                .Subscribe(_ => { /*メッセージ表示*/ })
-                .AddTo(this);
+            //GetComponent<TileTransformTrigger>().OnHitPlayerEvent
+            //    .FirstOrDefault()
+            //    .Where(_ => conversation != null)
+            //    .Subscribe(_ => { /*メッセージ表示*/ })
+            //    .AddTo(this);
         }
 
         [Serializable]

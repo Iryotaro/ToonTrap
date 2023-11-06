@@ -95,20 +95,25 @@ namespace Ryocatusn
                 Vector2 playerPosition = gameManager.GetWorldPositionOnGame(leftHandAnimator.transform.position);
                 player.transform.position = playerPosition;
 
-                Sequence sequence = DOTween.Sequence();
-                sequence
-                    .SetLink(player.gameObject)
-                    .Append(player.transform.DOMove(startPosition, 1))
-                    .Join(player.transform.DORotate(new Vector3(0, 0, 360 * 3), 1, RotateMode.FastBeyond360))
-                    .SetEase(Ease.InOutSine)
-                    .OnComplete(() =>
+                Observable.NextFrame()
+                    .Subscribe(_ =>
                     {
-                        player.tileTransform.ChangeTilemap(new Tilemap[] { firstRoad }, startPosition);
+                        Sequence sequence = DOTween.Sequence();
+                        sequence
+                            .SetLink(player.gameObject)
+                            .Append(player.transform.DOMove(startPosition, 1))
+                            .Join(player.transform.DORotate(new Vector3(0, 0, 360 * 3), 1, RotateMode.FastBeyond360))
+                            .SetEase(Ease.InOutSine)
+                            .OnComplete(() =>
+                            {
+                                player.tileTransform.ChangeTilemap(new Tilemap[] { firstRoad }, startPosition);
 
-                        Idle();
+                                Idle();
 
-                        finish();
-                    });
+                                finish();
+                            });
+                    })
+                    .AddTo(this);
             }
         }
         public void Idle()
@@ -175,7 +180,7 @@ namespace Ryocatusn
             shape = jankenableObjectApplicationService.Get(playerId).shape;
 
             if (state == State.Idle) Idle();
-            else if (state == State.IdleLight) Idle();
+            else if (state == State.IdleLight) IdleLight();
         }
 
         private Hand.Shape GetShape()

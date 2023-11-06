@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 356115377310199023}
   - component: {fileID: 356115377310199021}
   - component: {fileID: 356115377310199022}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: Transition
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -59,7 +59,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.09433961, g: 0.09433961, b: 0.09433961, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -89,7 +89,7 @@ GameObject:
   - component: {fileID: 356115378537269634}
   - component: {fileID: 356115378537269635}
   - component: {fileID: 356115378537269636}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: TransitionCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -236,9 +236,9 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   transitionSE:
-    audioClip: {fileID: 8300000, guid: 35cf7766e9e2aa542811e896fde57989, type: 3}
-    pitch: 0.2
-    volume: 0.5
+    audioClip: {fileID: 8300000, guid: e05af66849a577242905f0308610ca1d, type: 3}
+    pitch: 0.6
+    volume: 0.8
     loop: 0
     onlyVisible: 0
   handSprites:
@@ -257,7 +257,7 @@ GameObject:
   - component: {fileID: 356115378967366289}
   - component: {fileID: 356115378967366290}
   - component: {fileID: 356115378967366291}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: Mask
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -283,7 +283,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 7}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &356115378967366289
@@ -349,7 +349,7 @@ GameObject:
   - component: {fileID: 356115379344660146}
   - component: {fileID: 356115379344660144}
   - component: {fileID: 356115379344660111}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: Unmask
   m_TagString: Untagged
   m_Icon: {fileID: 0}

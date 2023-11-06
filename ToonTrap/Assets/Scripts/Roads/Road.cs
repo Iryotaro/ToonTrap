@@ -74,7 +74,8 @@ namespace Ryocatusn
                 {
                     stageManager.AddRoad(tilemap);
                     StartCoroutine(AppearRoadCoroutine(GetTiles(tilemap, gameManager.gameContains.player)));
-                }).AddTo(this);
+                })
+                .AddTo(this);
         }
         public void Disappear()
         {
@@ -86,7 +87,8 @@ namespace Ryocatusn
                 {
                     stageManager.RemoveRoad(tilemap);
                     StartCoroutine(DisappearRoadCoroutine(GetTiles(tilemap, gameManager.gameContains.player)));
-                }).AddTo(this);
+                })
+                .AddTo(this);
         }
 
         private IEnumerator AppearRoadCoroutine(List<Vector3Int> positions)

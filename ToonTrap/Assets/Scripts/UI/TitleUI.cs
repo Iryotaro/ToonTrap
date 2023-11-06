@@ -38,10 +38,19 @@ namespace Ryocatusn.UI
             input.Title.SelectUp.performed += ctx => ChangeChoice(Choice.Start);
             input.Title.SelectDown.performed += ctx => ChangeChoice(Choice.Quit);
 
+            bool started = false;
+
             input.Title.Decide.performed += ctx =>
             {
-                if (choice == Choice.Start) StartGame();
-                else if (choice == Choice.Quit) Quit();
+                if (choice == Choice.Start && !started)
+                {
+                    started = true;
+                    StartGame();
+                }
+                else if (choice == Choice.Quit)
+                {
+                    Quit();
+                }
             };
 
             ChangeChoice(Choice.Start);
@@ -65,7 +74,7 @@ namespace Ryocatusn.UI
 
         private void StartGame()
         {
-            transition.LoadScene("Title", "Game", TransitionSettings.Default());
+            Transition.FullLoadScene("Title", "Game", TransitionSettings.Default());
         }
         private void Quit()
         {

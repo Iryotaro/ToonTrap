@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-8139036310868900966
+--- !u!114 &-2985592636998606758
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: FullScreenPassRendererFeature
   m_EditorClassIdentifier: 
   m_Active: 1
-  passMaterial: {fileID: 2100000, guid: 57b6d95e81c2edf4d806a509d4e2fb36, type: 2}
+  passMaterial: {fileID: 2100000, guid: aca761e61d97c3b47ba6b0a47df3a820, type: 2}
   injectionPoint: 600
   requirements: 4
   passIndex: 0
@@ -32,8 +32,8 @@ MonoBehaviour:
   debugShaders:
     debugReplacementPS: {fileID: 4800000, guid: cf852408f2e174538bcd9b7fda1c5ae7, type: 3}
   m_RendererFeatures:
-  - {fileID: -8139036310868900966}
-  m_RendererFeatureMap: 9a43a70499550c8f
+  - {fileID: -2985592636998606758}
+  m_RendererFeatureMap: 5a20ada3500b91d6
   m_UseNativeRenderPass: 0
   postProcessData: {fileID: 11400000, guid: 41439944d30ece34e96484bdb6645b55, type: 2}
   xrSystemData: {fileID: 11400000, guid: 60e1133243b97e347b653163a8c01b64, type: 2}

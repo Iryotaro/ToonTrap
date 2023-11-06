@@ -1,7 +1,6 @@
 using Anima2D;
 using DG.Tweening;
 using Ryocatusn.Games;
-using Ryocatusn.Photographers;
 using System;
 using System.Collections;
 using UniRx;
