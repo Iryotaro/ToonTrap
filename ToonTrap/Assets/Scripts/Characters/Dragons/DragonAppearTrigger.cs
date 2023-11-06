@@ -1,5 +1,5 @@
-﻿using UnityEngine;
-using UniRx;
+﻿using UniRx;
+using UnityEngine;
 
 namespace Ryocatusn.Characters
 {

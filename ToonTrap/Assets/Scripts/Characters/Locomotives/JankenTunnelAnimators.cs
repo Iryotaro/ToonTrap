@@ -1,6 +1,6 @@
+using Ryocatusn.Janken;
 using System;
 using UnityEngine;
-using Ryocatusn.Janken;
 
 namespace Ryocatusn.Characters
 {

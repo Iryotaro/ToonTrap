@@ -1,10 +1,10 @@
-using Ryocatusn.Janken;
-using System;
-using UnityEngine;
-using UniRx;
-using Zenject;
-using Ryocatusn.Photographers;
 using Cysharp.Threading.Tasks;
+using Ryocatusn.Janken;
+using Ryocatusn.Photographers;
+using System;
+using UniRx;
+using UnityEngine;
+using Zenject;
 
 namespace Ryocatusn.Characters
 {

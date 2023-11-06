@@ -1,5 +1,5 @@
-using System.Collections.Generic;
 using Ryocatusn.Janken.JankenableObjects;
+using System.Collections.Generic;
 
 namespace Ryocatusn.Characters
 {

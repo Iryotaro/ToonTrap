@@ -9,8 +9,8 @@ using Ryocatusn.Janken.AttackableObjects.Repository;
 using Ryocatusn.Janken.JankenableObjects;
 using Ryocatusn.Janken.JankenableObjects.Repository;
 using Ryocatusn.Janken.Repository;
-using Ryocatusn.StageCreaters;
 using Ryocatusn.Photographers;
+using Ryocatusn.StageCreaters;
 using UnityEngine;
 using Zenject;
 

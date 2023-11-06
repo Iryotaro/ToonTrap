@@ -1,10 +1,10 @@
-using UnityEngine;
-using UniRx;
-using Ryocatusn.Characters;
-using System.Collections;
-using Zenject;
-using Ryocatusn.Games;
 using Ryocatusn.Audio;
+using Ryocatusn.Characters;
+using Ryocatusn.Games;
+using System.Collections;
+using UniRx;
+using UnityEngine;
+using Zenject;
 
 namespace Ryocatusn
 {
@@ -40,7 +40,7 @@ namespace Ryocatusn
                 .Subscribe(_ => StartCoroutine(Play()))
                 .AddTo(this);
         }
-        
+
         private IEnumerator Play()
         {
             beginCamera = VirtualCameraManager.instance.FindEnableCamera().Get();

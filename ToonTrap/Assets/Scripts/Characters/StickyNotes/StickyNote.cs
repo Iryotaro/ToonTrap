@@ -1,8 +1,8 @@
-using UnityEngine;
 using Ryocatusn.Janken;
-using Ryocatusn.Janken.JankenableObjects;
 using Ryocatusn.Janken.AttackableObjects;
+using Ryocatusn.Janken.JankenableObjects;
 using UniRx;
+using UnityEngine;
 
 namespace Ryocatusn.Characters
 {

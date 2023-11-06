@@ -41,7 +41,7 @@ namespace Ryocatusn
         private BulletFactory bulletFactory;
         [SerializeField]
         private Bullet bullet;
-        
+
         [SerializeField]
         private SE attackSE;
         [SerializeField]

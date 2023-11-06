@@ -1,8 +1,8 @@
-using UnityEngine;
+using System;
 using System.Collections;
 using System.Linq;
 using UniRx;
-using System;
+using UnityEngine;
 
 namespace Ryocatusn.Characters
 {

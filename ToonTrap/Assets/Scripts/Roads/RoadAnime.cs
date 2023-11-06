@@ -1,6 +1,6 @@
 using Ryocatusn.Audio;
-using UnityEngine;
 using Ryocatusn.Games;
+using UnityEngine;
 using Zenject;
 
 namespace Ryocatusn

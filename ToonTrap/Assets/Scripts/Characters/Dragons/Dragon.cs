@@ -1,11 +1,11 @@
-using Ryocatusn.Janken;
-using Ryocatusn.Janken.JankenableObjects;
-using UnityEngine;
-using UniRx;
-using System;
-using Ryocatusn.Janken.AttackableObjects;
-using Zenject;
 using Ryocatusn.Audio;
+using Ryocatusn.Janken;
+using Ryocatusn.Janken.AttackableObjects;
+using Ryocatusn.Janken.JankenableObjects;
+using System;
+using UniRx;
+using UnityEngine;
+using Zenject;
 
 namespace Ryocatusn.Characters
 {
@@ -61,14 +61,14 @@ namespace Ryocatusn.Characters
             if (dragonAnimator == null) return;
 
             if (appearType == AppearType.Appear) dragonAnimator.PlayAnimation(DragonAnimator.AnimationType.Appear);
-            else dragonAnimator.PlayAnimations(new DragonAnimator.AnimationType[3] 
+            else dragonAnimator.PlayAnimations(new DragonAnimator.AnimationType[3]
             {
                 DragonAnimator.AnimationType.FirstAppearance,
                 DragonAnimator.AnimationType.Provocation,
                 DragonAnimator.AnimationType.Disappear,
             });
         }
-        
+
         private void Attack()
         {
             AttackableObjectCreateCommand command = new AttackableObjectCreateCommand(id, GetShape(), new Atk(1));

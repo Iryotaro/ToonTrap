@@ -1,12 +1,12 @@
-using Ryocatusn.Characters;
-using System.Collections;
-using UnityEngine;
-using UniRx;
-using Zenject;
-using Ryocatusn.Games;
-using Ryocatusn.TileTransforms;
 using Ryocatusn.Audio;
+using Ryocatusn.Characters;
+using Ryocatusn.Games;
 using Ryocatusn.Janken.JankenableObjects;
+using Ryocatusn.TileTransforms;
+using System.Collections;
+using UniRx;
+using UnityEngine;
+using Zenject;
 
 namespace Ryocatusn
 {

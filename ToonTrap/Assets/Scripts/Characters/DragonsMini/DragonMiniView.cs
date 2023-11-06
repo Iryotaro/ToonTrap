@@ -88,7 +88,7 @@ namespace Ryocatusn.Characters
         {
             dragonMouth.StartAttackAnimation();
         }
-        
+
         public bool IsVisible()
         {
             return skinnedMeshRenderer.isVisible;

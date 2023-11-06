@@ -1,12 +1,12 @@
 using Ryocatusn.Games;
+using Ryocatusn.Games.Stages;
 using System.Collections.Generic;
+using UniRx;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Zenject;
-using UniRx;
-using Ryocatusn.Games.Stages;
 
-namespace Ryocatusn.StageCreaters 
+namespace Ryocatusn.StageCreaters
 {
     public class StageCreater : MonoBehaviour
     {

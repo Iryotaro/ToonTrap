@@ -1,11 +1,11 @@
 using DG.Tweening;
 using Ryocatusn.Audio;
+using Ryocatusn.Games;
 using Ryocatusn.Util;
 using System;
 using TMPro;
-using Zenject;
-using Ryocatusn.Games;
 using UnityEngine;
+using Zenject;
 
 namespace Ryocatusn.Conversations
 {

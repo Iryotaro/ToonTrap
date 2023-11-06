@@ -1,7 +1,6 @@
 using System;
-using UnityEngine;
 using UniRx;
-using Ryocatusn.Games;
+using UnityEngine;
 
 namespace Ryocatusn.Characters
 {
@@ -64,7 +63,7 @@ namespace Ryocatusn.Characters
         public void PlayAnimations(AnimationType[] animationTypes, int index = 0)
         {
             if (animationTypes.Length <= index) return;
-            
+
             AnimationType animationType = animationTypes[index];
             FrameAnimator animator = PlayAnimation(animationType);
             animator.CompleteSubjet

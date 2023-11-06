@@ -53,7 +53,7 @@ namespace Ryocatusn.Characters
         }
         protected void ReAttack()
         {
-            attackableObjectApplicationService.ReAttack(id);
+            if (attackableObjectApplicationService.IsEnable(id)) attackableObjectApplicationService.ReAttack(id);
         }
     }
 }

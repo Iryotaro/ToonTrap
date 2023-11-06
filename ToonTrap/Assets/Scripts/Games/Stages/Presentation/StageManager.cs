@@ -29,7 +29,7 @@ namespace Ryocatusn
         public List<Tilemap> roads = new List<Tilemap>();
 
         private BehaviorSubject<GameContains> setupStageEvent = new BehaviorSubject<GameContains>(null);
-        private BehaviorSubject<Tilemap[]> changeRoadEvent = new BehaviorSubject<Tilemap[]>(new Tilemap[] {  });
+        private BehaviorSubject<Tilemap[]> changeRoadEvent = new BehaviorSubject<Tilemap[]>(new Tilemap[] { });
         private Subject<Unit> overEvent = new Subject<Unit>();
         private Subject<Unit> clearEvent = new Subject<Unit>();
 

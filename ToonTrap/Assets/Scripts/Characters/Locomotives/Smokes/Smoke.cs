@@ -1,6 +1,6 @@
-using UnityEngine;
 using DG.Tweening;
 using FTRuntime;
+using UnityEngine;
 
 namespace Ryocatusn.Characters
 {

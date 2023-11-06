@@ -1,8 +1,8 @@
-using UnityEngine;
-using UniRx;
-using Zenject;
-using Ryocatusn.Games;
 using DG.Tweening;
+using Ryocatusn.Games;
+using UniRx;
+using UnityEngine;
+using Zenject;
 
 namespace Ryocatusn
 {
@@ -27,7 +27,7 @@ namespace Ryocatusn
 
             gameManager
                 .SetStageEvent
-                .Subscribe(x => 
+                .Subscribe(x =>
                 {
                     x.OverEvent
                     .Subscribe(_ => ResetLight())
@@ -50,6 +50,7 @@ namespace Ryocatusn
             DOTween.Sequence()
                 .SetLink(gameContains.lightContains.globalLight.gameObject)
                 .Append(gameContains.lightContains.globalLight.DoChangeItencity(0, 1))
+                .Join(ChangePitch(gameContains.bgm, 0.6f, 1))
                 .SetEase(Ease.InOutCubic)
                 .AppendInterval(0.5f)
                 .AppendCallback(() =>
@@ -72,9 +73,22 @@ namespace Ryocatusn
             gameContains.playerBody.Idle();
             gameContains.lightMan.Disappear();
 
+            gameContains.bgm.pitch = 1;
+
             gameContains.lightContains.globalLight.DoChangeItencity(1, 1)
                 .SetLink(gameContains.lightContains.globalLight.gameObject)
                 .SetEase(Ease.InOutCubic);
+        }
+
+        private Tween ChangePitch(AudioSource audioSource, float endValue, float duration)
+        {
+            return DOTween.To
+                (
+                () => audioSource.pitch,
+                x => audioSource.pitch = x,
+                endValue,
+                duration
+                );
         }
     }
 }

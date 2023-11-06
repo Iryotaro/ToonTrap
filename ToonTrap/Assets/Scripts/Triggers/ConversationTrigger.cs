@@ -1,7 +1,6 @@
 using Ryocatusn.Conversations;
 using Ryocatusn.Games;
 using System;
-using UniRx;
 using UnityEngine;
 using Zenject;
 

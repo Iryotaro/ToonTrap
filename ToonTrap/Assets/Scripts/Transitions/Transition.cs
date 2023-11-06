@@ -2,12 +2,12 @@
 using DG.Tweening;
 using Ryocatusn.Audio;
 using Ryocatusn.Janken;
+using System;
+using System.Linq;
+using UniRx;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using System;
-using UniRx;
-using System.Linq;
 
 namespace Ryocatusn
 {
@@ -57,7 +57,7 @@ namespace Ryocatusn
         }
         public void LoadScenes(string[] unloadSceneNames, string[] loadSceneNames, TransitionSettings transitionSettings, Action<bool> finish = null)
         {
-            if (isLoading) 
+            if (isLoading)
             {
                 finish?.Invoke(false);
                 return;
@@ -79,7 +79,7 @@ namespace Ryocatusn
                 .AppendCallback(() =>
                 {
                     LoadScenes(loadSceneNames);
-                    
+
                     Observable.NextFrame()
                     .Subscribe(_ =>
                     {

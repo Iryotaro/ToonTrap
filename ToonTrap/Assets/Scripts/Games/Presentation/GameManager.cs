@@ -1,11 +1,9 @@
-using DG.Tweening.Core.Easing;
 using Ryocatusn.Games.Stages;
 using Ryocatusn.Janken;
 using Ryocatusn.Janken.JankenableObjects;
 using Ryocatusn.Util;
 using System;
 using System.Linq;
-using TMPro;
 using UniRx;
 using UniRx.Triggers;
 using UnityEngine;
@@ -71,7 +69,7 @@ namespace Ryocatusn.Games
             events = gameApplicationService.GetEvents(id);
 
             this.OnDestroyAsObservable()
-                .Subscribe(_ => 
+                .Subscribe(_ =>
                 {
                     gameApplicationService.Delete(id);
                     setStageEvent.Dispose();

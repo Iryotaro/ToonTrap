@@ -1,7 +1,7 @@
 ﻿using Ryocatusn.Audio;
+using Ryocatusn.Games;
 using UniRx;
 using UnityEngine;
-using Ryocatusn.Games;
 using Zenject;
 
 namespace Ryocatusn.Characters

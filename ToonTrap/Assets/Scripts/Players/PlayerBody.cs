@@ -82,6 +82,7 @@ namespace Ryocatusn
             StartCoroutine(ShotLeftHandEnumerator());
             IEnumerator ShotLeftHandEnumerator()
             {
+                yield return new WaitForSeconds(1);
                 //敵がプレイヤーに攻撃しないよう距離を開けてる
                 player.tileTransform.SetDisable();
                 player.transform.position = new Vector2(-1000, -1000);
@@ -143,7 +144,7 @@ namespace Ryocatusn
             transform.position = defaultPosition;
             transform.position = defaultPosition + offsetWhenLight;
 
-            if (state != State.IdleLight) 
+            if (state != State.IdleLight)
             {
                 state = State.IdleLight;
                 PlayAnimation(idleLightAnimations, GetShape(), SwfClipController.LoopModes.Loop);

@@ -100,7 +100,7 @@ namespace Ryocatusn
 
             return finish;
         }
-        
+
         private void PlayAttackAnimation()
         {
             IDisposable disposable = this.UpdateAsObservable()

@@ -1,6 +1,5 @@
 ﻿using System;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace Ryocatusn.Audio
 {
@@ -9,9 +8,11 @@ namespace Ryocatusn.Audio
     {
         [SerializeField]
         private AudioClip audioClip;
-        [SerializeField][Range(-3, 3)]
+        [SerializeField]
+        [Range(-3, 3)]
         private float pitch = 1;
-        [SerializeField][Range(0, 1)]
+        [SerializeField]
+        [Range(0, 1)]
         private float volume = 0.5f;
         [SerializeField]
         private bool loop;

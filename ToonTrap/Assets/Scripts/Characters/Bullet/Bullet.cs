@@ -1,11 +1,11 @@
 using Cysharp.Threading.Tasks;
+using Ryocatusn.Audio;
 using Ryocatusn.Janken;
 using Ryocatusn.Janken.AttackableObjects;
 using System.Collections;
 using UniRx;
 using UniRx.Triggers;
 using UnityEngine;
-using Ryocatusn.Audio;
 
 namespace Ryocatusn.Characters
 {

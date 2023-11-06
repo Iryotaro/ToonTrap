@@ -2,8 +2,8 @@
 
 namespace Ryocatusn.Util
 {
-	public static class MyGameObject
-	{
+    public static class MyGameObject
+    {
         public static void ChangeLayerIncludeChildren(this GameObject gameObject, int layer)
         {
             gameObject.layer = layer;

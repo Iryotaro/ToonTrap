@@ -1,8 +1,4 @@
-using Ryocatusn.Conversations;
 using Ryocatusn.Games;
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UniRx;
 using UnityEngine;
 using Zenject;
@@ -21,9 +17,9 @@ namespace Ryocatusn
         private void Start()
         {
             GetComponent<TileTransformTrigger>().OnHitPlayerEvent
-                .Subscribe(_ => 
+                .Subscribe(_ =>
                 {
-                    if (play) gameManager.gameContains.weatherEffects.Play(); 
+                    if (play) gameManager.gameContains.weatherEffects.Play();
                     else gameManager.gameContains.weatherEffects.Stop();
                 })
                 .AddTo(this);

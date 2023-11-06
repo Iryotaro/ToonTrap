@@ -1,9 +1,9 @@
-using UnityEngine;
-using System;
 using Ryocatusn.Janken.AttackableObjects;
+using System;
 using System.Collections.Generic;
 using UniRx;
 using UniRx.Triggers;
+using UnityEngine;
 
 namespace Ryocatusn.Characters
 {

@@ -1,3 +1,4 @@
+using DG.Tweening;
 using Ryocatusn.Characters;
 using Ryocatusn.Games;
 using Ryocatusn.Janken.JankenableObjects;
@@ -6,7 +7,6 @@ using UniRx;
 using UniRx.Triggers;
 using UnityEngine;
 using Zenject;
-using DG.Tweening;
 
 namespace Ryocatusn
 {
@@ -84,7 +84,7 @@ namespace Ryocatusn
                 .DOMove(transform.position, 0.6f)
                 .SetLink(gameObject)
                 .SetEase(Ease.InQuart)
-                .OnComplete(() => 
+                .OnComplete(() =>
                 {
                     damageEffect.Play();
                     animator.SetTrigger("Damage");
@@ -92,7 +92,7 @@ namespace Ryocatusn
                 });
 
             this.OnDestroyAsObservable()
-                .Where(_=> returnBullet != null)
+                .Where(_ => returnBullet != null)
                 .Subscribe(_ => Destroy(returnBullet));
         }
 

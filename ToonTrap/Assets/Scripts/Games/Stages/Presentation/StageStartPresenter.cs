@@ -1,5 +1,4 @@
-﻿using Ryocatusn.Characters;
-using Ryocatusn.Games;
+﻿using Ryocatusn.Games;
 using System;
 using UnityEngine;
 using UnityEngine.Tilemaps;

@@ -1,6 +1,6 @@
-using UnityEngine;
-using Ryocatusn.Janken;
 using Anima2D;
+using Ryocatusn.Janken;
+using UnityEngine;
 using UnityEngine.Playables;
 
 namespace Ryocatusn.UI

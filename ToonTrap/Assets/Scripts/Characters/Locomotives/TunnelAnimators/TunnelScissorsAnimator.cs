@@ -1,9 +1,9 @@
 ﻿using FTRuntime;
 using Ryocatusn.Audio;
+using Ryocatusn.Games;
 using UniRx;
 using UnityEngine;
 using Zenject;
-using Ryocatusn.Games;
 
 namespace Ryocatusn.Characters
 {

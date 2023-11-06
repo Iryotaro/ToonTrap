@@ -1,4 +1,3 @@
-using Ryocatusn.Janken;
 using Ryocatusn.TileTransforms;
 using System;
 using System.Linq;

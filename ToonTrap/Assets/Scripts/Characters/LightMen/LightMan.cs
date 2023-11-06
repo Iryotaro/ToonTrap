@@ -33,32 +33,28 @@ namespace Ryocatusn.Characters
         private SE se;
 
         private Vector2 randomPosition;
-        private bool appeared = false;
+        private State state = State.Disappear;
 
         private Animator animator;
 
         private SEPlayer sePlayer;
 
+        private enum State
+        {
+            Appear,
+            Disappear
+        }
+
         private void Start()
         {
             animator = GetComponent<Animator>();
 
-            TurnOffLight();
+            Create(new Hp(1), Hand.GetRandomShape());
 
             MoveLight();
 
-            Create(new Hp(1), Hand.GetRandomShape());
-
             playerId = gameManager.gameContains.player.id;
             JankenableObjectEvents playerEvents = gameManager.gameContains.player.events;
-
-            playerEvents.ChangeShapeEvent
-                .Subscribe(x => SetLight())
-                .AddTo(this);
-
-            events.ChangeShapeEvent
-                .Subscribe(x => SetLight())
-                .AddTo(this);
 
             events.ChangeShapeEvent
                 .Subscribe(x => ChangeShapeViews(x))
@@ -80,6 +76,7 @@ namespace Ryocatusn.Characters
         private void Update()
         {
             spotLight.TurnOnExtra(spotLightExtraPosition.position);
+            SetLight();
         }
 
         public void Appear()
@@ -93,22 +90,16 @@ namespace Ryocatusn.Characters
 
         public void AppearedCallbackFromAnimation()
         {
-            appeared = true;
-            SetLight();
+            state = State.Appear;
         }
         public void DisappearedCallbackFromAnimation()
         {
-            appeared = false;
-            TurnOffLight();
+            state = State.Disappear;
         }
 
-        private bool IsAllowedToSetLight()
-        {
-            return appeared;
-        }
         private void SetLight()
         {
-            if (!IsAllowedToSetLight()) return;
+            if (state == State.Disappear) TurnOffLight();
 
             Hand.Shape playerShape = jankenableObjectApplicationService.Get(playerId).shape;
             Hand.Shape shape = GetData().shape;

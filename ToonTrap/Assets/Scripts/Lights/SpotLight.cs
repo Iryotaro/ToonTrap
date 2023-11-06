@@ -1,10 +1,10 @@
-using UnityEngine;
-using Ryocatusn.Util;
 using DG.Tweening;
+using Ryocatusn.Util;
 using System;
 using System.Collections;
-using UnityEngine.U2D;
 using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.U2D;
 
 namespace Ryocatusn.Lights
 {
@@ -41,7 +41,7 @@ namespace Ryocatusn.Lights
 
         private bool onExtra = false;
         private List<Vector2> extraPositions = new List<Vector2>();
-        
+
         private void Start()
         {
             if (Application.isPlaying)

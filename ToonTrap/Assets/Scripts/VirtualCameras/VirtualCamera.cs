@@ -1,8 +1,7 @@
 ﻿using Cinemachine;
-using UniRx;
+using Ryocatusn.Games;
 using UnityEngine;
 using Zenject;
-using Ryocatusn.Games;
 
 namespace Ryocatusn
 {

@@ -1,12 +1,12 @@
+using Ryocatusn.Audio;
 using Ryocatusn.Janken;
 using Ryocatusn.Janken.AttackableObjects;
 using Ryocatusn.Janken.JankenableObjects;
-using UniRx;
-using UnityEngine;
-using Ryocatusn.Audio;
-using Zenject;
-using UniRx.Triggers;
 using Ryocatusn.Photographers;
+using UniRx;
+using UniRx.Triggers;
+using UnityEngine;
+using Zenject;
 
 namespace Ryocatusn.Characters
 {

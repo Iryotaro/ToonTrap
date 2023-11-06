@@ -1,8 +1,8 @@
-using UnityEngine;
-using UniRx;
-using Zenject;
 using Ryocatusn.Games;
+using UniRx;
 using UniRx.Triggers;
+using UnityEngine;
+using Zenject;
 
 namespace Ryocatusn.Characters
 {

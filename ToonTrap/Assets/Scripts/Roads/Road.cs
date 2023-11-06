@@ -1,4 +1,3 @@
-using DG.Tweening;
 using Ryocatusn.Games;
 using System.Collections;
 using System.Collections.Generic;
@@ -94,7 +93,7 @@ namespace Ryocatusn
         private IEnumerator AppearRoadCoroutine(List<Vector3Int> positions)
         {
             RoadAnime[] roadAnimes = CreateAnimeTiles(positions, RoadAnime.AnimeType.Appear);
-            
+
             foreach (RoadAnime roadAnime in roadAnimes)
             {
                 roadAnime.Play();

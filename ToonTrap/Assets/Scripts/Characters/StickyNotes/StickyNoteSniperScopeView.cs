@@ -1,12 +1,12 @@
-using UnityEngine;
-using Ryocatusn.Janken.AttackableObjects;
-using UniRx;
-using System;
-using Ryocatusn.Audio;
-using Zenject;
-using Ryocatusn.Games;
-using System.Collections;
 using DG.Tweening;
+using Ryocatusn.Audio;
+using Ryocatusn.Games;
+using Ryocatusn.Janken.AttackableObjects;
+using System;
+using System.Collections;
+using UniRx;
+using UnityEngine;
+using Zenject;
 
 namespace Ryocatusn.Characters
 {

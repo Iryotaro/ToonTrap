@@ -1,10 +1,10 @@
-using UnityEngine;
 using Ryocatusn.Janken;
-using Ryocatusn.Janken.JankenableObjects;
 using Ryocatusn.Janken.AttackableObjects;
+using Ryocatusn.Janken.JankenableObjects;
+using Ryocatusn.TileTransforms;
 using UniRx;
 using UniRx.Triggers;
-using Ryocatusn.TileTransforms;
+using UnityEngine;
 using Zenject;
 
 namespace Ryocatusn.Characters

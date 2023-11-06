@@ -1,6 +1,6 @@
-﻿using UnityEngine;
+﻿using Ryocatusn.Characters;
 using Ryocatusn.Lights;
-using Ryocatusn.Characters;
+using UnityEngine;
 
 namespace Ryocatusn
 {
