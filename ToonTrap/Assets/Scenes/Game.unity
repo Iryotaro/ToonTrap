@@ -16185,7 +16185,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _autoPlay: 0
   _useUnscaledDt: 0
-  _rateScale: 0.6
+  _rateScale: 1.2
   _groupName: 
   _playMode: 0
   _loopMode: 0

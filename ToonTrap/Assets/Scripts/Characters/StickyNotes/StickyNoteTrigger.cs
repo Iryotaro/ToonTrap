@@ -52,7 +52,8 @@ namespace Ryocatusn.Characters
             createPosition = createPosition - Vector3.left;
             createPosition = new Vector3(createPosition.x, createPosition.y, 0);
 
-            StickyNote newStickyNote = Instantiate(stickyNote, createPosition, Quaternion.identity);
+            StickyNote newStickyNote = Instantiate(stickyNote, transform);
+            newStickyNote.transform.position = createPosition;
             diContainer.InjectGameObject(newStickyNote.gameObject);
             newStickyNote.Setup(new Vector2(viewportX, viewportY));
 

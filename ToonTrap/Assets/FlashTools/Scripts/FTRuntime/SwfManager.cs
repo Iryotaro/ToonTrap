@@ -39,8 +39,8 @@ namespace FTRuntime
                 _instance = FindObjectOfType<SwfManager>();
                 if (allow_create && !_instance)
                 {
-                    var go = new GameObject("[SwfManager]");
-                    _instance = go.AddComponent<SwfManager>();
+                    //var go = new GameObject("[SwfManager]");
+                    //_instance = go.AddComponent<SwfManager>();
                 }
             }
             return _instance;
