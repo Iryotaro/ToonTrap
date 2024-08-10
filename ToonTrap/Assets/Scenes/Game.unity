@@ -14430,11 +14430,11 @@ MonoBehaviour:
   gameScreen: {fileID: 349934065}
   finalResultCamera: {fileID: 366099782}
   stageNames:
+  - Stage4
   - Tutorial
   - Stage1
   - Stage2
   - Stage3
-  - Stage4
   - Stage5
   - Stage6
   player: {fileID: 848806805}
